@@ -1,0 +1,102 @@
+﻿@model WebApp.DTO.DTOListadoEstadisticas
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+
+@if (!String.IsNullOrEmpty(@ViewBag.Error))
+{
+    <h4>
+        @ViewBag.Error
+    </h4>
+}
+else
+{
+    <div class="card bg-light">
+        <div class="card-header">
+            <h3>Estadísticas</h3>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ubicación: <b>@Model.propiedad</b></h5>
+            <table class="table table-responsive table-bordered table-secondary">
+                <thead>
+                    <tr>
+                        <th>
+                            Nombre
+                        </th>
+
+                        <th>
+                            Fecha y Hora de última visita
+                        </th>
+
+                        <th>
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;Cantidad de Visitas
+                        </th>
+                        <th>
+                            ¿Usuario visitó perfil de publicante?
+                        </th>
+                        <th>
+                            Conoce quién ve tu publicación
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.listadoDTOEstadistica)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                @item.nombreInteresado *****
+                            </td>
+
+                            <td class="text-center">
+                                @item.fechaHoraClickInteresado
+                            </td>
+
+                            <td class="text-center">
+                                @item.cantidadVisitas
+                            </td>
+
+                            @if (item.visitaAlPublicante == true)
+                            {
+                                <td class="text-center">
+                                    &#x2714;
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="text-center">
+                                    &#x2718;
+
+                                </td>
+                            }
+                            @if (item.permiteMostrarDatos == true)
+                            {
+                                <td class="text-center">
+                                    @Html.ActionLink("¡Quiero Conocerlo!", "Index", "Home", null, new { @class = "btn btn-md btn-outline-dark" })
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <label class="label label-default">El usuario no permite que se muestren sus datos</label>
+                                </td>
+                            }
+
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+       
+    
+
+}
+
+
+
+

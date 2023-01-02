@@ -1,0 +1,174 @@
+﻿@model WebApp.DTO.DTOTodosResultadosBusqueda
+
+@{
+    ViewBag.Title = "Resultado de búsqueda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@section Styles{
+    <link href="~/Estilos/MisEstilos.css" rel="stylesheet" />
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+        #map {
+            height: 500px;
+            width: 1500px;
+        }
+        /* Optional: Makes the sample page fill the window. */
+
+    </style>
+}
+<script src="~/Scripts/ValidacionesBusqueda.js"></script>
+
+<div class="container">
+    <h2 class="mt-4">Resultados de Búsqueda</h2>
+    @if (Model.ListaDtoResultadoPublicacion.Count == 0)
+    {
+        <div class="alert alert-info" role="alert">
+            <h4>Lo sentimos, no se han encontrado resultados.</h4>
+        </div>
+
+        @Html.ActionLink("Volver a buscar", "Index", "Busqueda", new { @class = "btn btn-sm btn-primary" })
+    }
+    else
+    {
+
+        <br />
+        <div class="row">
+            <div class="col-md-6">
+                @Html.ActionLink("Volver a buscar", "Index", "Busqueda", new { @class = "btn btn-sm btn-primary" })
+            </div>
+            <div class="col-md-6">
+                <form method="post" action='@Url.Action("RealizarBusqueda", "Busqueda",new {publicaciones=@ViewData["publicaciones"]})'>
+                    <div class="form-group">
+                        <div class="text-right">
+                            <label for="selectorOrdenamiento">Ordenar por:</label>
+                            <select id="selectorOrdenamiento" name="condicionOrdenamiento">
+                                <option value="SoloPrecio">Sólo precio</option>
+                                <option value="SoloFecha">Sólo fecha</option>
+                                <option value="PrecioFecha">Precio y Fecha</option>
+                            </select>
+                            <input type="submit" name="Aplicar" value="Aplicar" class="btn btn-primary btn-sm" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="Contenedor">
+            <div id="map" class="img-fluid">
+
+            </div>
+        </div>
+
+        <br />
+
+
+        foreach (var item in Model.ListaDtoResultadoPublicacion)
+        {
+            <div class="Contenedor">
+                <h4>@item.tipoPropiedad</h4>
+                <div class="row justify-content-center justify-content-lg-start ">
+                    <div class="col-md-8">
+                        <img src="@item.rutaImagenBD.First()" class="img-fluid" />
+                    </div>
+                    <div class="col-md-4 text-dark text-left" style="font-size: 12.5px;">
+                        <ul style="list-style-type: none;">
+                            <li>Tipo de Propiedad:&nbsp;<b>@item.tipoPropiedad</b></li>
+                            <li>Tipo de Operación:&nbsp;<b>@item.tipoOperacion</b></li>
+                            <li>Dirección:&nbsp;<b>@item.direccionPropiedad @item.nroCalle,@item.ciudad,@item.provincia,@item.pais</b></li>
+                            <li>Precio: $&nbsp;<b>@item.precioPropiedad&nbsp;@item.tipoMoneda</b></li>
+                            <li>Fecha de Publicacíón:&nbsp;<b>@item.fechaInicioPublicacion</b></li>
+                            <hr style="border-color:red; margin:11.5px;margin-left:0px;" />
+                            <li>@Html.ActionLink("Conocer datos inmueble", "Index", "SolicitarDatosInmueble", new { publicacionId = item.publicacionId }, new { @class = "btn btn-sm btn-primary" })</li>
+                            <hr style="border-color:red; margin:11.5px;margin-left:0px;" />
+                            <li>@Html.ActionLink("Ver datos publicante", "Index", "SolicitarContactoPublicante", new { publicacionId = item.publicacionId }, new { @class = "btn btn-sm btn-secondary" })</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        }
+
+
+    }
+</div>
+
+
+@section scripts{
+    <script>
+        
+        function initMap() {
+            var modelo = @Html.Raw(Json.Encode(Model));
+            var icono;
+            var infoWindows = [];
+            var markers = [];
+            var myLatLng = { lat: modelo.ListaDTOCoordProp[0].latitud, lng: modelo.ListaDTOCoordProp[0].longitud };
+            var publicacionId;
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: myLatLng
+            });
+
+            for (var i = 0; i < modelo.ListaDTOCoordProp.length; i++) {
+                publicacionId = modelo.ListaDTOCoordProp[i].publicacionId;
+                var link = '@Html.ActionLink("Ir al inmueble","Index", "SolicitarDatosInmueble",new { publicacionId = "-1" },null)';
+                link = link.replace("-1", publicacionId);
+                
+                infoWindows.push(contenidoInfoWindow);
+                switch (modelo.ListaDTOCoordProp[i].tipoPropiedad) {
+                    case "Casa":
+                        icono = "/Icons/casaIcono.png";
+                        break;
+                    case "Departamento":
+                        icono = "/Icons/departamentoIcono.png";
+                        break;
+                    case "Oficina":
+                        icono = "/Icons/edificioIcono.png";
+                        break;
+                    default:
+                        icono = "/Icons/casaIcono.png";
+                        break;
+                }
+                var precio = modelo.ListaDTOCoordProp[i].precioPropiedad
+                var marker = new google.maps.Marker({
+                    draggable: false,
+                    
+                    position: { lat: modelo.ListaDTOCoordProp[i].latitud, lng: modelo.ListaDTOCoordProp[i].longitud },
+                    map: map,
+                    
+                    title: modelo.ListaDTOCoordProp[i].tipoPropiedad + ' ' + modelo.ListaDTOCoordProp[i].ubicacion + ' ' + modelo.ListaDTOCoordProp[i].precioPropiedad,
+                    icon: icono
+
+                });
+                markers.push(marker);
+                var infowindow = new google.maps.InfoWindow();
+                var contenidoInfoWindow = '<div id="content">' +
+                    '<div id="siteNotice">' +
+                    '</div>' +
+                    '<h1 id="firstHeading" class="firstHeading">' + modelo.ListaDTOCoordProp[i].tipoMoneda +' ' +modelo.ListaDTOCoordProp[i].precioPropiedad + '</h1>' +
+                    '<div id="bodyContent">' +
+                    '<h4><b>' + modelo.ListaDTOCoordProp[i].tipoPropiedad + '</b></h4>' +
+                    '<h4>' + modelo.ListaDTOCoordProp[i].ubicacion + '</h2>' +
+                    '<h4> ' + link + '</h4>' +
+                    '</div>' +
+                    '</div>';
+
+                
+                google.maps.event.addListener(marker, 'click', (function (marker, contenidoInfoWindow, infowindow) {
+                    return function () {
+                        infowindow.setContent(contenidoInfoWindow);
+                        infowindow.open(map, marker);
+                    };
+                })(marker, contenidoInfoWindow, infowindow)); 
+                
+            }
+            
+            
+
+        }
+    </script>
+    
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHXJNkL77-_eh9GRL1pZr1EAHrAh_uQR4&callback=initMap">
+    </script>
+}

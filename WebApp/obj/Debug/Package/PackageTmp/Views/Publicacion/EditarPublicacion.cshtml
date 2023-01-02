@@ -1,0 +1,422 @@
+﻿@model WebApp.DTO.DTOVistaEditarPublicacion
+@section Styles{
+    <link href="~/Estilos/EstilosMapa.css" rel="stylesheet" />
+}
+
+<div class="alert-heading container mt-4 ml-4">
+    <h3 class="text-primary">Edite su Publicación</h3>
+</div>
+<div class="alert alert-primary" style="background-color:#F7F7F7">
+
+    <div class="text-dark">
+        <div class="container">
+            @if (String.IsNullOrEmpty(ViewBag.Error))
+            {
+                using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+
+                        <hr />
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            <div class="alert alert-primary" role="alert">
+                                <div class="row">
+                                    <div class="col col-md-2">
+                                        <label for="publicacionId">ID:</label>
+                                    </div>
+
+                                    <div class="col-md-10">
+                                        <input class="form-control" value="@Model.publicacionId" type="text" readonly name="publicacionId" id="publicacionId" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div id="map" class="img-fluid">
+
+                        </div>
+                        <div class="form-group">
+                            <div class="alert alert-primary" role="alert">
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="direccion">Dirección:</label>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <input id="pac-input" class="form-control" type="text" name="direccion" value="@Model.direccion" />
+                                        <input type="text" id="lat" hidden name="latitud" value="@Model.latitud" />
+                                        <input type="text" id="long" hidden name="longitud" value="@Model.longitud" />
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <hr />
+
+                        <div class="form-group">
+                            <div class="alert alert-primary" role="alert">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="tipoOperacion">Tipo de Operación:</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-control" name="tipoOperacionNueva" id="tipoOperacion">
+                                            <option value="@Model.tipoOperacionNueva">@Model.tipoOperacionVieja</option>
+                                            @foreach (var tipoOperacion in Model.tiposOperaciones)
+                                            {
+                                                <option value="@tipoOperacion.tipoOperacionId">@tipoOperacion.nombreTipoOperacion</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="tipoUsuario">Ud publica como:</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-control" name="tipoUsuarioNuevo" id="tipoUsuario">
+                                            <option value="@Model.tipoUsuarioNuevo">@Model.tipoUsuarioViejo</option>
+                                            @foreach (var tipoUsuario in Model.tiposUsuarios)
+                                            {
+                                                <option value="@tipoUsuario.tipoUsuarioId">@tipoUsuario.nombreTipoUsuario</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <hr />
+                        <div class="form-group">
+                            <div class="alert alert-primary" role="alert">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="precioPropiedad">Precio:</label>
+                                        <input class="form-control" name="precioPropiedad" id="precioPropiedad" value="@Model.precioPropiedad" />
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label for="tipoMoneda">Moneda:</label>
+                                        <select class="form-control" name="tipoMonedaNueva" id="tipoMoneda">
+                                            <option value="@Model.tipoMonedaNueva">@Model.tipoMonedaVieja</option>
+                                            @foreach (var moneda in Model.tiposMonedas)
+                                            {
+                                                <option value="@moneda.tipoMonedaId">@moneda.nombreTipoMoneda</option>
+                                            }
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <div class="alert alert-primary">
+                                <label>Tipo de Construccion</label>
+                                <select class="form-control" name="tipoConstruccionNueva">
+                                    <option value="@Model.tipoConstruccionNueva">@Model.tipoConstruccionVieja</option>
+                                    @foreach (var tipoConstruccion in Model.tiposConstrucciones)
+                                    {
+                                        <option value="@tipoConstruccion.tipoConstruccionId">@tipoConstruccion.nombreTipoConstruccion</option>
+                                    }
+                                </select>
+                            </div>
+
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <div class="alert alert-primary" role="alert">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Tipo de Propiedad</label>
+                                        <select class="form-control" name="tipoPropiedadNueva">
+                                            <option value="@Model.tipoPropiedadNueva">@Model.tipoPropiedadVieja</option>
+                                            @foreach (var tipoPropiedad in Model.tiposPropiedades)
+                                            {
+                                                <option value="@tipoPropiedad.tipoPropiedadId">@tipoPropiedad.nombreTipoPropiedad</option>
+                                            }
+
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <table class="table table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <td>Tipo Ambiente</td>
+                                                    <td>Cantidad</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var tipoAmbiente in Model.tiposAmbientes)
+                                                {
+                                                    <tr>
+                                                        <td>@tipoAmbiente.nombreTipoAmbiente</td>
+                                                        <td><input type="hidden" name="tipoAmbiente" value="@tipoAmbiente.tipoAmbienteId" /></td>
+
+                                                        <td>
+                                                            @switch (tipoAmbiente.nombreTipoAmbiente)
+                                                            {
+                                                                case "Dormitorios":
+                                                                    <select class="form-control" name="cantidadDormitoriosElegidos">
+                                                                        <option value="@Model.cantidadDormitoriosElegidos" selected>@Model.cantidadDormitoriosElegidos</option>
+                                                                        <option value="1">1</option>
+                                                                        <option value="2">2</option>
+                                                                        <option value="3">3</option>
+                                                                        <option value="4">4</option>
+                                                                        <option value="5">5</option>
+                                                                        <option value="6">6</option>
+                                                                        <option value="7">7</option>
+                                                                        <option value="8">8</option>
+                                                                        <option value="9">9</option>
+                                                                        <option value="10">10</option>
+                                                                    </select>
+                                                                    break;
+                                                                case "Cocheras":
+                                                                    <select class="form-control" name="cantidadCocherasElegidas">
+                                                                        <option value="@Model.cantidadCocherasElegidas" selected>@Model.cantidadCocherasElegidas</option>
+                                                                        <option value="1">1</option>
+                                                                        <option value="2">2</option>
+                                                                        <option value="3">3</option>
+                                                                        <option value="4">4</option>
+                                                                        <option value="5">5</option>
+                                                                        <option value="6">6</option>
+                                                                        <option value="7">7</option>
+                                                                        <option value="8">8</option>
+                                                                        <option value="9">9</option>
+                                                                        <option value="10">10</option>
+                                                                    </select>
+                                                                    break;
+                                                                case "Baños":
+                                                                    <select class="form-control" name="cantidadBañosElegidos">
+                                                                        <option value="@Model.cantidadBañosElegidos" selected>@Model.cantidadBañosElegidos</option>
+                                                                        <option value="1">1</option>
+                                                                        <option value="2">2</option>
+                                                                        <option value="3">3</option>
+                                                                        <option value="4">4</option>
+                                                                        <option value="5">5</option>
+                                                                        <option value="6">6</option>
+                                                                        <option value="7">7</option>
+                                                                        <option value="8">8</option>
+                                                                        <option value="9">9</option>
+                                                                        <option value="10">10</option>
+                                                                    </select>
+                                                                    break;
+                                                                case "Ambientes":
+                                                                    <select class="form-control" name="cantidadAmbientesElegidos">
+                                                                        <option value="@Model.cantidadAmbientesElegidos" selected>@Model.cantidadAmbientesElegidos</option>
+                                                                        <option value="1">1</option>
+                                                                        <option value="2">2</option>
+                                                                        <option value="3">3</option>
+                                                                        <option value="4">4</option>
+                                                                        <option value="5">5</option>
+                                                                        <option value="6">6</option>
+                                                                        <option value="7">7</option>
+                                                                        <option value="8">8</option>
+                                                                        <option value="9">9</option>
+                                                                        <option value="10">10</option>
+                                                                    </select>
+                                                                    break;
+                                                            }
+                                                        </td>
+                                                    </tr>
+
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="form-group">
+                            <label>Comentarios:</label>
+                            <textarea class="form-control" rows="6" name="comentarios">@Model.comentarios</textarea>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <h4>Extras disponibles</h4>
+
+                                    <table class="table table-responsive">
+
+                                        <thead>
+                                            <tr>
+                                                <th>Extras</th>
+                                                <th>Seleccione Extras</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var extra in Model.extras)
+                                            {
+                                                <tr>
+
+                                                    <td>@extra.nombreExtra</td>
+                                                    <td><input type="checkbox" name="extrasIdElegidos" value="@extra.extraId" /></td>
+
+
+
+                                                </tr>
+                                            }
+
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <h4>Extras seleccionados previamente</h4>
+                                    <table class="table table-responsive">
+
+                                        <thead>
+                                            <tr>
+                                                <th>Extras</th>
+                                                <th>Seleccione Extras</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var extraPrevio in Model.extrasPrevios)
+                                            {
+                                                <tr>
+                                                    <td>@extraPrevio.nombreExtra</td>
+                                                    <td><input type="checkbox" name="extrasIdElegidos" value="@extraPrevio.extraId" checked /></td>
+
+
+
+                                                </tr>
+                                            }
+
+
+
+                                        </tbody>
+
+
+                                    </table>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Guardar" class="btn btn-lg btn-succes" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <h4 class="text-danger">@ViewBag.Error</h4>
+            }
+            <hr />
+
+
+            <div>
+                @Html.ActionLink("Volver", "Index")
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/DeshabilitarEnterFormulario.js"></script>
+    <script>
+    function initAutocomplete() {
+        var modelo = @Html.Raw(Json.Encode(Model));
+
+    var myLatLng = { lat: modelo.latitud, lng: modelo.longitud };
+    var map = new google.maps.Map(document.getElementById('map'), {
+    center: myLatLng,
+    zoom: 20,
+
+    });
+    //Creo el marcador
+    var marker = new google.maps.Marker({
+    position: myLatLng,
+    map: map,
+    title: '¡Aquí vive usted!'
+    });
+
+    // Create the search box and link it to the UI element.
+    var input = document.getElementById('pac-input');
+    var searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+
+    // Bias the SearchBox results towards current map's viewport.
+    map.addListener('bounds_changed', function () {
+    searchBox.setBounds(map.getBounds());
+    });
+
+    var markers = [];
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox.addListener('places_changed', function () {
+    var places = searchBox.getPlaces();
+
+    if (places.length === 0) {
+    return;
+    }
+
+    // Clear out the old markers.
+    markers.forEach(function (marker) {
+    marker.setMap(null);
+    });
+    markers = [];
+
+    // For each place, get the icon, name and location.
+    var bounds = new google.maps.LatLngBounds();
+    places.forEach(function (place) {
+    if (!place.geometry) {
+    console.log("Returned place contains no geometry");
+    return;
+    }
+    var icon = {
+    url: place.icon,
+    size: new google.maps.Size(71, 71),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(17, 34),
+    scaledSize: new google.maps.Size(25, 25)
+    };
+
+    // Create a marker for each place.
+    markers.push(new google.maps.Marker({
+
+    position: place.geometry.location,
+    map: map,
+    title: place.name,
+    }));
+
+    if (place.geometry.viewport) {
+    // Only geocodes have viewport.
+    bounds.union(place.geometry.viewport);
+    } else {
+    bounds.extend(place.geometry.location);
+    }
+    });
+    map.fitBounds(bounds);
+    });
+
+    }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHXJNkL77-_eh9GRL1pZr1EAHrAh_uQR4&libraries=places&callback=initAutocomplete"
+            async defer></script>
+}
+AIzaSyDHXJNkL77-_eh9GRL1pZr1EAHrAh_uQR4

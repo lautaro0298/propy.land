@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+<body style="background-color: white ">
+    @* Header *@
+    <div class="ContenedorCarousel">
+        <div id="carousel-example " class="carousel slide " data-ride="carousel">
+            <ul class="carousel-indicators">
+                <li data-target="#carousel-example" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example" data-slide-to="1"></li>
+                <li data-target="#carousel-example" data-slide-to="2"></li>
+            </ul>
+
+            <div class="carousel-inner  ">
+                <div class="carousel-item active">
+                    <img src="https://www.gratistodo.com/wp-content/uploads/2017/02/Casas-Modernas-1.jpg" class="d-block w-100" />
+                    <div class="carousel-caption d-none d-md-block">
+                        <span style="font-size: 5em; color:white;">PROPY</span>
+                        <p>
+                            <span style="font-size: 2em; color:white;">A tu alcance</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <a href="#"><img src="http://www.hdfondos.eu/preview/get_photo/162971/1920/1080" class="img-fluid" /></a>
+                    <div class="carousel-caption">
+                        <span style="font-size: 5em; color:white;">PROPY</span>
+                        <p>
+                            <span style="font-size: 2em; color:white;">Busca en segundos</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <a href="#"><img src="http://estaticos.outletdeviviendas.com/imagenes/1920x1080/144/2220963_rl4welcbzOH.jpg" class="img-fluid" /></a>
+                    <div class="carousel-caption">
+                        <span style="font-size: 5em; color:white;">PROPY</span>
+                        <p>
+                            <span style="font-size: 2em; color:white;">Vende con seguridad</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <a class="carousel-control-prev" href="#carousel-example" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#carousel-example" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+        </div>
+    </div>
+
+    @*<div class="jumbotron">
+            <div class="page-header">
+                <h1 style="color:black">Propy <small>A tu alcance</small></h1>
+            </div>
+            <p class="lead" style="color:black">La plataforma que te conecta con los inmuebles.</p>
+            <p style="color:black">Seas quien seas y estés donde estés en Propy todos los inmuebles estan a tu alcance.</p>
+        </div>*@
+
+    <br />
+
+    <div class="container">
+
+        <div class="PanelVerdeIngles ">
+            <h2>¿Está buscando una propiedad?</h2>
+            <p>
+                Encuentre en forma gratuita la propiedad que está buscando, indicando la ubicación preferida, las características con las que debe contar y el rango de precios que mejor se ajusta a su presupuesto. Propy le preparará y le mostrará la lista de las propiedades que cumplen con sus criterios de búsqueda.
+            </p>
+            <p>
+                
+                <button class="btn btn-outline-light btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Saber más...
+                </button>
+            </p>
+            <div class="collapse" id="collapseExample">
+                <p>
+                    Podrá ver la ubicación, las características, las imágenes, los videos y el precio de las propiedades que cumplan con sus criterios de búsqueda sin necesidad de registrarse en la página. Si desea ponerse en contacto con el publicante de la propiedad, deberá registrarse como usuario a través de Facebook, Google o mediante nombre completo y DNI. Deberá ingresar además datos de contacto (correo electrónico y/o teléfono). Una vez registrado, podrá solicitar los datos de contacto de la/s propiedad/es de su interés, los que serán mostrados en la página y le serán enviados a la dirección de correo electrónico informada.
+
+                </p>
+                <p>
+                    Si lo desea, puede autorizar a que sus datos de contacto sean mostrados al publicante de la propiedad de su interés.
+                </p>
+            </div>
+            @Html.ActionLink("¡Quiero Buscar!", "Buscar", "Busqueda", null, new { @class = "btn btn-outline-light btn-lg" })
+        </div>
+        <br />
+        <div class="PanelVerdeIngles">
+            <h2>¿Tiene una propiedad para ofrecer?</h2>
+            <p>
+                Publique su propiedad indicando la ubicación, las características, el precio y sus datos de contacto. Puede además subir fotos y videos. El sistema lo guiará mediante sencillos pasos para que incluya en su publicación toda la información que Ud. considera valiosa. Cuando termine, podrá visualizar el resultado antes de que la propiedad aparezca en las búsquedas. Contrate el plan de publicación que mejor se adapte a sus necesidades.
+            </p>
+            @Html.ActionLink("¡Quiero Publicar!", "RealizarPublicacion", "Publicacion", null, new { @class = "btn btn-outline-light btn-lg" })
+        </div>
+        
+    </div>
+
+
+
+
+
+</body>

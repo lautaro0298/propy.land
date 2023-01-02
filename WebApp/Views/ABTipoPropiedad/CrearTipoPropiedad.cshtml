@@ -1,0 +1,40 @@
+﻿@model LibreriaClases.DTO.DTO_C_Y_A
+@{
+    ViewBag.Title = "CrearTipoPropiedad";
+    Layout = "~/Views/Shared/MasterPanelAdministrador.cshtml";
+}
+
+@if (!String.IsNullOrEmpty(ViewBag.Error))
+{
+<div class="alert alert-danger">
+    <button class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    @Html.ValidationSummary(false)
+</div>
+}
+
+<h2>Crear Propiedad</h2>
+<form action="~/ABTipoPropiedad/CrearTipoPropiedad" method="post">
+    <label for="nombre">Nombre del tipo de propiedad:</label>
+    <br />
+    <input type="text" id="nombre" placeholder="Nombre" name="NombreTipoPropiedad" />
+    <br />
+    <label for="TipoAmbiente">Tipo de ambiente</label>
+    <select name="TipoAmbiente" id="TipoAmbiente">
+        @for (int x = 0; x < Model.dTOTipoAmbientes.Count; x++)
+        {
+        <option value="@Model.dTOTipoAmbientes.ElementAt(x).tipoAmbienteId">@Model.dTOTipoAmbientes.ElementAt(x).nombreTipoAmbiente</option>
+        }
+    </select>
+
+    <br />
+    <!--<label>Caracteristicas:</label>
+    <br />
+    @for (int x = 0; x < Model.dTOCaracteristicas.Count; x++)
+    {
+
+    @Html.CheckBoxFor(m => m.dTOCaracteristicas.ElementAt(x).ischeck , new { @id=@Model.dTOCaracteristicas.ElementAt(x).nombreCaracteristica});
+    <label for="@Model.dTOCaracteristicas.ElementAt(x).nombreCaracteristica">@Model.dTOCaracteristicas.ElementAt(x).nombreCaracteristica</label>
+    <br />
+    }-->
+    <button type="submit" class="btn-danger">Enviar</button>
+</form>

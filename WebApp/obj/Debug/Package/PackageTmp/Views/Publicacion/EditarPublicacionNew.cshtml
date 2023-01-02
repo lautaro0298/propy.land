@@ -1,0 +1,501 @@
+﻿@model LibreriaClases.DTO.DTOEditarPublicacion
+@{
+    ViewBag.Title = "EditarPublicacionNew";
+    Layout = "~/Views/Shared/PanelControl2.cshtml";
+}
+
+
+@section Styles{
+    <link href="~/Estilos/EstilosMapa.css" rel="stylesheet" />
+}
+<h2 class="alert alert-dark">Editar Publicacion</h2>
+<hr />
+<form action="@Url.Action("EditarPublicacionNew","Publicacion")" method="post" enctype="multipart/form-data">
+    @if (!String.IsNullOrEmpty(ViewBag.Error))
+    {
+        <div class="alert alert-danger">
+            <button class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            @Html.ValidationSummary(false)
+        </div>
+    }
+<input type="hidden" name="publicacionId" value="@Model.publicacionId" />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h6><i class="fas fa-globe-americas mr-3"></i>Ubicación</h6>
+                </div>
+                
+                
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Ubicación anterior:</label><b> @Model.ubicacionAnterior</b>
+                        </div>
+                    </div>
+                    <div id="map" class="img-fluid">
+
+                    </div>
+                </div>
+            </div>
+
+            <input class="form-control" type="text" name="ubicacion" id="pac-input" value="" placeholder="Ingrese la NUEVA dirección de su propiedad" maxlength="256" min="3"/>
+            <small class="text-info">Si no desea modificar la ubicación de su inmueble deje este campo vacío</small>
+        </div>
+
+
+
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h6> <i class="fas fa-dharmachakra mr-3"></i>Tipo de operación</h6>
+                </div>
+                <div class="card-body">
+                    <select class="form-control" name="tipoPublicacion">
+                        @foreach (var item in Model.listadoTiposPublicaciones)
+                        {
+                            if (Model.tipoPublicacionElegidaAnteriormente == item.tipoPublicacionId)
+                            {
+                                <option value="@item.tipoPublicacionId" selected>@item.nombreTipoPublicacion</option>
+                            }
+                            else
+                            {
+                                <option value="@item.tipoPublicacionId">@item.nombreTipoPublicacion</option>
+                            }
+
+                        }
+
+                    </select>
+                </div>
+
+
+            </div>
+        </div>
+        @*<div class="col-md-3">
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h6> <i class="fas fa-user-tie mr-3"></i>Tipo de publicante</h6>
+                </div>
+                <div class="card-body">
+                    <select class="form-control" name="tipoPublicante">
+                        @foreach (var item in Model.listadoTiposPublicantes)
+                        {
+                            if (Model.tipoPublicanteElegidoAnteriormente == item.nombreTipoPublicante)
+                            {
+                                <option value="@item.tipoPublicanteId" selected>@item.nombreTipoPublicante</option>
+                            }
+                            else
+                            {
+                                <option value="@item.tipoPublicanteId">@item.nombreTipoPublicante</option>
+                            }
+
+                        }
+
+                    </select>
+                </div>
+
+
+            </div>
+        </div>*@
+
+        <div class="col-md-3">
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h6> <i class="fas fa-igloo mr-3"></i>Tipo de propiedad</h6>
+                </div>
+                <div class="card-body">
+                    <select class="form-control" name="tipoPropiedad">
+                        @foreach (var item in Model.listadoTiposPropiedades)
+                        {
+                            if (Model.tipoPropiedadElegidaAnteriormente == item.nombreTipoPropiedad)
+                            {
+                                <option value="@item.tipoPropiedadId" selected>@item.nombreTipoPropiedad</option>
+                            }
+                            else
+                            {
+                                <option value="@item.tipoPropiedadId">@item.nombreTipoPropiedad</option>
+                            }
+
+                        }
+
+                    </select>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h6> <i class="fas fa-tools mr-3"></i>Tipo de construcción</h6>
+                </div>
+                <div class="card-body">
+                    <select class="form-control" name="tipoConstruccion">
+                        @foreach (var item in Model.listadoTiposConstruccion)
+                        {
+                            if (Model.tipoConstruccionElegidaAnteriormente == item.nombreTipoConstruccion)
+                            {
+                                <option value="@item.tipoConstruccionId" selected>@item.nombreTipoConstruccion</option>
+                            }
+                            else
+                            {
+                                <option value="@item.tipoConstruccionId">@item.nombreTipoConstruccion</option>
+                            }
+
+                        }
+
+                    </select>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row justify-content-center">
+
+
+
+        @foreach (var item in Model.listadoTiposAmbientes)
+        {
+            <div class="form-group">
+                <label for="@item.nombreTipoAmbiente" class="col-sm-2 col-form-label">@item.nombreTipoAmbiente</label>
+                @switch (item.nombreTipoAmbiente)
+                {
+                    case "Dormitorios":
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="@item.nombreTipoAmbiente" name="@item.nombreTipoAmbiente" value="@Model.cantidadDormitorioesElegidosAnteriormente" placeholder="Cantidad">
+                        </div>
+                        break;
+                    case "Baños":
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="@item.nombreTipoAmbiente" name="@item.nombreTipoAmbiente" value="@Model.cantidadBañosElegidosAnteriormente" placeholder="Cantidad">
+                        </div>
+                        break;
+                    case "Cocheras":
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="@item.nombreTipoAmbiente" name="@item.nombreTipoAmbiente" value="@Model.cantidadCocherasElegidasAnteriormente" placeholder="Cantidad">
+                        </div>
+                        break;
+                    case "Ambientes":
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="@item.nombreTipoAmbiente" name="@item.nombreTipoAmbiente" value="@Model.cantidadAmbientesElegidosAnteriormente" placeholder="Cantidad">
+                        </div>
+                        break;
+
+                }
+
+            </div>
+        }
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h6> <i class="fas fa-building mr-3"></i>Superficie, antiguedad y otros datos</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Sup. Terreno</span>
+                                </div>
+                                <input type="number" name="supTerreno" class="form-control" value="@Model.supTerrenoElegidaAnteriormente" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Ej: 350">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">M^2</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Sup. Cubierta</span>
+                                </div>
+                                <input type="number" name="supCubierta" class="form-control" value="@Model.supCubiertaElegidaAnteriormente" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Ej: 350">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">M^2</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Antiguedad</span>
+                                </div>
+                                <input type="number" class="form-control" name="antiguedad" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="@Model.añosAntiguedadElegidosAnteriormente" placeholder="Antiguedad en años. Ej: 5.">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">Años</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">N° Pisos</span>
+                                </div>
+                                <input type="text" class="form-control" name="pisos" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="@Model.nroPisosElegidosAnteriormente" placeholder="Número de pisos. Ej: 1.">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <div class="form-check">
+                                @if (Model.amueblado == true)
+                                {
+                                    <input class="form-check-input" type="checkbox" name="amueblado" value="true" id="defaultCheck1" checked>
+                                }
+                                else
+                                {
+                                    <input class="form-check-input" type="checkbox" name="amueblado" value="true" id="defaultCheck1">
+                                }
+
+                                <input type="hidden" name="amueblado" value="false" />
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Amueblado
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">¿La propiedad paga expensas?</label>
+                                </div>
+                                <select class="custom-select" id="pagaExpensas">
+                                    @if (Model.importeExpensasAnterior != 0)
+                                    {
+                                        <option value="No">No</option>
+                                        <option value="Si" selected>Si</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="No" selected>No</option>
+                                        <option value="Si">Si</option>
+                                    }
+
+
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">¿Cuanto?</span>
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input type="text" id="valorExpensas" class="form-control" name="expensasUltimoMes" value="@Model.importeExpensasAnterior" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Importe del último mes" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            Agregar Extras
+                        </button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+        <div class="col-md-4">
+
+
+        </div>
+
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h6><i class="fas fa-money-bill mr-3"></i>Precio.</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Valor</span>
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input type="number" name="precioPropiedad" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" value="@Model.precioPropiedadAnterior" placeholder="Ej: 3.500.000,00" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            @foreach (var item in Model.listadoTiposMonedas)
+                            {
+                                <div class="form-check">
+                                    @if (Model.tipoMonedaElegidaAnteriormente == item.denominacionMoneda)
+                                    {
+                                        <input class="form-check-input" type="radio" name="moneda" id="@item.tipoMonedaId" value="@item.tipoMonedaId" checked>
+                                    }
+                                    else
+                                    {
+                                        <input class="form-check-input" type="radio" name="moneda" id="@item.tipoMonedaId" value="@item.tipoMonedaId" checked>
+                                    }
+
+                                    <label class="form-check-label" for="@item.tipoMonedaId">
+                                        @item.denominacionMoneda
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h6><i class="fas fa-feather-alt mr-3"></i>Reseña</h6>
+                </div>
+                <div class="card-body">
+                    <textarea style="max-width:100%" class="form-control" rows="5" cols="20" name="reseña" placeholder="Escriba una reseña de su inmueble.">@Model.reseñaAnterior</textarea>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <hr />
+    <div class="card bg-light">
+        <div class="card-header">
+            <h6><i class="fas fa-camera-retro mr-3"></i>Imágenes anteriores</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                @foreach (var imagen in Model.imagenesAnteriores) {
+                    <div class="col-md-3">
+                        <img src="@imagen.rutaImagen" class="img-fluid img-thumbnail"/>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="imagenesDescartadas" value="@imagen.imagenAnteriorId" id="@imagen.imagenAnteriorId">
+                        <label class="form-check-label" for="@imagen.imagenAnteriorId">
+                            Descartar
+                        </label>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="card bg-light">
+        <div class="card-header">
+            <h6><i class="fas fa-camera-retro mr-3"></i>Nuevas imágenes</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <input class="custom-file" type="file" name="imagen1" value="" />
+                    
+                </div>
+                <div class="col-md-3">
+                    <input class="custom-file" type="file" name="imagen2" value="" />
+                </div>
+                <div class="col-md-3">
+                    <input class="custom-file" type="file" name="imagen3" value="" />
+                </div>
+                <div class="col-md-3">
+                    <input class="custom-file" type="file" name="imagen4" value="" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="text-danger">Advertencia: Las imágenes no deben tener anuncios donde se pueda visualizar información del contacto. Las publicaciones que tengan imágenes de este tipo serán inhabilitadas y no se mostrarán en los filtros de búsqueda de Propy.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Extras</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @foreach (var item in Model.listadoCaracteristicas)
+                    {
+
+                        if (Model.extrasElegidosAnteriormente.Contains(item.nombreCaracteristica))
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" name="extras" type="checkbox" value="@item.caracteristicaId" id="@item.caracteristicaId" checked>
+                                <label class="form-check-label" for="@item.caracteristicaId">
+                                    @item.nombreCaracteristica
+                                </label>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" name="extras" type="checkbox" value="@item.caracteristicaId" id="@item.caracteristicaId">
+                                <label class="form-check-label" for="@item.caracteristicaId">
+                                    @item.nombreCaracteristica
+                                </label>
+                            </div>
+                        }
+
+
+
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row justify-content-center">
+        <button type="submit" class="btn btn-lg btn-outline-success btn-block">Enviar</button>
+
+
+
+    </div>
+
+</form>
+
+
+@section scripts{
+    <script src="~/Scripts/AutocompletadoGoogleMaps.js" type="text/javascript"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHXJNkL77-_eh9GRL1pZr1EAHrAh_uQR4&libraries=places&callback=initAutocomplete"
+            async defer></script>
+    <script>
+        $(function () {
+
+
+            $('#pagaExpensas').on('change', function () {
+
+                if ($(this).val() == "No") {
+                    $('input[name=expensasUltimoMes]').prop('disabled', true);
+                } else {
+                    $('input[name=expensasUltimoMes]').prop('disabled', false);
+                }
+
+
+            });
+        });
+    </script>
+
+}
+
+

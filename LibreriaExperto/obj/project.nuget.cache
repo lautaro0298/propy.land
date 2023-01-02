@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "C1YwT7WvnB1ynskJpIJUMs/hzZAllut6azCMYPF4F1SjGvzFAeZGY8Qx/l/C2/17HKN6R5dTFVm3hH0GMUvATw==",
+  "success": true,
+  "projectFilePath": "C:\\eluxsegundaprueba\\LibreriaExperto\\LibreriaExperto.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Lautaro\\.nuget\\packages\\legacy2cpsworkaround\\1.0.0\\legacy2cpsworkaround.1.0.0.nupkg.sha512",
+    "C:\\Users\\Lautaro\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.9\\microsoft.aspnet.webapi.client.5.2.9.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\Lautaro\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\newtonsoft.json.bson\\1.0.1\\newtonsoft.json.bson.1.0.1.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.valuetuple\\4.5.0\\system.valuetuple.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}

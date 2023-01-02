@@ -1,0 +1,33 @@
+﻿<div class="mx-auto mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4">
+            <div class="card border-success">
+                <div class="card-header border-success">
+                    <div class="img-fluid text-center">
+
+                        <img src="~/Temp/SuccessCheck.png" />
+                    </div>
+                    <h6 class="text-success text-center">¡Bien hecho!</h6>
+                </div>
+                <div class="card-body">
+                    <h6 class="text-center">@ViewBag.Mensaje</h6>
+                </div>
+                <div class="card-footer border-success">
+                    <div class="text-center">
+                        @Html.ActionLink("Volver", "Index", "PanelControl2", null, new { @class = "btn btn-lg btn-outline-primary" })
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </div>
+    
+</div>
+
+

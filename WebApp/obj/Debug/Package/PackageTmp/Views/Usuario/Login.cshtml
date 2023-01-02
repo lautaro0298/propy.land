@@ -1,0 +1,106 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!--Script Google-->
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+<meta name="google-signin-client_id" content="224298944678-d4rokpd16rm8hjb72c91rs4h7egn2hns.apps.googleusercontent.com">
+<script>
+    function onSuccess(googleUser) {
+        console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    }
+    function onFailure(error) {
+        console.log(error);
+    }
+    function renderButton() {
+        gapi.signin2.render('my-signin2', {
+            'scope': 'profile email',
+            'width': 240,
+            'height': 50,
+            'longtitle': true,
+            'theme': 'dark',
+            'onsuccess': onSuccess,
+            'onfailure': onFailure
+        });
+    }
+</script>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-6">
+            <form action="@Url.Action("Login","Usuario")" method="post">
+                <div class="card border-dark mt-5 mb-5">
+                    <div class="card-header bg-dark border-dark">
+                        <h2 class="text-center text-light">Login</h2>
+                        <p class="text-center text-light">¡Propy le da la bienvenida!</p>
+                    </div>
+                    <div class="card-body bg-light">
+
+                        @if (!String.IsNullOrEmpty(ViewBag.Error))
+                        {
+                            <div class="alert alert-danger">
+                                <button class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                                @if (!String.IsNullOrEmpty(ViewBag.EmailNoVerificado))
+                                {
+                                    @Html.ActionLink("No he recibo un mail de verificación. Volver a enviar", "ReenvioMailVerificacion", "Usuario", null, new { @class = "btn btn-sm btn-outline-danger" });
+                                }
+                            </div>
+
+                        }
+
+                        <div class="row justify-content-center mb-3">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+
+                                        <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
+                                    </div>
+                                    <input class="form-control" type="email" name="email" required />
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mb-3">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+
+                                        <span class="input-group-text" id="inputGroup-sizing-default">Clave</span>
+                                    </div>
+                                    <input class="form-control" type="password" name="clave" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col text-center">
+                                @Html.ActionLink("Olvidé mi clave.", "RecuperarContraseñaPaso1", "Usuario")
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col text-center">
+                                @Html.ActionLink("Soy nuevo, quiero registrarme.", "Index", "Homes")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="g-signin2" data-longtitle="true"></div>
+                    <div class="card-footer bg-dark border-dark">
+                        <center>
+                            <input class="btn btn-lg btn-success" type="submit" name="name" value="Entrar" />
+                        </center>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <div class="col-md-3">
+
+        </div>
+    </div>
+
+</div>
+
+

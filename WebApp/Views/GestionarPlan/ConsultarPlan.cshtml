@@ -1,0 +1,65 @@
+﻿@model LibreriaClases.DTO.DTOPlan
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/PanelControl2.cshtml";
+}
+@section Styles{
+
+    <link href="~/Estilos/MisEstilos.css" rel="stylesheet" />
+}
+
+@if (!String.IsNullOrEmpty(ViewBag.Error))
+{
+    <div class="alert alert-danger">
+        <button class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        @Html.ValidationSummary(false)
+    </div>
+}
+@if (Model.planId != null)
+{
+    <h4 class="Titulo1">Mis Planes</h4>
+    <br />
+
+    <table class="table table-bordered table-dark">
+        <thead>
+            <tr>
+                <th>Plan</th>
+                <th>Precio</th>
+                <th>Servicios</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.nombrePlan</td>
+                <td>@Model.precioPlan &nbsp; @Model.tipoMoneda.denominacionMoneda</td>
+                <td>
+                    <ul>
+                        <li>Cantidad máx de imágenes por publicación: @Model.cantidadMaxImagenesPermitidasPorPublicacion</li>
+                        @{
+                            if (Model.accesoEstadisticasAvanzadas == false)
+                            {
+
+                                <li>Acceso a estadísticas avanzadas: No</li>
+                            }
+                            else
+                            {
+                                <li>Acceso a estadísticas avanzadas: Si</li>
+                            }
+                        }
+                    </ul>
+                </td>
+                <td>
+                    @Html.ActionLink("Mejorar", "ConsultarPlan", "GestionarPlan", null, new { @class = "btn btn-md btn-success" })
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-left">Actualmente usted no tiene contratado ningún plan. Haga click <a>@Html.ActionLink("aquí", "Index", "ContratarPlan") para adquirir un plan</a></p>
+}
+
+

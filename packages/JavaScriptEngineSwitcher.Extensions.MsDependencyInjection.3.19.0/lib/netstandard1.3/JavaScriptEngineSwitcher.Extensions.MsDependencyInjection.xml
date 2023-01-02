@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JavaScriptEngineSwitcher.Extensions.MsDependencyInjection</name>
+    </assembly>
+    <members>
+        <member name="T:JavaScriptEngineSwitcher.Extensions.MsDependencyInjection.JsEngineSwitcherServiceCollectionExtensions">
+            <summary>
+            Extension methods for adding the JS engine switcher in an <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" />
+            </summary>
+        </member>
+        <member name="M:JavaScriptEngineSwitcher.Extensions.MsDependencyInjection.JsEngineSwitcherServiceCollectionExtensions.AddJsEngineSwitcher(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds a default instance of JS engine switcher to <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>
+            </summary>
+            <param name="services">The services available in the application</param>
+            <returns>Instance of <see cref="T:JavaScriptEngineSwitcher.Core.JsEngineFactoryCollection" /></returns>
+        </member>
+        <member name="M:JavaScriptEngineSwitcher.Extensions.MsDependencyInjection.JsEngineSwitcherServiceCollectionExtensions.AddJsEngineSwitcher(Microsoft.Extensions.DependencyInjection.IServiceCollection,JavaScriptEngineSwitcher.Core.IJsEngineSwitcher)">
+            <summary>
+            Adds a specified instance of JS engine switcher to <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>
+            </summary>
+            <param name="services">The services available in the application</param>
+            <param name="engineSwitcher">Instance of JS engine switcher</param>
+            <returns>Instance of <see cref="T:JavaScriptEngineSwitcher.Core.JsEngineFactoryCollection" /></returns>
+        </member>
+        <member name="M:JavaScriptEngineSwitcher.Extensions.MsDependencyInjection.JsEngineSwitcherServiceCollectionExtensions.AddJsEngineSwitcher(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{JavaScriptEngineSwitcher.Core.IJsEngineSwitcher})">
+            <summary>
+            Adds a default instance of JS engine switcher to <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>
+            </summary>
+            <param name="services">The services available in the application</param>
+            <param name="configure">The <see cref="T:JavaScriptEngineSwitcher.Core.IJsEngineSwitcher"/> which need to be configured</param>
+            <returns>Instance of <see cref="T:JavaScriptEngineSwitcher.Core.JsEngineFactoryCollection" /></returns>
+        </member>
+        <member name="M:JavaScriptEngineSwitcher.Extensions.MsDependencyInjection.JsEngineSwitcherServiceCollectionExtensions.AddJsEngineSwitcher(Microsoft.Extensions.DependencyInjection.IServiceCollection,JavaScriptEngineSwitcher.Core.IJsEngineSwitcher,System.Action{JavaScriptEngineSwitcher.Core.IJsEngineSwitcher})">
+            <summary>
+            Adds a specified instance of JS engine switcher to <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>
+            </summary>
+            <param name="services">The services available in the application</param>
+            <param name="engineSwitcher">Instance of JS engine switcher</param>
+            <param name="configure">The <see cref="T:JavaScriptEngineSwitcher.Core.IJsEngineSwitcher"/> which need to be configured</param>
+            <returns>Instance of <see cref="T:JavaScriptEngineSwitcher.Core.JsEngineFactoryCollection" /></returns>
+        </member>
+    </members>
+</doc>

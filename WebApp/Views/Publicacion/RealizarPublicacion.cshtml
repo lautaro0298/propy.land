@@ -1,0 +1,471 @@
+﻿@model WebApp.DTO.DTOVistaNuevaPublicacion
+@{
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<br />
+@section styles{
+    <link href="~/Estilos/EstilosMapa.css" rel="stylesheet" />
+}
+
+@if (String.IsNullOrEmpty(ViewBag.ErrorFatal))
+{
+
+    <div class="container">
+
+        <div class="card bg-light">
+            <div class="card-header">
+                <h1><i class="fas fa-plus-circle mr-2"></i>Nueva Publicación</h1>
+            </div>
+            <div class="card-body">
+                <form method="post" action="@Url.Action("RealizarPublicacion", "Publicacion")" enctype="multipart/form-data" onkeypress="return pulsar(event)">
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            <div class="card bg-light">
+                                <div class="card-header">
+                                    <h5><i class="fas fa-globe-americas mr-2"></i>1. Ubicación</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="map" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <input class="form-control" type="text" name="direccion" id="pac-input" value="" placeholder="Ingrese la dirección de su propiedad" maxlength="256" min="3" required />
+
+
+
+
+
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <div class="card bg-light">
+                                <div class="card-header">
+                                    <h5><i class="fas fa-user-tie mr-2"></i>2. Publicante.</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <select name="tipoUsuario" class="form-control" id="tipoUsuario">
+                                                <option value="seleccioneTipoPublicante">Seleccione una opción</option>
+                                                @foreach (var tipoUsuario in Model.listaDtoTipoUsuario)
+                                                {
+                                                    <option value="@tipoUsuario.tipoUsuarioId">@tipoUsuario.nombreTipoUsuario</option>
+                                                }
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5><i class="fas fa-briefcase mr-2"></i>3. Tipo de operación.</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <select class="form-control" name="tipoOperacion" id="tipoOperacion">
+                                                <option value="seleccioneTipoOperacion">Seleccione una opción</option>
+                                                @foreach (var tipoOperacion in Model.listaDtoTipoOperacion)
+                                                {
+                                                    <option value="@tipoOperacion.tipoOperacionId">@tipoOperacion.nombreTipoOperacion</option>
+                                                }
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+
+
+                        <div class="form-group">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5><i class="fas fa-home mr-2"></i>4. Tipo de propiedad.</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+
+                                            <select class="form-control" name="tipoPropiedad" id="tipoPropiedad" oninput="habilitarLabelTable();">
+                                                <option value="-1">Seleccione una opción</option>
+                                                @foreach (var tipoPropiedad in Model.listaDtoTipoPropiedad)
+                                                {
+                                                    <option value="@tipoPropiedad.tipoPropiedadId" id="@tipoPropiedad.nombreTipoPropiedad">@tipoPropiedad.nombreTipoPropiedad</option>
+                                                }
+
+                                            </select>
+                                            <div id="superficie" style="display:none;">
+                                                <label class="text-dark" for="superficieTerreno">Superficie del terreno:</label>
+                                                <input class="form-control" type="text" name="superficieTerreno" id="superficieTerreno" placeholder="0" required min="1" oninput="formatsurfaceyear(this);" />
+                                                <label class="text-dark " for="superficieCubierta">Superficie cubierta:</label>
+                                                <input class="form-control" type="text" name="superficieCubierta" id="superficieCubierta" placeholder="0" required min="1" oninput="formatsurfaceyear(this);" />
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <small class="" id="etiqueta1" style="display:none;">La unidad de la superficie se considera en metros</small>
+                                                        <small class="" id="etiqueta2" style="display:none;">La unidad de la superficie se considera en hectáreas</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <table class="table table-responsive" id="table" style="display:none">
+                                                <thead>
+                                                    <tr>
+                                                        <td width="173" height="36">Tipo</td>
+                                                        <td width="173" height="36">Cantidad</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="173" height="51">Plantas</td>
+                                                        <td width="167" height="51">
+                                                            <select class="form-control" name="nroPlantas">
+                                                                <option value="0">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
+                                                                <option value="0">9</option>
+                                                                <option value="10">10</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+
+                                                    @foreach (var tipoAmbiente in Model.listaDtoTipoAmbiente)
+                                                    {
+                                                        <tr>
+                                                            <td width="173" height="51">
+                                                                @tipoAmbiente.nombreTipoAmbiente
+                                                                <input type="hidden" name="tipoAmbiente" value="@tipoAmbiente.tipoAmbienteId" />
+                                                            </td>
+
+                                                            <td width="167" height="51">
+                                                                <select class="form-control" name="cantidadAmbientes">
+                                                                    <option value="0">0</option>
+                                                                    <option value="1">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
+                                                                    <option value="5">5</option>
+                                                                    <option value="6">6</option>
+                                                                    <option value="7">7</option>
+                                                                    <option value="8">8</option>
+                                                                    <option value="9">9</option>
+                                                                    <option value="10">10</option>
+                                                                </select>
+
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-4">
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5><i class="fas fa-kaaba mr-2"></i>5. Tipo de construcción.</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <select class="form-control" name="tipoConstruccion" id="tipoConstruccion">
+                                                <option value="-1">Seleccione una opción</option>
+                                                @foreach (var tipoConstruccion in Model.listaDtoTipoConstruccion)
+                                                {
+                                                    <option value="@tipoConstruccion.tipoConstruccionId">@tipoConstruccion.nombreTipoConstruccion</option>
+                                                }
+
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input class="form-control" type="text" name="añosAntiguedad" id="añosAntiguedad" placeholder="Años de antiguedad" min="0" oninput="formatsurfaceyear(this)" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5><i class="fas fa-money-bill-alt mr-2"></i>6. Precios</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="tipoMoneda" class="text-dark">
+                                                Moneda
+                                            </label>
+
+                                            @for (int cont = 0; cont < Model.listaDtoTipoMoneda.Count(); cont++)
+                                            {
+                                                if (Model.listaDtoTipoMoneda.ElementAt(cont).nombreTipoMoneda == "ARS")
+                                                {
+                                                    <div class="form-check">
+                                                        <label class="form-check-label" id="@Model.listaDtoTipoMoneda.ElementAt(cont).tipoMonedaId">
+                                                            <input type="radio" class="form-check-input" name="tipoMoneda" value="@Model.listaDtoTipoMoneda.ElementAt(cont).tipoMonedaId" onclick="valor(this);" checked /> @Model.listaDtoTipoMoneda.ElementAt(cont).nombreTipoMoneda
+                                                        </label>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="form-check">
+                                                        <label class="form-check-label" id="@Model.listaDtoTipoMoneda.ElementAt(cont).tipoMonedaId">
+                                                            <input type="radio" class="form-check-input" name="tipoMoneda" value="@Model.listaDtoTipoMoneda.ElementAt(cont).tipoMonedaId" onclick="valor(this);" /> @Model.listaDtoTipoMoneda.ElementAt(cont).nombreTipoMoneda
+                                                        </label>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="precioPropiedad" class="text-dark">Precio de Propiedad</label>
+                                            <input class="form-control" type="text" name="precioPropiedad" id="precioPropiedad" placeholder="Ingrese un precio" value="" required min="1" max="500000000" oninput="format(this);" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-group">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5><i class="fas fa-align-justify mr-2"></i>7. Reseña</h5>
+                                </div>
+                                <div class="card-body">
+                                    <textarea class="form-control" id="comentarios" name="comentarios" placeholder="Escriba aquí una descripción de su publicación." style="min-width:100%; height:100px;"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr />
+
+                        <div class="form-group">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5><i class="fas fa-camera-retro mr-2"></i>8. Extras e imágenes.</h5>
+                                </div>
+                                <div class="card-body">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                        Seleccionar extras
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Extras</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    <div class="form-group">
+                                                        <table class="table">
+                                                            <tr>
+                                                                <th>
+                                                                    Tipo de Extra
+                                                                </th>
+                                                                <th>
+                                                                    Marque opciones
+                                                                </th>
+
+                                                            </tr>
+
+                                                            @foreach (var item in Model.listaDtoExtras)
+                                                            {
+                                                                <tr>
+                                                                    <td>
+                                                                        @Html.DisplayFor(modelItem => item.nombreExtra)
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="checkbox" name="extras" value="@item.extraId" />
+                                                                    </td>
+
+                                                                </tr>
+                                                            }
+
+                                                        </table>
+
+
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Aplicar extras</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="fileinputs">
+                                                <input type="file" class="file" name="imagenSubida" id="imagenSubida" />
+
+                                                <div class="fakefile">
+                                                    <small>Esta imagen será tomada como imagen representativa de su propiedad</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="fileinputs">
+                                                <input type="file" class="file" name="imagenSubida2" id="imagenSubida" />
+                                                <div class="fakefile">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="fileinputs">
+                                                <input type="file" class="file" name="imagenSubida3" id="imagenSubida" />
+                                                <div class="fakefile">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+
+
+                        
+                    </div>
+                    
+                        
+                    
+                </form>
+            </div>
+            <div class="card-footer">
+                <center>
+                    <input type="submit" class="btn btn-lg btn-block btn-outline-success" value="Crear" />
+                </center>
+                       
+            </div>
+        </div>
+     
+    </div>
+
+
+}
+else
+{
+    <h4>@ViewBag.ErrorFatal</h4>
+}
+
+
+
+
+
+@section Scripts{
+    <script src="~/Scripts/DeshabilitarEnterFormulario.js"></script>
+    <script src="~/Scripts/AutocompletadoGoogleMaps.js" type="text/javascript"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHXJNkL77-_eh9GRL1pZr1EAHrAh_uQR4w&libraries=places&callback=initAutocomplete"
+            async defer></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script>
+        function CrearPublicacion() {
+            var comentarios = $('[name="comentarios"]').val();
+            var tipoMoneda = $('[name="tipoMoneda"]').val();
+            var añosAntiguedad = $('[name="añosAntiguedad"]').val();
+            var direccion = $('[name="direccion"]').val();
+            var tipoConstruccion = $('[name="tipoConstruccion"]').val();
+            var tipoOperacion = $('[name="tipoOperacion"]').val();
+            var tipoPropiedad = $('[name="tipoPropiedad"]').val();
+            var tipoUsuario = $('[name="tipoUsuario"]').val();
+            var superficieCubierta = $('[name="superficieCubierta"]').val();
+            var superficieTerreno = $('[name="superficieTerreno"]').val();
+            var nroPlantas = $('[name="nroPlantas"]').val();
+            var cantidadAmbientes = $('[name="cantidadAmbientes"]').val();
+            var tipoAmbiente = $('[name="tipoAmbiente"]').val();
+            var extras = $('[name="extras"]').val();
+            var precioPropiedad = $('[name="precioPropiedad"]').val();
+            $.ajax({
+                type:'POST',
+                cache: false,
+                url: "@Url.Action("RealizarPublicacion","Publicacion")",
+                data: {
+                    comentarios: comentarios,
+                    tipoMoneda: tipoMoneda,
+                    añosAntiguedad: añosAntiguedad,
+                    direccion: direccion,
+                    tipoConstruccion: tipoConstruccion,
+                    tipoOperacion: tipoOperacion,
+                    tipoPropiedad: tipoPropiedad,
+                    tipoUsuario: tipoUsuario,
+                    superficieCubierta: superficieCubierta,
+                    superficieTerreno: superficieTerreno,
+                    nroPlantas: nroPlantas,
+                    cantidadAmbientes: cantidadAmbientes,
+                    tipoAmbiente: tipoAmbiente,
+                    extras: extras,
+                    precioPropiedad: precioPropiedad
+
+                },
+                success: function (response) {
+                    if (response == "OK") {
+
+                         swal("Good job!", "You clicked the button!", "success");
+
+                    } else{
+                        $.notify("¡No se pudo quitar el elemento a su lista de favoritos!", {
+                            className: "error",
+                            clickToHide: true,
+                            autoHide: false,
+                            globalPosition: 'bottom-center'
+
+                        });
+                    }
+                },
+                error: function (msg) {
+                    swal("Algo fue mal!", "Se produjo un error al intentar crear una publicación.", "error");
+                }
+            });
+        }
+    </script>
+
+}

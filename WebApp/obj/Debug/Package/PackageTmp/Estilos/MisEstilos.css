@@ -1,0 +1,114 @@
+﻿.Contenedor {
+    width: auto;
+    height: auto;
+    background-color: #F8F8FF;
+    border: 5px;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    box-shadow: 2px 2px 10px #666;
+}
+.BotonNuevo {
+    border-radius:100px 100px 100px 100px;
+}
+.Contenedor2 {
+    color: white;
+    width: auto;
+    height: auto;
+    background-color: #1E90FF;
+    border: 5px;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    box-shadow: 2px 2px 10px #666;
+}
+.PanelRegistro {
+    min-width:50px;
+    width:600px;
+    padding: 20px;
+    background-color: #24492e;
+    border-radius: 10px 10px 10px 10px;
+    color: white;
+}
+.PanelVerdeIngles {
+    padding: 20px;
+    background-color: #24492e;
+    border-radius:10px 10px 10px 10px;
+    color:white;
+}
+.Pie {
+    background-color: #000000;
+    position: absolute;
+    
+    height: auto;
+    width: 100%;
+    color: dimgrey;
+    text-align: center;
+    
+}
+.Titulo1 {
+    background-color: #24492e;
+    color: white;
+    padding: 10px;
+}
+.Titulo {
+    background-color: #007fbd;
+    color: #dbebfa;
+    padding: 10px;
+    text-align: center;
+    border-top: solid 3px;
+    border-bottom: solid 3px;
+    border-bottom-color: #00334e;
+    border-top-color: #00334e;
+}
+.Subtitulo {
+    background-color: #007fbd;
+    color: #dbebfa;
+    padding: 10px;
+    text-align: center;
+    border-bottom: solid 10px;
+    border-bottom-color: #00334e;
+}
+.Panel1 {
+    background-color: #dbebfa;
+    color: #00334e;
+    padding: 20px;
+    border-radius: 5px 5px 5px 5px;
+}
+.Nota {
+    background-color: #dbebfa;
+    color: #00334e;
+    padding: 10px;
+    text-align: center;
+    border: solid 1px;
+    border-color: #00334e;
+}
+.Inputs {
+    border: inset;
+    border-color: #007fbd;
+    border-radius: 30px;
+}
+.Resultados{
+    background-color: lightblue;
+    color: black;
+    border-bottom: solid 5px;
+    border-bottom-color: crimson;
+    padding: 10px;
+    text-align: center;
+}
+
+.Titulo12 {
+    background-color: #007fbd;
+    color: #dbebfa;
+    padding: 10px;
+    text-align: center;
+}
+
+.ContenedorCarousel{
+    max-width: 82.5%;
+    background-size: contain;
+    border-radius: 20px;
+    margin: auto;
+}

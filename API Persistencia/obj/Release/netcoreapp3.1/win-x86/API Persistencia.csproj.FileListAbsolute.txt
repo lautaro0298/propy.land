@@ -1,0 +1,126 @@
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\appsettings.Development.json
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\appsettings.json
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\API Persistencia.exe
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\API Persistencia.deps.json
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\API Persistencia.runtimeconfig.json
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\API Persistencia.runtimeconfig.dev.json
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\API Persistencia.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\API Persistencia.pdb
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.AspNetCore.JsonPatch.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.AspNetCore.Razor.Language.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.Bcl.AsyncInterfaces.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.Bcl.HashCode.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.CodeAnalysis.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.CodeAnalysis.CSharp.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.CodeAnalysis.Razor.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.CodeAnalysis.Workspaces.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.Data.SqlClient.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.EntityFrameworkCore.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.EntityFrameworkCore.Design.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.EntityFrameworkCore.Relational.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.EntityFrameworkCore.Relational.Design.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.Extensions.Caching.Abstractions.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.Extensions.Caching.Memory.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.Extensions.Configuration.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.Extensions.Configuration.Binder.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.Extensions.DependencyInjection.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.Extensions.Logging.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.Extensions.Logging.Abstractions.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.Extensions.Options.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.Extensions.Primitives.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.Identity.Client.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.VisualStudio.Web.CodeGeneration.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\dotnet-aspnet-codegenerator-design.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Newtonsoft.Json.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\Newtonsoft.Json.Bson.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\NuGet.Frameworks.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\System.Collections.Immutable.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\System.Composition.AttributedModel.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\System.Composition.Convention.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\System.Composition.Hosting.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\System.Composition.Runtime.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\System.Composition.TypedParts.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\System.Configuration.ConfigurationManager.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\System.Diagnostics.DiagnosticSource.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\System.Runtime.Caching.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\System.Security.Cryptography.ProtectedData.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\cs\Microsoft.CodeAnalysis.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\de\Microsoft.CodeAnalysis.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\es\Microsoft.CodeAnalysis.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\fr\Microsoft.CodeAnalysis.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\it\Microsoft.CodeAnalysis.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\ja\Microsoft.CodeAnalysis.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\ko\Microsoft.CodeAnalysis.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\pl\Microsoft.CodeAnalysis.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\ru\Microsoft.CodeAnalysis.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\tr\Microsoft.CodeAnalysis.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\sni.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\LibreriaClases.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Release\netcoreapp3.1\win-x86\LibreriaClases.pdb
+C:\eluxsegundaprueba\API Persistencia\obj\Release\netcoreapp3.1\win-x86\API Persistencia.GeneratedMSBuildEditorConfig.editorconfig
+C:\eluxsegundaprueba\API Persistencia\obj\Release\netcoreapp3.1\win-x86\API Persistencia.AssemblyInfoInputs.cache
+C:\eluxsegundaprueba\API Persistencia\obj\Release\netcoreapp3.1\win-x86\API Persistencia.AssemblyInfo.cs
+C:\eluxsegundaprueba\API Persistencia\obj\Release\netcoreapp3.1\win-x86\API Persistencia.csproj.CoreCompileInputs.cache
+C:\eluxsegundaprueba\API Persistencia\obj\Release\netcoreapp3.1\win-x86\API Persistencia.MvcApplicationPartsAssemblyInfo.cache
+C:\eluxsegundaprueba\API Persistencia\obj\Release\netcoreapp3.1\win-x86\staticwebassets\API Persistencia.StaticWebAssets.Manifest.cache
+C:\eluxsegundaprueba\API Persistencia\obj\Release\netcoreapp3.1\win-x86\staticwebassets\API Persistencia.StaticWebAssets.xml
+C:\eluxsegundaprueba\API Persistencia\obj\Release\netcoreapp3.1\win-x86\scopedcss\bundle\API Persistencia.styles.css
+C:\eluxsegundaprueba\API Persistencia\obj\Release\netcoreapp3.1\win-x86\API Persistencia.RazorTargetAssemblyInfo.cache
+C:\eluxsegundaprueba\API Persistencia\obj\Release\netcoreapp3.1\win-x86\API Persistencia.csproj.CopyComplete
+C:\eluxsegundaprueba\API Persistencia\obj\Release\netcoreapp3.1\win-x86\API Persistencia.dll
+C:\eluxsegundaprueba\API Persistencia\obj\Release\netcoreapp3.1\win-x86\API Persistencia.pdb
+C:\eluxsegundaprueba\API Persistencia\obj\Release\netcoreapp3.1\win-x86\API Persistencia.genruntimeconfig.cache

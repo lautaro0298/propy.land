@@ -1,0 +1,13 @@
+C:\eluxsegundaprueba\LibreriaExperto\bin\Release\netstandard2.0\LibreriaExperto.deps.json
+C:\eluxsegundaprueba\LibreriaExperto\bin\Release\netstandard2.0\LibreriaExperto.dll
+C:\eluxsegundaprueba\LibreriaExperto\bin\Release\netstandard2.0\LibreriaExperto.pdb
+C:\eluxsegundaprueba\LibreriaExperto\bin\Release\netstandard2.0\LibreriaClases.dll
+C:\eluxsegundaprueba\LibreriaExperto\bin\Release\netstandard2.0\LibreriaClases.pdb
+C:\eluxsegundaprueba\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.csproj.AssemblyReference.cache
+C:\eluxsegundaprueba\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.GeneratedMSBuildEditorConfig.editorconfig
+C:\eluxsegundaprueba\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.AssemblyInfoInputs.cache
+C:\eluxsegundaprueba\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.AssemblyInfo.cs
+C:\eluxsegundaprueba\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.csproj.CoreCompileInputs.cache
+C:\eluxsegundaprueba\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.csproj.CopyComplete
+C:\eluxsegundaprueba\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.dll
+C:\eluxsegundaprueba\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.pdb

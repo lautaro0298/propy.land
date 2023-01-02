@@ -1,0 +1,54 @@
+﻿@model LibreriaClases.DTO.DTO_TP_Y_TA
+@{
+    ViewBag.Title = "AsignarTipoPropiedadTipoAmbiente";
+    Layout = "~/Views/Shared/MasterPanelAdministrador.cshtml";
+}
+@if (!String.IsNullOrEmpty(ViewBag.Error))
+{
+    <div class="alert alert-danger">
+        <button class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        @Html.ValidationSummary(false)
+    </div>
+}
+<h2>Aquí podras configurar cada propiedad con sus ambientes correspondientes</h2>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <select class="form-control" name="TipoPropiedad">
+                <option value="-1">Seleccione una opción></option>
+                @foreach (var tipoProp in Model.dTOTipoPropiedades)
+                {
+                    <option value="@tipoProp.tipoPropiedadId">@tipoProp.nombreTipoPropiedad</option>
+                }
+
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <table>
+
+                @foreach (var tipoAmb in Model.dTOTipoAmbientes)
+                {
+                    <tr>
+                        <td>
+                            <input type="checkbox" value="@tipoAmb.tipoAmbienteId" name="TipoAmbiente" />@tipoAmb.nombreTipoAmbiente
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 ">
+            <button class="btn-danger" type="submit" onclick="Asignar_Ambiente_A_Propiedad(@Model.dTOTipoAmbientes.Count);">Aceptar</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label id="resultadoOperacion"></label>
+        </div>
+    </div>
+</div>
+
+

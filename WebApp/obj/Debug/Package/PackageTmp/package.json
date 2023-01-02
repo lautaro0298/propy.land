@@ -1,0 +1,71 @@
+{
+  "name": "webapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
+    "qa": "webpack --mode qa"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.9",
+    "@babel/helper-plugin-utils": "^7.16.7",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@types/react-router-dom": "^5.3.3",
+    "babel-loader": "^8.2.4",
+    "babel-polyfill": "^6.26.0",
+    "browser-sync-webpack-plugin": "^0.1.0",
+    "css-loader": "^6.7.1",
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-notifier": "^1.15.0"
+  },
+  "dependencies": {
+    "@google-pay/button-react": "^3.0.0",
+    "@googlemaps/react-wrapper": "^1.1.33",
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
+    "@react-google-maps/api": "^2.10.2",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "axios": "^0.21.4",
+    "react": "^17.0.2",
+    "react-datepicker": "^4.2.1",
+    "react-dom": "^17.0.2",
+    "react-elastic-carousel": "^0.11.5",
+    "react-loading": "^2.0.3",
+    "react-map-gl": "^6.1.17",
+    "react-redux": "^8.0.2",
+    "react-router-dom": "^5.3.3",
+    "react-scripts": "4.0.3",
+    "react-simple-star-rating": "^3.0.0",
+    "redux": "^4.2.0",
+    "redux-thunk": "^2.4.1",
+    "styled-components": "^5.3.1",
+    "web-vitals": "^1.1.2"
+  },
+  "devServer": {
+    "name": "react-webpack-config",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "develop": "webpack-dev-server",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    }
+  }
+}

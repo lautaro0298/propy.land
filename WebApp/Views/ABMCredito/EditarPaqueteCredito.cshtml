@@ -1,0 +1,54 @@
+﻿@model List<LibreriaClases.DTO.DTOCredito>
+@{
+
+    ViewBag.Title = "Crear paquete de creditos";
+    Layout = "~/Views/Shared/MasterPanelAdministrador.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        @if (!String.IsNullOrEmpty(ViewBag.Error))
+        {
+            <div class="alert alert-danger">
+                <button class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                @Html.ValidationSummary(false)
+            </div>
+        }
+    </div>
+    <h2>Aquí podras editar Los paquetes de creditos:</h2>
+    @for (int i = 0; i < Model.Count(); i++)
+    { 
+    <form action="/ABMCredito/EditarPaqueteCredito/" method="post"  class="border">
+        <input type="hidden" value="@Model.ElementAt(i).PaqueteID" name="id" />
+        <label for="nombredelpack">Nombre que va a recibir el pack de creditos:</label>
+        <input type="text" name="nombredelpack" value="@Model.ElementAt(i).NombrePack" />
+        <label for="cantidad">Cantidad de creditos disponibles</label>
+        <input type="number" name="cantidad" value="@Model.ElementAt(i).CantidadCreditos" />
+        <div class="row">
+            <div class="col-8">
+                <label>Precio</label>
+                <input class="col-2" type="number" value="@Model.ElementAt(i).Precio" min="0" name="Precio" />
+                <label>Seleccione el tipo de moneda</label>
+                <select name="TipoMoneda">
+                    
+                    
+                        <option value="@Model.ElementAt(i).TipoMonedaID">@Model.ElementAt(i).TipoMoneda.denominacionMoneda</option>
+                    
+                </select>
+            </div>
+        </div>
+        <div class="col-4 ">
+            <button class="btn-danger" type="submit">Aceptar</button>
+        </div>
+    </form>
+    }
+
+</body>
+</html>

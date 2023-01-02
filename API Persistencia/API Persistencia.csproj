@@ -1,0 +1,80 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>API_Persistencia</RootNamespace>
+  <GenerateRuntimeConfigurationFiles>True</GenerateRuntimeConfigurationFiles>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\NewFolder1\**" />
+    <Content Remove="Models\NewFolder1\**" />
+    <EmbeddedResource Remove="Models\NewFolder1\**" />
+    <None Remove="Models\NewFolder1\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200616234611_Inicial.cs" />
+    <Compile Remove="Migrations\20200616234611_Inicial.Designer.cs" />
+    <Compile Remove="Migrations\20200618195000_v1.1.cs" />
+    <Compile Remove="Migrations\20200618195000_v1.1.Designer.cs" />
+    <Compile Remove="Migrations\20200622173257_v1.5.cs" />
+    <Compile Remove="Migrations\20200622173257_v1.5.Designer.cs" />
+    <Compile Remove="Migrations\20200721153016_v2.2.cs" />
+    <Compile Remove="Migrations\20200721153016_v2.2.Designer.cs" />
+    <Compile Remove="Migrations\20200801204938_v3.3.cs" />
+    <Compile Remove="Migrations\20200801204938_v3.3.Designer.cs" />
+    <Compile Remove="Migrations\20200806191305_v4.0.cs" />
+    <Compile Remove="Migrations\20200806191305_v4.0.Designer.cs" />
+    <Compile Remove="Migrations\20200806231531_v4.2.cs" />
+    <Compile Remove="Migrations\20200806231531_v4.2.Designer.cs" />
+    <Compile Remove="Migrations\20200806232011_v4.2.cs" />
+    <Compile Remove="Migrations\20200806232011_v4.2.Designer.cs" />
+    <Compile Remove="Migrations\20200807023148_v4.0.cs" />
+    <Compile Remove="Migrations\20200807023148_v4.0.Designer.cs" />
+    <Compile Remove="Migrations\20200807024808_v4.0.cs" />
+    <Compile Remove="Migrations\20200807024808_v4.0.Designer.cs" />
+    <Compile Remove="Migrations\20200807025052_v4.0.cs" />
+    <Compile Remove="Migrations\20200807025052_v4.0.Designer.cs" />
+    <Compile Remove="Migrations\20200807025823_v4.0.cs" />
+    <Compile Remove="Migrations\20200807025823_v4.0.Designer.cs" />
+    <Compile Remove="Migrations\20200807030140_v4.0.cs" />
+    <Compile Remove="Migrations\20200807030140_v4.0.Designer.cs" />
+    <Compile Remove="Migrations\20200807032337_v4.0.cs" />
+    <Compile Remove="Migrations\20200807032337_v4.0.Designer.cs" />
+    <Compile Remove="Migrations\20200807032420_v4.0.cs" />
+    <Compile Remove="Migrations\20200807032420_v4.0.Designer.cs" />
+    <Compile Remove="Migrations\20200807143940_v4.0.cs" />
+    <Compile Remove="Migrations\20200807143940_v4.0.Designer.cs" />
+    <Compile Remove="Migrations\20220318145558_v5.3.cs" />
+    <Compile Remove="Migrations\20220318145558_v5.3.Designer.cs" />
+    <Compile Remove="Migrations\20220325140757_v5.51.cs" />
+    <Compile Remove="Migrations\20220325140757_v5.51.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Apis.Auth" Version="1.58.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.23" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational.Design" Version="1.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LibreriaClases\LibreriaClases.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
+
+</Project>

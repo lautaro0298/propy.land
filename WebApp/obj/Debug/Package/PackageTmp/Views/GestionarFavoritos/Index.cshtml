@@ -1,0 +1,85 @@
+﻿@model IEnumerable<WebApp.DTO.DTOFavorito>
+
+@{
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    int contador = 0;
+}
+
+
+
+    <div class="container">
+        <h2 class="Titulo">Mis favoritos</h2>
+        <table class="table table-bordered table-responsive-lg table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Imagen</th>
+                    <th scope="col">Ubicación</th>
+                    <th scope="col">Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var favorito in Model)
+                {
+                    contador++;
+                    <tr>
+                        <th scope="row">@contador</th>
+                        <td><img src="@favorito.rutaImagen" class="img-fluid" /></td>
+                        <td>@favorito.direccionPropiedad</td>
+                        <td>@favorito.precio</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                @Html.ActionLink("Ver", "Index", "SolicitarDatosInmueble", new { publicacionId = favorito.publicacionId, usuarioId = favorito.usuarioId }, new { @class = "btn btn-md btn-primary" })
+                                <button class="btn btn-danger btn-md" onclick="QuitarFavorito('@favorito.publicacionId');">Quitar</button>
+
+                            </div>
+
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+@section scripts{
+    <script>
+        function QuitarFavorito(publicacionId) {
+           
+
+            $.ajax({
+                type:'POST',
+                cache: false,
+                url: "@Url.Action("QuitarFavorito","GestionarFavoritos")",
+                data: {
+                    publicacionId: publicacionId,
+
+                },
+                success: function (response) {
+                    if (response=="OK") {
+                        $.notify("¡Se quitó un elemento de su lista de favoritos!", {
+                            className: "success",
+                            clickToHide: true,
+                            autoHide: false,
+                            globalPosition: 'bottom-center'
+
+                        });
+                    
+                    } else{
+                        $.notify("¡No se pudo quitar el elemento a su lista de favoritos!", {
+                            className: "error",
+                            clickToHide: true,
+                            autoHide: false,
+                            globalPosition: 'bottom-center'
+
+                        });
+                    }
+                },
+                error: function (msg) {
+                    $("#result").html("Bad parameters!").show("slow");
+                }
+            });
+        }
+    </script>
+    <script src="~/Scripts/notify.js"></script>
+}

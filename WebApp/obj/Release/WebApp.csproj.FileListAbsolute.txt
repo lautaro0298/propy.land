@@ -1,0 +1,11 @@
+C:\eluxsegundaprueba\WebApp\obj\Release\WebApp.csproj.AssemblyReference.cache
+C:\eluxsegundaprueba\WebApp\obj\Release\WebApp.Migrations.Initial.resources
+C:\eluxsegundaprueba\WebApp\obj\Release\WebApp.Migrations.v10.resources
+C:\eluxsegundaprueba\WebApp\obj\Release\WebApp.Migrations.v73.resources
+C:\eluxsegundaprueba\WebApp\obj\Release\WebApp.Migrations.v74.resources
+C:\eluxsegundaprueba\WebApp\obj\Release\WebApp.Migrations.v75.resources
+C:\eluxsegundaprueba\WebApp\obj\Release\WebApp.Migrations.v80.resources
+C:\eluxsegundaprueba\WebApp\obj\Release\WebApp.csproj.GenerateResource.cache
+C:\eluxsegundaprueba\WebApp\obj\Release\WebApp.csproj.CoreCompileInputs.cache
+C:\eluxsegundaprueba\WebApp\obj\Release\WebApp.dll
+C:\eluxsegundaprueba\WebApp\obj\Release\WebApp.pdb

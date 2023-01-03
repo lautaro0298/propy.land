@@ -37,7 +37,7 @@ namespace WebApp.Controllers
         {
             try
             {
-                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Index", "Home", null); }
+                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Usuario", "Login", null); }
                 (ErrorPropy error, List<DTOConsultaActividadUsuario> listadoActividades) respuestaConsultarActividad = ExpertoUsuarios.ConsultarActividad(Session["IDUsuario"].ToString());
                 return View(respuestaConsultarActividad.listadoActividades);
             }
@@ -57,7 +57,7 @@ namespace WebApp.Controllers
             try
             {
 
-                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Index", "Home", null); }
+                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Usuario", "Login", null); }
                 (ErrorPropy error, List<DTOFavorito> favoritos) respuesta = ExpertoUsuarios.ConsultarListaFavoritos(Session["IDUsuario"].ToString());
 
                 return View(respuesta.favoritos);
@@ -75,7 +75,7 @@ namespace WebApp.Controllers
         {
             try
             {
-                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Index", "Home", null); }
+                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Usuario", "Login", null); }
                 ErrorPropy error = new ErrorPropy();
                 error = ExpertoUsuarios.AgregarFavorito(Session["IDUsuario"].ToString(), publicacionId);
                 switch (error.codigoError)
@@ -102,7 +102,7 @@ namespace WebApp.Controllers
         {
             try
             {
-                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Index", "Home", null); }
+                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Usuario", "Login", null); }
                 ErrorPropy error = ExpertoUsuarios.QuitarFavorito(publicacionId, Session["IDUsuario"].ToString());
 
             }

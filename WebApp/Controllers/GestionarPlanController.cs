@@ -12,7 +12,7 @@ namespace WebApp.Controllers
         // GET: GestionarPlan
         public ActionResult ConsultarPlan()
         {
-            if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Index", "Home", null); }
+            if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Usuario", "Login", null); }
 
             var user = Session["IDUsuario"].ToString();
 

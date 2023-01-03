@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "QRtUTwT3DZkNv6FT5IPCX5sAyfqwQU4i1HMCVI5yZ+xiRvPqe2FcN2AYkfJiMi6OO6Msr6i5RScu8qym6+JByQ==",
+  "dgSpecHash": "ic1siHo1DgRANQzEsnESmoD2MINLutIr2FcgI65AcjhHaeZMSI5LNhbzWKN8018vxzaa/H1xZZlLP1K/iQ8dfw==",
   "success": true,
   "projectFilePath": "C:\\eluxsegundaprueba\\API Persistencia\\API Persistencia.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lautaro\\.nuget\\packages\\google.apis\\1.58.0\\google.apis.1.58.0.nupkg.sha512",
     "C:\\Users\\Lautaro\\.nuget\\packages\\google.apis.auth\\1.58.0\\google.apis.auth.1.58.0.nupkg.sha512",
     "C:\\Users\\Lautaro\\.nuget\\packages\\google.apis.core\\1.58.0\\google.apis.core.1.58.0.nupkg.sha512",
+    "C:\\Users\\Lautaro\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\3.1.32\\microsoft.aspnetcore.authentication.google.3.1.32.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Lautaro\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\3.1.23\\microsoft.aspnetcore.jsonpatch.3.1.23.nupkg.sha512",
     "C:\\Users\\Lautaro\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\3.1.23\\microsoft.aspnetcore.mvc.newtonsoftjson.3.1.23.nupkg.sha512",

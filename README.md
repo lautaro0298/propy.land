@@ -1,1 +1,1 @@
-# https://www.propy.land
+# https://propy.land

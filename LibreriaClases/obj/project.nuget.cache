@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "/34Kc4jefe31Pz2iIVHDqhuXSZcuBjwT7at43QkZsNwaquj1HBcIGBvdolfI4OyrKyGrNxgT8oKiQdrqh/uoVw==",
+  "dgSpecHash": "l84yrBIW8UFVF9CbD8sKPqq4eVQquKFgXiRBdo4Defev5fe57BcrY91kZI9qXag3PZFrtfP/1K9/pg7vji2aMg==",
   "success": true,
-  "projectFilePath": "C:\\eluxsegundaprueba\\LibreriaClases\\LibreriaClases.csproj",
+  "projectFilePath": "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj",
   "expectedPackageFiles": [
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Users\\Lautaro\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.0\\microsoft.netframework.referenceassemblies.1.0.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+    "C:\\Users\\lautaro\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\lautaro\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.0\\microsoft.netframework.referenceassemblies.1.0.0.nupkg.sha512",
+    "C:\\Users\\lautaro\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
   ],
   "logs": []
 }

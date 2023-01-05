@@ -20,7 +20,7 @@ namespace API_Persistencia.Controllers
         [Route("google-login")]
         public async Task<ActionResult> GoogleLogin([FromHeader] string token)
         {
-            await con.Authenticate(token);
+          
 
             return Ok();
         }

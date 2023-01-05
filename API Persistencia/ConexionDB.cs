@@ -23,11 +23,7 @@ namespace API_Persistencia
 
         }
 
-        internal Task Authenticate(string token)
-        {
-            throw new NotImplementedException();
-        }
-
+         
         public ConexionDB(DbContextOptions<ConexionDB> options)
       : base(options)
         {

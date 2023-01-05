@@ -86,7 +86,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="g-signin2" data-longtitle="true"></div>
+                    <div class="g-signin2" data-longtitle="true" data-onsuccess="onSignIn"></div>
                     <div class="card-footer bg-dark border-dark">
                         <center>
                             <input class="btn btn-lg btn-success" type="submit" name="name" value="Entrar" />
@@ -100,7 +100,15 @@
 
         </div>
     </div>
-
+    <script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        }
+    </script>
 </div>
 
 

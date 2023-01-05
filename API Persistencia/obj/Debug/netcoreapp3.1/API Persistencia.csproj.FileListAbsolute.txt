@@ -915,3 +915,12 @@ C:\eluxsegundaprueba\API Persistencia\bin\Debug\netcoreapp3.1\Google.Apis.Auth.P
 C:\eluxsegundaprueba\API Persistencia\bin\Debug\netcoreapp3.1\Google.Apis.Auth.dll
 C:\eluxsegundaprueba\API Persistencia\bin\Debug\netcoreapp3.1\Google.Apis.Core.dll
 C:\eluxsegundaprueba\API Persistencia\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.Google.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Debug\netcoreapp3.1\Google.Apis.Auth.AspNetCore3.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+C:\eluxsegundaprueba\API Persistencia\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
+C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.MvcApplicationPartsAssemblyInfo.cs

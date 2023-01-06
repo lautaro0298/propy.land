@@ -22,6 +22,8 @@ namespace API_Persistencia
 
 
         }
+
+         
         public ConexionDB(DbContextOptions<ConexionDB> options)
       : base(options)
         {

@@ -58,7 +58,7 @@ namespace WebApp.Controllers
         public ActionResult ListarPublicacionesPorUsuario() {
             try
             {
-                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Index", "Home", null); }
+                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Login", "Usuario", null); }
                 ErrorPropy error = new ErrorPropy();
 
                 (ErrorPropy error, DTOPublicaciones publicaciones) respuesta = ExpertoPublicaciones.ListarPublicaciones(Session["IDUsuario"].ToString());
@@ -78,7 +78,7 @@ namespace WebApp.Controllers
 
         [HttpGet]
         public ActionResult CrearPublicacion() {
-            if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Index", "Home", null); }
+            if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Login", "Usuario", null); }
             ErrorPropy error = new ErrorPropy();
             
             try
@@ -101,7 +101,7 @@ namespace WebApp.Controllers
         }
         [HttpPost]
         public ActionResult CrearPublicacion(string ubicacion,string tipoPublicacion,string tipoPublicante,string tipoPropiedad,string tipoConstruccion,List<string>extras,string Baños,string Ambientes,string Cocheras, string Dormitorios,string antiguedad,string supCubierta,string supTerreno,bool amueblado,string expensasUltimoMes,string precioPropiedad,string pisos,string moneda,string reseña) {
-            if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Index", "Home", null); }
+            if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Login", "Usuario", null); }
             ErrorPropy error = new ErrorPropy();
 
             
@@ -205,7 +205,7 @@ namespace WebApp.Controllers
         }
         [HttpGet]
         public ActionResult EditarPublicacionNew(string publicacionId) {
-            if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Index", "Home", null); }
+            if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Login", "Usuario", null); }
             try
             {
                 ErrorPropy error = new ErrorPropy();
@@ -226,7 +226,7 @@ namespace WebApp.Controllers
         public ActionResult EditarPublicacionNew(string publicacionId,string ubicacion, string tipoPublicacion, string tipoPropiedad, string tipoConstruccion, List<string> extras, string Baños, string Ambientes, string Cocheras, string Dormitorios, string antiguedad, string supCubierta, string supTerreno, bool amueblado, string expensasUltimoMes, string precioPropiedad, string pisos, string moneda,List<string> imagenesDescartadas,string reseña) {
             try
             {
-                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Index", "Home", null); }
+                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Login", "Usuario", null); }
                 ErrorPropy error = new ErrorPropy();
                 #region Conversiones
                 int nroPisos = 0;
@@ -313,7 +313,7 @@ namespace WebApp.Controllers
         }
         [HttpGet]
         public ActionResult EliminarPublicacion(string publicacionId) {
-            if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Index", "Home", null); }
+            if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Login", "Usuario", null); }
             try
             {
                 ErrorPropy error = new ErrorPropy();
@@ -333,7 +333,7 @@ namespace WebApp.Controllers
         }
         [HttpGet]
         public ActionResult Ordenar(string metodoOrdenamiento) {
-            if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Index", "Home", null); }
+            if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Login", "Usuario", null); }
             try
             {
                 (ErrorPropy error, DTOPublicaciones pubs) respuesta = ExpertoPublicaciones.OrdenarPublicacionesUsuario(metodoOrdenamiento,Session["IDUsuario"].ToString());

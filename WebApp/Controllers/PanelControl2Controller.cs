@@ -13,7 +13,7 @@ namespace WebApp.Controllers
         public ActionResult Index()
         {
             if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) {
-                return RedirectToAction("Index","Home",null);
+                return RedirectToAction("Usuario","Login",null);
             }
             return View();
         }

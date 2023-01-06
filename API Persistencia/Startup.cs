@@ -32,6 +32,16 @@ namespace API_Persistencia
             services.AddControllers();
             services.AddDbContext<ConexionDB>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("ConexionBD")));
+            services.AddAuthentication()
+        .AddGoogle(options =>
+        {
+            IConfigurationSection googleAuthNSection =
+                Configuration.GetSection("Authentication:Google");
+
+            options.ClientId = googleAuthNSection["ClientId"];
+            options.ClientSecret = googleAuthNSection["ClientSecret"];
+            options.CallbackPath = "/signin-google";
+        });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

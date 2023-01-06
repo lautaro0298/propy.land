@@ -24,7 +24,7 @@ namespace WebApp.Controllers
         {
             try
             {
-                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Index", "Home", null); }
+                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Login", "Usuario", null); }
 
                 var user = Session["IDUsuario"].ToString();
 

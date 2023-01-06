@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "l84yrBIW8UFVF9CbD8sKPqq4eVQquKFgXiRBdo4Defev5fe57BcrY91kZI9qXag3PZFrtfP/1K9/pg7vji2aMg==",
+  "dgSpecHash": "+ig+HxPWpAApVwNiDGfCb1u6p1HA84gX615j+DDRcaAoUSpU0T5TzTroKs18o7IaOeJmo/Q07u8oz9J6gZwsiQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj",
+  "projectFilePath": "C:\\Users\\lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lautaro\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\lautaro\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.0\\microsoft.netframework.referenceassemblies.1.0.0.nupkg.sha512",

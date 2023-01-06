@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj": {}
+    "C:\\Users\\lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj": {
+    "C:\\Users\\lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj",
+        "projectUniqueName": "C:\\Users\\lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj",
         "projectName": "LibreriaExperto",
-        "projectPath": "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj",
+        "projectPath": "C:\\Users\\lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj",
         "packagesPath": "C:\\Users\\lautaro\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaExperto\\obj\\",
+        "outputPath": "C:\\Users\\lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaExperto\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\lautaro\\AppData\\Roaming\\NuGet\\NuGet.Config",

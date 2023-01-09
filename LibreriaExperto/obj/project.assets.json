@@ -355,23 +355,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Lautaro\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\lautaro\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\eluxsegundaprueba\\LibreriaExperto\\LibreriaExperto.csproj",
+      "projectUniqueName": "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj",
       "projectName": "LibreriaExperto",
-      "projectPath": "C:\\eluxsegundaprueba\\LibreriaExperto\\LibreriaExperto.csproj",
-      "packagesPath": "C:\\Users\\Lautaro\\.nuget\\packages\\",
-      "outputPath": "C:\\eluxsegundaprueba\\LibreriaExperto\\obj\\",
+      "projectPath": "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj",
+      "packagesPath": "C:\\Users\\lautaro\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaExperto\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Lautaro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\lautaro\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -431,7 +427,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.415\\RuntimeIdentifierGraph.json"
       }
     }
   }

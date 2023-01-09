@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Google.Apis.Auth;
 using System.Threading.Tasks;
 
 namespace API_Persistencia.Controllers
@@ -20,8 +21,9 @@ namespace API_Persistencia.Controllers
         [Route("google-login")]
         public async Task<ActionResult> GoogleLogin([FromHeader] string token)
         {
-          
-
+            
+        var validPayload = await GoogleJsonWebSignature.ValidateAsync(token);
+            if (validPayload == null || String.IsNullOrEmpty(validPayload)) { };
             return Ok();
         }
     }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "qnT4nJxW9Fec4zeJIyEADwYMGOqi4pxZK8hH4s8f4x2QnuWSQJO1VMhdwGvoRYi9go/eZ4Giiepw+wJGmMStFg==",
+  "dgSpecHash": "hL2m3zvoQn1wNxwlHP6mV3ohXgfRlJzXlyWu2lVuYokkW0qec3erwHxbGhrQUBmKD82MUvY786G+8LFje6ZlIQ==",
   "success": true,
   "projectFilePath": "C:\\eluxsegundaprueba\\API Persistencia\\API Persistencia.csproj",
   "expectedPackageFiles": [
@@ -55,6 +55,7 @@
     "C:\\Users\\Lautaro\\.nuget\\packages\\microsoft.identitymodel.tokens\\5.5.0\\microsoft.identitymodel.tokens.5.5.0.nupkg.sha512",
     "C:\\Users\\Lautaro\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.2\\microsoft.netcore.platforms.2.1.2.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
+    "C:\\Users\\Lautaro\\.nuget\\packages\\microsoft.testplatform\\17.5.0-preview-20221221-03\\microsoft.testplatform.17.5.0-preview-20221221-03.nupkg.sha512",
     "C:\\Users\\Lautaro\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration\\3.1.3\\microsoft.visualstudio.web.codegeneration.3.1.3.nupkg.sha512",
     "C:\\Users\\Lautaro\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.contracts\\3.1.3\\microsoft.visualstudio.web.codegeneration.contracts.3.1.3.nupkg.sha512",
     "C:\\Users\\Lautaro\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.core\\3.1.3\\microsoft.visualstudio.web.codegeneration.core.3.1.3.nupkg.sha512",

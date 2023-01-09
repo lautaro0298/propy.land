@@ -4,25 +4,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!--Script Google-->
-<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-<meta name="google-signin-client_id" content="224298944678-d4rokpd16rm8hjb72c91rs4h7egn2hns.apps.googleusercontent.com">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
-    function onSuccess(googleUser) {
-        console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    function handleCredentialResponse(response) {
+        console.log("Encoded JWT ID token: " + response.credential);
     }
-    function onFailure(error) {
-        console.log(error);
-    }
-    function renderButton() {
-        gapi.signin2.render('my-signin2', {
-            'scope': 'profile email',
-            'width': 240,
-            'height': 50,
-            'longtitle': true,
-            'theme': 'dark',
-            'onsuccess': onSuccess,
-            'onfailure': onFailure
+    window.onload = function () {
+        google.accounts.id.initialize({
+            client_id: "224298944678-d4rokpd16rm8hjb72c91rs4h7egn2hns.apps.googleusercontent.com",
+            callback: handleCredentialResponse
         });
+        google.accounts.id.renderButton(
+            document.getElementById("buttonDiv"),
+            { theme: "outline", size: "large" }  // customization attributes
+        );
+        google.accounts.id.prompt(); // also display the One Tap dialog
     }
 </script>
 <div class="container">
@@ -86,7 +82,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="g-signin2" data-longtitle="true"></div>
+                    <div  id="buttonDiv" data-longtitle="true" ></div>
                     <div class="card-footer bg-dark border-dark">
                         <center>
                             <input class="btn btn-lg btn-success" type="submit" name="name" value="Entrar" />
@@ -100,7 +96,7 @@
 
         </div>
     </div>
-
+   
 </div>
 
 

@@ -301,110 +301,42 @@ namespace WebApp.Controllers
         {
             return View();
         }
+
         [HttpPost]
-        public async Task<ActionResult> CrearCuenta(string nombreUsuario, string apellidoUsuario, string telefono1, string telefono2, string email, string clave, string claveRepetida, bool permitirSerContactadoPorPublicante, bool permitirSerNotificado)
+        public ActionResult LoginGoogle([System.Web.Http.FromBody]string token)
         {
-            //long CUIT = Int64.Parse(cuit);
             ErrorPropy error = new ErrorPropy();
-            //string token = null;
-            //string sign = null;
-            
-            //string strTicketRespuesta = null;
-            //LoginTicket objTicketRespuesta = null;
             try
             {
-                error = ValidacionParametros.ValidacionParametrosCrearCuenta(nombreUsuario, apellidoUsuario, telefono1, telefono2, email, clave, claveRepetida);
-                if (error.codigoError != 0)
+              
+
+                (ErrorPropy error, TransferenciaUsuario usuario) respuesta = ExpertoUsuarios.LoginGoogle(token);
+                error = respuesta.error;
+                if (error.codigoError == -1)
                 {
                     ViewBag.Error = "Error";
                     ModelState.AddModelError("", error.descripcionError);
                     return View();
                 }
-                //try
-                //{
-                   
-                //    AFIP.WSAA.LoginCMSService loginCMS = new AFIP.WSAA.LoginCMSService();
-                //    objTicketRespuesta = new LoginTicket();
-                //    strTicketRespuesta = objTicketRespuesta.Ticket();
-                //}
-                //catch (Exception excepcionAlObtenerTicket)
-                //{
-                //    Console.WriteLine("***EXCEPCION AL OBTENER TICKET: " + excepcionAlObtenerTicket.Message);
+                if (error.codigoError == -2)
+                {
+                    ViewBag.Error = "Error";
+                    ModelState.AddModelError("", error.descripcionError);
+                    ViewBag.EmailNoVerificado = "true";
+                    return View();
+                }
 
-                //}
-                //try {
-          
-                //    XmlDocument xmlDocument = new XmlDocument();
-                //    xmlDocument.LoadXml(strTicketRespuesta);
-                //    XmlNodeList listatoken = xmlDocument.GetElementsByTagName("token");
-                //    XmlNodeList lostasing = xmlDocument.GetElementsByTagName("sign");
-                //    XmlNodeList listadata = xmlDocument.GetElementsByTagName("generationTime");
-                //    XmlNodeList listadata2 = xmlDocument.GetElementsByTagName("expirationTime");
-                //    foreach (XmlNode listz in listadata)
-                //    {
-
-                //        var generacion = listz.ChildNodes[0].Value.ToString();
-                //        generationTime = Convert.ToDateTime(generacion);
-
-
-                //    }
-                //    foreach (XmlNode listz in listadata2)
-                //    {
-
-                //        var expiracion = listz.ChildNodes[0].Value.ToString();
-                //        expirationTime = Convert.ToDateTime(expiracion);
-                //    }
-                //    foreach (XmlNode listz in listatoken)
-                //    {
-                       
-                //       token= listz.ChildNodes[0].Value.ToString();
-                //    }
-                //    foreach (XmlNode lis in lostasing) {
-                //        sign = lis.ChildNodes[0].Value.ToString();
-                //    }
-                    
-                //}catch(Exception ex)
-                //{
-                //    throw new Exception("Error verificar cuit en afip:"+ex.Message+" Intente mas tarde");
-                //}
-                //try
-                //{
-                //    long cuitRepresentada = 20128139185;
-                //    CUIT = cuitRepresentada;
-                   
-                //    PersonaServiceA5Client personaServiceA5 = new PersonaServiceA5Client();
-                //    var persona =personaServiceA5.getPersona(token, sign, cuitRepresentada, CUIT);
-
-
-                //}
-                //catch (Exception ex)
-                //{
-                //    throw new Exception("Error consulta afip" + ex.Message);
-                //}
-
-
-               
-                
-                ////analizo tiked
-                
-
-
-           
-
-        }
+                Session["IDUsuario"] = respuesta.usuario.usuarioId;
+            }
             catch (Exception ex)
             {
                 ViewBag.Error = ex.Message;
                 ViewBag.ErrorDetalle = ex.StackTrace;
                 return View("Error");
-                throw;
             }
 
-
-            return RedirectToAction("Index", "PanelControl2", null);
+            return RedirectToAction("Index", "PanelControl2");
         }
-
-      
     }
 }
 

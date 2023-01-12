@@ -53,6 +53,8 @@ namespace API_Persistencia
                 options.WithOrigins("http://propry.azurewebsites.net");
                 options.WithOrigins("https://propy.land");
                 options.WithOrigins("http://propy.land");
+                options.WithOrigins("http://www.propy.land");
+                options.WithOrigins("https://www.propy.land");
                 options.AllowAnyMethod();
                 options.AllowAnyHeader();
                 options.AllowAnyOrigin();

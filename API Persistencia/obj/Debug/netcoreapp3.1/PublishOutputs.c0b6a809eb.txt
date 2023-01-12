@@ -4,6 +4,13 @@ C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\appsett
 C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\API Persistencia.dll
 C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\API Persistencia.runtimeconfig.json
 C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\API Persistencia.pdb
+C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\Google.Apis.dll
+C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\Google.Apis.Auth.PlatformServices.dll
+C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\Google.Apis.Auth.dll
+C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\Google.Apis.Auth.AspNetCore3.dll
+C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\Google.Apis.Core.dll
+C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.Authentication.Google.dll
+C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
 C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.JsonPatch.dll
 C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.Razor.Language.dll
@@ -32,6 +39,11 @@ C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\Microso
 C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\Microsoft.Extensions.Options.dll
 C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\Microsoft.Extensions.Primitives.dll
 C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\Microsoft.Identity.Client.dll
+C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\Microsoft.IdentityModel.Logging.dll
+C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\Microsoft.IdentityModel.Protocols.dll
+C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\Microsoft.IdentityModel.Tokens.dll
 C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\Microsoft.VisualStudio.Web.CodeGeneration.dll
 C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll
 C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
@@ -51,6 +63,7 @@ C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\System.
 C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\System.Composition.TypedParts.dll
 C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\System.Configuration.ConfigurationManager.dll
 C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\System.Diagnostics.DiagnosticSource.dll
+C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\System.IdentityModel.Tokens.Jwt.dll
 C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\System.Runtime.Caching.dll
 C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\System.Security.Cryptography.ProtectedData.dll
 C:\eluxsegundaprueba\API Persistencia\obj\Debug\netcoreapp3.1\PubTmp\Out\cs\Microsoft.CodeAnalysis.resources.dll

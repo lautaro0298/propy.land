@@ -234,6 +234,26 @@ namespace LibreriaExperto.Usuarios
             
             return (error,respuesta.usuario);
         }
+        public static (ErrorPropy, TransferenciaUsuario) LoginGoogle(string token)
+        {
+            HttpClient clienteHttp = ApiConfiguracion.Inicializar();
+            ErrorPropy error = new ErrorPropy();
+            var tareaObtenerUsuario = clienteHttp.PostAsync("api/Usuario/obtenerUsuarioPorEmail/", new StringContent(token));
+            tareaObtenerUsuario.Wait();
+            TransferenciaUsuario usuario = tareaObtenerUsuario.Result.Content.ReadAsAsync<TransferenciaUsuario>().Result;
+            if (!tareaObtenerUsuario.Result.IsSuccessStatusCode)
+            {
+                throw new Exception(tareaObtenerUsuario.Result.StatusCode.ToString());
+            }
+            if (usuario.Equals(null))
+            {
+                error.codigoError = -1;
+                error.descripcionError = "No se a podido ingresar intente de nuevo";
+            };
+
+            return (error, usuario);
+
+        }
         public static ErrorPropy ConfirmarCuenta(string email) {
             ErrorPropy error = new ErrorPropy();
             HttpClient clienteHttp = ApiConfiguracion.Inicializar();

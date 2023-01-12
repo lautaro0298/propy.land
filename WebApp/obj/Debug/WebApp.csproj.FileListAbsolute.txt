@@ -1616,3 +1616,12 @@ C:\eluxsegundaprueba\WebApp\obj\Debug\WebApp.csproj.CoreCompileInputs.cache
 C:\eluxsegundaprueba\WebApp\obj\Debug\WebApp.csproj.CopyComplete
 C:\eluxsegundaprueba\WebApp\obj\Debug\WebApp.dll
 C:\eluxsegundaprueba\WebApp\obj\Debug\WebApp.pdb
+C:\eluxsegundaprueba\WebApp\bin\Microsoft.AspNet.TelemetryCorrelation.dll
+C:\eluxsegundaprueba\WebApp\bin\Microsoft.AI.DependencyCollector.pdb
+C:\eluxsegundaprueba\WebApp\bin\Microsoft.AI.PerfCounterCollector.pdb
+C:\eluxsegundaprueba\WebApp\bin\Microsoft.AI.PerfCounterCollector.xml
+C:\eluxsegundaprueba\WebApp\bin\Microsoft.AI.ServerTelemetryChannel.pdb
+C:\eluxsegundaprueba\WebApp\bin\Microsoft.AI.Web.pdb
+C:\eluxsegundaprueba\WebApp\bin\Microsoft.AI.WindowsServer.pdb
+C:\eluxsegundaprueba\WebApp\bin\Microsoft.ApplicationInsights.pdb
+C:\eluxsegundaprueba\WebApp\bin\Microsoft.AspNet.TelemetryCorrelation.xml

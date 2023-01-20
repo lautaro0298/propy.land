@@ -12,7 +12,7 @@ ReactDOM.render(
     
     <React.StrictMode>
         <BrowserRouter>
-            <Routes/>
+                <Routes />
         </BrowserRouter>
     </React.StrictMode>
     

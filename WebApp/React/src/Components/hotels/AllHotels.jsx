@@ -132,11 +132,17 @@ export default function AllHotels() {
                           Ordenar por :<select name="hotels" onChange={handleFilter}>
               <br/>
               <option value="mayor" name="Our_recomn">
-                Precio: Mayor - Menor
+                Precio , de mayor a menor
               </option>
               <option value="menor" name="Rating_recomn">
-                Precio: Menor -Mayor 
+                Precio, de menor a mayor
               </option>
+              <option value="menor" name="Rating_recomn">
+                              Publicaci{'\u00f3'}n m{'\u00e1'}s reciente
+               </option>
+                <option value="menor" name="Rating_recomn">
+                              Publicaci{'\u00f3'}n m{'\u00e1'}s antigua
+               </option>
             </select>
           </div>
                   <br />
@@ -307,8 +313,8 @@ export default function AllHotels() {
                           </div>
                 
               </div>
-             {/* {elmapa()}*/}
-                  {hotel.length > 0 && <Mapa />}
+              {/* {elmapa()}*/}
+              {hotel.length > 0 && <Mapa style={{ position:"fixed" }} />}
                   {hotel.length <= 0 && <StaticMap />}
                   
                   </div>

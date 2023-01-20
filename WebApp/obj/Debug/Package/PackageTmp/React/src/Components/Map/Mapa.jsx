@@ -78,10 +78,11 @@ function Mapa() {
 
     })
     const containerStyle = {
+        position: "fixed!important",
         width: "600px",
-        height: "600px",
-        position: "absolute",
-        left: "900px",
+        height: "400px",
+       
+        /*left: "900px",*/
 
     };
     const [position, setPosition] = useState(null)
@@ -244,8 +245,16 @@ function Mapa() {
     }
     
     return (
-        <div>
-        <GoogleMap id="google-map" class="google-map" ref={(mapRef) => { ref = mapRef; setMapRef(mapRef);   }} mapContainerStyle={containerStyle} center={center} zoom={3}
+        <div style={{ position: "fixed" , left:"900px" }}>
+            <GoogleMap id="google-map" style={{ position: "fixed" }} class="google-map" ref={(mapRef) => { ref = mapRef; setMapRef(mapRef); }} mapContainerStyle={{
+               
+                position: 'fixed' ,
+                width: "600px",
+                height: "400px",
+
+                /*left: "900px",*/
+
+            }} center={center} zoom={3}
                 onCenterChanged={handleCenterChanged} onProjectionChanged={handleCenterChanged} onBoundsChanged={() => {
                 if (mapRef != undefined) {
                     if (hotel !== null) {

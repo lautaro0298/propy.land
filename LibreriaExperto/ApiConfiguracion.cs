@@ -16,7 +16,9 @@ namespace LibreriaExperto
             //Notebook casa Seba https://localhost:44312/0
             //PC Casa Seba https://localhost:44371/
             //configuracion local http://propyy.somee.com/
-            cliente.BaseAddress = new Uri("https://core.propy.land/");
+            //configuracion local http://localhost:33763/
+            //en linea https://core.propy.land/
+            cliente.BaseAddress = new Uri("http://localhost:33763/");
             return cliente;
         }
     }

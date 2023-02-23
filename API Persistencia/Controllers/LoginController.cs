@@ -22,7 +22,7 @@ namespace API_Persistencia.Controllers
         }
         [HttpPost]
         [Route("google-login")]
-        public async Task<Usuario> GoogleLogin([FromForm] string token)
+        public async Task<Usuario> GoogleLogin( string token)
         {
             
         var validPayload = await GoogleJsonWebSignature.ValidateAsync(token);

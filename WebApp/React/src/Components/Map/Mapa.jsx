@@ -1,15 +1,16 @@
 import React, { useEffect,useRef  } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { GoogleMap, Marker, MarkerClusterer, InfoWindow, StandaloneSearchBox, Circle } from '@react-google-maps/api';
+import { GoogleMap, Marker, MarkerClusterer, InfoWindow, StandaloneSearchBox, OverlayView  } from '@react-google-maps/api';
 import { Link } from "react-router-dom";
 import { hotellist } from '../../store/actions';
+import { useContext } from "react";
 
 
 
 function Mapa() {
     let ref
     const [mapRef, setMapRef] = React.useState(null);
-
+    
     const dispatch = useDispatch();
     let hotelState = useSelector((state) => state.activities, shallowEqual);
     let hotel = hotelState.hotel;
@@ -228,20 +229,25 @@ function Mapa() {
                         </Marker>
             );
         });
-    } else {
-        return (
-            <InfoBox
-                
-                
-                position={center}
-            >
-                <div style={{ backgroundColor: 'yellow', opacity: 0.75, padding: 12 }}>
-                    <div style={{ fontSize: 16, fontColor: `#08233B` }}>
-                        Sin resultados
-                    </div>
-                </div>
-            </InfoBox>
-            );
+    } if (hotel == undefined || hotel == null || hotel.length == 0 ) {
+        <OverlayView
+            
+            
+        >
+            <div >
+                <h1>OverlayView</h1>
+
+                <button
+                    
+                    type='button'
+                >
+                    Click me
+                </button>
+            </div>
+        </OverlayView>
+        
+            
+           
     }
     
     return (

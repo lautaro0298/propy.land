@@ -17,6 +17,7 @@ import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import { PrettoSlider } from "../material-ui-components/LocationCard";
 import { palabra } from '../../store/actions';
 import { Marker, MarkerClusterer, InfoWindow, StandaloneSearchBox, LoadScript } from '@react-google-maps/api';
+import Mapa from "../Map/Mapa";
 export function SearchBar() {
     let hotelState = useSelector((state) => state.activities, shallowEqual);
     let hotel = hotelState.hotel; 
@@ -204,6 +205,7 @@ export function SearchBar() {
         }
     }
     const onPlacesChanged = () => {
+        
         if (document.getElementById('google-map') != undefined && document.getElementById('google-map') != null ) {
             map = new window.google.maps.Map(document.getElementById('google-map'),
                 {

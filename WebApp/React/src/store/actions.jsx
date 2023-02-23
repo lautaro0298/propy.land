@@ -12,6 +12,7 @@ import {
 } from "./actionTypes";
 
 import axios from "axios";
+import AllHotels from "../Components/hotels/AllHotels";
 const hotelList = (payload) => {
     return {
         type: HOTELSLIST,
@@ -142,17 +143,23 @@ export const fliterDormitorios = (values) => dispatch => {
         dispatch(hotelSuccess(filtro));  
     })
 }
-export const fliterPrecio = (tipoDeFiltro) => dispatch => {
+export const fliterPrecio = () => dispatch => {
     let hotel = store.getState().activities.hotel;
     hotel.sort(((a, b) => a.propiedad.precioPropiedad - b.propiedad.precioPropiedad));
     dispatch(hotelSuccess(hotel));
+    dispatch(hotelList(hotel));
     console.log(hotel)
 }
 export const hotellist = (hotellist) => dispatch => {
     dispatch(hotelList(hotellist));
-
-    
-
+}
+export const fliterPrecio1 = () => dispatch => {
+    dispatch(fliterPrecio());
+    let hotel = store.getState().activities.hotel;
+   hotel= hotel.reverse();
+    dispatch(hotelSuccess(hotel));
+    dispatch(hotelList(hotel));
+    console.log(hotel)
 }
 export const sortHotelData = (tipoPropiedad) => dispatch => {
   dispatch(hotelRequest())

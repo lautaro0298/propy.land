@@ -55,6 +55,7 @@ namespace API_Persistencia
                 options.WithOrigins("http://propy.land");
                 options.WithOrigins("http://www.propy.land");
                 options.WithOrigins("https://www.propy.land");
+                options.WithOrigins("https://localhost:44394");
                 options.AllowAnyMethod();
                 options.AllowAnyHeader();
                 options.AllowAnyOrigin();

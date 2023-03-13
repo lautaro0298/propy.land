@@ -1,18 +1,19 @@
 ﻿
+
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <!--Script Google-->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
     function handleCredentialResponse(response) {
-        let token =  response.credential;
+        let token = JSON.stringify(response.credential);
         console.log("Encoded JWT ID token: " + response.credential);
-        fetch("/Usuario/LoginGoogle", {
+        fetch("/Usuario/loginGoogle", {
             method: "POST",
-            headers: { 'Content-Type': 'application/json' },
-            body: token 
+            body: token
         }).then(res => {
             console.log("Request complete! response:", res);
         });
@@ -26,7 +27,7 @@
             document.getElementById("buttonDiv"),
             { theme: "outline", size: "large" }  // customization attributes
         );
-        
+
         google.accounts.id.prompt(); // also display the One Tap dialog
     }
 </script>
@@ -91,7 +92,7 @@
                             </div>
                         </div>
                     </div>
-                    <div  id="buttonDiv" data-longtitle="true" ></div>
+                    <div id="buttonDiv" data-longtitle="true"></div>
                     <div class="card-footer bg-dark border-dark">
                         <center>
                             <input class="btn btn-lg btn-success" type="submit" name="name" value="Entrar" />
@@ -105,7 +106,7 @@
 
         </div>
     </div>
-   
+
 </div>
 
 

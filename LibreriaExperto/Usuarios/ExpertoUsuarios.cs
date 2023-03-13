@@ -238,7 +238,7 @@ namespace LibreriaExperto.Usuarios
         {
             HttpClient clienteHttp = ApiConfiguracion.Inicializar();
             ErrorPropy error = new ErrorPropy();
-            var tareaObtenerUsuario = clienteHttp.PostAsync("api/Usuario/obtenerUsuarioPorEmail/", new StringContent(token));
+            var tareaObtenerUsuario = clienteHttp.PostAsync("api/Login/google-login", new StringContent(token));
             tareaObtenerUsuario.Wait();
             TransferenciaUsuario usuario = tareaObtenerUsuario.Result.Content.ReadAsAsync<TransferenciaUsuario>().Result;
             if (!tareaObtenerUsuario.Result.IsSuccessStatusCode)

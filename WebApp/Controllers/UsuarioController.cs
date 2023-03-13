@@ -21,17 +21,19 @@ using WebApp.AFIP.WSAA;
 using System.Net;
 using System.Net.Sockets;
 using System.Xml.Linq;
+using System.Web.Http.Cors;
 
 
 namespace WebApp.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UsuarioController : Controller
     {
         public static string token ;
         public static string sign ;
         public static DateTime generationTime;
         public static DateTime expirationTime;
-
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
 
         public ActionResult ConsultarActividad()
         {
@@ -230,10 +232,43 @@ namespace WebApp.Controllers
             Session.Abandon();
             return RedirectToAction("Index", "Home");
         }
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public ActionResult Login()
         {
             return View();
         }
+        //[HttpPost]
+        //public ActionResult loginGoogle(string token) {
+        //    ErrorPropy error = new ErrorPropy();
+        //    try
+        //    {
+               
+        //        (ErrorPropy error, TransferenciaUsuario usuario) respuesta = ExpertoUsuarios.LoginGoogle(token);
+        //        error = respuesta.error;
+        //        if (error.codigoError == -1)
+        //        {
+        //            ViewBag.Error = "Error";
+        //            ModelState.AddModelError("", error.descripcionError);
+        //            return View();
+        //        }
+        //        if (error.codigoError == -2)
+        //        {
+        //            ViewBag.Error = "Error";
+        //            ModelState.AddModelError("", error.descripcionError);
+        //            ViewBag.EmailNoVerificado = "true";
+        //            return View();
+        //        }
+
+        //        Session["IDUsuario"] = respuesta.usuario.usuarioId;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ViewBag.Error = ex.Message;
+        //        ViewBag.ErrorDetalle = ex.StackTrace;
+        //        return View("Error");
+        //    }
+        //    return RedirectToAction("Index", "PanelControl2");
+        //}
         [HttpPost]
         public ActionResult Login(string email, string clave)
         {
@@ -301,14 +336,16 @@ namespace WebApp.Controllers
         {
             return View();
         }
-
-        [HttpPost]
-        public ActionResult LoginGoogle([System.Web.Http.FromBody]string token)
+       
+    
+    [HttpPost]
+        public ActionResult loginGoogle([System.Web.Http.FromBody] string body)
         {
+            string token = body;
             ErrorPropy error = new ErrorPropy();
             try
             {
-              
+
 
                 (ErrorPropy error, TransferenciaUsuario usuario) respuesta = ExpertoUsuarios.LoginGoogle(token);
                 error = respuesta.error;

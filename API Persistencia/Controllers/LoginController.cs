@@ -27,7 +27,7 @@ namespace API_Persistencia.Controllers
             
         var validPayload = await GoogleJsonWebSignature.ValidateAsync(token);
             Usuario usuario1 = new Usuario();
-            if (validPayload == null || validPayload.Equals(null)) { return usuario1 ; }
+            if (validPayload != null || !validPayload.Equals(null)) { return usuario1 ; }
             else
             {
                 String email = (String)validPayload.Email;

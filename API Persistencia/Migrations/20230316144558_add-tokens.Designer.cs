@@ -4,14 +4,16 @@ using API_Persistencia;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API_Persistencia.Migrations
 {
     [DbContext(typeof(ConexionDB))]
-    partial class ConexionDBModelSnapshot : ModelSnapshot
+    [Migration("20230316144558_add-tokens")]
+    partial class addtokens
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

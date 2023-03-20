@@ -6,6 +6,7 @@ using System.Linq;
 using Google.Apis.Auth;
 using System.Threading.Tasks;
 using API_Persistencia.Models;
+using Microsoft.AspNetCore.Authentication;
 
 namespace API_Persistencia.Controllers
 {
@@ -13,42 +14,40 @@ namespace API_Persistencia.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
+        string ClientId = "224298944678-d4rokpd16rm8hjb72c91rs4h7egn2hns.apps.googleusercontent.com";
+        string ClientSecret = "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";
         private ConexionDB con;
+        private GoogleOAuth2Service GoogleOAuth2Service;
         private readonly UsuarioController usuario;
         public LoginController(ConexionDB conexion)
         {
             con = conexion;
 
         }
-        [HttpPost]
-        [Route("google-login")]
-        public async Task<Usuario> GoogleLogin( string token)
+        [HttpGet("auth/google")]
+        public IActionResult GoogleAuth()
         {
-            
-        var validPayload = await GoogleJsonWebSignature.ValidateAsync(token);
-            Usuario usuario1 = new Usuario();
-            if (validPayload != null || !validPayload.Equals(null)) { return usuario1 ; }
-            else
-            {
-                String email = (String)validPayload.Email;
-                bool emailVerified = validPayload.EmailVerified;
-                String name = (String)validPayload.Name;
-                String pictureUrl = (String)validPayload.Picture;
+            var googleAuthUrl = "https://accounts.google.com/o/oauth2/auth?" +
+                $"client_id={ClientId}&" +
+                "response_type=code&" +
+                $"redirect_uri={GoogleOAuth2Service.GetAuthorizationUrl()}&" +
+                $"scope={string.Join(" ", "")}";
 
-                String familyName = (String)validPayload.FamilyName;
-                String givenName = (String)validPayload.GivenName;
-                usuario1= usuario.ObtenerUsuarioPorEmail(email);
-                    if (usuario1.Equals(null) || usuario1==null) {
-                    usuario1.email = email;
-                    usuario1.apellidoUsuario = familyName;
-                    usuario1.nombreUsuario = givenName;
-                    usuario1.emailConfirmado = true;
-                    usuario1.usuarioId = Guid.NewGuid().ToString();
-                     usuario.CrearCuenta(usuario1);
-                    }
-                return usuario1;
-            }
-            
+            return Redirect(googleAuthUrl);
         }
+
+        [HttpGet("callback")]
+        public async Task<Usuario> GoogleAuthCallback([FromQuery(Name = "code")] string code)
+        {
+            var oauthService = new GoogleOAuth2Service(ClientId, ClientSecret, "");
+            var accessToken =await oauthService.AuthorizeAsync(code);
+            
+
+            // Aquí puedes almacenar la información del usuario en tu base de datos
+            // y crear el token de acceso para la API REST
+
+            return accessToken;
+        }
+
     }
 }

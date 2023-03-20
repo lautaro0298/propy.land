@@ -11,10 +11,7 @@
     function handleCredentialResponse(response) {
         let token = JSON.stringify(response.credential);
         console.log("Encoded JWT ID token: " + response.credential);
-        fetch("/Usuario/loginGoogle", {
-            method: "POST",
-            body: token
-        }).then(res => {
+        fetch("/Usuario/loginGoogle?code=" + token ).then(res => {
             console.log("Request complete! response:", res);
         });
     }

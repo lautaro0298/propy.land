@@ -12,6 +12,7 @@ using LibreriaClases.Transferencia;
 using LibreriaExperto.Mensajeria;
 using LibreriaExperto.Publicaciones;
 using LibreriaExperto.Seguridad;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LibreriaExperto.Usuarios
 {
@@ -234,24 +235,24 @@ namespace LibreriaExperto.Usuarios
             
             return (error,respuesta.usuario);
         }
-        public static (ErrorPropy, TransferenciaUsuario) LoginGoogle(string token)
+        public static (ErrorPropy, TransferenciaUsuario) LoginGoogle(string code)
         {
             HttpClient clienteHttp = ApiConfiguracion.Inicializar();
             ErrorPropy error = new ErrorPropy();
-            var tareaObtenerUsuario = clienteHttp.PostAsync("api/Login/google-login", new StringContent(token));
+            var tareaObtenerUsuario = clienteHttp.GetAsync("api/Login/callback?code=" + code);
             tareaObtenerUsuario.Wait();
-            TransferenciaUsuario usuario = tareaObtenerUsuario.Result.Content.ReadAsAsync<TransferenciaUsuario>().Result;
+            var action = tareaObtenerUsuario.Result.Content.ReadAsAsync< TransferenciaUsuario>().Result;
             if (!tareaObtenerUsuario.Result.IsSuccessStatusCode)
             {
                 throw new Exception(tareaObtenerUsuario.Result.StatusCode.ToString());
             }
-            if (usuario.Equals(null))
+            if (action.Equals(null))
             {
                 error.codigoError = -1;
                 error.descripcionError = "No se a podido ingresar intente de nuevo";
             };
 
-            return (error, usuario);
+            return (error, action);
 
         }
         public static ErrorPropy ConfirmarCuenta(string email) {

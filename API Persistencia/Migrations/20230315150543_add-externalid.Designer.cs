@@ -4,14 +4,16 @@ using API_Persistencia;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API_Persistencia.Migrations
 {
     [DbContext(typeof(ConexionDB))]
-    partial class ConexionDBModelSnapshot : ModelSnapshot
+    [Migration("20230315150543_add-externalid")]
+    partial class addexternalid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -572,17 +574,11 @@ namespace API_Persistencia.Migrations
                     b.Property<string>("usuarioId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("AccessToken")
+                    b.Property<string>("ExternalId")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ExpirationTime")
-                        .HasColumnType("datetime2");
 
                     b.Property<byte[]>("Key")
                         .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("RefreshToken")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("Vector")
                         .HasColumnType("varbinary(max)");

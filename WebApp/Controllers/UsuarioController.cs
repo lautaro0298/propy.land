@@ -336,18 +336,18 @@ namespace WebApp.Controllers
         {
             return View();
         }
-       
-    
-    [HttpPost]
-        public ActionResult loginGoogle([System.Web.Http.FromBody] string body)
+
+
+        [HttpGet]
+        public ActionResult loginGoogle( string code)
         {
-            string token = body;
+            string token = code;
             ErrorPropy error = new ErrorPropy();
             try
             {
 
 
-                (ErrorPropy error, TransferenciaUsuario usuario) respuesta = ExpertoUsuarios.LoginGoogle(token);
+                (ErrorPropy error, TransferenciaUsuario usuario) respuesta = ((ErrorPropy error, TransferenciaUsuario usuario))ExpertoUsuarios.LoginGoogle(token);
                 error = respuesta.error;
                 if (error.codigoError == -1)
                 {
@@ -373,7 +373,42 @@ namespace WebApp.Controllers
             }
 
             return RedirectToAction("Index", "PanelControl2");
-        }
+        }    //[HttpPost]
+             //    public ActionResult loginGoogle([System.Web.Http.FromBody] string body)
+             //    {
+             //        string token = body;
+             //        ErrorPropy error = new ErrorPropy();
+             //        try
+             //        {
+
+
+        //            (ErrorPropy error, TransferenciaUsuario usuario) respuesta = ExpertoUsuarios.LoginGoogle(token);
+        //            error = respuesta.error;
+        //            if (error.codigoError == -1)
+        //            {
+        //                ViewBag.Error = "Error";
+        //                ModelState.AddModelError("", error.descripcionError);
+        //                return View();
+        //            }
+        //            if (error.codigoError == -2)
+        //            {
+        //                ViewBag.Error = "Error";
+        //                ModelState.AddModelError("", error.descripcionError);
+        //                ViewBag.EmailNoVerificado = "true";
+        //                return View();
+        //            }
+
+        //            Session["IDUsuario"] = respuesta.usuario.usuarioId;
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            ViewBag.Error = ex.Message;
+        //            ViewBag.ErrorDetalle = ex.StackTrace;
+        //            return View("Error");
+        //        }
+
+        //        return RedirectToAction("Index", "PanelControl2");
+        //    }
     }
 }
 

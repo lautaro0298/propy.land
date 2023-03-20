@@ -23,6 +23,9 @@ namespace API_Persistencia.Models
         public virtual ICollection<PlanUsuario> PlanUsuario { get; set; }
         public virtual ICollection<Favorito> Favorito { get; set; }
         public virtual ICollection<Actividad> Actividad { get; set; }
-        public string ExternalId { get; }
+        public string AccessToken { get; set; }
+        public string RefreshToken { get; set; }
+        public DateTime? ExpirationTime { get; set; }
     }
+
 }

@@ -37,7 +37,7 @@ namespace API_Persistencia.Controllers
         }
 
         [HttpGet("callback")]
-        public async Task<Usuario> GoogleAuthCallback(string code)
+        public async Task<Usuario> GoogleAuthCallback([FromQuery(Name = "code")] string code)
         {
             var oauthService = new GoogleOAuth2Service(ClientId, ClientSecret, "");
             var accessToken =await oauthService.AuthorizeAsync(code);

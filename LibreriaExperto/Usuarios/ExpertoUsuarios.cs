@@ -239,7 +239,7 @@ namespace LibreriaExperto.Usuarios
         {
             HttpClient clienteHttp = ApiConfiguracion.Inicializar();
             ErrorPropy error = new ErrorPropy();
-            var tareaObtenerUsuario = clienteHttp.GetAsync("api/login/callback?code=" + code);
+            var tareaObtenerUsuario = clienteHttp.GetAsync("api/Login/callback?code=" + code);
             tareaObtenerUsuario.Wait();
             var action = tareaObtenerUsuario.Result.Content.ReadAsAsync< TransferenciaUsuario>().Result;
             if (!tareaObtenerUsuario.Result.IsSuccessStatusCode)

@@ -25,7 +25,7 @@ public class GoogleOAuth2Service
             },
             Scopes = new[] { Oauth2Service.Scope.UserinfoEmail },
         });
-        this.redirectUri = redirectUri;
+        this.redirectUri ="https://localhost:44394/Usuario/Login";
     }
 
     public string GetAuthorizationUrl()
@@ -36,13 +36,22 @@ public class GoogleOAuth2Service
 
     public async Task<Usuario> AuthorizeAsync(string code)
     {
-        var token = await flow.ExchangeCodeForTokenAsync("", code, redirectUri, CancellationToken.None);
-        return new Usuario
+        try
         {
-            AccessToken = token.AccessToken,
-            RefreshToken = token.RefreshToken,
-            ExpirationTime = token.ExpiresInSeconds.HasValue ? DateTime.Now.AddSeconds(token.ExpiresInSeconds.Value) : default(DateTime?),
-        };
+            var token = await flow.ExchangeCodeForTokenAsync("user", code, redirectUri, CancellationToken.None);
+            return new Usuario
+            {
+                AccessToken = token.AccessToken,
+                RefreshToken = token.RefreshToken,
+                ExpirationTime = token.ExpiresInSeconds.HasValue ? DateTime.Now.AddSeconds(token.ExpiresInSeconds.Value) : default(DateTime?),
+            };
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+            return null;
+        }
+        
     }
 
     public async Task<Userinfoplus> GetUserInfoAsync(Usuario credentials)

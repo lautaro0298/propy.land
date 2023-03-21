@@ -37,10 +37,10 @@ namespace API_Persistencia.Controllers
         }
 
         [HttpGet("callback/{code}")]
-        public  Task<Usuario> GoogleAuthCallback( string code)
+        public async Task<Usuario> GoogleAuthCallback( string code)
         {
             var oauthService = new GoogleOAuth2Service(ClientId, ClientSecret, "");
-            var accessToken = oauthService.AuthorizeAsync(code);
+            var accessToken =await oauthService.AuthorizeAsync(code);
             
 
             // Aquí puedes almacenar la información del usuario en tu base de datos

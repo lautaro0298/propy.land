@@ -9,7 +9,7 @@
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
     function handleCredentialResponse(response) {
-        let token = JSON.stringify(response.credential);
+        let token = response.credential;
         console.log("Encoded JWT ID token: " + response.credential);
         fetch("/Usuario/loginGoogle?code=" + token ).then(res => {
             console.log("Request complete! response:", res);

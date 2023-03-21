@@ -2059,3 +2059,6 @@ C:\Users\lautaro\source\repos\lautaro0298\propy.land\WebApp\obj\Debug\WebApp.pdb
 C:\Users\lautaro\source\repos\lautaro0298\propy.land\WebApp\bin\System.Web.Cors.dll
 C:\Users\lautaro\source\repos\lautaro0298\propy.land\WebApp\bin\System.Web.Http.Cors.dll
 C:\Users\lautaro\source\repos\lautaro0298\propy.land\WebApp\bin\System.Web.Http.Cors.xml
+C:\eluxsegundaprueba\WebApp\bin\System.Web.Cors.dll
+C:\eluxsegundaprueba\WebApp\bin\System.Web.Http.Cors.dll
+C:\eluxsegundaprueba\WebApp\bin\System.Web.Http.Cors.xml

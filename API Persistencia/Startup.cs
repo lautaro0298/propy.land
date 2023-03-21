@@ -12,8 +12,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-using Microsoft.AspNetCore.Authentication.Cookies;
-
 namespace API_Persistencia
 {
     public class Startup
@@ -28,21 +26,12 @@ namespace API_Persistencia
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-          
+            //se configura cliente outlogin de google 
+            //la siguiente linea evita que el json devuelva objetos con referencias circulares
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddControllers();
             services.AddDbContext<ConexionDB>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("ConexionBD")));
-            services.AddAuthentication()
-        .AddGoogle(options =>
-        {
-            IConfigurationSection googleAuthNSection =
-                Configuration.GetSection("Authentication:Google");
-
-            options.ClientId = googleAuthNSection["ClientId"];
-            options.ClientSecret = googleAuthNSection["ClientSecret"];
-            options.CallbackPath = "/signin-google";
-        });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,7 +56,7 @@ namespace API_Persistencia
             }
 
             app.UseHttpsRedirection();
-            app.UseAuthentication();
+
             app.UseRouting();
 
             app.UseAuthorization();

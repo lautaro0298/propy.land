@@ -1055,3 +1055,4 @@ C:\Users\lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\
 C:\Users\lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.genruntimeconfig.cache
 C:\Users\lautaro\source\repos\lautaro0298\propy.land\API Persistencia\bin\Debug\netcoreapp3.1\Google.Apis.Oauth2.v2.dll
 C:\eluxsegundaprueba\API Persistencia\bin\Debug\netcoreapp3.1\Google.Apis.Oauth2.v2.dll
+C:\Users\lautaro\source\repos\lautaro0298\propy.land\API Persistencia\bin\Debug\netcoreapp3.1\appsettings.json

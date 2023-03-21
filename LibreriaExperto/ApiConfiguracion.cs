@@ -17,8 +17,8 @@ namespace LibreriaExperto
             //PC Casa Seba https://localhost:44371/
             //configuracion linea https://core.propy.land/
             //configuracion local sin ssl http://localhost:50000/
-            //configuracion local con ssl http://localhost:50001/
-            cliente.BaseAddress = new Uri("https://localhost:50001/");
+            //configuracion local con ssl http://localhost:5001/
+            cliente.BaseAddress = new Uri("https://localhost:5001/");
             return cliente;
         }
     }

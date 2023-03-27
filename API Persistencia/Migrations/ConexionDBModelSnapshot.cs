@@ -572,17 +572,8 @@ namespace API_Persistencia.Migrations
                     b.Property<string>("usuarioId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("AccessToken")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ExpirationTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<byte[]>("Key")
                         .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("RefreshToken")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("Vector")
                         .HasColumnType("varbinary(max)");

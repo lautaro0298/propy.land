@@ -11,3 +11,16 @@ C:\eluxsegundaprueba\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.
 C:\eluxsegundaprueba\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.csproj.CopyComplete
 C:\eluxsegundaprueba\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.dll
 C:\eluxsegundaprueba\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.pdb
+C:\Users\lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\bin\Release\netstandard2.0\LibreriaExperto.deps.json
+C:\Users\lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\bin\Release\netstandard2.0\LibreriaExperto.dll
+C:\Users\lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\bin\Release\netstandard2.0\LibreriaExperto.pdb
+C:\Users\lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\bin\Release\netstandard2.0\LibreriaClases.dll
+C:\Users\lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\bin\Release\netstandard2.0\LibreriaClases.pdb
+C:\Users\lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.csproj.AssemblyReference.cache
+C:\Users\lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.AssemblyInfoInputs.cache
+C:\Users\lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.AssemblyInfo.cs
+C:\Users\lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.csproj.CoreCompileInputs.cache
+C:\Users\lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.csproj.CopyComplete
+C:\Users\lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.dll
+C:\Users\lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.pdb

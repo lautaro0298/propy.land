@@ -1,20 +1,23 @@
-﻿using API_Persistencia.Models;
+﻿
+using API_Persistencia.Models;
+using Google.Apis.Auth;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Auth.OAuth2.Flows;
 using Google.Apis.Auth.OAuth2.Responses;
 using Google.Apis.Oauth2.v2;
 using Google.Apis.Oauth2.v2.Data;
 using System;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-
+using static Google.Apis.Auth.GoogleJsonWebSignature;
 
 public class GoogleOAuth2Service
 {
     private readonly GoogleAuthorizationCodeFlow flow;
     private readonly string redirectUri;
-   
-    public GoogleOAuth2Service(string clientId, string clientSecret, string redirectUri)
+    public API_Persistencia.ConexionDB con;
+    public GoogleOAuth2Service(API_Persistencia.ConexionDB con, string clientId, string clientSecret, string redirectUri)
     {
         this.flow = new GoogleAuthorizationCodeFlow(new GoogleAuthorizationCodeFlow.Initializer
         {
@@ -25,8 +28,10 @@ public class GoogleOAuth2Service
             },
             Scopes = new[] { Oauth2Service.Scope.UserinfoEmail },
         });
-        this.redirectUri ="https://localhost:44394/Usuario/Login";
+        this.redirectUri = "https://localhost:44394/Usuario/Login";
+        this.con = con;
     }
+
 
     public string GetAuthorizationUrl()
     {
@@ -34,17 +39,14 @@ public class GoogleOAuth2Service
         return uri.ToString();
     }
 
-    public async Task<Usuario> AuthorizeAsync(string code)
+    public async Task<Payload>  AuthorizeAsync(string tokenDeId)
     {
         try
         {
-            var token = await flow.ExchangeCodeForTokenAsync("user", code, redirectUri, CancellationToken.None);
-            return new Usuario
-            {
-                AccessToken = token.AccessToken,
-                RefreshToken = token.RefreshToken,
-                ExpirationTime = token.ExpiresInSeconds.HasValue ? DateTime.Now.AddSeconds(token.ExpiresInSeconds.Value) : default(DateTime?),
-            };
+            
+            var validPayload = await GoogleJsonWebSignature.ValidateAsync(tokenDeId);
+
+            return validPayload;
         }
         catch (Exception ex)
         {
@@ -54,16 +56,5 @@ public class GoogleOAuth2Service
         
     }
 
-    public async Task<Userinfoplus> GetUserInfoAsync(Usuario credentials)
-    {
-        var credential = new UserCredential(flow, "", new TokenResponse
-        {
-            AccessToken = credentials.AccessToken,
-            RefreshToken = credentials.RefreshToken,
-            ExpiresInSeconds = (long)(credentials.ExpirationTime - DateTime.Now)?.TotalSeconds,
-        });
-        var oauth2Service = new Oauth2Service(new Google.Apis.Services.BaseClientService.Initializer { HttpClientInitializer = credential });
-        var userInfo = await oauth2Service.Userinfo.Get().ExecuteAsync();
-        return userInfo;
-    }
+   
 }

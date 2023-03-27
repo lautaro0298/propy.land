@@ -9,11 +9,37 @@
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
     function handleCredentialResponse(response) {
-        let token = response.credential;
         console.log("Encoded JWT ID token: " + response.credential);
-        fetch("/Usuario/loginGoogle?code=" + token ).then(res => {
-            console.log("Request complete! response:", res);
-        });
+        var id_token = response.credential;
+
+        // Configura la solicitud HTTP
+        var url = '/Usuario/loginGoogleAsync';
+        var options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id_token: id_token,
+            }),
+        };
+
+        // Envía la solicitud HTTP
+        fetch(url, options)
+            .then(function (response) {
+                // Maneja la respuesta del servidor
+                if (response.ok) {
+                    console.log('El token de ID se envió correctamente al servidor');
+                    window.location.replace(response.url);
+                } else {
+                    console.error('Ocurrió un error al enviar el token de ID al servidor');
+                }
+            })
+            .catch(function (error) {
+                console.error('Ocurrió un error al enviar el token de ID al servidor:', error);
+            });
+      
+
     }
     window.onload = function () {
         google.accounts.id.initialize({
@@ -24,10 +50,11 @@
             document.getElementById("buttonDiv"),
             { theme: "outline", size: "large" }  // customization attributes
         );
-
         google.accounts.id.prompt(); // also display the One Tap dialog
     }
 </script>
+
+    
 <div class="container">
     <div class="row">
         <div class="col-md-3">
@@ -89,7 +116,8 @@
                             </div>
                         </div>
                     </div>
-                    <div id="buttonDiv" data-longtitle="true"></div>
+                    <div id="buttonDiv"></div>
+
                     <div class="card-footer bg-dark border-dark">
                         <center>
                             <input class="btn btn-lg btn-success" type="submit" name="name" value="Entrar" />

@@ -18,11 +18,11 @@ namespace API_Persistencia.Controllers
         string ClientSecret = "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";
         private ConexionDB con;
         private GoogleOAuth2Service GoogleOAuth2Service;
-        private readonly UsuarioController usuario;
+        private UsuarioController usuario;
         public LoginController(ConexionDB conexion)
         {
             con = conexion;
-
+            usuario=new UsuarioController(con);
         }
         [HttpGet("auth/google")]
         public IActionResult GoogleAuth()
@@ -36,17 +36,45 @@ namespace API_Persistencia.Controllers
             return Redirect(googleAuthUrl);
         }
 
-        [HttpGet("callback/{code}")]
-        public async Task<Usuario> GoogleAuthCallback( string code)
+        [HttpGet("callback/{tokenDeId}")]
+        public  Usuario GoogleAuthCallback(string tokenDeId)
         {
-            var oauthService = new GoogleOAuth2Service(ClientId, ClientSecret, "");
-            var accessToken =await oauthService.AuthorizeAsync(code);
-            
-
+            //var tokenDeIdwe = await HttpContext.GetTokenAsync("id_token");
+            var oauthService = new GoogleOAuth2Service(con,ClientId, ClientSecret, "");
+            var accessToken =  oauthService.AuthorizeAsync(tokenDeId);
+            accessToken.Wait();
             // Aquí puedes almacenar la información del usuario en tu base de datos
             // y crear el token de acceso para la API REST
+            var email = accessToken.Result.Email;
+            var token = accessToken.Result;
+            var nombre = accessToken.Result.GivenName;
+            var apellido = accessToken.Result.FamilyName;
+            
+            Usuario user =usuario.ObtenerUsuarioPorEmail(email);
+            
+            
+            if (user != null)
+            {
+                user.emailConfirmado = true;
+                user.email = email;
+                user.apellidoUsuario = apellido;
+                user.nombreUsuario = nombre;
+                usuario.EditarUsuarioGoogle(user);
+            }
+            else
+            {
+                user = new Usuario();
+                user.emailConfirmado = true;
+                user.email = email;
+                user.apellidoUsuario = apellido;
+                user.nombreUsuario = nombre;
+                // El usuario no existe en la base de datos, crear un nuevo usuario
+                user.usuarioId = Guid.NewGuid().ToString();
+                usuario.CrearCuenta(user);
+            }
 
-            return accessToken;
+
+            return user;
         }
 
     }

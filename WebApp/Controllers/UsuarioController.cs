@@ -11,6 +11,8 @@ using LibreriaExperto.Usuarios;
 using LibreriaExperto.Mensajeria;
 using MercadoPago.DataStructures.Customer;
 using LibreriaClases.DTO;
+using Microsoft.AspNetCore.Authentication;
+
 using System.Xml;
 using System.Security.Cryptography.Pkcs;
 using System.Security.Cryptography.X509Certificates;
@@ -22,6 +24,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Xml.Linq;
 using System.Web.Http.Cors;
+using Microsoft.AspNet.Identity;
 
 
 namespace WebApp.Controllers
@@ -237,38 +240,7 @@ namespace WebApp.Controllers
         {
             return View();
         }
-        //[HttpPost]
-        //public ActionResult loginGoogle(string token) {
-        //    ErrorPropy error = new ErrorPropy();
-        //    try
-        //    {
-               
-        //        (ErrorPropy error, TransferenciaUsuario usuario) respuesta = ExpertoUsuarios.LoginGoogle(token);
-        //        error = respuesta.error;
-        //        if (error.codigoError == -1)
-        //        {
-        //            ViewBag.Error = "Error";
-        //            ModelState.AddModelError("", error.descripcionError);
-        //            return View();
-        //        }
-        //        if (error.codigoError == -2)
-        //        {
-        //            ViewBag.Error = "Error";
-        //            ModelState.AddModelError("", error.descripcionError);
-        //            ViewBag.EmailNoVerificado = "true";
-        //            return View();
-        //        }
-
-        //        Session["IDUsuario"] = respuesta.usuario.usuarioId;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ViewBag.Error = ex.Message;
-        //        ViewBag.ErrorDetalle = ex.StackTrace;
-        //        return View("Error");
-        //    }
-        //    return RedirectToAction("Index", "PanelControl2");
-        //}
+     
         [HttpPost]
         public ActionResult Login(string email, string clave)
         {
@@ -338,16 +310,19 @@ namespace WebApp.Controllers
         }
 
 
-        [HttpGet]
-        public ActionResult loginGoogle( string code)
+        [System.Web.Mvc.HttpPost]
+        [System.Web.Mvc.AllowAnonymous]
+        public  ActionResult loginGoogleAsync([System.Web.Http.FromBody] string id_token )
         {
-            string token = code;
+            var tokenDeId = id_token;
+
+
             ErrorPropy error = new ErrorPropy();
             try
             {
 
 
-                (ErrorPropy error, TransferenciaUsuario usuario) respuesta = ((ErrorPropy error, TransferenciaUsuario usuario))ExpertoUsuarios.LoginGoogle(token);
+                (ErrorPropy error, TransferenciaUsuario usuario) respuesta = ((ErrorPropy error, TransferenciaUsuario usuario))ExpertoUsuarios.LoginGoogle(tokenDeId);
                 error = respuesta.error;
                 if (error.codigoError == -1)
                 {
@@ -373,42 +348,7 @@ namespace WebApp.Controllers
             }
 
             return RedirectToAction("Index", "PanelControl2");
-        }    //[HttpPost]
-             //    public ActionResult loginGoogle([System.Web.Http.FromBody] string body)
-             //    {
-             //        string token = body;
-             //        ErrorPropy error = new ErrorPropy();
-             //        try
-             //        {
-
-
-        //            (ErrorPropy error, TransferenciaUsuario usuario) respuesta = ExpertoUsuarios.LoginGoogle(token);
-        //            error = respuesta.error;
-        //            if (error.codigoError == -1)
-        //            {
-        //                ViewBag.Error = "Error";
-        //                ModelState.AddModelError("", error.descripcionError);
-        //                return View();
-        //            }
-        //            if (error.codigoError == -2)
-        //            {
-        //                ViewBag.Error = "Error";
-        //                ModelState.AddModelError("", error.descripcionError);
-        //                ViewBag.EmailNoVerificado = "true";
-        //                return View();
-        //            }
-
-        //            Session["IDUsuario"] = respuesta.usuario.usuarioId;
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            ViewBag.Error = ex.Message;
-        //            ViewBag.ErrorDetalle = ex.StackTrace;
-        //            return View("Error");
-        //        }
-
-        //        return RedirectToAction("Index", "PanelControl2");
-        //    }
+        }  
     }
 }
 

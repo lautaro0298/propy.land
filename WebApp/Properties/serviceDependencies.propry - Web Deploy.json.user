@@ -1,9 +1,54 @@
 {
   "dependencies": {
+    "secrets1": {
+      "restored": true,
+      "restoreTime": "2023-03-27T16:36:46.0151345Z"
+    },
     "appInsights1": {
       "restored": true,
       "restoreTime": "2023-01-04T14:15:08.0687312Z"
     }
   },
-  "parameters": {}
+  "parameters": {
+    "propry.subscriptionId": {
+      "Name": "propry.subscriptionId",
+      "Type": "subscription",
+      "Value": "7784025e-0dd2-4c59-be67-fcb6881f4a10"
+    },
+    "propry.resourceGroupLocation": {
+      "Name": "propry.resourceGroupLocation",
+      "Type": null,
+      "Value": "centralus"
+    },
+    "secrets1.resourceGroupLocation": {
+      "Name": "secrets1.resourceGroupLocation",
+      "Type": "location",
+      "Value": "centralus"
+    },
+    "secrets1.resourceGroupName": {
+      "Name": "secrets1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "propry_group"
+    },
+    "secrets1.subscriptionId": {
+      "Name": "secrets1.subscriptionId",
+      "Type": "subscription",
+      "Value": "7784025e-0dd2-4c59-be67-fcb6881f4a10"
+    },
+    "propry.resourceName": {
+      "Name": "propry.resourceName",
+      "Type": null,
+      "Value": "propry"
+    },
+    "subscriptionId": {
+      "Name": "subscriptionId",
+      "Type": "subscription",
+      "Value": "7784025e-0dd2-4c59-be67-fcb6881f4a10"
+    },
+    "propry.resourceGroupName": {
+      "Name": "propry.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "propry_group"
+    }
+  }
 }

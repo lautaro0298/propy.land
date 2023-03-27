@@ -52,6 +52,24 @@ namespace API_Persistencia.Controllers
             }
                 return Ok();
         }
+        public ActionResult EditarUsuarioGoogle(Usuario usuario)
+        {
+            using (var db = con.Database.BeginTransaction())
+            {
+                try
+                {
+                    con.Entry(usuario).State = EntityState.Modified;
+                    con.SaveChanges();
+                    db.Commit();
+                }
+                catch (Exception)
+                {
+                    db.Rollback();
+                    throw;
+                }
+            }
+            return Ok();
+        }
         [HttpGet("obtenerUsuarioPorEmail/{email}")]
         public Usuario ObtenerUsuarioPorEmail(string email) {
             Usuario usuario = (from x in con.Usuario

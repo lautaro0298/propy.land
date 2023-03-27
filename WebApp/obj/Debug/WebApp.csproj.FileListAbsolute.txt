@@ -2496,3 +2496,9 @@ C:\propy.land\WebApp\obj\Debug\WebApp.csproj.CoreCompileInputs.cache
 C:\propy.land\WebApp\obj\Debug\WebApp.csproj.CopyComplete
 C:\propy.land\WebApp\obj\Debug\WebApp.dll
 C:\propy.land\WebApp\obj\Debug\WebApp.pdb
+C:\Users\lautaro\source\repos\lautaro0298\propy.land\WebApp\bin\Microsoft.AspNetCore.Authentication.dll
+C:\Users\lautaro\source\repos\lautaro0298\propy.land\WebApp\bin\Microsoft.AspNetCore.Authentication.Google.dll
+C:\Users\lautaro\source\repos\lautaro0298\propy.land\WebApp\bin\Microsoft.AspNetCore.Authentication.OAuth.dll
+C:\Users\lautaro\source\repos\lautaro0298\propy.land\WebApp\bin\Microsoft.AspNetCore.Authentication.xml
+C:\Users\lautaro\source\repos\lautaro0298\propy.land\WebApp\bin\Microsoft.AspNetCore.Authentication.Google.xml
+C:\Users\lautaro\source\repos\lautaro0298\propy.land\WebApp\bin\Microsoft.AspNetCore.Authentication.OAuth.xml

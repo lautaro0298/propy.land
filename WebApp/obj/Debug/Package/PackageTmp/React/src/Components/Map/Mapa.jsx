@@ -1,6 +1,6 @@
 import React, { useEffect,useRef  } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { GoogleMap, Marker, MarkerClusterer, InfoWindow, StandaloneSearchBox, OverlayView  } from '@react-google-maps/api';
+import { GoogleMap, Marker, MarkerClusterer, InfoWindow, StandaloneSearchBox, OverlayView, LoadScript  } from '@react-google-maps/api';
 import { Link } from "react-router-dom";
 import { hotellist } from '../../store/actions';
 import { useContext } from "react";
@@ -124,6 +124,9 @@ function Mapa() {
     function cambiarhotels(newhotels) { dispatch(hotellist(newhotels)) }
      barrabusqueda = () => {
          return (
+             <LoadScript
+                 googleMapsApiKey="AIzaSyDHXJNkL77-_eh9GRL1pZr1EAHrAh_uQR4"
+             >
              <StandaloneSearchBox
                  onPlacesChanged={onPlacesChanged}
                  onLoad={onSBLoad}
@@ -149,7 +152,10 @@ function Mapa() {
                          marginLeft: "-120px"
                      }}
                  />
-             </StandaloneSearchBox>
+                 </StandaloneSearchBox>
+                 </LoadScript
+                    
+                 >
              )
 
      }
@@ -229,28 +235,12 @@ function Mapa() {
                         </Marker>
             );
         });
-    } if (hotel == undefined || hotel == null || hotel.length == 0 ) {
-        <OverlayView
-            
-            
-        >
-            <div >
-                <h1>OverlayView</h1>
-
-                <button
-                    
-                    type='button'
-                >
-                    Click me
-                </button>
-            </div>
-        </OverlayView>
-        
-            
-           
     }
     
     return (
+        <LoadScript
+            googleMapsApiKey="AIzaSyDHXJNkL77-_eh9GRL1pZr1EAHrAh_uQR4"
+        >
         <div style={{ position: "fixed" , left:"900px" }}>
             <GoogleMap id="google-map" style={{ position: "fixed" }} class="google-map" ref={(mapRef) => { ref = mapRef; setMapRef(mapRef); }} mapContainerStyle={{
                
@@ -278,7 +268,10 @@ function Mapa() {
         );
             </GoogleMap>
      
-         </div>
+            </div>
+            </LoadScript
+                
+            >
     );
 }
 

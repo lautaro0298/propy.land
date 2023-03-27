@@ -50,7 +50,7 @@ export function SearchBar() {
     const [publicacionSelect, setPublicacionSelect] = useState("")
     const dispatch = useDispatch();
     useEffect(() => {
-           axios.get(`https://localhost:5001/api/TipoMoneda/obtenerTiposMonedas`, {
+           axios.get(`https://core.propy.land/api/TipoMoneda/obtenerTiposMonedas`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -58,7 +58,7 @@ export function SearchBar() {
             
         })
             .then(res => { setMoneda(res.data); monedaIs = true; });
-         axios.get(`https://localhost:5001/api/TipoPublicacion/obtenerTiposPublicaciones`, {
+         axios.get(`https://core.propy.land/api/TipoPublicacion/obtenerTiposPublicaciones`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',

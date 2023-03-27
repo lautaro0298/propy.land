@@ -8,6 +8,8 @@ using React.AspNet;
 using FluentAssertions.Common;
 using JavaScriptEngineSwitcher.Core;
 using React;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security.Google;
 
 [assembly: OwinStartupAttribute(typeof(WebApp.Startup))]
 namespace WebApp
@@ -17,9 +19,12 @@ namespace WebApp
 
     public partial class Startup
     {
-
+        public void ConfigureServices(IAppBuilder app) { app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+         
+        }
         public void Configuration(IAppBuilder app)
         {
+            
             ReactSiteConfiguration.Configuration
               .AddScript("~/React/src/App.jsx");
 

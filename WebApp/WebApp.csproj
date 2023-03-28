@@ -1113,6 +1113,7 @@
     <Content Include="React\src\Components\Footer\dummy" />
     <Content Include="React\src\Components\Navbar\dummy" />
     <None Include="Properties\PublishProfiles\propry - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\propry - Web Deploy1.pubxml" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />

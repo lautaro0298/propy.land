@@ -36,8 +36,8 @@ namespace API_Persistencia.Controllers
             return Redirect(googleAuthUrl);
         }
 
-        [HttpGet("callback/{tokenDeId}")]
-        public  Usuario GoogleAuthCallback(string tokenDeId)
+        [HttpGet("callback")]
+        public async Task<Usuario> GoogleAuthCallback(string tokenDeId)
         {
             //var tokenDeIdwe = await HttpContext.GetTokenAsync("id_token");
             var oauthService = new GoogleOAuth2Service(con,ClientId, ClientSecret, "");

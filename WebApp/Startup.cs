@@ -24,6 +24,7 @@ namespace WebApp
         }
         public void Configuration(IAppBuilder app)
         {
+
             
             ReactSiteConfiguration.Configuration
               .AddScript("~/React/src/App.jsx");

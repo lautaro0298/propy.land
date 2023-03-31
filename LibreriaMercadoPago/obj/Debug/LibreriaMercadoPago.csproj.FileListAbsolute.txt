@@ -736,6 +736,9 @@ C:\Users\lautaro\source\repos\lautaro0298\propy.land\LibreriaMercadoPago\obj\Deb
 C:\Users\lautaro\source\repos\lautaro0298\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.csproj.CopyComplete
 C:\Users\lautaro\source\repos\lautaro0298\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.dll
 C:\Users\lautaro\source\repos\lautaro0298\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.pdb
+C:\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.csproj.App.config
+C:\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.csproj.AssemblyReference.cache
+C:\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.csproj.CoreCompileInputs.cache
 C:\propy.land\LibreriaMercadoPago\bin\Debug\LibreriaMercadoPago.dll.config
 C:\propy.land\LibreriaMercadoPago\bin\Debug\LibreriaMercadoPago.dll
 C:\propy.land\LibreriaMercadoPago\bin\Debug\LibreriaMercadoPago.pdb
@@ -853,9 +856,6 @@ C:\propy.land\LibreriaMercadoPago\bin\Debug\nunit.framework.xml
 C:\propy.land\LibreriaMercadoPago\bin\Debug\System.Net.Http.Extensions.xml
 C:\propy.land\LibreriaMercadoPago\bin\Debug\System.Net.Http.Primitives.xml
 C:\propy.land\LibreriaMercadoPago\bin\Debug\System.ValueTuple.xml
-C:\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.csproj.App.config
-C:\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.csproj.AssemblyReference.cache
-C:\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.csproj.CoreCompileInputs.cache
 C:\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.csproj.CopyComplete
 C:\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.dll
 C:\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.pdb

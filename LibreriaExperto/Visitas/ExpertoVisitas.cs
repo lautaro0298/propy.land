@@ -105,6 +105,7 @@ namespace LibreriaExperto.Visitas
             return (error, datosVisitante);
             
         }
+        //aca tendria que ir el restar el credito
         public static (ErrorPropy, DTOContactoPublicante) ObtenerContactoPublicante(string publicacionId, string IDusuarioVisitante) {
             ErrorPropy error = new ErrorPropy();
             HttpClient clienteHttp = ApiConfiguracion.Inicializar();
@@ -145,8 +146,9 @@ namespace LibreriaExperto.Visitas
             {
                 datosPublicante.telefonoContactoAlternativo = publicacion.Propiedad.Usuario.telefono2.ToString();
             }
-
-            datosPublicante.tipoPublicante = publicacion.Propiedad.TipoPublicante.nombreTipoPublicante;
+           
+                datosPublicante.tipoPublicante = publicacion.TipoPublicacion.nombreTipoPublicacion ;
+            
             return (error, datosPublicante);
         }
         public static async Task<(ErrorPropy, DTOVisitaInmueble)> VisitarInmueble(string publicacionId,int puntosResta,string usuarioIdVisita) {
@@ -233,6 +235,7 @@ namespace LibreriaExperto.Visitas
                 visitaInmueble.cantidadVecesQueRepitioVisita++;
                 cantidadVisitasUnMismoUsuario = visitaInmueble.cantidadVecesQueRepitioVisita;
             }
+            // aca se resta el credito
             TransferenciaPlanUsuario planUsuario = respuestaObtenerUsuarioPublicante.usuarioPublicante.PlanUsuario.Where(x => x.activo == true).FirstOrDefault();
             if (cantidadVisitasUnMismoUsuario==0) { planUsuario.cantidadCreditosActivos = planUsuario.cantidadCreditosActivos - puntosResta; }
             

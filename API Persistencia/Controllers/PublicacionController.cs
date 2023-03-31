@@ -32,7 +32,7 @@ namespace API_Persistencia.Controllers
                                        .Include(x=>x.Propiedad.Usuario)
                                       .Include(x => x.Propiedad)
                                       
-                                      .Include(x => x.Propiedad.TipoPublicante)
+                                      .Include(x => x.Propiedad).ThenInclude(x=>x.TipoPublicante)
                                       .Include(x => x.TipoPublicacion)
                                       .Include(x => x.Propiedad.TipoConstruccion)
                                       .Include(x=>x.Propiedad.TipoMoneda)

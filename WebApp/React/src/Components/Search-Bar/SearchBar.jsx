@@ -16,7 +16,7 @@ import { MoreFilterCard } from "../material-ui-components/MoreFilterCard";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import { PrettoSlider } from "../material-ui-components/LocationCard";
 import { palabra } from '../../store/actions';
-import { Marker, MarkerClusterer, InfoWindow, StandaloneSearchBox, LoadScript } from '@react-google-maps/api';
+import { Marker, MarkerClusterer, InfoWindow, SearchBox, LoadScript } from '@react-google-maps/api';
 import Mapa from "../Map/Mapa";
 export function SearchBar() {
     let hotelState = useSelector((state) => state.activities, shallowEqual);
@@ -50,7 +50,7 @@ export function SearchBar() {
     const [publicacionSelect, setPublicacionSelect] = useState("")
     const dispatch = useDispatch();
     useEffect(() => {
-           axios.get(`https://core.propy.land/api/TipoMoneda/obtenerTiposMonedas`, {
+           axios.get(`https://propycore.azurewebsites.net/api/TipoMoneda/obtenerTiposMonedas`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -58,7 +58,7 @@ export function SearchBar() {
             
         })
             .then(res => { setMoneda(res.data); monedaIs = true; });
-         axios.get(`https://core.propy.land/api/TipoPublicacion/obtenerTiposPublicaciones`, {
+         axios.get(`https://propycore.azurewebsites.net/api/TipoPublicacion/obtenerTiposPublicaciones`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -366,11 +366,11 @@ export function SearchBar() {
                                    
                               
                               <LoadScript
-                                  googleMapsApiKey="AIzaSyDHXJNkL77-_eh9GRL1pZr1EAHrAh_uQR4"
+                                 
                                   libraries={libraries }
                               >
 
-                                      <StandaloneSearchBox
+                                      <SearchBox
                                   onPlacesChanged={onPlacesChanged}
                                   onLoad={onSBLoad}
                                       >
@@ -380,11 +380,11 @@ export function SearchBar() {
                                               value={location}
                                               onChange={handleLocationInput}
                                           />
-                                      </StandaloneSearchBox>
+                                      </SearchBox>
                               
              
 
-                                  </LoadScript
+                              </LoadScript
                                       
                                   >
 

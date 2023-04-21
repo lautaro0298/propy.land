@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\eluxsegundaprueba\\API Persistencia\\API Persistencia.csproj": {}
+    "C:\\propy.land\\API Persistencia\\API Persistencia.csproj": {}
   },
   "projects": {
-    "C:\\eluxsegundaprueba\\API Persistencia\\API Persistencia.csproj": {
+    "C:\\propy.land\\API Persistencia\\API Persistencia.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\eluxsegundaprueba\\API Persistencia\\API Persistencia.csproj",
+        "projectUniqueName": "C:\\propy.land\\API Persistencia\\API Persistencia.csproj",
         "projectName": "API Persistencia",
-        "projectPath": "C:\\eluxsegundaprueba\\API Persistencia\\API Persistencia.csproj",
+        "projectPath": "C:\\propy.land\\API Persistencia\\API Persistencia.csproj",
         "packagesPath": "C:\\Users\\Lautaro\\.nuget\\packages\\",
-        "outputPath": "C:\\eluxsegundaprueba\\API Persistencia\\obj\\publish\\win-x86\\",
+        "outputPath": "C:\\propy.land\\API Persistencia\\obj\\publish\\win-x86\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -31,8 +31,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\eluxsegundaprueba\\LibreriaClases\\LibreriaClases.csproj": {
-                "projectPath": "C:\\eluxsegundaprueba\\LibreriaClases\\LibreriaClases.csproj"
+              "C:\\propy.land\\LibreriaClases\\LibreriaClases.csproj": {
+                "projectPath": "C:\\propy.land\\LibreriaClases\\LibreriaClases.csproj"
               }
             }
           }
@@ -47,6 +47,26 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Google.Apis": {
+              "target": "Package",
+              "version": "[1.60.0, )"
+            },
+            "Google.Apis.Auth": {
+              "target": "Package",
+              "version": "[1.60.0, )"
+            },
+            "Google.Apis.Core": {
+              "target": "Package",
+              "version": "[1.60.0, )"
+            },
+            "Google.Apis.Oauth2.v2": {
+              "target": "Package",
+              "version": "[1.35.1.1274, )"
+            },
+            "Microsoft.AspNetCore.Authentication.Google": {
+              "target": "Package",
+              "version": "[3.1.32, )"
+            },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
               "version": "[3.1.23, )"
@@ -68,6 +88,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[3.1.5, )"
+            },
+            "Microsoft.TestPlatform": {
+              "target": "Package",
+              "version": "[17.5.0-preview-20221221-03, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
@@ -101,14 +125,14 @@
         }
       }
     },
-    "C:\\eluxsegundaprueba\\LibreriaClases\\LibreriaClases.csproj": {
+    "C:\\propy.land\\LibreriaClases\\LibreriaClases.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\eluxsegundaprueba\\LibreriaClases\\LibreriaClases.csproj",
+        "projectUniqueName": "C:\\propy.land\\LibreriaClases\\LibreriaClases.csproj",
         "projectName": "LibreriaClases",
-        "projectPath": "C:\\eluxsegundaprueba\\LibreriaClases\\LibreriaClases.csproj",
+        "projectPath": "C:\\propy.land\\LibreriaClases\\LibreriaClases.csproj",
         "packagesPath": "C:\\Users\\Lautaro\\.nuget\\packages\\",
-        "outputPath": "C:\\eluxsegundaprueba\\LibreriaClases\\obj\\",
+        "outputPath": "C:\\propy.land\\LibreriaClases\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

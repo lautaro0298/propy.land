@@ -135,7 +135,7 @@ export function MoreFilterCard() {
   
     if (tipodepropy != null && Object.keys(hotel).length === 0) {
 
-        axios.get("https://core.propy.land/api/TipoPropiedadCaracteristica/ObtenerPorIDdePropiedad/" + tipodepropy.tipoPropiedadId).then(data => { setHotel(data.data); setIsLoad(true); });
+        axios.get("https://propycore.azurewebsites.net/api/TipoPropiedadCaracteristica/ObtenerPorIDdePropiedad/" + tipodepropy.tipoPropiedadId).then(data => { setHotel(data.data); setIsLoad(true); });
     } 
         return (
             <Card className={classes.root} variant="outlined">

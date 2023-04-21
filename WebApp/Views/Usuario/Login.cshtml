@@ -43,15 +43,31 @@
     }
     window.onload = function () {
         google.accounts.id.initialize({
-            client_id: "224298944678-d4rokpd16rm8hjb72c91rs4h7egn2hns.apps.googleusercontent.com",
-            callback: handleCredentialResponse
+            client_id: '224298944678-d4rokpd16rm8hjb72c91rs4h7egn2hns.apps.googleusercontent.com',
+            callback: handleCredentialResponse,
+            auto_select: false,
+            prompt_parent_id: 'g_id_onload',
+            cancel_on_tap_outside: false,
+            state_cookie_domain: 'propy.land',
+            nonce_cookie_domain: 'propy.land',
+            scope: 'https://www.googleapis.com/auth/user.phonenumbers.read', // Aquí se solicitan los permisos
         });
+        //google.accounts.id.initialize({
+        //    client_id: "224298944678-d4rokpd16rm8hjb72c91rs4h7egn2hns.apps.googleusercontent.com",
+        //    callback: handleCredentialResponse,
+        //    credential_hint_params: {
+        //        filter: "PHONE",
+        //        auto_select: {
+        //            phone_permission: "required"
+        //        }
+        //    }
+        //});
         google.accounts.id.renderButton(
             document.getElementById("buttonDiv"),
-            { theme: "outline", size: "large" }  // customization attributes
+            { theme: "outline", size: "large" } // customization attributes
         );
         google.accounts.id.prompt(); // also display the One Tap dialog
-    }
+    };
 </script>
 
     

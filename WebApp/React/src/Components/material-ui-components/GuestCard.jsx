@@ -70,7 +70,7 @@ export default function GuestCard({
   
     useEffect(() => {
 
-        axios.get("https://core.propy.land/api/TipoAmbiente/obtenerTiposAmbientes").then((res) => {
+        axios.get("https://propycore.azurewebsites.net/api/TipoAmbiente/obtenerTiposAmbientes").then((res) => {
 
             setTipoambiente(res.data)
             setIsload(true)

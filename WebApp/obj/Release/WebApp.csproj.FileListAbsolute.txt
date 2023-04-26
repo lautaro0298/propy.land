@@ -20,3 +20,14 @@ C:\Users\lautaro\source\repos\lautaro0298\propy.land\WebApp\obj\Release\WebApp.c
 C:\Users\lautaro\source\repos\lautaro0298\propy.land\WebApp\obj\Release\WebApp.csproj.CoreCompileInputs.cache
 C:\Users\lautaro\source\repos\lautaro0298\propy.land\WebApp\obj\Release\WebApp.dll
 C:\Users\lautaro\source\repos\lautaro0298\propy.land\WebApp\obj\Release\WebApp.pdb
+C:\propy.land\WebApp\obj\Release\WebApp.csproj.AssemblyReference.cache
+C:\propy.land\WebApp\obj\Release\WebApp.Migrations.Initial.resources
+C:\propy.land\WebApp\obj\Release\WebApp.Migrations.v10.resources
+C:\propy.land\WebApp\obj\Release\WebApp.Migrations.v73.resources
+C:\propy.land\WebApp\obj\Release\WebApp.Migrations.v74.resources
+C:\propy.land\WebApp\obj\Release\WebApp.Migrations.v75.resources
+C:\propy.land\WebApp\obj\Release\WebApp.Migrations.v80.resources
+C:\propy.land\WebApp\obj\Release\WebApp.csproj.GenerateResource.cache
+C:\propy.land\WebApp\obj\Release\WebApp.csproj.CoreCompileInputs.cache
+C:\propy.land\WebApp\obj\Release\WebApp.dll
+C:\propy.land\WebApp\obj\Release\WebApp.pdb

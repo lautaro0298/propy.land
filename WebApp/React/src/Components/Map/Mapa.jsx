@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { GoogleMap, Marker, MarkerClusterer, InfoWindow, SearchBox, OverlayView, LoadScript, useLoadScript } from '@react-google-maps/api';
+import { GoogleMap, Marker, MarkerClusterer, InfoWindow, StandaloneSearchBox , OverlayView, LoadScript, useLoadScript } from '@react-google-maps/api';
 import { Link } from "react-router-dom";
 import { hotellist } from '../../store/actions';
 
@@ -49,12 +49,11 @@ function Mapa() {
         }
     }
     const onPlacesChanged = () => {
-        console.log(searchBox);
-        console.log(searchBox.getPlaces()[0]);
+     
         ubi = new google.maps.LatLng(searchBox.getPlaces()[0].geometry.location.lat(), searchBox.getPlaces()[0].geometry.location.lng())
-        console.log(ubi.lat() + ubi.lng())
-        mapaRef.current.state.map.panTo(ubi);
-        mapaRef.current.state.map.setZoom(12);
+
+        mapaRef.current.panTo(ubi);
+        mapaRef.current.setZoom(12);
     }
 
     class Propi {
@@ -85,38 +84,6 @@ function Mapa() {
         setOnmap(true);
     }
 
-    let barrabusqueda;
-
-    barrabusqueda = () => {
-        return (
-            <LoadScript>
-                <SearchBox
-                    onPlacesChanged={onPlacesChanged}
-                    onLoad={onSBLoad}
-                >
-                    <input
-                        type="text"
-                        placeholder="Ingrese el lugar donde quiere buscar"
-                        style={{
-                            boxSizing: `border-box`,
-                            border: `1px solid transparent`,
-                            width: `240px`,
-                            height: `32px`,
-                            padding: `0 12px`,
-                            borderRadius: `3px`,
-                            boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-                            fontSize: `14px`,
-                            outline: `none`,
-                            textOverflow: `ellipses`,
-                            position: "absolute",
-                            left: "50%",
-                            marginLeft: "-120px"
-                        }}
-                    />
-                </SearchBox>
-            </LoadScript>
-        );
-    };
 
     let markers;
 
@@ -207,7 +174,7 @@ function Mapa() {
                     <div style={{ position: "fixed", left: "900px" }}>
                 <GoogleMap
                         ref={refMap}
-
+                        id="map-google"
                         mapContainerStyle={{
 
                             position: 'fixed',
@@ -236,7 +203,33 @@ function Mapa() {
                     )}
                    
 
-                            {onmap && barrabusqueda()}
+                            {
+
+
+                                    <StandaloneSearchBox
+                                        onPlacesChanged={onPlacesChanged}
+                                        onLoad={onSBLoad}
+                                    >
+                                        <input
+                                            type="text"
+                                            placeholder="Ingrese el lugar donde quiere buscar"
+                                            style={{
+                                                boxSizing: `border-box`,
+                                                border: `1px solid transparent`,
+                                                width: `240px`,
+                                                height: `32px`,
+                                                padding: `0 12px`,
+                                                borderRadius: `3px`,
+                                                boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                                                fontSize: `14px`,
+                                                outline: `none`,
+                                                textOverflow: `ellipses`,
+                                                position: "absolute",
+                                                left: "50%",
+                                                marginLeft: "-120px"
+                                            }}
+                                        />
+                                    </StandaloneSearchBox>}
                         </GoogleMap>
                         </div>
                         </useLoadScript

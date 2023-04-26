@@ -24,3 +24,16 @@ C:\Users\lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\obj\Release
 C:\Users\lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.csproj.CopyComplete
 C:\Users\lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.dll
 C:\Users\lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.pdb
+C:\propy.land\LibreriaExperto\bin\Release\netstandard2.0\LibreriaExperto.deps.json
+C:\propy.land\LibreriaExperto\bin\Release\netstandard2.0\LibreriaExperto.dll
+C:\propy.land\LibreriaExperto\bin\Release\netstandard2.0\LibreriaExperto.pdb
+C:\propy.land\LibreriaExperto\bin\Release\netstandard2.0\LibreriaClases.dll
+C:\propy.land\LibreriaExperto\bin\Release\netstandard2.0\LibreriaClases.pdb
+C:\propy.land\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.csproj.AssemblyReference.cache
+C:\propy.land\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.GeneratedMSBuildEditorConfig.editorconfig
+C:\propy.land\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.AssemblyInfoInputs.cache
+C:\propy.land\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.AssemblyInfo.cs
+C:\propy.land\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.csproj.CoreCompileInputs.cache
+C:\propy.land\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.csproj.CopyComplete
+C:\propy.land\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.dll
+C:\propy.land\LibreriaExperto\obj\Release\netstandard2.0\LibreriaExperto.pdb

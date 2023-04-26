@@ -77,6 +77,7 @@ export function SearchBar() {
     const history = useHistory()
     const onSBLoad = ref => {
         setSearchBox(ref);
+        console.log(ref);
     };
     
  
@@ -144,6 +145,38 @@ export function SearchBar() {
        
         
     };
+   const busqueda = () => {
+        return (<LoadScript
+
+
+        >
+
+            <useLoadScript
+
+            >
+
+                <StandaloneSearchBox
+                    onPlacesChanged={onPlacesChanged}
+                    onLoad={onSBLoad}
+                >
+                    <input
+                        placeholder="Ingrese el lugar donde quiere buscar propiedades"
+                        type="text"
+                        value={location}
+                        onChange={handleLocationInput}
+                    />
+                </StandaloneSearchBox>
+
+
+
+            </useLoadScript
+
+            >
+        </LoadScript
+
+        >);
+
+    }
     function markers () {
 
         if (hotel !== null) {
@@ -364,35 +397,7 @@ export function SearchBar() {
                                   <ClearIcon />
                               </Button>
 
-                              <LoadScript
-                                 
-                                  
-                              >
-                              
-                              <useLoadScript
-                               
-                              >
-
-                                  <StandaloneSearchBox
-                                  onPlacesChanged={onPlacesChanged}
-                                  onLoad={onSBLoad}
-                                      >
-                                          <input
-                                              placeholder="Ingrese el lugar donde quiere buscar propiedades"
-                                              type="text"
-                                              value={location}
-                                              onChange={handleLocationInput}
-                                          />
-                                  </StandaloneSearchBox>
-                              
-             
-
-                              </useLoadScript
-                                      
-                                  >
-                                   </LoadScript
-                                      
-                                  >
+                              {busqueda()}
 
                 
               </div>

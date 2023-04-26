@@ -1114,10 +1114,12 @@
     <Content Include="React\src\Components\Navbar\dummy" />
     <None Include="Properties\PublishProfiles\propry - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\propry - FTP1.pubxml" />
+    <None Include="Properties\PublishProfiles\propry - FTP2.pubxml" />
     <None Include="Properties\PublishProfiles\propry - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\propry - Web Deploy1.pubxml" />
     <None Include="Properties\PublishProfiles\propry - Web Deploy2.pubxml" />
     <None Include="Properties\PublishProfiles\propry - Web Deploy3.pubxml" />
+    <None Include="Properties\PublishProfiles\propycore - FTP.pubxml" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />

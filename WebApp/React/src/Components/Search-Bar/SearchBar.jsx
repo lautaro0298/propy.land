@@ -8,7 +8,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import GuestCard from "../material-ui-components/GuestCard";
 import { RatingCard } from "../material-ui-components/RatingCard"
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { addHotelList, tipoPublicante } from '../../store/actions';
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -20,25 +20,25 @@ import { Marker, MarkerClusterer, InfoWindow, StandaloneSearchBox, useLoadScript
 import Mapa from "../Map/Mapa";
 export function SearchBar() {
     let hotelState = useSelector((state) => state.activities, shallowEqual);
-    let hotel = hotelState.hotel; 
+    let hotel = hotelState.hotel;
     const [city, setCity] = useState();
     let [hotels, setHotels] = useState([]);
     let map;
     let searchArea
-    const [searchBox, setSearchBox] = useState(null);
+    /* const [searchBox, setSearchBox] = useState(null);*/
     const [price, setPrice] = useState(14100);
-  const [show, setShow] = useState(false);
-  const [hotelClass, setHotelClass] = useState(false);
-  const [houseClass, setHouseClass] = useState(false);
-  const [border, setBorder] = useState(false);
-  const [datePicker, setDatePicker] = useState(false);
-  const [clickedCheckOut, setClickedCheckOut] = useState(false);
-  const [guestSelect, setGuestSelect] = useState(false);
-  const [location, setLocation] = useState("");
-  const [checkInDate, setCheckInDate] = useState("Seleccione una opcion");
-  const [checkOutDate, setCheckOutDate] = useState("Seleccione una opcion");
-  const [guestNumber, setGuestNumber] = useState(2)
-  const [roomsNumber, setRoomsNumber] = useState(1)
+    const [show, setShow] = useState(false);
+    const [hotelClass, setHotelClass] = useState(false);
+    const [houseClass, setHouseClass] = useState(false);
+    const [border, setBorder] = useState(false);
+    const [datePicker, setDatePicker] = useState(false);
+    const [clickedCheckOut, setClickedCheckOut] = useState(false);
+    const [guestSelect, setGuestSelect] = useState(false);
+    const [location, setLocation] = useState("");
+    const [checkInDate, setCheckInDate] = useState("Seleccione una opcion");
+    const [checkOutDate, setCheckOutDate] = useState("Seleccione una opcion");
+    const [guestNumber, setGuestNumber] = useState(2)
+    const [roomsNumber, setRoomsNumber] = useState(1)
     const [facilitiesforfilter, setFacilitiesforfilter] = useState({});
     const [facilitieslength, setFacilitieslength] = useState(0);
     const [showMoreFilterCard, setShowMoreFilterCard] = useState(false);
@@ -50,15 +50,15 @@ export function SearchBar() {
     const [publicacionSelect, setPublicacionSelect] = useState("")
     const dispatch = useDispatch();
     useEffect(() => {
-           axios.get(`https://propycore.azurewebsites.net/api/TipoMoneda/obtenerTiposMonedas`, {
+        axios.get(`https://propycore.azurewebsites.net/api/TipoMoneda/obtenerTiposMonedas`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
             }
-            
+
         })
             .then(res => { setMoneda(res.data); monedaIs = true; });
-         axios.get(`https://propycore.azurewebsites.net/api/TipoPublicacion/obtenerTiposPublicaciones`, {
+        axios.get(`https://propycore.azurewebsites.net/api/TipoPublicacion/obtenerTiposPublicaciones`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -77,73 +77,114 @@ export function SearchBar() {
     const history = useHistory()
     const onSBLoad = ref => {
         setSearchBox(ref);
+        console.log(ref);
     };
-    
- 
-  const handleBorder = () => {
-    setBorder(true);
-    setDatePicker(false);
-    setClickedCheckOut(false);
-  };
 
-  const handleShow = () => {
-    setShow(true);
-    setHotelClass(false);
-    setHouseClass(false);
-    setBorder(false);
-  };
-  const handleHotelClass = () => {
-    setHotelClass(true);
-    setShow(false);
-    setHouseClass(false);
-    setBorder(false);
-  };
-  const handleHouseClass = () => {
-    setHouseClass(true);
-    setShow(false);
-    setHotelClass(false);
-    setBorder(false);
-  };
+
+    const handleBorder = () => {
+        setBorder(true);
+        setDatePicker(false);
+        setClickedCheckOut(false);
+    };
+
+    const handleShow = () => {
+        setShow(true);
+        setHotelClass(false);
+        setHouseClass(false);
+        setBorder(false);
+    };
+    const handleHotelClass = () => {
+        setHotelClass(true);
+        setShow(false);
+        setHouseClass(false);
+        setBorder(false);
+    };
+    const handleHouseClass = () => {
+        setHouseClass(true);
+        setShow(false);
+        setHotelClass(false);
+        setBorder(false);
+    };
     const getPrice = (e, value) => {
         setPrice(value);
-        dispatch(addHotelList(value, monedaSelect ))
+        dispatch(addHotelList(value, monedaSelect))
     };
-  const handleLocationInput = (e) => {
-    e.preventDefault();
-    console.log(location);
-    setLocation(e.target.value);
-  };
-  const handleClear = () => {
-    setLocation("");
-  };
-  const handleDatePicker = () => {
-    setDatePicker(!datePicker);
-    setClickedCheckOut(false);
-    setGuestSelect(false)
-  };
-  const handleClickedCheckOut = () => {
-    setClickedCheckOut(!clickedCheckOut);
-    setDatePicker(false);
-      setGuestSelect(false)
-      setShowMoreFilterCard(false);
-  };
+    const handleLocationInput = (e) => {
+        e.preventDefault();
+        console.log(location);
+        setLocation(e.target.value);
+    };
+    const handleClear = () => {
+        setLocation("");
+    };
+    const handleDatePicker = () => {
+        setDatePicker(!datePicker);
+        setClickedCheckOut(false);
+        setGuestSelect(false)
+    };
+    const handleClickedCheckOut = () => {
+        setClickedCheckOut(!clickedCheckOut);
+        setDatePicker(false);
+        setGuestSelect(false)
+        setShowMoreFilterCard(false);
+    };
     const hanldleAllCards = () => {
         setShowMoreFilterCard(false);
-        
-    };
-  const handleGuestSelector = () => {
-    setDatePicker(false);
-      setClickedCheckOut(false);
-      setShowMoreFilterCard(false);
-    setGuestSelect(!guestSelect)
 
-  }
-    const handleMoreFilterCard = () => {
-        
-        setShowMoreFilterCard(!showMoreFilterCard);
-       
-        
     };
+    const handleGuestSelector = () => {
+        setDatePicker(false);
+        setClickedCheckOut(false);
+        setShowMoreFilterCard(false);
+        setGuestSelect(!guestSelect)
+
+    }
+    const handleMoreFilterCard = () => {
+
+        setShowMoreFilterCard(!showMoreFilterCard);
+
+
+    };
+    const searchBoxRef = useRef(null);
+    if (window.google != null || window.google != undefined) {
+        const mapas = new window.google.maps.Map(document.createElement('div'));
+        const searchBox = new window.google.maps.places.StandaloneSearchBox(searchBoxRef.current);
+        searchBox.bindTo('bounds', mapas);
+    }
+    const busqueda = () => {
+
+        return (<LoadScript
+
+
+        >
+
+            <useLoadScript
+
+            >
+
+                <StandaloneSearchBox
+                    ref={searchBoxRef}
+                    onPlacesChanged={onPlacesChanged}
+                    onLoad={onSBLoad}
+                >
+                    <input
+                        placeholder="Ingrese el lugar donde quiere buscar propiedades"
+                        type="text"
+                        value={location}
+                        onChange={handleLocationInput}
+                    />
+                </StandaloneSearchBox>
+
+
+
+            </useLoadScript
+
+            >
+        </LoadScript
+
+        >);
+
+    }
     function markers () {
 
         if (hotel !== null) {
@@ -364,35 +405,7 @@ export function SearchBar() {
                                   <ClearIcon />
                               </Button>
 
-                              <LoadScript
-                                 
-                                  
-                              >
-                              
-                              <useLoadScript
-                               
-                              >
-
-                                  <StandaloneSearchBox
-                                  onPlacesChanged={onPlacesChanged}
-                                  onLoad={onSBLoad}
-                                      >
-                                          <input
-                                              placeholder="Ingrese el lugar donde quiere buscar propiedades"
-                                              type="text"
-                                              value={location}
-                                              onChange={handleLocationInput}
-                                          />
-                                  </StandaloneSearchBox>
-                              
-             
-
-                              </useLoadScript
-                                      
-                                  >
-                                   </LoadScript
-                                      
-                                  >
+                              {busqueda()}
 
                 
               </div>

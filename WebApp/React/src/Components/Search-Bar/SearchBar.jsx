@@ -16,7 +16,7 @@ import { MoreFilterCard } from "../material-ui-components/MoreFilterCard";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import { PrettoSlider } from "../material-ui-components/LocationCard";
 import { palabra } from '../../store/actions';
-import { Marker, MarkerClusterer, InfoWindow, SearchBox, LoadScript } from '@react-google-maps/api';
+import { Marker, MarkerClusterer, InfoWindow, StandaloneSearchBox, useLoadScript, LoadScript } from '@react-google-maps/api';
 import Mapa from "../Map/Mapa";
 export function SearchBar() {
     let hotelState = useSelector((state) => state.activities, shallowEqual);
@@ -363,14 +363,16 @@ export function SearchBar() {
                                   <ClearIcon />
                               </Button>
 
-                                   
-                              
                               <LoadScript
-                                 
-                                  libraries={libraries }
+                                  googleMapsApiKey="AIzaSyDHXJNkL77-_eh9GRL1pZr1EAHrAh_uQR4"
+                                  libraries={libraries}
+                              >
+                              
+                              <useLoadScript
+                               
                               >
 
-                                      <SearchBox
+                                  <StandaloneSearchBox
                                   onPlacesChanged={onPlacesChanged}
                                   onLoad={onSBLoad}
                                       >
@@ -380,11 +382,14 @@ export function SearchBar() {
                                               value={location}
                                               onChange={handleLocationInput}
                                           />
-                                      </SearchBox>
+                                  </StandaloneSearchBox>
                               
              
 
-                              </LoadScript
+                              </useLoadScript
+                                      
+                                  >
+                                   </LoadScript
                                       
                                   >
 

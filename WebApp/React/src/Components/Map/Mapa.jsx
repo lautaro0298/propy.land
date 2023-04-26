@@ -16,6 +16,7 @@ function Mapa() {
     const [center, setCenter] = useState({ lat: -34.0000000, lng: -64.000000 });
     const [infoWindowID, setInfoWindowID] = useState("");
     const coordenadas = [];
+    const [onmap, setOnmap] = useState(false);
     let ubi;
 
     const onLoad = (circle) => {
@@ -81,6 +82,7 @@ function Mapa() {
 
     function handleLoad(map) {
         mapaRef.current = map;
+        setOnmap(true);
     }
 
     let barrabusqueda;
@@ -234,7 +236,7 @@ function Mapa() {
                     )}
                    
 
-                    {barrabusqueda()}
+                            {onmap && barrabusqueda()}
                         </GoogleMap>
                         </div>
                         </useLoadScript

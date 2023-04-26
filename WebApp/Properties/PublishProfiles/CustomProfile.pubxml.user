@@ -8,7 +8,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAOZpqDRv/0E29WrhVOe82UAAAAAACAAAAAAAQZgAAAAEAACAAAADTCsiX4Ot8/FwfUHy4nvlPHdNecrwXe+ahYSeIp09hiQAAAAAOgAAAAAIAACAAAAC+RPOrsapXKDvm+u3WtEPsxOV7e1mqXMSvqrkiH5ZJ/yAAAAA7CNJro31JOg2GbzBDuBh0Q6JcCngzjtDlPgeINYRY5EAAAADN/fhgh/gs38/OaarI90pe+lU9o2Jwz+A4NQLZ/do/2fuloaNyP8jZGbSMu7Xid2wS/rUHkgcRtNIovDsvGE8l</EncryptedPassword>
     <_PublishTargetUrl>C:\Users\Lautaro\Desktop\WebSite</_PublishTargetUrl>
-    <History>True|2023-03-31T16:14:12.6713304Z;True|2023-03-31T13:01:32.9874308-03:00;False|2023-03-31T12:39:55.4100928-03:00;True|2023-03-27T13:19:31.2551749-03:00;False|2023-03-27T13:17:00.0325028-03:00;False|2022-12-05T11:22:15.4008694-03:00;</History>
+    <History>False|2023-04-26T09:23:28.9215585Z;True|2023-03-31T13:14:12.6713304-03:00;True|2023-03-31T13:01:32.9874308-03:00;False|2023-03-31T12:39:55.4100928-03:00;True|2023-03-27T13:19:31.2551749-03:00;False|2023-03-27T13:17:00.0325028-03:00;False|2022-12-05T11:22:15.4008694-03:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include=".babelrc">

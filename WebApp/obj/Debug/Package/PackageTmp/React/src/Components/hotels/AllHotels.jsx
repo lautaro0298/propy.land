@@ -92,14 +92,7 @@ export default function AllHotels() {
             );
         }
     }
-    function elmapa() {
-        if (hotel != undefined) {
-            if (hotel.length > 0) {
-                return (
-                     <Map />);
-            }
-        }
-    }
+ 
     useEffect(() => {
         hotel = dispatch(getAllHotel("", 1))
         
@@ -146,7 +139,7 @@ export default function AllHotels() {
                   <br />
                       <br />
         <div class="contenedor">
-                      {hotel.length > 0 && hotel.map((data) => (
+                      {hotellist.length > 0 && hotellist.map((data) => (
                               publicaciones(data)
               
               

@@ -152,6 +152,7 @@ export const fliterPrecio = () => dispatch => {
 }
 export const hotellist = (hotellist) => dispatch => {
     dispatch(hotelList(hotellist));
+    console.log(hotellist)
 }
 export const fliterPrecio1 = () => dispatch => {
     dispatch(fliterPrecio());

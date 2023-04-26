@@ -1,4 +1,5 @@
 import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close'; // Agregar el icono de cierre
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -8,6 +9,7 @@ import styled from 'styled-components'
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+
 const useStyles = makeStyles({
     root: {
         overflow: "auto!important",
@@ -17,14 +19,11 @@ const useStyles = makeStyles({
         minHeight: "200px",
         boxShadow: "1px 1px 20px black",
         margin: "4rem auto",
-       
         position: "absolute",
         top: "-4rem",
         left: "53rem",
         zIndex: "1",
-        border:'1px solid lime'
-
-
+        border: '1px solid lime'
     },
     ratingContent: {
         borderBottom: "1px solid black",
@@ -34,7 +33,6 @@ const useStyles = makeStyles({
         fontSize: "10px",
         fontWeight: "bold",
         backgroundColor: "rgb(235,236,237)"
-
     },
     bullet: {
         display: 'inline-block',
@@ -59,44 +57,42 @@ export function RatingCard() {
         axios.get("https://propycore.azurewebsites.net/api/TipoPropiedad/obtenerTiposPropiedades").then((res) => {
 
             setHotel(res.data)
-            
+
         })
 
-    }
-        , []);
+    }, []);
 
-         
-            return (
-                <RatingWrapper>
-                    <Card className={classes.root} >
-                        {
-                            hotel.map((data, index) => {
-                                
-                                return (
-                                    <CardContent data-id={index} data-index={index} onClick={(e) => {
-                                        
-                                        const Index = parseInt(e.currentTarget.dataset.index, 10);
-                                        const newVisibilities = [...darkgreentick];
-                                        newVisibilities[Index] = !newVisibilities[Index];
-                                        setDarkgreentick(newVisibilities)
-                                        localStorage.removeItem("tipodepropy");
-                                        localStorage.setItem('tipodepropy', JSON.stringify(data));
-                                        dispatch(sortHotelData(data.tipoPropiedadId))
-                                    }} className={darkgreentick[index] ? `greenTicked ${classes.ratingContent}` : `${classes.ratingContent}`}>
-                                        
-                                        <span> {data.nombreTipoPropiedad}</span>
-                                        <CheckIcon />
-                                    </CardContent>);
-                            }
-                            )}
-                           
+    return (
+        <RatingWrapper>
+            <Card className={classes.root} >
+                <CloseIcon onClick={() => {
+                    // Agregar la función para cerrar la ventana
+                    console.log('Cerrar ventana');
+                }} style={{ position: 'absolute', top: '5px', right: '5px', cursor: 'pointer' }} />
+                {
+                    hotel.map((data, index) => {
 
+                        return (
+                            <CardContent data-id={index} data-index={index} onClick={(e) => {
 
-                    </Card>
-                </RatingWrapper>
-            );
-        }
+                                const Index = parseInt(e.currentTarget.dataset.index, 10);
+                                const newVisibilities = [...darkgreentick];
+                                newVisibilities[Index] = !newVisibilities[Index];
+                                setDarkgreentick(newVisibilities)
+                                localStorage.removeItem("tipodepropy");
+                                localStorage.setItem('tipodepropy', JSON.stringify(data));
+                                dispatch(sortHotelData(data.tipoPropiedadId))
+                            }} className={darkgreentick[index] ? `greenTicked ${classes.ratingContent}` : `${classes.ratingContent}`}>
 
+                                <span> {data.nombreTipoPropiedad}</span>
+                                <CheckIcon />
+                            </CardContent>);
+                    }
+                    )}
+            </Card>
+        </RatingWrapper>
+    );
+}
 
  
 

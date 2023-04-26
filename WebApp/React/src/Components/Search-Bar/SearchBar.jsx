@@ -139,7 +139,8 @@ export function SearchBar() {
 
   }
     const handleMoreFilterCard = () => {
-        setShowMoreFilterCard(true);
+        
+        setShowMoreFilterCard(!showMoreFilterCard);
        
         
     };
@@ -364,8 +365,8 @@ export function SearchBar() {
                               </Button>
 
                               <LoadScript
-                                  googleMapsApiKey="AIzaSyDHXJNkL77-_eh9GRL1pZr1EAHrAh_uQR4"
-                                  libraries={libraries}
+                                 
+                                  
                               >
                               
                               <useLoadScript

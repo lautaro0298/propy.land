@@ -47,10 +47,14 @@ const useStyles = makeStyles({
     },
 });
 
-export function RatingCard() {
+export function RatingCard({ clickedCheckOut, handleClickedCheckOut }) {
+    const [isOpen, setIsOpen] = useState(true);
     const dispatch = useDispatch();
     const [hotel, setHotel] = useState([]);
     const classes = useStyles();
+    const handleClose = () => {
+  setIsOpen(false); // actualizar el estado para cerrar la ventana
+};
     const [darkgreentick, setDarkgreentick] = React.useState(() => hotel.map((x) => false));
     useEffect(() => {
 
@@ -66,9 +70,9 @@ export function RatingCard() {
         <RatingWrapper>
             <Card className={classes.root} >
                 <CloseIcon onClick={() => {
-                    // Agregar la función para cerrar la ventana
+                    handleClickedCheckOut()
                     console.log('Cerrar ventana');
-                }} style={{ position: 'absolute', top: '5px', right: '5px', cursor: 'pointer' }} />
+                }} style={{ position: 'absolute', top: '5px', right: '5px', cursor: 'pointer',color:'red' }} />
                 {
                     hotel.map((data, index) => {
 

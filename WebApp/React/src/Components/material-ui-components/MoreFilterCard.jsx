@@ -8,6 +8,7 @@ import { priceFilter } from '../../store/actions';
 import axios from "axios";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+import CloseIcon from '@material-ui/icons/Close'; // Agregar el icono de cierre
 
 
 
@@ -53,7 +54,7 @@ const useStyles = makeStyles({
 
 
 
-export function MoreFilterCard() {
+export function MoreFilterCard({ handleMoreFilterCard}) {
     const dispatch = useDispatch();
     let hotelState = useSelector((state) => state.activities, shallowEqual);
     let hotels = hotelState.hotel;
@@ -138,9 +139,13 @@ export function MoreFilterCard() {
         axios.get("https://propycore.azurewebsites.net/api/TipoPropiedadCaracteristica/ObtenerPorIDdePropiedad/" + tipodepropy.tipoPropiedadId).then(data => { setHotel(data.data); setIsLoad(true); });
     } 
         return (
-            <Card className={classes.root} variant="outlined">
-
-                <CardContent className={classes.facilitiesCont}>
+            <Card className={classes.root} variant="outlined" >
+                < CloseIcon onClick={() => {
+                    handleMoreFilterCard();
+                    console.log('Cerrar ventana');
+                }
+                } style={{  top: '5px', right: '5px', cursor: 'pointer', color: 'red' }}  />
+                <CardContent className={classes.facilitiesCont} >
                     <div>
                         <span>Popular Filters</span>
                     </div>

@@ -536,6 +536,7 @@ export function SearchBar() {
               
               {showMoreFilterCard && (
                   <MoreFilterCard
+                      handleMoreFilterCard={handleMoreFilterCard }
                       left="30em" position="relative"
                       setFacilitiesforfilter={setFacilitiesforfilter}
                       setFacilitieslength={setFacilitieslength}
@@ -547,13 +548,14 @@ export function SearchBar() {
         )}
               {clickedCheckOut && (
                   <RatingCard
-                    
+                      handleClickedCheckOut={handleClickedCheckOut}
+                      clickedCheckOut={clickedCheckOut}
                       position="relative"
                       setGuestNumber={setGuestNumber} setRoomsNumber={setRoomsNumber}
                       
           />
               )}
-              {guestSelect && <GuestCard right="0rem" position="relative" setGuestNumber={setGuestNumber} setRoomsNumber={setRoomsNumber} />}
+              {guestSelect && <GuestCard right="0rem" position="relative" handleGuestSelector={handleGuestSelector} setGuestNumber={setGuestNumber} setRoomsNumber={setRoomsNumber} />}
             
 
       </div>

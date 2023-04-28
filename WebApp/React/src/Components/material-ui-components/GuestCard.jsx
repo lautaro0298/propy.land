@@ -8,10 +8,12 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { fliterDormitorios } from '../../store/actions';
 import axios from "axios";
+import CloseIcon from '@material-ui/icons/Close'; // Agregar el icono de cierre
 
 export default function GuestCard({
   setGuestNumber,
-  setRoomsNumber,
+    setRoomsNumber,
+    handleGuestSelector,
   top,
   right,
   position,
@@ -194,8 +196,16 @@ export default function GuestCard({
         })
     }
 
-  return (
-    <Card className={`AnimateRight ${classes.root}`}>
+    return (
+        
+      
+
+        <Card className={`AnimateRight ${classes.root}`}>
+            < CloseIcon onClick={() => {
+                handleGuestSelector();
+                console.log('Cerrar ventana');
+            }
+            } style={{ position: 'absolute', top: '5px', right: '5px', cursor: 'pointer', color: 'red' }} />
       <CardContent className={classes.content}>
               {datos}
        

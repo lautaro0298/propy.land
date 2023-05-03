@@ -146,26 +146,24 @@ export function SearchBar() {
 
     };
     const searchBoxRef = useRef(null);
-    if (window.google != null || window.google != undefined) {
-        const mapas = new window.google.maps.Map(document.createElement('div'));
-        const searchBox = new window.google.maps.places.StandaloneSearchBox(searchBoxRef.current);
-        searchBox.bindTo('bounds', mapas);
-    }
+    //if (window.google != null || window.google != undefined) {
+    //    const mapas = new window.google.maps.Map(document.createElement('div'));
+    //    const searchBox = new window.google.maps.places.StandaloneSearchBox(searchBoxRef.current);
+    //    searchBox.bindTo('bounds', mapas);
+    //}
     const busqueda = () => {
 
         return (<LoadScript
-
+            googleMapsApiKey="AIzaSyDHXJNkL77-_eh9GRL1pZr1EAHrAh_uQR4"
 
         >
 
-            <useLoadScript
-
-            >
+           
 
                 <StandaloneSearchBox
                     ref={searchBoxRef}
                     onPlacesChanged={onPlacesChanged}
-                    onLoad={onSBLoad}
+                onLoad={(ref) => {console.log(ref)}}
                 >
                     <input
                         placeholder="Ingrese el lugar donde quiere buscar propiedades"
@@ -177,9 +175,7 @@ export function SearchBar() {
 
 
 
-            </useLoadScript
-
-            >
+          
         </LoadScript
 
         >);
@@ -405,7 +401,32 @@ export function SearchBar() {
                                   <ClearIcon />
                               </Button>
 
-                              {busqueda()}
+                              <LoadScript
+                                  googleMapsApiKey="AIzaSyDHXJNkL77-_eh9GRL1pZr1EAHrAh_uQR4"
+                                  onLoad={() => console.log("API loaded")}
+                              >
+
+
+
+                                  <StandaloneSearchBox
+                                      ref={searchBoxRef}
+                                      onPlacesChanged={onPlacesChanged}
+                                      onLoad={(ref) => { console.log(ref) }}
+                                  >
+                                      <input
+                                          placeholder="Ingrese el lugar donde quiere buscar propiedades"
+                                          type="text"
+                                          value={location}
+                                          onChange={handleLocationInput}
+                                      />
+                                  </StandaloneSearchBox>
+
+
+
+
+                              </LoadScript
+
+                              >
 
                 
               </div>

@@ -144,7 +144,10 @@ export function MoreFilterCard({ handleMoreFilterCard}) {
                     handleMoreFilterCard();
                     console.log('Cerrar ventana');
                 }
-                } style={{  top: '5px', right: '5px', cursor: 'pointer', color: 'red' }}  />
+                } style={{
+                        position: "absolute",
+                        top: "163px",
+                        right: "302px", cursor: 'pointer', color: 'red' }}  />
                 <CardContent className={classes.facilitiesCont} >
                     <div>
                         <span>Popular Filters</span>

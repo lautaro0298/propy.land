@@ -38,11 +38,11 @@ namespace LibreriaExperto.Usuarios
                     fav.publicacionId = respuestaObtenerPublicacion.publicacion.publicacionId;
                     fav.ubicación = respuestaObtenerPublicacion.publicacion.Propiedad.ubicacion;
                     int f = 0;
-                    foreach (var g in respuestaObtenerPublicacion.publicacion.Propiedad.TipoPropiedad)
-                    {
-                        fav.tipoPropiedad.Add(respuestaObtenerPublicacion.publicacion.Propiedad.TipoPropiedad.ElementAt(f).nombreTipoPropiedad);
-                        f++;
-                    }
+                    //foreach (var g in respuestaObtenerPublicacion.publicacion.Propiedad.TipoPropiedad)
+                    //{
+                    //    fav.tipoPropiedad.Add(respuestaObtenerPublicacion.publicacion.Propiedad.TipoPropiedad.ElementAt(f).nombreTipoPropiedad);
+                    //    f++;
+                    //}
                     fav.tipoPublicacion = respuestaObtenerPublicacion.publicacion.TipoPublicacion.nombreTipoPublicacion;
                     fav.precioPropiedad = String.Format("{0:c}", respuestaObtenerPublicacion.publicacion.Propiedad.precioPropiedad);
                     fav.tipoMoneda = respuestaObtenerPublicacion.publicacion.Propiedad.TipoMoneda.denominacionMoneda;

@@ -13,10 +13,10 @@ namespace WebApp.Models
         [Key]
         public string favoritoId { get; set; }
         public bool activo { get; set; }
-        public DateTime fechaSeleccion { get; set; }
+   
         
-        public string userId { get; set; }
-        [ForeignKey("userId")]
+        public string usuarioId { get; set; }
+        [ForeignKey("usuarioId")]
         public virtual ApplicationUser ApplicationUser { get; set; }
         
         public Guid publicacionId { get; set; }

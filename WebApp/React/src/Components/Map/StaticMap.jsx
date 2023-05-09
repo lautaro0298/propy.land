@@ -11,11 +11,9 @@ function Map() {
       //<div>
       //    <h1>Sin resultados </h1>
       //    </div>
-      <LoadScript
-          googleMapsApiKey="AIzaSyDHXJNkL77-_eh9GRL1pZr1EAHrAh_uQR4"
-      >
+      
       <div style={{ position: "fixed", left: "900px" }}>
-          <GoogleMap id="google-map" style={{ position: "fixed" }} class="google-map" mapContainerStyle={{
+          <GoogleMap id="google-mape" style={{ position: "fixed" }} class="google-map" mapContainerStyle={{
 
               position: 'fixed',
               width: "600px",
@@ -30,8 +28,7 @@ function Map() {
           </GoogleMap>
 
       </div>
-          </LoadScript 
-          >
+        
 
   );
 }

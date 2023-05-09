@@ -16,7 +16,7 @@ import { MoreFilterCard } from "../material-ui-components/MoreFilterCard";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import { PrettoSlider } from "../material-ui-components/LocationCard";
 import { palabra } from '../../store/actions';
-import { Marker, MarkerClusterer, InfoWindow, StandaloneSearchBox, useLoadScript, LoadScript } from '@react-google-maps/api';
+import { Marker, MarkerClusterer, InfoWindow, StandaloneSearchBox, MapContext } from '@react-google-maps/api';
 import Mapa from "../Map/Mapa";
 export function SearchBar() {
     let hotelState = useSelector((state) => state.activities, shallowEqual);
@@ -25,6 +25,7 @@ export function SearchBar() {
     let [hotels, setHotels] = useState([]);
     let map;
     let searchArea
+    const [searchBox, setSearchBox] = useState(null);
     /* const [searchBox, setSearchBox] = useState(null);*/
     const [price, setPrice] = useState(14100);
     const [show, setShow] = useState(false);
@@ -39,6 +40,7 @@ export function SearchBar() {
     const [checkOutDate, setCheckOutDate] = useState("Seleccione una opcion");
     const [guestNumber, setGuestNumber] = useState(2)
     const [roomsNumber, setRoomsNumber] = useState(1)
+    const [mapa, setmapa] = useState(MapContext)
     const [facilitiesforfilter, setFacilitiesforfilter] = useState({});
     const [facilitieslength, setFacilitieslength] = useState(0);
     const [showMoreFilterCard, setShowMoreFilterCard] = useState(false);
@@ -50,7 +52,7 @@ export function SearchBar() {
     const [publicacionSelect, setPublicacionSelect] = useState("")
     const dispatch = useDispatch();
     useEffect(() => {
-        axios.get(`https://propycore.azurewebsites.net/api/TipoMoneda/obtenerTiposMonedas`, {
+        axios.get(`http://localhost:5000/api/TipoMoneda/obtenerTiposMonedas`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -58,7 +60,7 @@ export function SearchBar() {
 
         })
             .then(res => { setMoneda(res.data); monedaIs = true; });
-        axios.get(`https://propycore.azurewebsites.net/api/TipoPublicacion/obtenerTiposPublicaciones`, {
+        axios.get(`http://localhost:5000/api/TipoPublicacion/obtenerTiposPublicaciones`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -153,35 +155,30 @@ export function SearchBar() {
     //}
     const busqueda = () => {
 
-        return (<LoadScript
-            googleMapsApiKey="AIzaSyDHXJNkL77-_eh9GRL1pZr1EAHrAh_uQR4"
-
-        >
-
-           
-
-                <StandaloneSearchBox
-                    ref={searchBoxRef}
-                    onPlacesChanged={onPlacesChanged}
-                onLoad={(ref) => {console.log(ref)}}
-                >
-                    <input
-                        placeholder="Ingrese el lugar donde quiere buscar propiedades"
-                        type="text"
-                        value={location}
-                        onChange={handleLocationInput}
-                    />
-                </StandaloneSearchBox>
+        return (
 
 
 
-          
-        </LoadScript
+            <StandaloneSearchBox
+                ref={searchBoxRef}
+                onPlacesChanged={onPlacesChanged}
+                onLoad={(ref) => { console.log(ref) }}
+            >
+                <input
+                    placeholder="Ingrese el lugar donde quiere buscar propiedades"
+                    type="text"
+                    value={location}
+                    onChange={handleLocationInput}
+                />
+            </StandaloneSearchBox>
 
-        >);
+
+
+
+       );
 
     }
-    function markers () {
+    function markers() {
 
         if (hotel !== null) {
             console.log(hotel)
@@ -243,35 +240,27 @@ export function SearchBar() {
         }
     }
     const onPlacesChanged = () => {
-        
-        if (document.getElementById('google-map') != undefined && document.getElementById('google-map') != null ) {
-            map = new window.google.maps.Map(document.getElementById('google-map'),
-                {
-                    zoom: 14,
-                    center: new google.maps.LatLng(searchBox.getPlaces()[0].geometry.location.lat(), searchBox.getPlaces()[0].geometry.location.lng())
+        var pepe = searchBox.getPlaces()[0].geometry.viewport.Ha.hi 
+        if (searchBox != null) {
+            if (document.getElementsByClassName('map-google') != undefined) {
+                map = new window.google.maps.Map(document.getElementsByClassName('mapagoogle'),
+                    {
+                        zoom: 14,
+                        center: new google.maps.LatLng(parseFloat(searchBox.getPlaces()[0].geometry.viewport.Ha.hi),parseFloat(searchBox.getPlaces()[0].geometry.viewport.Ua.hi))
 
-                });
-            searchArea = new google.maps.Circle({
-                strokeColor: '#FF0000',
-                strokeOpacity: 0.5,
-                strokeWeight: 2,
-                fillColor: '#FF0000',
-                fillOpacity: 0.2,
-                map: map,
-                center: map.getCenter,
-                radius: 10000000000
-            });
-            hotel.map((element) => {
-                console.log(element)
-                let pos = new google.maps.LatLng(element.propiedad.latitud, element.propiedad.longitud)
-                let mark = new google.maps.Marker({
-                    position: pos,
-                    map,
-                    icon: "/Icons/casaIcono.png",
+                    });
+                
+                hotel.map((element) => {
+                    console.log(element)
+                    let pos = new google.maps.LatLng(element.propiedad.latitud, element.propiedad.longitud)
+                    let mark = new google.maps.Marker({
+                        position: pos,
+                        map,
+                        icon: "/Icons/casaIcono.png",
 
-                });
-                const contentString =
-                    `
+                    });
+                    const contentString =
+                        `
                 <div key=${element.publicacionId} className="hotel-info-div">
 
                                          <img src=${element.propiedad.imagenPropiedad[0].rutaImagenPropiedad} style="height: 190px; width: 200px;"/>
@@ -313,24 +302,25 @@ export function SearchBar() {
                                          </div>
                             </div>
 `
-                const infowindow = new google.maps.InfoWindow({
-                    content: contentString,
-                })
-                mark.addListener("click", () => {
-                    infowindow.open({
-                        anchor: mark,
-                        map,
-                        shouldFocus: false,
+                    const infowindow = new google.maps.InfoWindow({
+                        content: contentString,
+                    })
+                    mark.addListener("click", () => {
+                        infowindow.open({
+                            anchor: mark,
+                            map,
+                            shouldFocus: false,
+                        });
                     });
-                });
 
-            })
-            let ubi = new google.maps.LatLng(searchBox.getPlaces()[0].geometry.location.lat(), searchBox.getPlaces()[0].geometry.location.lng())
-            map.moveCamera(ubi)
-            map.setZoom(12)
+                })
+                let ubi = new google.maps.LatLng(searchBox.getPlaces()[0].geometry.viewport.Ha.hi, searchBox.getPlaces()[0].geometry.viewport.Ua.hi)
+                map.moveCamera(ubi)
+                map.setZoom(12)
+            }
         }
     }
-    const [libraries] = useState(['places']);
+    const libraries = ['places'];
   const handleSearchButton = () => {
 
     handleSearchData(location)
@@ -401,17 +391,14 @@ export function SearchBar() {
                                   <ClearIcon />
                               </Button>
 
-                              <LoadScript
-                                  googleMapsApiKey="AIzaSyDHXJNkL77-_eh9GRL1pZr1EAHrAh_uQR4"
-                                  onLoad={() => console.log("API loaded")}
-                              >
+                            
 
 
 
                                   <StandaloneSearchBox
-                                      ref={searchBoxRef}
-                                      onPlacesChanged={onPlacesChanged}
-                                      onLoad={(ref) => { console.log(ref) }}
+                                      
+                                  onPlacesChanged={onPlacesChanged}
+                                  onLoad={(ref) => { setSearchBox(ref) }}
                                   >
                                       <input
                                           placeholder="Ingrese el lugar donde quiere buscar propiedades"
@@ -424,9 +411,6 @@ export function SearchBar() {
 
 
 
-                              </LoadScript
-
-                              >
 
                 
               </div>

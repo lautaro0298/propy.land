@@ -267,7 +267,7 @@ export default function AllHotels() {
                 
               </div>
               {/* {elmapa()}*/}
-              {hotel.length > 0 && <Mapa style={{ position:"fixed" }} />}
+              {hotel.length > 0 && <Mapa style={{ position: "fixed" }} />}
                 {hotel.length <= 0 && <StaticMap /> }
                {/*   <StaticMap />*/}
                   </div>

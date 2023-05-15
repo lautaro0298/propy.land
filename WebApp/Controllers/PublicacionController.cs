@@ -479,7 +479,7 @@ namespace WebApp.Controllers
                     DTOError errorApiGoogleMaps = new DTOError();
 
                     #region Control de errores en la api de google
-                    string query = "https://maps.googleapis.com/maps/api/geocode/json?address=" + direccion + "&key=AIzaSyDHXJNkL77-_eh9GRL1pZr1EAHrAh_uQR4";
+                    string query = "https://maps.googleapis.com/maps/api/geocode/json?address=" + direccion + "&key=AIzaSyAXxPwQsLSfF4gC7VtJdl9GIIcyAzVdmhk";
                     DTORootObjectAddress rootObjAddress = APIGoogleMapsServicios.SolicitarUbicacionCompleta(query);
                     if (rootObjAddress.status == "OK")
                     {

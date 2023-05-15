@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { GoogleMap, Marker, MarkerClusterer, InfoWindow, StandaloneSearchBox, OverlayView, useLoadScript, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, Marker, MarkerClusterer, InfoWindow, StandaloneSearchBox, useLoadScript, useJsApiLoader } from '@react-google-maps/api';
 import { Link } from "react-router-dom";
 import { hotellist } from '../../store/actions';
 
@@ -171,7 +171,9 @@ function Mapa() {
 
             <div className="mapagoogle" style={{ position: "fixed", left: "900px" }}>
                 <GoogleMap
-                        ref={refMap}
+                    
+                    ref={refMap}
+                    setMapCallback={() =>(console.log(refMap))}
                         id="map-google"
                         mapContainerStyle={{
 

@@ -13,7 +13,7 @@ namespace LibreriaExperto.Comunicaciones_Externas
         public static (ErrorPropy, DTOUbicacionGoogle) ObtenerParametrosUbicacionGoogleMaps(string ubicacion, HttpClient clienteHttp,bool busqueda)
         {
             ErrorPropy error = new ErrorPropy();
-            string url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + ubicacion + "&key=AIzaSyDHXJNkL77-_eh9GRL1pZr1EAHrAh_uQR4";
+            string url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + ubicacion + "&key=AIzaSyAXxPwQsLSfF4gC7VtJdl9GIIcyAzVdmhk";
             var tareaObtenerParametrosUbicacion = clienteHttp.GetAsync(url);
             tareaObtenerParametrosUbicacion.Wait();
             if (!tareaObtenerParametrosUbicacion.Result.IsSuccessStatusCode)

@@ -16,14 +16,15 @@ import { MoreFilterCard } from "../material-ui-components/MoreFilterCard";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import { PrettoSlider } from "../material-ui-components/LocationCard";
 import { palabra } from '../../store/actions';
-import { Marker, MarkerClusterer, InfoWindow, StandaloneSearchBox, MapContext } from '@react-google-maps/api';
-import Mapa from "../Map/Mapa";
+import { Marker, MarkerClusterer, InfoWindow, StandaloneSearchBox } from '@react-google-maps/api';
+import { hotellist } from '../../store/actions';
+
 export function SearchBar() {
     let hotelState = useSelector((state) => state.activities, shallowEqual);
     let hotel = hotelState.hotel;
     const [city, setCity] = useState();
     let [hotels, setHotels] = useState([]);
-    let map;
+    let map
     let searchArea
     const [searchBox, setSearchBox] = useState(null);
     /* const [searchBox, setSearchBox] = useState(null);*/
@@ -40,7 +41,7 @@ export function SearchBar() {
     const [checkOutDate, setCheckOutDate] = useState("Seleccione una opcion");
     const [guestNumber, setGuestNumber] = useState(2)
     const [roomsNumber, setRoomsNumber] = useState(1)
-    const [mapa, setmapa] = useState(MapContext)
+    const [infoWindowID, setInfoWindowID] = useState("");
     const [facilitiesforfilter, setFacilitiesforfilter] = useState({});
     const [facilitieslength, setFacilitieslength] = useState(0);
     const [showMoreFilterCard, setShowMoreFilterCard] = useState(false);
@@ -81,8 +82,29 @@ export function SearchBar() {
         setSearchBox(ref);
         console.log(ref);
     };
+    const mapaRef = useRef(null);
+    function handleLoad(map) {
+        mapaRef.current = map;
+      
+    }
 
-
+    const handleCenterChanged = () => {
+        console.log(mapaRef);
+        if (mapaRef.current != null) {
+            console.log(mapaRef.current.getBounds());
+        }
+    }
+    const onBoundsChanged = () => {
+        if (mapaRef.current != null || mapaRef != undefined) {
+            if (hotel !== null) {
+                let newhotel = hotel.filter((location) => {
+                    const mark = { lat: parseFloat(location.propiedad.latitud), lng: parseFloat(location.propiedad.longitud) };
+                    if (mapaRef.current.getBounds().contains(mark) == true) { return location }
+                })
+                dispatch(hotellist(newhotel));
+            }
+        }
+    }
     const handleBorder = () => {
         setBorder(true);
         setDatePicker(false);
@@ -175,410 +197,342 @@ export function SearchBar() {
 
 
 
-       );
+        );
 
     }
-    function markers() {
 
-        if (hotel !== null) {
-            console.log(hotel)
-            markers = hotel.map((location, index) => {
-                const marker = { lat: parseFloat(location.propiedad.latitud), lng: parseFloat(location.propiedad.longitud) };
-
-                return (
-                    <MarkerClusterer options={options}>
-                        {(clusterer) =>
-                            <Marker
-                                key={index}
-                                icon={"/Icons/casaIcono.png"}
-                                visible={true}
-                                position={marker}
-                                label={index.toString()}
-                                onClick={() => {
-                                    setInfoWindowID(index);
-                                }}
-                            >
-                                {infoWindowID === index && (
-                                    <InfoWindow>
-                                        <div key={location.publicacionId} className="hotel-info-div">
-
-                                            <img src={location.propiedad.imagenPropiedad[0].rutaImagenPropiedad} width={1} height={1} />
-
-
-
-                                            <div className="about-hotel1">
-
-                                                <div className="location">
-                                                    <label>
-                                                        Precio: $ {location.propiedad.precioPropiedad}  {location.propiedad.tipoMoneda.denominacionMoneda}
-                                                    </label>
-                                                </div>
-                                                <div className="rating">
-                                                    <b> {location.propiedad.ubicacion}</b>
-                                                </div>
-                                                <div className="static">
-                                                    <Link to={`/VisitaInmueble/VisitarPublicacion?publicacionId=${location.publicacionId}`}>
-                                                        <button type="button" className="btn btn-primary "
-                                                            onClick={(e) => {
-                                                                console.log(e.target);
-                                                            }}
-                                                        >
-                                                            <br />
-                                                            Ver
-                                                        </button>
-                                                    </Link>
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </InfoWindow>
-                                )}
-                            </Marker>}</MarkerClusterer>
-                );
-            });
-        }
-    }
     const onPlacesChanged = () => {
-        var pepe = searchBox.getPlaces()[0].geometry.viewport.Ha.hi 
+
         if (searchBox != null) {
+
+
             if (document.getElementsByClassName('map-google') != undefined) {
-                map = new window.google.maps.Map(document.getElementsByClassName('mapagoogle'),
+                const map = new window.google.maps.Map(document.getElementById('map-google'),
                     {
-                        zoom: 14,
-                        center: new google.maps.LatLng(parseFloat(searchBox.getPlaces()[0].geometry.viewport.Ha.hi),parseFloat(searchBox.getPlaces()[0].geometry.viewport.Ua.hi))
+                        
+                        zoom: 8,
+                        center: new google.maps.LatLng(searchBox.getPlaces()[0].geometry.location.lat(), searchBox.getPlaces()[0].geometry.location.lng()),
+                        
+                    }
 
-                    });
+                );
+                mapaRef.current = map;
+                map.addListener("bounds_changed", onBoundsChanged);
                 
-                hotel.map((element) => {
-                    console.log(element)
-                    let pos = new google.maps.LatLng(element.propiedad.latitud, element.propiedad.longitud)
-                    let mark = new google.maps.Marker({
-                        position: pos,
-                        map,
-                        icon: "/Icons/casaIcono.png",
+                // Agrega los marcadores al mapa
+                hotel.forEach((location, index) => {
+                    const marker = new google.maps.Marker({
+                        icon: {
+                            url: "/Icons/comment.png",
+                            fillOpacity: 1,
+                            scaledSize: new google.maps.Size(60, 30)
+                        },
+                        position: new google.maps.LatLng(parseFloat(location.propiedad.latitud), parseFloat(location.propiedad.longitud)),
+                        map: map,
+                        label: "$" + location.propiedad.precioPropiedad.toString()
 
-                    });
-                    const contentString =
-                        `
-                <div key=${element.publicacionId} className="hotel-info-div">
-
-                                         <img src=${element.propiedad.imagenPropiedad[0].rutaImagenPropiedad} style="height: 190px; width: 200px;"/>
-
-
-
-                                <div className="about-hotel1">
-
-                                    <div className="location">
-                                        <label>
-                                            Precio: $ ${element.propiedad.precioPropiedad}  ${element.propiedad.tipoMoneda.denominacionMoneda}
-
-
-                                        </label>
-                                    </div>
-
-                                    <div className="rating">
-
-
-                                                <b> ${element.propiedad.ubicacion}</b>
-
-
-
-
-                                    </div>
-
-
-                                         <div className="static">
-                                                 
-                                                 <a type="button" className="btn btn-primary "
-                                                       href=/VisitaInmueble/VisitarPublicacion?publicacionId=${element.publicacionId}
-                                                     >
-                                                        Ver
-                                                    </a>
-                                                
-                                            </div>
-
-
-                                         </div>
-                            </div>
-`
-                    const infowindow = new google.maps.InfoWindow({
-                        content: contentString,
                     })
-                    mark.addListener("click", () => {
-                        infowindow.open({
-                            anchor: mark,
-                            map,
-                            shouldFocus: false,
-                        });
+                    const infoWindow = new google.maps.InfoWindow({
+                        content: `
+            <div key="item${index}" className="hotel-info-div">
+              <img src="${location.propiedad.imagenPropiedad[0].rutaImagenPropiedad}" width="1" height="1" />
+              <div className="about-hotel1">
+                <div className="location">
+                  <label>
+                    Precio: $ ${location.propiedad.precioPropiedad} ${location.propiedad.tipoMoneda.denominacionMoneda}
+                  </label>
+                </div>
+                <div className="rating">
+                  <b>${location.propiedad.ubicacion}</b>
+                </div>
+                <div class="static">
+                  <a href="/VisitaInmueble/VisitarPublicacion?publicacionId=${location.publicacionId}">
+                    <button type="button" class="btn btn-primary" onclick="(e) => console.log(e.target)">
+                      <br />
+                      Ver
+                    </button>
+                  </a>
+                </div>
+              </div>
+            </div>
+          `
                     });
 
-                })
-                let ubi = new google.maps.LatLng(searchBox.getPlaces()[0].geometry.viewport.Ha.hi, searchBox.getPlaces()[0].geometry.viewport.Ua.hi)
-                map.moveCamera(ubi)
-                map.setZoom(12)
+                    marker.addListener("click", () => {
+                        // Cierra cualquier InfoWindow abierto previamente
+                        if (infoWindowID !== index) {
+                            infoWindow.close();
+                        }
+                        // Abre el InfoWindow correspondiente al marcador
+                        infoWindow.open(map, marker);
+                        setInfoWindowID(index);
+                    });
+
+                });
+
+
             }
         }
     }
     const libraries = ['places'];
-  const handleSearchButton = () => {
+    const handleSearchButton = () => {
 
-    handleSearchData(location)
-    handleGuestsData(guestNumber)
-    handleRoomsData(roomsNumber)
+        handleSearchData(location)
+        handleGuestsData(guestNumber)
+        handleRoomsData(roomsNumber)
 
-    handleFirstDate(checkInDate)
-    handleSecondDate(checkOutDate)
+        handleFirstDate(checkInDate)
+        handleSecondDate(checkOutDate)
 
-    let first = Number(checkInDate.slice(8, 10))
-    let last = Number(checkOutDate.slice(8, 10))
+        let first = Number(checkInDate.slice(8, 10))
+        let last = Number(checkOutDate.slice(8, 10))
 
-    let fmonth = checkInDate.slice(4, 7)
-    let smonth = checkOutDate.slice(4, 7)
-   
-    if (fmonth === smonth) {
-      handleDays(last - first)
-    } else {
-      if (smonth === "Jan" || smonth === "Mar" || smonth === "May" || smonth === "Jul" || smonth === "Aug" || smonth === "Oct" || smonth === "Nov" || smonth === "Dec") {
-        if (last < first) {
-          if (fmonth === "Jun" || fmonth === "Sep" || fmonth === "Nov" || fmonth === "Apr") {
-            handleDays(30 - first + last)
-          } else if (fmonth === "Jan" || fmonth === "Mar" || fmonth === "May" || fmonth === "Jul" || fmonth === "Aug" || fmonth === "Oct" || fmonth === "Nov" || fmonth === "Dec") {
-            handleDays(31 - first + last)
-          }
+        let fmonth = checkInDate.slice(4, 7)
+        let smonth = checkOutDate.slice(4, 7)
+
+        if (fmonth === smonth) {
+            handleDays(last - first)
+        } else {
+            if (smonth === "Jan" || smonth === "Mar" || smonth === "May" || smonth === "Jul" || smonth === "Aug" || smonth === "Oct" || smonth === "Nov" || smonth === "Dec") {
+                if (last < first) {
+                    if (fmonth === "Jun" || fmonth === "Sep" || fmonth === "Nov" || fmonth === "Apr") {
+                        handleDays(30 - first + last)
+                    } else if (fmonth === "Jan" || fmonth === "Mar" || fmonth === "May" || fmonth === "Jul" || fmonth === "Aug" || fmonth === "Oct" || fmonth === "Nov" || fmonth === "Dec") {
+                        handleDays(31 - first + last)
+                    }
+                }
+            }
+            if (smonth === "Jun" || smonth === "Sep" || smonth === "Nov" || smonth === "Apr") {
+                if (last < first) {
+                    if (fmonth === "Jun" || fmonth === "Sep" || fmonth === "Nov" || fmonth === "Apr") {
+                        handleDays(30 - first + last)
+                    } else if (fmonth === "Jan" || fmonth === "Mar" || fmonth === "May" || fmonth === "Jul" || fmonth === "Aug" || fmonth === "Oct" || fmonth === "Nov" || fmonth === "Dec") {
+                        handleDays(31 - first + last)
+                    }
+                }
+            }
         }
-      }
-      if (smonth === "Jun" || smonth === "Sep" || smonth === "Nov" || smonth === "Apr") {
-        if (last < first) {
-          if (fmonth === "Jun" || fmonth === "Sep" || fmonth === "Nov" || fmonth === "Apr") {
-            handleDays(30 - first + last)
-          } else if (fmonth === "Jan" || fmonth === "Mar" || fmonth === "May" || fmonth === "Jul" || fmonth === "Aug" || fmonth === "Oct" || fmonth === "Nov" || fmonth === "Dec") {
-            handleDays(31 - first + last)
-          }
-        }
-      }
+
+
+
+
+        history.push('/hotel-booking')
     }
 
-
-
-
-    history.push('/hotel-booking')
-  }
-    
-  return (
-    <SearchBarWrapper>
-      <div className="search-bar-cont">
-        <SearchBoxWrapper>
-          <SearchBarMainWrapper>
-            <SelectLocationWrapper>
-                          <img src={placeholder} alt="" />
-                          <div
-                onClick={handleBorder}
-                className={border ? "dottedBorder" : undefined}
-              >
-                              <Button
-                                  onClick={handleClear}
-                                  style={{
-                                      position: "relative",
-                                      maxWidth: "30px",
-                                      maxHeight: "30px",
-                                      minWidth: "30px",
-                                      minHeight: "30px",
-                                      top: "4px",
-                                      left:"400px"
-                                  }}
-                              >
-                                  <ClearIcon />
-                              </Button>
-
-                            
-
-
-
-                                  <StandaloneSearchBox
-                                      
-                                  onPlacesChanged={onPlacesChanged}
-                                  onLoad={(ref) => { setSearchBox(ref) }}
-                                  >
-                                      <input
-                                          placeholder="Ingrese el lugar donde quiere buscar propiedades"
-                                          type="text"
-                                          value={location}
-                                          onChange={handleLocationInput}
-                                      />
-                                  </StandaloneSearchBox>
+    return (
+        <SearchBarWrapper>
+            <div className="search-bar-cont">
+                <SearchBoxWrapper>
+                    <SearchBarMainWrapper>
+                        <SelectLocationWrapper>
+                            <img src={placeholder} alt="" />
+                            <div
+                                onClick={handleBorder}
+                                className={border ? "dottedBorder" : undefined}
+                            >
+                                <Button
+                                    onClick={handleClear}
+                                    style={{
+                                        position: "relative",
+                                        maxWidth: "30px",
+                                        maxHeight: "30px",
+                                        minWidth: "30px",
+                                        minHeight: "30px",
+                                        top: "4px",
+                                        left: "400px"
+                                    }}
+                                >
+                                    <ClearIcon />
+                                </Button>
 
 
 
 
 
-                
-              </div>
-            </SelectLocationWrapper>
-            <PickDateWrapper>
-              <div>
-                
-                              <SelectGuestsWrapper>
-                                  <div>
-                                      <div onClick={handleGuestSelector} className="guestsnumber">
-                                          <img src={addgroup} alt="" />
-                                          <div className="guest-al">
-                                              <span>Caracteristicas</span>
-                                          </div>
-                                      </div>
-                                     
-                                  </div>
-                              </SelectGuestsWrapper>
-                <span className="partitionLine"></span>
-                <div onClick={handleClickedCheckOut} className="checkOutdate">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-house" viewBox="0 0 16 16">
-                                      <path fillRule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
-                                      <path fillRule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
-                                  </svg>
-                  <div className="date-al date-al-margin">
-                     
-                    <span>Tipo de propiedad:</span>
-                   
-                  </div>
-                   <div className="arrows-margin2">
-                    <ArrowBackIosIcon style={{ cursor: "pointer" }} />
-                    <ArrowForwardIosIcon style={{ cursor: "pointer" }} />
-                  </div>
-                </div>
-                            
-              </div>
-            </PickDateWrapper>
-            
-                      <MoreFilteringWrapper onClick={() => {
-                          handleMoreFilterCard()
-                          setDatePicker(false);
-                          setClickedCheckOut(false);
-                          setGuestSelect(false);
-                      }}>
-                          <div>
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-bookmark-plus-fill" viewBox="0 0 16 16">
-                                  <path fillRule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z" />
-                              </svg>
-                          </div>
-                          <div className="downTextandArrow">
-                              <span>
-                                  {facilitieslength >= 1
-                                      ? `${facilitieslength} Applied`
-                                      : "Extras "}
-                              </span>
-                              <KeyboardArrowDownIcon />
-                          </div>
-                          </MoreFilteringWrapper>
-                      
-                  </SearchBarMainWrapper>
-                  
-              {/*barra de precio*/}
-                      <GuestRatingWrapper >
-                          <div>
-                              <span>Tipo de moneda</span>
-                          </div>
-                          <div className="downTextandArrow">
-                          <select id="tipoMoneda" onChange={cambioMoneda}>
-                              <option>
+                                <StandaloneSearchBox
 
-                              </option>
-                               {moneda.map((mone, index) => {
-                                      return (
-                                          <option key={index} value={mone.denominacionMoneda}>
-                                              {mone.denominacionMoneda}
-                                          </option>
-                                      );
-                                  })}
-                              </select>
-                          </div>
-                      </GuestRatingWrapper>
-                      <PriceNightWrapper onMouseEnter={hanldleAllCards}>
+                                    onPlacesChanged={onPlacesChanged}
+                                    onLoad={(ref) => { setSearchBox(ref) }}
+                                >
+                                    <input
+                                        placeholder="Ingrese el lugar donde quiere buscar propiedades"
+                                        type="text"
+                                        value={location}
+                                        onChange={handleLocationInput}
+                                    />
+                                </StandaloneSearchBox>
 
 
-                          <div className="priceNightSlider">
-                              <PrettoSlider
-                                  value={price}
-                                  onChange={getPrice}
 
-                                  min={0}
-                                  step={300}
-                                  max={1000000}
-                                  aria-label="pretto slider"
-                                  defaultValue={0}
-                              />
-                          </div>
-                  <div className="priceNightText">
 
-                      <div>
-                          <span>Precio</span>
-                      </div>
-                          <div>
-                              <span>{monedaSelect}  ${price}</span>
-                      </div>
-                      </div>
-                  </PriceNightWrapper>
-                  <PriceNightWrapper onMouseEnter={hanldleAllCards}>
-                      <div className="priceNightText">
-                          <div>
-                              <span>Buscar por palabra clave</span>
-                          </div>
-                      
-                      </div>
-                      
-                      <div className="palabraClave" >
-                          <input type="text" onChange={(e) => { dispatch(palabra(e.target.value)) }} />
-                      </div>
-                      
-                  </PriceNightWrapper>
-                  <GuestRatingWrapper >
-                      <div>
-                          <span>Tipo de Publicacion:</span>
-                      </div>
-                      <div className="downTextandArrow">
-                          <select id="tipoMoneda" onChange={cambioPublicacion}>
-                              <option>
-                                  
-                              </option>
-                              {publicante.map((mone, index) => {
-                                  
-                                  return (
-                                      <option key={index} value={mone.nombreTipoPublicacion}>
-                                          {mone.nombreTipoPublicacion}
-                                      </option>
-                                  );
-                              })}
-                          </select>
-                      </div>
-                  </GuestRatingWrapper>
-              </SearchBoxWrapper>
-              
-              {showMoreFilterCard && (
-                  <MoreFilterCard
-                      handleMoreFilterCard={handleMoreFilterCard }
-                      left="30em" position="relative"
-                      setFacilitiesforfilter={setFacilitiesforfilter}
-                      setFacilitieslength={setFacilitieslength}
-                      className="animated fadeIn"
-                      
-                      
-            
-          />
-        )}
-              {clickedCheckOut && (
-                  <RatingCard
-                      handleClickedCheckOut={handleClickedCheckOut}
-                      clickedCheckOut={clickedCheckOut}
-                      position="relative"
-                      setGuestNumber={setGuestNumber} setRoomsNumber={setRoomsNumber}
-                      
-          />
-              )}
-              {guestSelect && <GuestCard right="0rem" position="relative" handleGuestSelector={handleGuestSelector} setGuestNumber={setGuestNumber} setRoomsNumber={setRoomsNumber} />}
-            
 
-      </div>
-    </SearchBarWrapper>
-  );
+
+                            </div>
+                        </SelectLocationWrapper>
+                        <PickDateWrapper>
+                            <div>
+
+                                <SelectGuestsWrapper>
+                                    <div>
+                                        <div onClick={handleGuestSelector} className="guestsnumber">
+                                            <img src={addgroup} alt="" />
+                                            <div className="guest-al">
+                                                <span>Caracteristicas</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </SelectGuestsWrapper>
+                                <span className="partitionLine"></span>
+                                <div onClick={handleClickedCheckOut} className="checkOutdate">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-house" viewBox="0 0 16 16">
+                                        <path fillRule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+                                        <path fillRule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
+                                    </svg>
+                                    <div className="date-al date-al-margin">
+
+                                        <span>Tipo de propiedad:</span>
+
+                                    </div>
+                                    <div className="arrows-margin2">
+                                        <ArrowBackIosIcon style={{ cursor: "pointer" }} />
+                                        <ArrowForwardIosIcon style={{ cursor: "pointer" }} />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </PickDateWrapper>
+
+                        <MoreFilteringWrapper onClick={() => {
+                            handleMoreFilterCard()
+                            setDatePicker(false);
+                            setClickedCheckOut(false);
+                            setGuestSelect(false);
+                        }}>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-bookmark-plus-fill" viewBox="0 0 16 16">
+                                    <path fillRule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z" />
+                                </svg>
+                            </div>
+                            <div className="downTextandArrow">
+                                <span>
+                                    {facilitieslength >= 1
+                                        ? `${facilitieslength} Applied`
+                                        : "Extras "}
+                                </span>
+                                <KeyboardArrowDownIcon />
+                            </div>
+                        </MoreFilteringWrapper>
+
+                    </SearchBarMainWrapper>
+
+                    {/*barra de precio*/}
+                    <GuestRatingWrapper >
+                        <div>
+                            <span>Tipo de moneda</span>
+                        </div>
+                        <div className="downTextandArrow">
+                            <select id="tipoMoneda" onChange={cambioMoneda}>
+                                <option>
+
+                                </option>
+                                {moneda.map((mone, index) => {
+                                    return (
+                                        <option key={index} value={mone.denominacionMoneda}>
+                                            {mone.denominacionMoneda}
+                                        </option>
+                                    );
+                                })}
+                            </select>
+                        </div>
+                    </GuestRatingWrapper>
+                    <PriceNightWrapper onMouseEnter={hanldleAllCards}>
+
+
+                        <div className="priceNightSlider">
+                            <PrettoSlider
+                                value={price}
+                                onChange={getPrice}
+
+                                min={0}
+                                step={300}
+                                max={1000000}
+                                aria-label="pretto slider"
+                                defaultValue={0}
+                            />
+                        </div>
+                        <div className="priceNightText">
+
+                            <div>
+                                <span>Precio</span>
+                            </div>
+                            <div>
+                                <span>{monedaSelect}  ${price}</span>
+                            </div>
+                        </div>
+                    </PriceNightWrapper>
+                    <PriceNightWrapper onMouseEnter={hanldleAllCards}>
+                        <div className="priceNightText">
+                            <div>
+                                <span>Buscar por palabra clave</span>
+                            </div>
+
+                        </div>
+
+                        <div className="palabraClave" >
+                            <input type="text" onChange={(e) => { dispatch(palabra(e.target.value)) }} />
+                        </div>
+
+                    </PriceNightWrapper>
+                    <GuestRatingWrapper >
+                        <div>
+                            <span>Tipo de Publicacion:</span>
+                        </div>
+                        <div className="downTextandArrow">
+                            <select id="tipoMoneda" onChange={cambioPublicacion}>
+                                <option>
+
+                                </option>
+                                {publicante.map((mone, index) => {
+
+                                    return (
+                                        <option key={index} value={mone.nombreTipoPublicacion}>
+                                            {mone.nombreTipoPublicacion}
+                                        </option>
+                                    );
+                                })}
+                            </select>
+                        </div>
+                    </GuestRatingWrapper>
+                </SearchBoxWrapper>
+
+                {showMoreFilterCard && (
+                    <MoreFilterCard
+                        handleMoreFilterCard={handleMoreFilterCard}
+                        left="30em" position="relative"
+                        setFacilitiesforfilter={setFacilitiesforfilter}
+                        setFacilitieslength={setFacilitieslength}
+                        className="animated fadeIn"
+
+
+
+                    />
+                )}
+                {clickedCheckOut && (
+                    <RatingCard
+                        handleClickedCheckOut={handleClickedCheckOut}
+                        clickedCheckOut={clickedCheckOut}
+                        position="relative"
+                        setGuestNumber={setGuestNumber} setRoomsNumber={setRoomsNumber}
+
+                    />
+                )}
+                {guestSelect && <GuestCard right="0rem" position="relative" handleGuestSelector={handleGuestSelector} setGuestNumber={setGuestNumber} setRoomsNumber={setRoomsNumber} />}
+
+
+            </div>
+        </SearchBarWrapper>
+    );
 }
 
 export const SearchBarWrapper = styled.div`

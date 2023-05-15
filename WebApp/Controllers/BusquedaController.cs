@@ -212,7 +212,7 @@ namespace WebApp.Controllers
                     }
                     else
                     {
-                        string query = "https://maps.googleapis.com/maps/api/geocode/json?address=" + clientAddress + "&key=AIzaSyDHXJNkL77-_eh9GRL1pZr1EAHrAh_uQR4";
+                        string query = "https://maps.googleapis.com/maps/api/geocode/json?address=" + clientAddress + "&key=AIzaSyAXxPwQsLSfF4gC7VtJdl9GIIcyAzVdmhk";
                         DTORootObjectAddress rootObjAddress = APIGoogleMapsServicios.SolicitarUbicacionCompleta(query);
                         if (rootObjAddress.status == "OK")
                         {

@@ -12,7 +12,7 @@ export const Routes = () => {
     <div>
           <Switch>
               <LoadScript
-                  googleMapsApiKey="AIzaSyDHXJNkL77-_eh9GRL1pZr1EAHrAh_uQR4"
+                  googleMapsApiKey="AIzaSyAXxPwQsLSfF4gC7VtJdl9GIIcyAzVdmhk"
                   libraries={["places"]}
               >
 

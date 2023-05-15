@@ -17,7 +17,7 @@ namespace WebApp.Servicios
             string host = Dns.GetHostName();
             IPAddress[] ips = Dns.GetHostAddresses(host);
 
-            const string apiKey = "AIzaSyDHXJNkL77-_eh9GRL1pZr1EAHrAh_uQR4";
+            const string apiKey = "AIzaSyAXxPwQsLSfF4gC7VtJdl9GIIcyAzVdmhk";
             string strQuery = "http://api.ipinfodb.com/v3/ip-city/?" + "ip=" + ip + "&key=" + apiKey + "&format=xml";
             //var url = "http://api.ipinfodb.com/v3/ip-city/?key={0}&ip={1}&format=xml";
             var doc = XDocument.Load(string.Format(strQuery, apiKey, ip));

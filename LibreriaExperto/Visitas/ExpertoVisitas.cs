@@ -17,11 +17,11 @@ namespace LibreriaExperto.Visitas
 {
     public static class ExpertoVisitas
     {
-        public static async Task<(ErrorPropy, DTOContactoVisitante)> ObtenerContactoVisitante(string IDUsuarioVisitante,string IDUsuarioPublicante,string publicacionId) {
+        public static async Task<(ErrorPropy, DTOContactoVisitante)> ObtenerContactoVisitante(string usuarioIdVisita,string IDUsuarioPublicante,string publicacionId) {
             ErrorPropy error = new ErrorPropy();
             HttpClient clienteHttp = ApiConfiguracion.Inicializar();
             DTOContactoVisitante datosVisitante = new DTOContactoVisitante();
-            var tareaObtenerUsuarioVisitante = clienteHttp.GetAsync("api/Usuario/obtenerUsuarioPorID/" +IDUsuarioVisitante);
+            var tareaObtenerUsuarioVisitante = clienteHttp.GetAsync("api/Usuario/obtenerUsuarioPorID/" +usuarioIdVisita);
             
             tareaObtenerUsuarioVisitante.Wait();
             if (!tareaObtenerUsuarioVisitante.Result.IsSuccessStatusCode) {
@@ -30,7 +30,7 @@ namespace LibreriaExperto.Visitas
                 return (error, null);
             }
             TransferenciaUsuario usuarioVisitante = tareaObtenerUsuarioVisitante.Result.Content.ReadAsAsync<TransferenciaUsuario>().Result;
-            var tareaObtenerSolicitudContactoVisitante = clienteHttp.GetAsync("api/Visita/obtenerSolicitudContactoVisitante/" + publicacionId + "&" + IDUsuarioVisitante);
+            var tareaObtenerSolicitudContactoVisitante = clienteHttp.GetAsync("api/Visita/obtenerSolicitudContactoVisitante/" + publicacionId + "&" + usuarioIdVisita);
             tareaObtenerSolicitudContactoVisitante.Wait();
             if (!tareaObtenerSolicitudContactoVisitante.Result.IsSuccessStatusCode) {
                 error.codigoError = (int)tareaObtenerSolicitudContactoVisitante.Result.StatusCode;
@@ -64,7 +64,7 @@ namespace LibreriaExperto.Visitas
                 solicitudContactoPublicante.fechaSolicitud = DateTime.UtcNow;
                 solicitudContactoPublicante.cantidadVecesRealizoSolicitud = 1;
                 solicitudContactoPublicante.publicacionId = publicacionId;
-                solicitudContactoPublicante.usuarioId = IDUsuarioVisitante;
+                solicitudContactoPublicante.usuarioId = usuarioIdVisita;
                 TransferenciaNoPersistidoCrearSolicitudContactoVisitante datosCrearSolicitudContactoVisitante = new TransferenciaNoPersistidoCrearSolicitudContactoVisitante();
                 datosCrearSolicitudContactoVisitante.planUsuario = planActivoUsuarioPublicante;
                 datosCrearSolicitudContactoVisitante.solicitudContactoVisitante = solicitudContactoPublicante;
@@ -106,10 +106,11 @@ namespace LibreriaExperto.Visitas
             
         }
         //aca tendria que ir el restar el credito
-        public static (ErrorPropy, DTOContactoPublicante) ObtenerContactoPublicante(string publicacionId, string IDusuarioVisitante) {
+        public static async Task<(ErrorPropy, DTOContactoPublicante)> ObtenerContactoPublicanteAsync(string publicacionId, string usuarioIdVisita, int puntosResta) {
             ErrorPropy error = new ErrorPropy();
             HttpClient clienteHttp = ApiConfiguracion.Inicializar();
             DTOContactoPublicante datosPublicante = new DTOContactoPublicante();
+      
             var tareaObtenerPublicacion = clienteHttp.GetAsync("api/Publicacion/obtenerPublicacionPorId/"+publicacionId);
             tareaObtenerPublicacion.Wait();
             if (!tareaObtenerPublicacion.Result.IsSuccessStatusCode) {
@@ -118,7 +119,7 @@ namespace LibreriaExperto.Visitas
                 return(error, null);
             }
             TransferenciaPublicacion publicacion = tareaObtenerPublicacion.Result.Content.ReadAsAsync<TransferenciaPublicacion>().Result;
-            TransferenciaVisitaInmueble visita = publicacion.VisitaInmueble.Where(x => x.usuarioId == IDusuarioVisitante).FirstOrDefault();
+            TransferenciaVisitaInmueble visita = publicacion.VisitaInmueble.Where(x => x.usuarioId == usuarioIdVisita).FirstOrDefault();
             if (visita == null) {
                 error.codigoError = 666;
                 error.descripcionError = "Error: " + error.codigoError + " no se han podido obtener los datos del publicante.";
@@ -148,7 +149,82 @@ namespace LibreriaExperto.Visitas
             }
            
                 datosPublicante.tipoPublicante = publicacion.TipoPublicacion.nombreTipoPublicacion ;
-            
+            #region Restar Crédito y Crear Visita
+            (ErrorPropy error, TransferenciaUsuario usuarioPublicante) respuestaObtenerUsuarioPublicante = ExpertoUsuarios.ObtenerUsuarioPorID(publicacion.Propiedad.Usuario.usuarioId, clienteHttp);
+            if (respuestaObtenerUsuarioPublicante.error.codigoError != 0)
+            {
+                error = respuestaObtenerUsuarioPublicante.error;
+                return (error, null);
+            }
+            int cantidadVisitasUnMismoUsuario = 0;
+
+            TransferenciaVisitaInmueble visitaInmueble = publicacion.VisitaInmueble.Where(x => x.usuarioId == usuarioIdVisita).FirstOrDefault();
+            if (visitaInmueble != null)
+            {
+                visitaInmueble.cantidadVecesQueRepitioVisita++;
+                cantidadVisitasUnMismoUsuario = visitaInmueble.cantidadVecesQueRepitioVisita;
+            }
+            // aca se resta el credito
+            TransferenciaPlanUsuario planUsuario = respuestaObtenerUsuarioPublicante.usuarioPublicante.PlanUsuario.Where(x => x.activo == true).FirstOrDefault();
+            if (cantidadVisitasUnMismoUsuario == 0) { planUsuario.cantidadCreditosActivos = planUsuario.cantidadCreditosActivos - puntosResta; }
+
+            if (planUsuario.cantidadCreditosActivos <= 0)
+            {
+                var tareaEditarPlanUsuario = clienteHttp.PostAsJsonAsync<TransferenciaPlanUsuario>("api/PlanUsuario/editarPlanUsuario", planUsuario);
+                if (!tareaEditarPlanUsuario.Result.IsSuccessStatusCode)
+                {
+                    throw new Exception(tareaEditarPlanUsuario.Result.StatusCode.ToString());
+                }
+                var tareaObtenerPublicacionesDelUsuario = clienteHttp.GetAsync("api/Publicacion/obtenerPublicacionesPorUsuario/" + respuestaObtenerUsuarioPublicante.usuarioPublicante.usuarioId);
+                tareaObtenerPublicacionesDelUsuario.Wait();
+                if (!tareaObtenerPublicacionesDelUsuario.Result.IsSuccessStatusCode)
+                {
+                    throw new Exception(tareaObtenerPublicacionesDelUsuario.Result.StatusCode.ToString());
+                }
+                List<TransferenciaPublicacion> publicacionesUsuario = tareaObtenerPublicacionesDelUsuario.Result.Content.ReadAsAsync<List<TransferenciaPublicacion>>().Result;
+                ExpertoPublicaciones.HabilitarDeshabilitarPublicacionesUsuario(publicacionesUsuario, (int)CodigosEstados.Estados.inactivaPorFaltaDeCreditos, clienteHttp);
+
+                await ExpertoMensajeria.EnviarMailAvisoCreditosAgotados(publicacion.Propiedad.Usuario.email);
+                return (error, datosPublicante);
+            }
+            if (cantidadVisitasUnMismoUsuario == 0) //Si es la primera vez que el usuario visita la publicacion se crea instancia de VisitaInmueble y se modifica la cantidad de créditos activos del plan del publicante.
+            {
+                TransferenciaNoPersistidoPlanUsuarioVisita planUsuarioVisita = new TransferenciaNoPersistidoPlanUsuarioVisita();
+                planUsuarioVisita.visita = new TransferenciaVisitaInmueble();
+                planUsuarioVisita.visita.visitaInmuebleId = Guid.NewGuid().ToString();
+                planUsuarioVisita.visita.fechaHoraVisitaInmueble = DateTime.UtcNow;
+                planUsuarioVisita.visita.publicacionId = publicacion.publicacionId;
+                planUsuarioVisita.visita.usuarioId = usuarioIdVisita;
+                planUsuarioVisita.visita.cantidadVecesQueRepitioVisita = 1;
+                planUsuarioVisita.planUsuario = planUsuario;
+                var tareaCrearVisita = clienteHttp.PostAsJsonAsync<TransferenciaNoPersistidoPlanUsuarioVisita>("api/Visita/crearVisita", planUsuarioVisita);
+                tareaCrearVisita.Wait();
+                if (!tareaCrearVisita.Result.IsSuccessStatusCode)
+                {
+                    throw new Exception(tareaCrearVisita.Result.StatusCode.ToString());
+                }
+                if (cantidadVisitasUnMismoUsuario == 0)
+                {
+                    await ExpertoMensajeria.EnviarMailAvisoVisita(respuestaObtenerUsuarioPublicante.usuarioPublicante.email, publicacion.Propiedad.ubicacion, publicacion.Propiedad.TipoPropiedad.FirstOrDefault().nombreTipoPropiedad);
+                }
+            }
+            else
+            {//Sino modifica la instancia de VisitaInmueble.
+
+                var tareaEditarVista = clienteHttp.PostAsJsonAsync<TransferenciaVisitaInmueble>("api/Visita/editarVisita", visitaInmueble);
+                tareaEditarVista.Wait();
+                if (!tareaEditarVista.Result.IsSuccessStatusCode)
+                {
+                    throw new Exception(tareaEditarVista.Result.StatusCode.ToString());
+                }
+            }
+
+
+            #endregion
+
+
+            ExpertoUsuarios.RegistrarActividad(usuarioIdVisita, "Visitó un inmueble con ubicación en " + publicacion.Propiedad.ubicacion);
+
             return (error, datosPublicante);
         }
         public static async Task<(ErrorPropy, DTOVisitaInmueble)> VisitarInmueble(string publicacionId,int puntosResta,string usuarioIdVisita) {
@@ -221,76 +297,7 @@ namespace LibreriaExperto.Visitas
             }
             datosInmueble.amueblado = publicacion.Propiedad.amueblado;
 
-            #region Restar Crédito y Crear Visita
-            (ErrorPropy error, TransferenciaUsuario usuarioPublicante) respuestaObtenerUsuarioPublicante = ExpertoUsuarios.ObtenerUsuarioPorID(publicacion.Propiedad.Usuario.usuarioId, clienteHttp);
-            if (respuestaObtenerUsuarioPublicante.error.codigoError != 0)
-            {
-                error = respuestaObtenerUsuarioPublicante.error;
-                return (error,null);
-            }
-            int cantidadVisitasUnMismoUsuario = 0;
             
-            TransferenciaVisitaInmueble visitaInmueble = publicacion.VisitaInmueble.Where(x => x.usuarioId == usuarioIdVisita).FirstOrDefault();
-            if (visitaInmueble!=null) {
-                visitaInmueble.cantidadVecesQueRepitioVisita++;
-                cantidadVisitasUnMismoUsuario = visitaInmueble.cantidadVecesQueRepitioVisita;
-            }
-            // aca se resta el credito
-            TransferenciaPlanUsuario planUsuario = respuestaObtenerUsuarioPublicante.usuarioPublicante.PlanUsuario.Where(x => x.activo == true).FirstOrDefault();
-            if (cantidadVisitasUnMismoUsuario==0) { planUsuario.cantidadCreditosActivos = planUsuario.cantidadCreditosActivos - puntosResta; }
-            
-            if (planUsuario.cantidadCreditosActivos <= 0)
-            {
-                var tareaEditarPlanUsuario = clienteHttp.PostAsJsonAsync<TransferenciaPlanUsuario>("api/PlanUsuario/editarPlanUsuario",planUsuario);
-                if (!tareaEditarPlanUsuario.Result.IsSuccessStatusCode) {
-                    throw new Exception(tareaEditarPlanUsuario.Result.StatusCode.ToString());
-                }
-                var tareaObtenerPublicacionesDelUsuario = clienteHttp.GetAsync("api/Publicacion/obtenerPublicacionesPorUsuario/"+respuestaObtenerUsuarioPublicante.usuarioPublicante.usuarioId);
-                tareaObtenerPublicacionesDelUsuario.Wait();
-                if (!tareaObtenerPublicacionesDelUsuario.Result.IsSuccessStatusCode) {
-                    throw new Exception(tareaObtenerPublicacionesDelUsuario.Result.StatusCode.ToString());
-                }
-                List<TransferenciaPublicacion> publicacionesUsuario = tareaObtenerPublicacionesDelUsuario.Result.Content.ReadAsAsync<List<TransferenciaPublicacion>>().Result;
-                ExpertoPublicaciones.HabilitarDeshabilitarPublicacionesUsuario(publicacionesUsuario,(int)CodigosEstados.Estados.inactivaPorFaltaDeCreditos,clienteHttp);
-                
-                await ExpertoMensajeria.EnviarMailAvisoCreditosAgotados(publicacion.Propiedad.Usuario.email);
-                return (error, datosInmueble);
-            }
-            if (cantidadVisitasUnMismoUsuario == 0) //Si es la primera vez que el usuario visita la publicacion se crea instancia de VisitaInmueble y se modifica la cantidad de créditos activos del plan del publicante.
-            {
-                TransferenciaNoPersistidoPlanUsuarioVisita planUsuarioVisita = new TransferenciaNoPersistidoPlanUsuarioVisita();
-                planUsuarioVisita.visita = new TransferenciaVisitaInmueble();
-                planUsuarioVisita.visita.visitaInmuebleId = Guid.NewGuid().ToString();
-                planUsuarioVisita.visita.fechaHoraVisitaInmueble = DateTime.UtcNow;
-                planUsuarioVisita.visita.publicacionId = publicacion.publicacionId;
-                planUsuarioVisita.visita.usuarioId = usuarioIdVisita;
-                planUsuarioVisita.visita.cantidadVecesQueRepitioVisita = 1;
-                planUsuarioVisita.planUsuario = planUsuario;
-                var tareaCrearVisita = clienteHttp.PostAsJsonAsync<TransferenciaNoPersistidoPlanUsuarioVisita>("api/Visita/crearVisita", planUsuarioVisita);
-                tareaCrearVisita.Wait();
-                if (!tareaCrearVisita.Result.IsSuccessStatusCode)
-                {
-                    throw new Exception(tareaCrearVisita.Result.StatusCode.ToString());
-                }
-                if (cantidadVisitasUnMismoUsuario == 0)
-                {
-                    await ExpertoMensajeria.EnviarMailAvisoVisita(respuestaObtenerUsuarioPublicante.usuarioPublicante.email, publicacion.Propiedad.ubicacion, publicacion.Propiedad.TipoPropiedad.FirstOrDefault().nombreTipoPropiedad);
-                }
-            }
-            else {//Sino modifica la instancia de VisitaInmueble.
-
-                var tareaEditarVista = clienteHttp.PostAsJsonAsync<TransferenciaVisitaInmueble>("api/Visita/editarVisita", visitaInmueble);
-                tareaEditarVista.Wait();
-                if (!tareaEditarVista.Result.IsSuccessStatusCode) {
-                    throw new Exception(tareaEditarVista.Result.StatusCode.ToString());
-                }
-            }
-
-
-            #endregion
-
-
-            ExpertoUsuarios.RegistrarActividad(usuarioIdVisita,"Visitó un inmueble con ubicación en "+publicacion.Propiedad.ubicacion);
             return (error,datosInmueble);
         }
         

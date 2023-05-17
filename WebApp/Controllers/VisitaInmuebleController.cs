@@ -40,7 +40,7 @@ namespace WebApp.Controllers
             try
             {
                 if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Login", "Usuario", null); }
-                (ErrorPropy error, DTOContactoPublicante datosPublicante) respuestaObtenerContactoPublicante = ExpertoVisitas.ObtenerContactoPublicante(publicacionId, Session["IDUsuario"].ToString());
+                (ErrorPropy error, DTOContactoPublicante datosPublicante) respuestaObtenerContactoPublicante = ExpertoVisitas.ObtenerContactoPublicanteAsync(publicacionId, Session["IDUsuario"].ToString());
                 if (respuestaObtenerContactoPublicante.error.codigoError!=0) {
                     throw new Exception(respuestaObtenerContactoPublicante.error.descripcionError);
                 }

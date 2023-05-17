@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { GoogleMap, Marker, MarkerClusterer, InfoWindow, StandaloneSearchBox , OverlayView, LoadScript, useLoadScript } from '@react-google-maps/api';
+import { GoogleMap, Marker, MarkerClusterer, InfoWindow, StandaloneSearchBox, useLoadScript, useJsApiLoader } from '@react-google-maps/api';
 import { Link } from "react-router-dom";
 import { hotellist } from '../../store/actions';
 
@@ -49,11 +49,13 @@ function Mapa() {
         }
     }
     const onPlacesChanged = () => {
-     
-        ubi = new google.maps.LatLng(searchBox.getPlaces()[0].geometry.location.lat(), searchBox.getPlaces()[0].geometry.location.lng())
 
-        mapaRef.current.panTo(ubi);
-        mapaRef.current.setZoom(12);
+        if (searchBox != null) {
+            ubi = new google.maps.LatLng(searchBox.getPlaces()[0].geometry.location.lat(), searchBox.getPlaces()[0].geometry.location.lng())
+
+            mapaRef.current.panTo(ubi);
+            mapaRef.current.setZoom(12);
+        }
     }
 
     class Propi {
@@ -163,17 +165,15 @@ function Mapa() {
     }
     
     return (
-        <div className="mapa">
+        <div >
 
-            <LoadScript
-                googleMapsApiKey="AIzaSyDHXJNkL77-_eh9GRL1pZr1EAHrAh_uQR4"
-                libraries={["places"]}
-            >
-                <useLoadScript
-                >
-                    <div style={{ position: "fixed", left: "900px" }}>
+           
+
+            <div className="mapagoogle" style={{ position: "fixed", left: "900px" }}>
                 <GoogleMap
-                        ref={refMap}
+                    
+                    ref={refMap}
+                    setMapCallback={() =>(console.log(refMap))}
                         id="map-google"
                         mapContainerStyle={{
 
@@ -232,9 +232,9 @@ function Mapa() {
                                     </StandaloneSearchBox>}
                         </GoogleMap>
                         </div>
-                        </useLoadScript
-                    >
-            </LoadScript>
+                     
+                    
+           
         </div>
     );
 }

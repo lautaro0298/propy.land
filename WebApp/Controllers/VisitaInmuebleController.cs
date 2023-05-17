@@ -35,12 +35,12 @@ namespace WebApp.Controllers
                 
             }
         }
-        public ActionResult ObtenerDatosPublicante(string publicacionId) {
+        public async Task<ActionResult> ObtenerDatosPublicante(string publicacionId) {
             
             try
             {
                 if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Login", "Usuario", null); }
-                (ErrorPropy error, DTOContactoPublicante datosPublicante) respuestaObtenerContactoPublicante = ExpertoVisitas.ObtenerContactoPublicanteAsync(publicacionId, Session["IDUsuario"].ToString());
+                (ErrorPropy error, DTOContactoPublicante datosPublicante) respuestaObtenerContactoPublicante =await ExpertoVisitas.ObtenerContactoPublicanteAsync(publicacionId, Session["IDUsuario"].ToString(),1);
                 if (respuestaObtenerContactoPublicante.error.codigoError!=0) {
                     throw new Exception(respuestaObtenerContactoPublicante.error.descripcionError);
                 }
@@ -54,15 +54,15 @@ namespace WebApp.Controllers
             }
         }
         // GET: VisitaInmueble
-        public async Task<ActionResult> VisitarPublicacion(string publicacionId)
+        public  ActionResult VisitarPublicacion(string publicacionId)
         {
             try
             {
-                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Login", "Usuario", null); }
-                (ErrorPropy error, DTOVisitaInmueble datosInmueble) respuestaObtenerInmueble = await ExpertoVisitas.VisitarInmueble(publicacionId,1, Session["IDUsuario"].ToString());
-                if (respuestaObtenerInmueble.error.codigoError!=0) {
-                    throw new Exception(respuestaObtenerInmueble.error.descripcionError);
-                }
+                //if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Login", "Usuario", null); }
+                (ErrorPropy error, DTOVisitaInmueble datosInmueble) respuestaObtenerInmueble =  ExpertoVisitas.VisitarInmueble(publicacionId);
+                //if (respuestaObtenerInmueble.error.codigoError!=0) {
+                //    throw new Exception(respuestaObtenerInmueble.error.descripcionError);
+                //}
                 
                 return View(respuestaObtenerInmueble.datosInmueble);
             }

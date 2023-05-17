@@ -91,7 +91,7 @@ export const getAllHotel = (query = null, currPage = 1) => dispatch => {
   const requestAction = hotelRequest();
   dispatch(requestAction);
 
-    return axios.get(`https://propycore.azurewebsites.net/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda`)
+    return axios.get(`http://propyy.somee.com/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda`)
     .then((res) => {
       dispatch(hotelSuccess(res.data));
     })
@@ -112,7 +112,7 @@ export const priceFilter = (payload, query) => dispatch => {
         if (caracteristicaIds == undefined){ caracteristicaIds = "&caracteristicaId=" + query[i]; }
         else { caracteristicaIds = caracteristicaIds + "&caracteristicaId=" + query[i]; }
     }
-    axios.get('https://propycore.azurewebsites.net/api/Busqueda/buscardortipo?'+tipoPropiedadId + caracteristicaIds).then((res) => {
+    axios.get('http://propyy.somee.com/api/Busqueda/buscardortipo?'+tipoPropiedadId + caracteristicaIds).then((res) => {
             let { data } = res;
             console.log(data);
             dispatch(hotelSuccess(data));
@@ -121,13 +121,13 @@ export const priceFilter = (payload, query) => dispatch => {
         })
 }
 export const addHotelList = (cant ,moneda ) => dispatch => {
-    axios.get('https://propycore.azurewebsites.net/api/Busqueda/buscardorPorPrecio?cant=' + cant + '&moneda=' + moneda).then((res) => {
+    axios.get('http://propyy.somee.com/api/Busqueda/buscardorPorPrecio?cant=' + cant + '&moneda=' + moneda).then((res) => {
         let { data } = res;
         dispatch(hotelSuccess(data));
     })
 }
 export const tipoPublicante = (tipoPublicante) => dispatch => {
-    axios.get('https://propycore.azurewebsites.net/api/Busqueda/buscardorPorPublicancion?Publicacion='  + tipoPublicante).then((res) => {
+    axios.get('http://propyy.somee.com/api/Busqueda/buscardorPorPublicancion?Publicacion='  + tipoPublicante).then((res) => {
             let { data } = res;
             dispatch(hotelSuccess(data));
         })
@@ -137,7 +137,7 @@ export const fliterDormitorios = (values) => dispatch => {
     let cant = Object.values(values);
     let cocheras=Number(cant[0]);
     let habitaciones = Number(cant[1]);
-    axios.get('https://propycore.azurewebsites.net/api/Busqueda/buscardorAmbientes?cantCocheras=' + cocheras + '&caracteristicaId=' + habitaciones).then((res) => {
+    axios.get('http://propyy.somee.com/api/Busqueda/buscardorAmbientes?cantCocheras=' + cocheras + '&caracteristicaId=' + habitaciones).then((res) => {
         let { data } = res;       
         let filtro = hotel.filter(res => { return data.find(element => { return element == res.propiedadId }) })
         dispatch(hotelSuccess(filtro));  
@@ -165,7 +165,7 @@ export const fliterPrecio1 = () => dispatch => {
 export const sortHotelData = (tipoPropiedad) => dispatch => {
   dispatch(hotelRequest())
   
-    axios.get(`https://propycore.azurewebsites.net/api/Busqueda/buscardortipoPropiedad?tipoPropiedadId=` +tipoPropiedad).then((res) => {
+    axios.get(`http://propyy.somee.com/api/Busqueda/buscardortipoPropiedad?tipoPropiedadId=` +tipoPropiedad).then((res) => {
       let { data } = res;
       dispatch(hotelSuccess(data));
     }).catch(err => {
@@ -176,7 +176,7 @@ export const sortHotelData = (tipoPropiedad) => dispatch => {
 export const palabra = (Palabra) => dispatch => {
     dispatch(hotelRequest())
     if (Palabra == undefined || Palabra == null || Palabra == "") {
-        axios.get(`https://propycore.azurewebsites.net/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda`)
+        axios.get(`http://propyy.somee.com/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda`)
         .then((res) => {
             dispatch(hotelSuccess(res.data));
         })
@@ -184,7 +184,7 @@ export const palabra = (Palabra) => dispatch => {
             const failureAction = hotelFailure(err, currPage, query);
             dispatch(failureAction);
         }); } else {
-        axios.get(`https://propycore.azurewebsites.net/api/Busqueda/buscardorPorPalabra?Palabra=` + Palabra).then((res) => {
+        axios.get(`http://propyy.somee.com/api/Busqueda/buscardorPorPalabra?Palabra=` + Palabra).then((res) => {
             let { data } = res;
             dispatch(hotelSuccess(data));
         }).catch(err => {

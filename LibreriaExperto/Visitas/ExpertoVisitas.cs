@@ -227,7 +227,7 @@ namespace LibreriaExperto.Visitas
 
             return (error, datosPublicante);
         }
-        public static async Task<(ErrorPropy, DTOVisitaInmueble)> VisitarInmueble(string publicacionId,int puntosResta,string usuarioIdVisita) {
+        public static (ErrorPropy, DTOVisitaInmueble) VisitarInmueble(string publicacionId) {
             ErrorPropy error = new ErrorPropy();
             HttpClient clienteHttp = ApiConfiguracion.Inicializar();
             var tareaObtenerPublicacion = clienteHttp.GetAsync("api/Publicacion/obtenerPublicacionPorId/" + publicacionId);

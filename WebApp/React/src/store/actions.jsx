@@ -121,20 +121,24 @@ export const priceFilter = (payload, query) => dispatch => {
         })
 }
 export const addHotelList2 = ( moneda) => dispatch => {
-    axios.get('http://propyy.somee.com/api/BusquedaobtenerPropiedadesParaEvaluarBusqueda' ).then((res) => {
-        arrayObjetos = res;
+    axios.get('http://propyy.somee.com/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda' ).then((res) => {
+        let arrayObjetos = res.data;
+        
         // Filtrar los objetos del array que tengan denominacionMoneda distinto a moneda
         let filteredObjects = arrayObjetos.filter(objeto => {
-            return objeto.propiedad.denominacionMoneda !== moneda;
+            return objeto.propiedad.tipoMoneda.denominacionMoneda !== moneda;
         });
 
         // Verificar si hay objetos filtrados
         if (filteredObjects.length > 0) {
             // Obtener la denominacionMoneda de uno de los objetos filtrados
-            let denominacionMoneda = filteredObjects[0].propiedad.denominacionMoneda;
+            let denominacionMoneda = filteredObjects[0].propiedad.tipoMoneda.denominacionMoneda;
 
             // Realizar la petición a la API Fixer para obtener el valor de BASE_CURRENCY
-            axios.get(`https://data.fixer.io/api/latest?access_key=x0EWlvVC8OTNC6ugnXZPtiTeYRkO7KSW&base=${denominacionMoneda}&symbols=${moneda}`)
+            const headers = {
+                'apikey': 'x0EWlvVC8OTNC6ugnXZPtiTeYRkO7KSW'
+            };
+            axios.get(`https://api.apilayer.com/fixer/latest?base=${denominacionMoneda}&symbols=${moneda}`, { headers })
                 .then(response => {
                     let baseCurrency = response.data.rates[moneda]; // Obtener el valor de BASE_CURRENCY
                     let multi = 1 / baseCurrency; // Calcular el valor de multi dividiendo 1 entre el valor de BASE_CURRENCY
@@ -152,7 +156,10 @@ export const addHotelList2 = ( moneda) => dispatch => {
         } else {
             console.log('No se encontraron objetos con denominacionMoneda distinta a', moneda);
             let denominacionMoneda ="ARS"
-            axios.get(`https://data.fixer.io/api/latest?access_key=x0EWlvVC8OTNC6ugnXZPtiTeYRkO7KSW&base=${denominacionMoneda}&symbols=${moneda}`)
+            const headers = {
+                'apikey': 'x0EWlvVC8OTNC6ugnXZPtiTeYRkO7KSW'
+            };
+            axios.get(`https://api.apilayer.com/fixer/latest?base=${denominacionMoneda}&symbols=${moneda}`, { headers })
                 .then(response => {
                     let baseCurrency = response.data.rates[moneda]; // Obtener el valor de BASE_CURRENCY
                     let multi = 1 / baseCurrency; // Calcular el valor de multi dividiendo 1 entre el valor de BASE_CURRENCY

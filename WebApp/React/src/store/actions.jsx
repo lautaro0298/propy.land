@@ -120,6 +120,67 @@ export const priceFilter = (payload, query) => dispatch => {
             dispatch(hotelFailure(err, 1, query));
         })
 }
+export const addHotelList2 = ( moneda) => dispatch => {
+    axios.get('http://propyy.somee.com/api/BusquedaobtenerPropiedadesParaEvaluarBusqueda' ).then((res) => {
+        arrayObjetos = res;
+        // Filtrar los objetos del array que tengan denominacionMoneda distinto a moneda
+        let filteredObjects = arrayObjetos.filter(objeto => {
+            return objeto.propiedad.denominacionMoneda !== moneda;
+        });
+
+        // Verificar si hay objetos filtrados
+        if (filteredObjects.length > 0) {
+            // Obtener la denominacionMoneda de uno de los objetos filtrados
+            let denominacionMoneda = filteredObjects[0].propiedad.denominacionMoneda;
+
+            // Realizar la petición a la API Fixer para obtener el valor de BASE_CURRENCY
+            axios.get(`https://data.fixer.io/api/latest?access_key=x0EWlvVC8OTNC6ugnXZPtiTeYRkO7KSW&base=${denominacionMoneda}&symbols=${moneda}`)
+                .then(response => {
+                    let baseCurrency = response.data.rates[moneda]; // Obtener el valor de BASE_CURRENCY
+                    let multi = 1 / baseCurrency; // Calcular el valor de multi dividiendo 1 entre el valor de BASE_CURRENCY
+
+                    // Filtrar los objetos con denominacionMoneda diferente a mone y utilizar multi en la lógica de filtrado
+                    let resultados = arrayObjetos.filter(objeto => {
+                        return objeto.propiedad.denominacionMoneda !== moneda && objeto.propiedad.precioPropiedad * multi;
+                    });
+
+                    console.log(resultados); // Mostrar los resultados filtrados en la consola
+                })
+                .catch(error => {
+                    console.error('Error al obtener los datos de la API Fixer:', error);
+                });
+        } else {
+            console.log('No se encontraron objetos con denominacionMoneda distinta a', moneda);
+            let denominacionMoneda ="ARS"
+            axios.get(`https://data.fixer.io/api/latest?access_key=x0EWlvVC8OTNC6ugnXZPtiTeYRkO7KSW&base=${denominacionMoneda}&symbols=${moneda}`)
+                .then(response => {
+                    let baseCurrency = response.data.rates[moneda]; // Obtener el valor de BASE_CURRENCY
+                    let multi = 1 / baseCurrency; // Calcular el valor de multi dividiendo 1 entre el valor de BASE_CURRENCY
+
+                    // Filtrar los objetos con denominacionMoneda diferente a mone y utilizar multi en la lógica de filtrado
+                    let resultados = arrayObjetos.filter(objeto => {
+                        return objeto.propiedad.denominacionMoneda !== moneda && objeto.propiedad.precioPropiedad * multi;
+                    });
+
+                    console.log(resultados); // Mostrar los resultados filtrados en la consola
+                })
+                .catch(error => {
+                    console.error('Error al obtener los datos de la API Fixer:', error);
+                });
+        }
+        
+
+    })
+}
+export const fliterPrecio2 = (cant) => dispatch => {
+    let hotel = store.getState().activities.hotel;
+    let filtro = hotel.filter(res => {
+        return res.propiedad.precioPropiedad <= Math.max(...cant);
+    });
+    dispatch(hotelSuccess(filtro));
+    dispatch(hotelList(filtro));
+    
+}
 export const addHotelList = (cant ,moneda ) => dispatch => {
     axios.get('http://propyy.somee.com/api/Busqueda/buscardorPorPrecio?cant=' + cant + '&moneda=' + moneda).then((res) => {
         let { data } = res;

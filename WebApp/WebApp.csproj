@@ -966,10 +966,6 @@
     <Content Include="React\src\Components\Search-Bar\Search.css" />
     <Content Include="React\src\Components\Search-Bar\Search.jsx" />
     <Content Include="React\src\Components\Search-Bar\SearchBar.jsx" />
-    <Content Include="React\src\Components\Searchbar\loading.css" />
-    <Content Include="React\src\Components\Searchbar\LoadingPage.jsx" />
-    <Content Include="React\src\Components\Searchbar\Searchbar.css" />
-    <Content Include="React\src\Components\Searchbar\Searchbar.jsx" />
     <Content Include="React\src\Components\Select\Select.module.css" />
     <Content Include="React\src\Components\Signup\Signup.css" />
     <Content Include="React\src\Components\Signup\Signup.jsx" />

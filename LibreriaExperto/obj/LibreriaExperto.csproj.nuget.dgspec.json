@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\eluxsegundaprueba\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj": {}
+    "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj": {}
   },
   "projects": {
-    "C:\\eluxsegundaprueba\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj": {
+    "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\eluxsegundaprueba\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj",
+        "projectUniqueName": "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj",
         "projectName": "LibreriaExperto",
-        "projectPath": "C:\\eluxsegundaprueba\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj",
-        "packagesPath": "C:\\Users\\Lautaro\\.nuget\\packages\\",
-        "outputPath": "C:\\eluxsegundaprueba\\lautaro0298\\propy.land\\LibreriaExperto\\obj\\",
+        "projectPath": "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj",
+        "packagesPath": "C:\\Users\\lautaro\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaExperto\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Lautaro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\lautaro\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,7 +22,8 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://www.myget.org/F/google-api-dotnet-core": {}
         },
         "frameworks": {
           "netstandard2.0": {
@@ -81,7 +79,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.415\\RuntimeIdentifierGraph.json"
         }
       }
     }

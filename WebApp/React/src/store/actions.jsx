@@ -120,65 +120,30 @@ export const priceFilter = (payload, query) => dispatch => {
             dispatch(hotelFailure(err, 1, query));
         })
 }
-export const addHotelList2 = ( moneda) => dispatch => {
-    axios.get('http://propyy.somee.com/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda' ).then((res) => {
-        let arrayObjetos = res.data;
-        
-        // Filtrar los objetos del array que tengan denominacionMoneda distinto a moneda
-        let filteredObjects = arrayObjetos.filter(objeto => {
-            return objeto.propiedad.tipoMoneda.denominacionMoneda !== moneda;
-        });
+export const addHotelList2 = (moneda) => dispatch => {
+    axios.get('http://propyy.somee.com/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda').then((res) => {
+        let arrayObjeto = res.data;
+        axios.get('/Cotizacion/CrearCotizacion').then((res) => {
+            let arrayObjetos = res.data;
 
-        // Verificar si hay objetos filtrados
-        if (filteredObjects.length > 0) {
-            // Obtener la denominacionMoneda de uno de los objetos filtrados
-            let denominacionMoneda = filteredObjects[0].propiedad.tipoMoneda.denominacionMoneda;
+            console.log(arrayObjetos)
 
-            // Realizar la petición a la API Fixer para obtener el valor de BASE_CURRENCY
-            const headers = {
-                'apikey': 'x0EWlvVC8OTNC6ugnXZPtiTeYRkO7KSW'
-            };
-            axios.get(`https://api.apilayer.com/fixer/latest?base=${denominacionMoneda}&symbols=${moneda}`, { headers })
-                .then(response => {
-                    let baseCurrency = response.data.rates[moneda]; // Obtener el valor de BASE_CURRENCY
-                    let multi = 1 / baseCurrency; // Calcular el valor de multi dividiendo 1 entre el valor de BASE_CURRENCY
+            const resultados = arrayObjetos.filter(objeto => objeto.Base === moneda);
+            if (resultados.length > 0) {
+                const ratesValor = Object.values(resultados[0].Rates)[0];
 
-                    // Filtrar los objetos con denominacionMoneda diferente a mone y utilizar multi en la lógica de filtrado
-                    let resultados = arrayObjetos.filter(objeto => {
-                        return objeto.propiedad.denominacionMoneda !== moneda && objeto.propiedad.precioPropiedad * multi;
-                    });
-
-                    console.log(resultados); // Mostrar los resultados filtrados en la consola
-                })
-                .catch(error => {
-                    console.error('Error al obtener los datos de la API Fixer:', error);
+                console.log(ratesValor);
+                let multi = 1 / ratesValor; // Calcular el valor de multi dividiendo 1 entre el valor de BASE_CURRENCY
+                let resultados = arrayObjeto.filter(objeto => {
+                    return objeto.propiedad.denominacionMoneda !== moneda && objeto.propiedad.precioPropiedad * multi;
                 });
-        } else {
-            console.log('No se encontraron objetos con denominacionMoneda distinta a', moneda);
-            let denominacionMoneda ="ARS"
-            const headers = {
-                'apikey': 'x0EWlvVC8OTNC6ugnXZPtiTeYRkO7KSW'
-            };
-            axios.get(`https://api.apilayer.com/fixer/latest?base=${denominacionMoneda}&symbols=${moneda}`, { headers })
-                .then(response => {
-                    let baseCurrency = response.data.rates[moneda]; // Obtener el valor de BASE_CURRENCY
-                    let multi = 1 / baseCurrency; // Calcular el valor de multi dividiendo 1 entre el valor de BASE_CURRENCY
 
-                    // Filtrar los objetos con denominacionMoneda diferente a mone y utilizar multi en la lógica de filtrado
-                    let resultados = arrayObjetos.filter(objeto => {
-                        return objeto.propiedad.denominacionMoneda !== moneda && objeto.propiedad.precioPropiedad * multi;
-                    });
-
-                    console.log(resultados); // Mostrar los resultados filtrados en la consola
-                })
-                .catch(error => {
-                    console.error('Error al obtener los datos de la API Fixer:', error);
-                });
-        }
-        
-
+                console.log(resultados); // Mostrar los resultados filtrados en la consola
+            }
+        })
     })
 }
+        
 export const fliterPrecio2 = (cant) => dispatch => {
     let hotel = store.getState().activities.hotel;
     let filtro = hotel.filter(res => {

@@ -239,12 +239,12 @@ namespace LibreriaExperto.Busquedas
             List<TransferenciaPublicacion> publicacionesFiltradasPaso6 = new List<TransferenciaPublicacion>();
             #region Filtrar por precios
 
-            var cotizacion = APICotizacionToday.GetCotizacion();
+            //var cotizacion = APICotizacionToday.GetCotizacion();
 
-            for(int cont =0; cont < cotizacion.Count(); cont++)
-            {
-                if (cotizacion.ElementAt(cont).result.source == parametrosBusqueda.denominacionMoneda) cotizacion.Remove(cotizacion.ElementAt(cont));
-            }
+            //for(int cont =0; cont < cotizacion.Count(); cont++)
+            //{
+            //    if (cotizacion.ElementAt(cont).result.source == parametrosBusqueda.denominacionMoneda) cotizacion.Remove(cotizacion.ElementAt(cont));
+            //}
 
             if (parametrosBusqueda.precioDesde == 0 && parametrosBusqueda.precioHasta == 0)
             {
@@ -252,44 +252,44 @@ namespace LibreriaExperto.Busquedas
             }
             else
             {
-                foreach (var x in cotizacion)
-                {
-                    foreach (var propiedad in publicacionesFiltradasPaso5)
-                    {
-                        if (parametrosBusqueda.precioDesde != 0 && parametrosBusqueda.precioHasta == 0)
-                        {
-                            if ((propiedad.Propiedad.TipoMoneda.denominacionMoneda == parametrosBusqueda.denominacionMoneda && propiedad.Propiedad.precioPropiedad >= parametrosBusqueda.precioDesde) ||
-                                (propiedad.Propiedad.TipoMoneda.denominacionMoneda == x.result.source && (propiedad.Propiedad.precioPropiedad * Convert.ToDecimal(x.result.value)) >=  parametrosBusqueda.precioDesde))
-                            {
-                                publicacionesFiltradasPaso6.Add(propiedad);
-                            }
-                        }
-                        else
-                        {
-                            if(parametrosBusqueda.precioDesde == 0 && parametrosBusqueda.precioHasta != 0)
-                            {
-                                if ((propiedad.Propiedad.TipoMoneda.denominacionMoneda == parametrosBusqueda.denominacionMoneda && propiedad.Propiedad.precioPropiedad <= parametrosBusqueda.precioHasta) || 
-                                        (propiedad.Propiedad.TipoMoneda.denominacionMoneda == x.result.source && (propiedad.Propiedad.precioPropiedad * Convert.ToDecimal(x.result.value)) <=  parametrosBusqueda.precioHasta))
-                                {
-                                    publicacionesFiltradasPaso6.Add(propiedad);
-                                }
-                            }
-                            else
-                            {
-                                if(parametrosBusqueda.precioDesde != 0 && parametrosBusqueda.precioHasta != 0)
-                                {
-                                    if((propiedad.Propiedad.TipoMoneda.denominacionMoneda == parametrosBusqueda.denominacionMoneda && propiedad.Propiedad.precioPropiedad >= parametrosBusqueda.precioDesde && 
-                                        propiedad.Propiedad.precioPropiedad <= parametrosBusqueda.precioHasta) || 
-                                        (propiedad.Propiedad.TipoMoneda.denominacionMoneda == x.result.source && (propiedad.Propiedad.precioPropiedad * Convert.ToDecimal(x.result.value)) >=  parametrosBusqueda.precioDesde) &&
-                                        (propiedad.Propiedad.TipoMoneda.denominacionMoneda == x.result.source && (propiedad.Propiedad.precioPropiedad * Convert.ToDecimal(x.result.value)) <= parametrosBusqueda.precioHasta))
-                                    {
-                                        publicacionesFiltradasPaso6.Add(propiedad);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                //foreach (var x in cotizacion)
+                //{
+                //    foreach (var propiedad in publicacionesFiltradasPaso5)
+                //    {
+                //        if (parametrosBusqueda.precioDesde != 0 && parametrosBusqueda.precioHasta == 0)
+                //        {
+                //            if ((propiedad.Propiedad.TipoMoneda.denominacionMoneda == parametrosBusqueda.denominacionMoneda && propiedad.Propiedad.precioPropiedad >= parametrosBusqueda.precioDesde) ||
+                //                (propiedad.Propiedad.TipoMoneda.denominacionMoneda == x.result.source && (propiedad.Propiedad.precioPropiedad * Convert.ToDecimal(x.result.value)) >=  parametrosBusqueda.precioDesde))
+                //            {
+                //                publicacionesFiltradasPaso6.Add(propiedad);
+                //            }
+                //        }
+                //        else
+                //        {
+                //            if(parametrosBusqueda.precioDesde == 0 && parametrosBusqueda.precioHasta != 0)
+                //            {
+                //                if ((propiedad.Propiedad.TipoMoneda.denominacionMoneda == parametrosBusqueda.denominacionMoneda && propiedad.Propiedad.precioPropiedad <= parametrosBusqueda.precioHasta) || 
+                //                        (propiedad.Propiedad.TipoMoneda.denominacionMoneda == x.result.source && (propiedad.Propiedad.precioPropiedad * Convert.ToDecimal(x.result.value)) <=  parametrosBusqueda.precioHasta))
+                //                {
+                //                    publicacionesFiltradasPaso6.Add(propiedad);
+                //                }
+                //            }
+                //            else
+                //            {
+                //                if(parametrosBusqueda.precioDesde != 0 && parametrosBusqueda.precioHasta != 0)
+                //                {
+                //                    if((propiedad.Propiedad.TipoMoneda.denominacionMoneda == parametrosBusqueda.denominacionMoneda && propiedad.Propiedad.precioPropiedad >= parametrosBusqueda.precioDesde && 
+                //                        propiedad.Propiedad.precioPropiedad <= parametrosBusqueda.precioHasta) || 
+                //                        (propiedad.Propiedad.TipoMoneda.denominacionMoneda == x.result.source && (propiedad.Propiedad.precioPropiedad * Convert.ToDecimal(x.result.value)) >=  parametrosBusqueda.precioDesde) &&
+                //                        (propiedad.Propiedad.TipoMoneda.denominacionMoneda == x.result.source && (propiedad.Propiedad.precioPropiedad * Convert.ToDecimal(x.result.value)) <= parametrosBusqueda.precioHasta))
+                //                    {
+                //                        publicacionesFiltradasPaso6.Add(propiedad);
+                //                    }
+                //                }
+                //            }
+                //        }
+                //    }
+                //}
             }
             
            

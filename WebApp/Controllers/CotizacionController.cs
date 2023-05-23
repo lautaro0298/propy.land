@@ -4,15 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebApp.Experto;
+using LibreriaExperto.Comunicaciones_Externas;
+using LibreriaClases.DTOJSon;
 
 namespace WebApp.Controllers
 {
     public class CotizacionController : Controller
     {
         // GET: Cotizacion
-        public void CrearCotizacion()
+        public JsonResult CrearCotizacion()
         {
-           //ExpertoCotizacion.CrearCotizacion();
+            var obj = APICotizacionToday.GetCotizacion();
+            return Json(obj, JsonRequestBehavior.AllowGet);
         }
 
         public void ActualizarCotizacion()

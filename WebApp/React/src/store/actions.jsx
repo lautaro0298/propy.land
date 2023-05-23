@@ -129,18 +129,30 @@ export const addHotelList2 = (moneda) => dispatch => {
             console.log(arrayObjetos)
 
             const resultados = arrayObjetos.filter(objeto => objeto.Base === moneda);
+            const otra = arrayObjetos.filter(objeto => objeto.Base !== moneda);
+            let otramoneda = otra[0].Base;
             if (resultados.length > 0) {
-                const ratesValor = Object.values(resultados[0].Rates)[0];
+
+                const ratesValor = resultados[0].Rates[otramoneda];
 
                 console.log(ratesValor);
                 let multi = 1 / ratesValor; // Calcular el valor de multi dividiendo 1 entre el valor de BASE_CURRENCY
-                let resultados = arrayObjeto.filter(objeto => {
-                    return objeto.propiedad.denominacionMoneda !== moneda && objeto.propiedad.precioPropiedad * multi;
+                
+                const result = arrayObjeto.map(obj => {
+                    if (obj.propiedad.tipoMoneda.denominacionMoneda === moneda) {
+                        obj.propiedad.precioPropiedad = Math.trunc( obj.propiedad.precioPropiedad * ratesValor);
+                        obj.propiedad.tipoMoneda.denominacionMoneda = otramoneda;
+                    }
+                    return obj;
                 });
-
-                console.log(resultados); // Mostrar los resultados filtrados en la consola
+                console.log("OBJETOS FILTRADOS")
+                console.log(result); // Mostrar los resultados filtrados en la consola
+                dispatch(hotelSuccess(result));
+                dispatch(hotelList(result));
             }
-        })
+        }).catch(error => {
+            console.error('Error al obtener los datos de la API Fixer:', error);
+        });
     })
 }
         

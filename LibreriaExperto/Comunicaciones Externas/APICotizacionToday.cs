@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 
+using System.Threading.Tasks;
 namespace LibreriaExperto.Comunicaciones_Externas
 {
     public static class APICotizacionToday
@@ -16,60 +17,32 @@ namespace LibreriaExperto.Comunicaciones_Externas
         private static string AccessTokenAPICot = "x0EWlvVC8OTNC6ugnXZPtiTeYRkO7KSW";
         private static string Url1;
 
-        public static List<DTORootObjectCotizacion> GetCotizacion()
+        public static async Task<decimal> GetCotizacionAsync(string denominacionMoneda)
         {
-            List<DTORootObjectCotizacion> cotizaciones = new List<DTORootObjectCotizacion>();
-            DTORootObjectCotizacion cotizacion;
-
-            (ErrorPropy errorPropy, List<DTOTipoMoneda> dTOTipoMonedas) result = ABMTipoMoneda.traerTipoMoneda();
-
-            for (int cont = 0; cont < result.dTOTipoMonedas.Count; cont++)
+            using (HttpClient client = new HttpClient())
             {
-                for (int cont2 = 0; cont2 < result.dTOTipoMonedas.Count; cont2++)
+                string url = "https://api-dolar-argentina.herokuapp.com/api/dolarblue";
+                HttpResponseMessage response = await client.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
                 {
-                    if (result.dTOTipoMonedas.ElementAt(cont).denominacionMoneda == result.dTOTipoMonedas.ElementAt(cont2).denominacionMoneda)
+                    string json = await response.Content.ReadAsStringAsync();
+                    DTORootObjectCotizacion cotizacion = Newtonsoft.Json.JsonConvert.DeserializeObject<DTORootObjectCotizacion>(json);
+
+                    if (cotizacion.Rates.ContainsKey(denominacionMoneda))
                     {
-                        cont2++;
-                        if (cont2 >= result.dTOTipoMonedas.Count()) break;
-
-                        string baseCurrency = result.dTOTipoMonedas.ElementAt(cont).denominacionMoneda;
-                        string targetCurrency = result.dTOTipoMonedas.ElementAt(cont2).denominacionMoneda;
-                        string url = $"https://api.apilayer.com/fixer/latest?base={baseCurrency}&symbols={targetCurrency}";
-
-                        using (HttpClient client = new HttpClient())
-                        {
-                            client.DefaultRequestHeaders.Add("apikey", AccessTokenAPICot);
-                            HttpResponseMessage response = client.GetAsync(url).Result;
-
-                            if (response.IsSuccessStatusCode)
-                            {
-                                string json = response.Content.ReadAsStringAsync().Result;
-                                cotizacion = JsonConvert.DeserializeObject<DTORootObjectCotizacion>(json);
-                                cotizaciones.Add(cotizacion);
-                            }
-                        }
+                        return cotizacion.Rates[denominacionMoneda];
                     }
                     else
                     {
-                        string baseCurrency = result.dTOTipoMonedas.ElementAt(cont).denominacionMoneda;
-                        string targetCurrency = result.dTOTipoMonedas.ElementAt(cont2).denominacionMoneda;
-                        string url = $"https://api.apilayer.com/fixer/latest?base={baseCurrency}&symbols={targetCurrency}";
-
-                        using (HttpClient client = new HttpClient())
-                        {
-                            client.DefaultRequestHeaders.Add("apikey", AccessTokenAPICot);
-                            HttpResponseMessage response = client.GetAsync(url).Result;
-                            if (response.IsSuccessStatusCode)
-                            {
-                                string json = response.Content.ReadAsStringAsync().Result;
-                                cotizacion = JsonConvert.DeserializeObject<DTORootObjectCotizacion>(json);
-                                cotizaciones.Add(cotizacion);
-                            }
-                        }
+                        throw new Exception("La denominación de moneda especificada no se encontró en la respuesta de la API.");
                     }
                 }
+                else
+                {
+                    throw new Exception("Error al llamar a la API de cotizaciones de moneda.");
+                }
             }
-            return cotizaciones;
         }
     }
-}
+    }

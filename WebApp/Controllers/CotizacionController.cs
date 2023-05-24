@@ -14,7 +14,7 @@ namespace WebApp.Controllers
         // GET: Cotizacion
         public JsonResult CrearCotizacion()
         {
-            var obj = APICotizacionToday.GetCotizacion();
+            var obj = APICotizacionToday.GetCotizacionAsync();
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
 

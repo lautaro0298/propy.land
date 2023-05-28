@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj": {}
+    "C:\\Users\\lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj": {
+    "C:\\Users\\lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj",
+        "projectUniqueName": "C:\\Users\\lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj",
         "projectName": "LibreriaClases",
-        "projectPath": "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj",
+        "projectPath": "C:\\Users\\lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj",
         "packagesPath": "C:\\Users\\lautaro\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaClases\\obj\\",
+        "outputPath": "C:\\Users\\lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaClases\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\lautaro\\AppData\\Roaming\\NuGet\\NuGet.Config",

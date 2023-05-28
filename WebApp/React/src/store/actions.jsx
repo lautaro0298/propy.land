@@ -123,7 +123,7 @@ export const priceFilter = (payload, query) => dispatch => {
 export const addHotelList2 = (moneda) => dispatch => {
     axios.get('http://propyy.somee.com/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda').then((res) => {
         let arrayObjeto = res.data;
-        axios.get('/Cotizacion/CrearCotizacion').then((res) => {
+        axios.get('/Cotizacion/CrearCotizacion?moneda=' + moneda).then((res) => {
             let arrayObjetos = res.data;
 
             console.log(arrayObjetos)

@@ -9115,11 +9115,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\API Persistencia\\API Persistencia.csproj",
+      "projectUniqueName": "C:\\Users\\lautaro\\source\\repos\\lautaro0298\\propy.land\\API Persistencia\\API Persistencia.csproj",
       "projectName": "API Persistencia",
-      "projectPath": "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\API Persistencia\\API Persistencia.csproj",
+      "projectPath": "C:\\Users\\lautaro\\source\\repos\\lautaro0298\\propy.land\\API Persistencia\\API Persistencia.csproj",
       "packagesPath": "C:\\Users\\lautaro\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\API Persistencia\\obj\\",
+      "outputPath": "C:\\Users\\lautaro\\source\\repos\\lautaro0298\\propy.land\\API Persistencia\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\lautaro\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -9137,8 +9137,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj": {
-              "projectPath": "C:\\Users\\lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj"
+            "C:\\Users\\lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj": {
+              "projectPath": "C:\\Users\\lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj"
             }
           }
         }

@@ -70,8 +70,11 @@ export function SearchBar() {
             .then(res => { setPublicante(res.data); publicanteIs = true; });
     }, []);
     function cambioMoneda(e) {
+        console.log("a")
         setMonedaSelect(e.target.value)
-        dispatch(addHotelList2(monedaSelect))
+        if (e.target.value != null || e.target.value != undefined )
+        { dispatch(addHotelList2(e.target.value)) }
+        
     }
     function cambioPublicacion(e) {
         setPublicacionSelect(e.target.value)
@@ -467,7 +470,7 @@ export function SearchBar() {
                                 <span>Precio</span>
                             </div>
                             <div>
-                                <span>{monedaSelect}  ${price}</span>
+                                <span>{monedaSelect}   $ 0 - $ {price} </span>
                             </div>
                         </div>
                     </PriceNightWrapper>

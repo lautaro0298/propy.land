@@ -120,40 +120,42 @@ export const priceFilter = (payload, query) => dispatch => {
             dispatch(hotelFailure(err, 1, query));
         })
 }
-export const addHotelList2 = (moneda) => dispatch => {
-    axios.get('http://propyy.somee.com/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda').then((res) => {
-        let arrayObjeto = res.data;
-        axios.get('/Cotizacion/CrearCotizacion?moneda=' + moneda).then((res) => {
-            let arrayObjetos = res.data;
 
-            console.log(arrayObjetos)
 
-            const resultados = arrayObjetos.filter(objeto => objeto.Base === moneda);
-            const otra = arrayObjetos.filter(objeto => objeto.Base !== moneda);
-            let otramoneda = otra[0].Base;
-            if (resultados.length > 0) {
+export const addHotelList2 = (moneda) => (dispatch) => {
+    axios.get('http://propyy.somee.com/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda')
+        .then((res) => {
+            let arrayObjeto = res.data;
 
-                const ratesValor = resultados[0].Rates[otramoneda];
-
-                console.log(ratesValor);
-                let multi = 1 / ratesValor; // Calcular el valor de multi dividiendo 1 entre el valor de BASE_CURRENCY
-                
-                const result = arrayObjeto.map(obj => {
-                    if (obj.propiedad.tipoMoneda.denominacionMoneda === moneda) {
-                        obj.propiedad.precioPropiedad = Math.trunc( obj.propiedad.precioPropiedad * ratesValor);
-                        obj.propiedad.tipoMoneda.denominacionMoneda = otramoneda;
+            axios.get('https://api.bluelytics.com.ar/v2/latest')
+                .then((res) => {
+                    let cotizacionData = res.data;
+                    let cotizacionMoneda;
+                    if (moneda === 'ARS') {
+                        cotizacionMoneda = cotizacionData.blue.value_sell;
+                    } else {
+                        cotizacionMoneda = 1 / cotizacionData.blue.value_sell;
                     }
-                    return obj;
+
+                    const result = arrayObjeto.map(obj => {
+                        if (obj.propiedad.tipoMoneda.denominacionMoneda === 'ARS' && moneda === 'USD') {
+                            obj.propiedad.precioPropiedad = obj.propiedad.precioPropiedad / cotizacionMoneda;
+                        } else if (obj.propiedad.tipoMoneda.denominacionMoneda === 'USD' && moneda === 'ARS') {
+                            obj.propiedad.precioPropiedad = obj.propiedad.precioPropiedad * cotizacionMoneda;
+                        }
+                        obj.propiedad.tipoMoneda.denominacionMoneda = moneda;
+                        return obj;
+                    });
+                    dispatch(hotelSuccess(result));
+                    dispatch(hotelList(result));
+                })
+                .catch(error => {
+                    console.error('Error al obtener los datos de la API:', error);
                 });
-                console.log("OBJETOS FILTRADOS")
-                console.log(result); // Mostrar los resultados filtrados en la consola
-                dispatch(hotelSuccess(result));
-                dispatch(hotelList(result));
-            }
-        }).catch(error => {
-            console.error('Error al obtener los datos de la API Fixer:', error);
+        })
+        .catch(error => {
+            console.error('Error al obtener los datos de la API:', error);
         });
-    })
 }
         
 export const fliterPrecio2 = (cant) => dispatch => {

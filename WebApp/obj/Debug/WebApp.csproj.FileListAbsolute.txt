@@ -2628,7 +2628,6 @@ C:\eluxsegundaprueba\lautaro0298\propy.land\WebApp\bin\JavaScriptEngineSwitcher.
 C:\eluxsegundaprueba\lautaro0298\propy.land\WebApp\bin\JavaScriptEngineSwitcher.V8.dll
 C:\eluxsegundaprueba\lautaro0298\propy.land\WebApp\bin\JSPool.dll
 C:\eluxsegundaprueba\lautaro0298\propy.land\WebApp\bin\LibreriaClases.dll
-C:\eluxsegundaprueba\lautaro0298\propy.land\WebApp\bin\LibreriaExperto.dll
 C:\eluxsegundaprueba\lautaro0298\propy.land\WebApp\bin\LibreriaMercadoPago.dll
 C:\eluxsegundaprueba\lautaro0298\propy.land\WebApp\bin\MercadoPago.dll
 C:\eluxsegundaprueba\lautaro0298\propy.land\WebApp\bin\Microsoft.AI.Agent.Intercept.dll
@@ -2948,3 +2947,4 @@ C:\eluxsegundaprueba\lautaro0298\propy.land\WebApp\obj\Debug\WebApp.csproj.CoreC
 C:\eluxsegundaprueba\lautaro0298\propy.land\WebApp\obj\Debug\WebApp.csproj.CopyComplete
 C:\eluxsegundaprueba\lautaro0298\propy.land\WebApp\obj\Debug\WebApp.dll
 C:\eluxsegundaprueba\lautaro0298\propy.land\WebApp\obj\Debug\WebApp.pdb
+C:\eluxsegundaprueba\lautaro0298\propy.land\WebApp\bin\LibreriaExperto.dll

@@ -9,7 +9,7 @@ import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import GuestCard from "../material-ui-components/GuestCard";
 import { RatingCard } from "../material-ui-components/RatingCard"
 import { useState, useEffect, useRef } from "react";
-import { addHotelList, tipoPublicante } from '../../store/actions';
+import { fliterPrecio2, tipoPublicante } from '../../store/actions';
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { MoreFilterCard } from "../material-ui-components/MoreFilterCard";
@@ -18,7 +18,7 @@ import { PrettoSlider } from "../material-ui-components/LocationCard";
 import { palabra } from '../../store/actions';
 import { Marker, MarkerClusterer, InfoWindow, StandaloneSearchBox } from '@react-google-maps/api';
 import { hotellist } from '../../store/actions';
-
+import { addHotelList2 } from '../../store/actions';
 export function SearchBar() {
     let hotelState = useSelector((state) => state.activities, shallowEqual);
     let hotel = hotelState.hotel;
@@ -70,8 +70,11 @@ export function SearchBar() {
             .then(res => { setPublicante(res.data); publicanteIs = true; });
     }, []);
     function cambioMoneda(e) {
+        console.log("a")
         setMonedaSelect(e.target.value)
-        dispatch(addHotelList(e.target.value, monedaSelect))
+        if (e.target.value != null || e.target.value != undefined )
+        { dispatch(addHotelList2(e.target.value)) }
+        
     }
     function cambioPublicacion(e) {
         setPublicacionSelect(e.target.value)
@@ -131,7 +134,7 @@ export function SearchBar() {
     };
     const getPrice = (e, value) => {
         setPrice(value);
-        dispatch(addHotelList(value, monedaSelect))
+        dispatch(fliterPrecio2(value))
     };
     const handleLocationInput = (e) => {
         e.preventDefault();
@@ -467,7 +470,7 @@ export function SearchBar() {
                                 <span>Precio</span>
                             </div>
                             <div>
-                                <span>{monedaSelect}  ${price}</span>
+                                <span>{monedaSelect}   $ 0 - $ {price} </span>
                             </div>
                         </div>
                     </PriceNightWrapper>

@@ -961,7 +961,6 @@ C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaMercadoPago\bin\Debug\System
 C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaMercadoPago\bin\Debug\System.Xml.XPath.dll
 C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaMercadoPago\bin\Debug\System.Xml.XPath.XDocument.dll
 C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaMercadoPago\bin\Debug\LibreriaClases.dll
-C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaMercadoPago\bin\Debug\LibreriaExperto.dll
 C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaMercadoPago\bin\Debug\MercadoPago.dll
 C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaMercadoPago\bin\Debug\Newtonsoft.Json.dll
 C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaMercadoPago\bin\Debug\nunit.framework.dll
@@ -982,3 +981,4 @@ C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaMercadoPago\bin\Debug\System
 C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.csproj.CopyComplete
 C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.dll
 C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.pdb
+C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaMercadoPago\bin\Debug\LibreriaExperto.dll

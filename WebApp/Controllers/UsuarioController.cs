@@ -303,7 +303,44 @@ namespace WebApp.Controllers
 
 
         }
-        [HttpGet]
+        [HttpPost]
+        public ActionResult CrearCuenta(string nombreUsuario, string apellidoUsuario, string telefono1, string telefono2, string email, string clave, string claveRepetida, bool permitirSerContactadoPorPublicante, bool permitirSerNotificado)
+        {
+          
+            ErrorPropy error = new ErrorPropy();
+           
+            try
+            {
+                error = ValidacionParametros.ValidacionParametrosCrearCuenta(nombreUsuario, apellidoUsuario, telefono1, telefono2, email, clave, claveRepetida);
+                if (error.codigoError != 0)
+                {
+                    ViewBag.Error = "Error";
+                    ModelState.AddModelError("", error.descripcionError);
+                    return View();
+                }
+              
+
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                ViewBag.ErrorDetalle = ex.StackTrace;
+                return View("Error");
+                throw;
+            }
+
+
+            return RedirectToAction("Index", "PanelControl2", null);
+        }
+
+
+    
+
+[HttpGet]
         public ActionResult CrearCuenta()
         {
             return View();

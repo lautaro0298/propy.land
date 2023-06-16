@@ -60,6 +60,27 @@ namespace API_Persistencia.Controllers
                 return Ok();
             }
         }
+        [HttpPost("editarPlanusuario")]
+        public ActionResult EditarPlanusuario( NoPersistidoPlanUsuarioVisita planUsuarioVisita)
+        {
+            using (var db = con.Database.BeginTransaction())
+            {
+                try
+                {
+                   
+                    con.Entry(planUsuarioVisita.planUsuario).State = EntityState.Modified;
+                    con.SaveChanges();
+                    db.Commit();
+                }
+                catch (Exception)
+                {
+                    db.Rollback();
+
+                    throw;
+                }
+                return Ok();
+            }
+        }
         [HttpPost("editarVisita")]
         public ActionResult EditarVisita(VisitaInmueble visita) {
             using (var db = con.Database.BeginTransaction()) {

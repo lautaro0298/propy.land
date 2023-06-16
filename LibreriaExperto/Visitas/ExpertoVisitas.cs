@@ -106,7 +106,7 @@ namespace LibreriaExperto.Visitas
             
         }
         //aca tendria que ir el restar el credito
-        public static async Task<(ErrorPropy, DTOContactoPublicante)> ObtenerContactoPublicanteAsync(string publicacionId, string usuarioIdVisita, int puntosResta) {
+        public static async Task<(ErrorPropy, DTOContactoPublicante)> ObtenerContactoPublicanteAsync(string publicacionId, string usuarioIdVisita ,int puntosResta) {
             ErrorPropy error = new ErrorPropy();
             HttpClient clienteHttp = ApiConfiguracion.Inicializar();
             DTOContactoPublicante datosPublicante = new DTOContactoPublicante();
@@ -149,24 +149,24 @@ namespace LibreriaExperto.Visitas
             }
            
                 datosPublicante.tipoPublicante = publicacion.TipoPublicacion.nombreTipoPublicacion ;
-            #region Restar Crédito y Crear Visita
+            #region Restar Crédito 
             (ErrorPropy error, TransferenciaUsuario usuarioPublicante) respuestaObtenerUsuarioPublicante = ExpertoUsuarios.ObtenerUsuarioPorID(publicacion.Propiedad.Usuario.usuarioId, clienteHttp);
             if (respuestaObtenerUsuarioPublicante.error.codigoError != 0)
             {
                 error = respuestaObtenerUsuarioPublicante.error;
                 return (error, null);
             }
-            int cantidadVisitasUnMismoUsuario = 0;
+            bool contacto=false ;
 
-            TransferenciaVisitaInmueble visitaInmueble = publicacion.VisitaInmueble.Where(x => x.usuarioId == usuarioIdVisita).FirstOrDefault();
+            TransferenciaVisitaInmueble visitaInmueble = publicacion.VisitaInmueble.Where(x =>  x.usuarioId == usuarioIdVisita).FirstOrDefault();
             if (visitaInmueble != null)
             {
                 visitaInmueble.cantidadVecesQueRepitioVisita++;
-                cantidadVisitasUnMismoUsuario = visitaInmueble.cantidadVecesQueRepitioVisita;
+                contacto = visitaInmueble.contactoPublicante;
             }
             // aca se resta el credito
             TransferenciaPlanUsuario planUsuario = respuestaObtenerUsuarioPublicante.usuarioPublicante.PlanUsuario.Where(x => x.activo == true).FirstOrDefault();
-            if (cantidadVisitasUnMismoUsuario == 0) { planUsuario.cantidadCreditosActivos = planUsuario.cantidadCreditosActivos - puntosResta; }
+            if (contacto == false) { planUsuario.cantidadCreditosActivos = planUsuario.cantidadCreditosActivos - puntosResta; }
 
             if (planUsuario.cantidadCreditosActivos <= 0)
             {
@@ -186,6 +186,145 @@ namespace LibreriaExperto.Visitas
 
                 await ExpertoMensajeria.EnviarMailAvisoCreditosAgotados(publicacion.Propiedad.Usuario.email);
                 return (error, datosPublicante);
+            }
+            if (contacto == false)
+            {
+                visita.contactoPublicante = true;
+               
+                var restarpunto = clienteHttp.PostAsJsonAsync<TransferenciaPlanUsuario>("api/Visita/EditarPlanusuario", planUsuario);
+                if (!restarpunto.Result.IsSuccessStatusCode)
+                {
+                    error.codigoError = (int)restarpunto.Result.StatusCode;
+                    error.descripcionError = "Error: " + error.codigoError + " " + restarpunto.Result.StatusCode;
+                    return (error, null);
+
+                }
+
+            }
+           
+
+
+            #endregion
+
+
+           
+
+            return (error, datosPublicante);
+        }
+        public static async Task<(ErrorPropy, DTOVisitaInmueble)> VisitarInmueble(string publicacionId, string usuarioIdVisita)
+        {
+            ErrorPropy error = new ErrorPropy();
+            HttpClient clienteHttp = ApiConfiguracion.Inicializar();
+            var tareaObtenerPublicacion = clienteHttp.GetAsync("api/Publicacion/obtenerPublicacionPorId/" + publicacionId);
+            tareaObtenerPublicacion.Wait();
+            if (!tareaObtenerPublicacion.Result.IsSuccessStatusCode)
+            {
+                error.codigoError = (int)tareaObtenerPublicacion.Result.StatusCode;
+                error.descripcionError = "Error: " + error.codigoError + " " + tareaObtenerPublicacion.Result.StatusCode;
+                return (error, null);
+            }
+            TransferenciaPublicacion publicacion = tareaObtenerPublicacion.Result.Content.ReadAsAsync<TransferenciaPublicacion>().Result;
+            DTOVisitaInmueble datosInmueble = new DTOVisitaInmueble();
+            foreach (var imagen in publicacion.Propiedad.ImagenPropiedad)
+            {
+                if (imagen.activo == true)
+                {
+                    datosInmueble.imagenes.Add(imagen.rutaImagenPropiedad);
+                }
+
+            }
+            foreach (var tipoAmbiente in publicacion.Propiedad.PropiedadTipoAmbiente)
+            {
+                if (tipoAmbiente.activo == true)
+                {
+                    switch (tipoAmbiente.TipoAmbiente.nombreTipoAmbiente)
+                    {
+                        case "Dormitorios":
+                            datosInmueble.cantidadDormitorios = tipoAmbiente.cantidad;
+                            break;
+                        case "Baños":
+                            datosInmueble.cantidadBaños = tipoAmbiente.cantidad;
+                            break;
+                        case "Ambientes":
+                            datosInmueble.cantidadAmbientes = tipoAmbiente.cantidad;
+                            break;
+                        case "Cocheras":
+                            datosInmueble.cantidadCocheras = tipoAmbiente.cantidad;
+                            break;
+
+                    }
+                }
+            }
+
+            //foreach (var extra in publicacion.Propiedad.PropiedadCaracteristica) {
+            //    if (extra.activo==true) {
+            //        datosInmueble.extras.Add(extra.caracteristicas.nombreCaracteristica);
+
+            //    }
+            //}
+            datosInmueble.precioPropiedad = String.Format("{0:c}", publicacion.Propiedad.precioPropiedad);
+            datosInmueble.tipoMoneda = publicacion.Propiedad.TipoMoneda.denominacionMoneda;
+            datosInmueble.ubicacionPropiedad = publicacion.Propiedad.ubicacion;
+            datosInmueble.publicacionId = publicacion.publicacionId;
+            int count = 0;
+            //foreach (var c in datosInmueble.tipoPropiedad)
+            //{
+            //    datosInmueble.tipoPropiedad.Add(publicacion.Propiedad.TipoPropiedad.ElementAt(count).nombreTipoPropiedad);
+            //    count++;
+            //}
+            datosInmueble.tipoConstruccion = publicacion.Propiedad.TipoConstruccion.nombreTipoConstruccion;
+            datosInmueble.tipoPublicacion = publicacion.TipoPublicacion.nombreTipoPublicacion;
+
+            datosInmueble.superficieCubierta = publicacion.Propiedad.superficieCubierta;
+            datosInmueble.superficieTerreno = publicacion.Propiedad.superficieTerreno;
+            datosInmueble.importeExpensasUltimoMes = String.Format("{0:c}", publicacion.Propiedad.importeExpensasUltimoMes);
+            datosInmueble.reseña = publicacion.Propiedad.descripcionPropiedad;
+            if (publicacion.Propiedad.importeExpensasUltimoMes != 0)
+            {
+                datosInmueble.inmueblePagaExpensas = true;
+            }
+            else
+            {
+                datosInmueble.inmueblePagaExpensas = false;
+            }
+            datosInmueble.amueblado = publicacion.Propiedad.amueblado;
+
+            #region Restar Crédito y Crear Visita
+            (ErrorPropy error, TransferenciaUsuario usuarioPublicante) respuestaObtenerUsuarioPublicante = ExpertoUsuarios.ObtenerUsuarioPorID(publicacion.Propiedad.Usuario.usuarioId, clienteHttp);
+            if (respuestaObtenerUsuarioPublicante.error.codigoError != 0)
+            {
+                error = respuestaObtenerUsuarioPublicante.error;
+                return (error, null);
+            }
+            int cantidadVisitasUnMismoUsuario = 0;
+
+            TransferenciaVisitaInmueble visitaInmueble = publicacion.VisitaInmueble.Where(x => x.usuarioId == usuarioIdVisita).FirstOrDefault();
+            if (visitaInmueble != null)
+            {
+                visitaInmueble.cantidadVecesQueRepitioVisita++;
+                cantidadVisitasUnMismoUsuario = visitaInmueble.cantidadVecesQueRepitioVisita;
+            }
+            TransferenciaPlanUsuario planUsuario = respuestaObtenerUsuarioPublicante.usuarioPublicante.PlanUsuario.Where(x => x.activo == true).FirstOrDefault();
+            //if (cantidadVisitasUnMismoUsuario == 0) { planUsuario.cantidadCreditosActivos = planUsuario.cantidadCreditosActivos - puntosResta; }
+
+            if (planUsuario.cantidadCreditosActivos <= 0)
+            {
+                var tareaEditarPlanUsuario = clienteHttp.PostAsJsonAsync<TransferenciaPlanUsuario>("api/PlanUsuario/editarPlanUsuario", planUsuario);
+                if (!tareaEditarPlanUsuario.Result.IsSuccessStatusCode)
+                {
+                    throw new Exception(tareaEditarPlanUsuario.Result.StatusCode.ToString());
+                }
+                var tareaObtenerPublicacionesDelUsuario = clienteHttp.GetAsync("api/Publicacion/obtenerPublicacionesPorUsuario/" + respuestaObtenerUsuarioPublicante.usuarioPublicante.usuarioId);
+                tareaObtenerPublicacionesDelUsuario.Wait();
+                if (!tareaObtenerPublicacionesDelUsuario.Result.IsSuccessStatusCode)
+                {
+                    throw new Exception(tareaObtenerPublicacionesDelUsuario.Result.StatusCode.ToString());
+                }
+                List<TransferenciaPublicacion> publicacionesUsuario = tareaObtenerPublicacionesDelUsuario.Result.Content.ReadAsAsync<List<TransferenciaPublicacion>>().Result;
+                ExpertoPublicaciones.HabilitarDeshabilitarPublicacionesUsuario(publicacionesUsuario, (int)CodigosEstados.Estados.inactivaPorFaltaDeCreditos, clienteHttp);
+
+                await ExpertoMensajeria.EnviarMailAvisoCreditosAgotados(publicacion.Propiedad.Usuario.email);
+                return (error, datosInmueble);
             }
             if (cantidadVisitasUnMismoUsuario == 0) //Si es la primera vez que el usuario visita la publicacion se crea instancia de VisitaInmueble y se modifica la cantidad de créditos activos del plan del publicante.
             {
@@ -224,82 +363,7 @@ namespace LibreriaExperto.Visitas
 
 
             ExpertoUsuarios.RegistrarActividad(usuarioIdVisita, "Visitó un inmueble con ubicación en " + publicacion.Propiedad.ubicacion);
-
-            return (error, datosPublicante);
+            return (error, datosInmueble);
         }
-        public static (ErrorPropy, DTOVisitaInmueble) VisitarInmueble(string publicacionId) {
-            ErrorPropy error = new ErrorPropy();
-            HttpClient clienteHttp = ApiConfiguracion.Inicializar();
-            var tareaObtenerPublicacion = clienteHttp.GetAsync("api/Publicacion/obtenerPublicacionPorId/" + publicacionId);
-            tareaObtenerPublicacion.Wait();
-            if (!tareaObtenerPublicacion.Result.IsSuccessStatusCode) {
-                error.codigoError = (int)tareaObtenerPublicacion.Result.StatusCode;
-                error.descripcionError = "Error: "+error.codigoError+" "+tareaObtenerPublicacion.Result.StatusCode;
-                return (error,null);
-            }
-            TransferenciaPublicacion publicacion = tareaObtenerPublicacion.Result.Content.ReadAsAsync<TransferenciaPublicacion>().Result;
-            DTOVisitaInmueble datosInmueble = new DTOVisitaInmueble();
-            foreach (var imagen in publicacion.Propiedad.ImagenPropiedad) {
-                if (imagen.activo==true) {
-                    datosInmueble.imagenes.Add(imagen.rutaImagenPropiedad);
-                }
-                
-            }
-            foreach (var tipoAmbiente in publicacion.Propiedad.PropiedadTipoAmbiente) {
-                if (tipoAmbiente.activo==true) {
-                    switch (tipoAmbiente.TipoAmbiente.nombreTipoAmbiente) {
-                        case "Dormitorios":
-                            datosInmueble.cantidadDormitorios = tipoAmbiente.cantidad;
-                            break;
-                        case "Baños":
-                            datosInmueble.cantidadBaños = tipoAmbiente.cantidad;
-                            break;
-                        case "Ambientes":
-                            datosInmueble.cantidadAmbientes = tipoAmbiente.cantidad;
-                            break;
-                        case "Cocheras":
-                            datosInmueble.cantidadCocheras = tipoAmbiente.cantidad;
-                            break;
-
-                    }
-                }
-            }
-            
-            //foreach (var extra in publicacion.Propiedad.PropiedadCaracteristica) {
-            //    if (extra.activo==true) {
-            //        datosInmueble.extras.Add(extra.caracteristicas.nombreCaracteristica);
-                    
-            //    }
-            //}
-            datosInmueble.precioPropiedad = String.Format("{0:c}", publicacion.Propiedad.precioPropiedad);
-            datosInmueble.tipoMoneda = publicacion.Propiedad.TipoMoneda.denominacionMoneda;
-            datosInmueble.ubicacionPropiedad = publicacion.Propiedad.ubicacion;
-            datosInmueble.publicacionId = publicacion.publicacionId;
-            int count = 0;
-            //foreach (var c in datosInmueble.tipoPropiedad)
-            //{
-            //    datosInmueble.tipoPropiedad.Add(publicacion.Propiedad.TipoPropiedad.ElementAt(count).nombreTipoPropiedad);
-            //    count++;
-            //}
-            datosInmueble.tipoConstruccion = publicacion.Propiedad.TipoConstruccion.nombreTipoConstruccion;
-            datosInmueble.tipoPublicacion = publicacion.TipoPublicacion.nombreTipoPublicacion;
-            
-            datosInmueble.superficieCubierta = publicacion.Propiedad.superficieCubierta;
-            datosInmueble.superficieTerreno = publicacion.Propiedad.superficieTerreno;
-            datosInmueble.importeExpensasUltimoMes = String.Format("{0:c}",publicacion.Propiedad.importeExpensasUltimoMes);
-            datosInmueble.reseña = publicacion.Propiedad.descripcionPropiedad;
-            if (publicacion.Propiedad.importeExpensasUltimoMes != 0)
-            {
-                datosInmueble.inmueblePagaExpensas = true;
-            }
-            else {
-                datosInmueble.inmueblePagaExpensas = false;
-            }
-            datosInmueble.amueblado = publicacion.Propiedad.amueblado;
-
-            
-            return (error,datosInmueble);
-        }
-        
     }
 }

@@ -56,14 +56,18 @@ namespace WebApp.Controllers
         // GET: VisitaInmueble
         public  ActionResult VisitarPublicacion(string publicacionId)
         {
+            string IdUsuario;
             try
             {
-                //if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Login", "Usuario", null); }
-                (ErrorPropy error, DTOVisitaInmueble datosInmueble) respuestaObtenerInmueble =  ExpertoVisitas.VisitarInmueble(publicacionId);
-                //if (respuestaObtenerInmueble.error.codigoError!=0) {
-                //    throw new Exception(respuestaObtenerInmueble.error.descripcionError);
-                //}
-                
+                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { IdUsuario = "c2cebdf9-b84a-4391-87dc-6e67758af5e2"; }
+                else { IdUsuario = Session["IDUsuario"].ToString(); }
+
+                (ErrorPropy error, DTOVisitaInmueble datosInmueble) respuestaObtenerInmueble =  ExpertoVisitas.VisitarInmueble(publicacionId,IdUsuario).Result;
+                if (respuestaObtenerInmueble.error.codigoError != 0)
+                {
+                    throw new Exception(respuestaObtenerInmueble.error.descripcionError);
+                }
+
                 return View(respuestaObtenerInmueble.datosInmueble);
             }
             catch (Exception ex)

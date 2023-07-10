@@ -96,7 +96,7 @@
 
                         <div class="collapse" id="MiCuenta" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                @Html.ActionLink("Registro de Actividad", "Index", "GestionarFavoritos", null, new { @class = "nav-link" })
+                                @Html.ActionLink("Registro de Actividad", "ConsultarActividad", "Usuario", null, new { @class = "nav-link" })
 
 
 
@@ -134,10 +134,10 @@
                        
                     </div>
                 </div>
-                <div class="sb-sidenav-footer">
+                @*<div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
                     @User.Identity.Name
-                </div>
+                </div>*@
             </nav>
         </div>
 

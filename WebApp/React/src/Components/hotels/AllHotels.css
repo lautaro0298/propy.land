@@ -139,7 +139,7 @@
   height: 30px;
   width: 90%;
   margin: auto;
-  font-size: 1.5vw;
+/*  font-size: 1.5vw;*/
   /* margin-top: 0px; */
 }
 .redi p {
@@ -147,20 +147,20 @@
   margin-top: -2px;
 }
 .view-detail-div {
-  height: 115px;
-  max-width: 90%;
-  margin: 5px auto;
-  /* border: 1px solid rgb(247, 140, 0); */
-  border-radius: 15px;
-  background-color: #f1f8ea;
-  display: flex;
-  flex-direction: column;
+    height: 115px;
+    max-width: 90%;
+    margin: 5px auto;
+    border: 1.5px solid rgb(49 152 52);
+    border-radius: 15px;
+    background-color: #f1f8ea;
+    display: flex;
+    flex-direction: column;
 }
 .fact {
   /* border: 1px solid red; */
   max-width: 90%;
   display: flex;
-  font-size: 0.9vw;
+/*  font-size: 0.9vw;*/
   margin: 0 auto;
 }
 .view-detail {
@@ -174,36 +174,41 @@
   /* border: 1px solid red; */
 }
 .deal {
-  width: 90%;
-  max-width: 90%;
-  /* border: 1px solid red; */
-  height: 40px;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    width: 90%;
+    max-width: 90%;
+    /* border: 1px solid red; */
+    height: 40px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold; /* Aplica negrita */
+    font-size: 1.1em; /* Ajusta el tamaño de la fuente según tus necesidades */
+    color: #1c9f1c;
+    text-transform: uppercase; /* Convierte el texto a mayúsculas */
+    letter-spacing: 1px;
 }
 .h3p {
   /* border: 1px solid red; */
-  width: 40%;
-  height: 40px;
+/*  width: 40%;
+  height: 40px;*/
 }
 .h3p h3 {
   text-align: center;
-  margin-top: 10px;
-  font-size: 1.05vw;
+  
+  font-size: 100%;
 }
 .btn {
   /* border: 1px solid red; */
 /*  width: 60%;*/
 }
 .btn button {
-  width: 90%;
+  
   height: 30px;
   border-radius: 50px;
   border: none;
   background-color: #028000;
-  font-size: 1vw;
+  
   color: white;
 }
 
@@ -229,7 +234,7 @@
   /* border: 1px solid red; */
   width: 80%;
   margin: auto;
-  height: 30px;
+  height: 40px;
 }
 .hot p {
   margin-top: 3px;
@@ -241,7 +246,7 @@
   margin: 0 auto;
   height: 25px;
   font-weight: 600;
-  font-size: 1vw;
+ 
 }
 .hotp p {
   margin-top: 0;

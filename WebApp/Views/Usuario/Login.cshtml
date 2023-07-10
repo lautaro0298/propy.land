@@ -4,12 +4,41 @@
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    /* Estilos para la caja flotante */
+    .floating-box {
+        display:none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        border-radius: 5px;
+        z-index: 9999;
+    }
 
+    /* Estilos para el fondo oscuro */
+    .overlay {
+        display:none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+    }
+</style>
+
+<link href="~/Estilos/MisEstilos.css" rel="stylesheet" />
 <!--Script Google-->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
     function handleCredentialResponse(response) {
         console.log("Encoded JWT ID token: " + response.credential);
+        showModal();
         var id_token = response.credential;
 
         // Configura la solicitud HTTP
@@ -24,6 +53,9 @@
             }),
         };
 
+        // Muestra el modal de carga
+        showModal();
+
         // Envía la solicitud HTTP
         fetch(url, options)
             .then(function (response) {
@@ -37,10 +69,28 @@
             })
             .catch(function (error) {
                 console.error('Ocurrió un error al enviar el token de ID al servidor:', error);
+            })
+            .finally(function () {
+                // Oculta el modal de carga al finalizar
+                hideModal();
             });
-      
-
     }
+
+    // Función para mostrar el modal de carga
+    function showModal() {
+        var modal = document.getElementById('floating-box');
+        var over = document.getElementById('overlay');
+        modal.style.display = 'block';
+        over.style.display = 'block';
+    }
+
+    // Función para ocultar el modal de carga
+    function hideModal() {
+        var modal = document.getElementById('modal');
+        modal.style.display = 'none';
+    }
+
+    // Resto del código JavaScript...
     window.onload = function () {
         google.accounts.id.initialize({
             client_id: '224298944678-d4rokpd16rm8hjb72c91rs4h7egn2hns.apps.googleusercontent.com',
@@ -70,7 +120,7 @@
     };
 </script>
 
-    
+
 <div class="container">
     <div class="row">
         <div class="col-md-3">
@@ -97,6 +147,11 @@
                             </div>
 
                         }
+                        <div id="overlay" class="overlay"></div>
+                        <div id="floating-box" class="floating-box">
+                            <div class="loader"></div>
+                            <h2>Cargando...</h2>
+                        </div>
 
                         <div class="row justify-content-center mb-3">
                             <div class="col-md-6">

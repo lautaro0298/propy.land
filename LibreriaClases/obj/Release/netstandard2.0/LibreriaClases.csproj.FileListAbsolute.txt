@@ -28,3 +28,13 @@ C:\propy.land\LibreriaClases\obj\Release\netstandard2.0\LibreriaClases.AssemblyI
 C:\propy.land\LibreriaClases\obj\Release\netstandard2.0\LibreriaClases.csproj.CoreCompileInputs.cache
 C:\propy.land\LibreriaClases\obj\Release\netstandard2.0\LibreriaClases.dll
 C:\propy.land\LibreriaClases\obj\Release\netstandard2.0\LibreriaClases.pdb
+C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaClases\bin\Release\netstandard2.0\LibreriaClases.deps.json
+C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaClases\bin\Release\netstandard2.0\LibreriaClases.dll
+C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaClases\bin\Release\netstandard2.0\LibreriaClases.pdb
+C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaClases\obj\Release\netstandard2.0\LibreriaClases.csproj.AssemblyReference.cache
+C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaClases\obj\Release\netstandard2.0\LibreriaClases.GeneratedMSBuildEditorConfig.editorconfig
+C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaClases\obj\Release\netstandard2.0\LibreriaClases.AssemblyInfoInputs.cache
+C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaClases\obj\Release\netstandard2.0\LibreriaClases.AssemblyInfo.cs
+C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaClases\obj\Release\netstandard2.0\LibreriaClases.csproj.CoreCompileInputs.cache
+C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaClases\obj\Release\netstandard2.0\LibreriaClases.dll
+C:\eluxsegundaprueba\lautaro0298\propy.land\LibreriaClases\obj\Release\netstandard2.0\LibreriaClases.pdb

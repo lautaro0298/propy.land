@@ -542,7 +542,7 @@ export const SearchBarWrapper = styled.div`
   position: relative;
   z-index: 5;
   
-  height: 200px;
+  height: 150px;
   background-color: rgb(245, 245, 246);
   /* border: 1px solid black;*/
    transform: scale(0.75);

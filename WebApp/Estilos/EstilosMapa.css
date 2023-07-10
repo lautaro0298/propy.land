@@ -1,4 +1,45 @@
-﻿/* Always set the map height explicitly to define the size of the div
+﻿#modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#modal-content {
+    background-color: #fff;
+    margin: 20% auto;
+    padding: 20px;
+    width: 80%;
+    text-align: center;
+    position: relative;
+}
+
+#loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
 #map {
     height: 300px;

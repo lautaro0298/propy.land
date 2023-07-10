@@ -14,8 +14,8 @@ namespace LibreriaExperto.Mensajeria
             smtp.Port = 25;
             smtp.EnableSsl = true;
             smtp.UseDefaultCredentials = true;
-            string cuentaCorreo = "lautaro.0298@gmail.com";
-            string passwordCorreo = "asdfqwer2298";
+            string cuentaCorreo = "propy.land.com@gmail.com";
+            string passwordCorreo = "Micontrasenaes12";
             smtp.Credentials = new System.Net.NetworkCredential(cuentaCorreo, passwordCorreo);
             return smtp;
         }

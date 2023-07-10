@@ -120,22 +120,7 @@ namespace LibreriaExperto.Visitas
             }
             TransferenciaPublicacion publicacion = tareaObtenerPublicacion.Result.Content.ReadAsAsync<TransferenciaPublicacion>().Result;
             TransferenciaVisitaInmueble visita = publicacion.VisitaInmueble.Where(x => x.usuarioId == usuarioIdVisita).FirstOrDefault();
-            if (visita == null) {
-                error.codigoError = 666;
-                error.descripcionError = "Error: " + error.codigoError + " no se han podido obtener los datos del publicante.";
-                return (error, null);
-            }
-            if (visita.contactoPublicante==false) {
-                visita.contactoPublicante = true;
-                var tareaEditarVisita = clienteHttp.PostAsJsonAsync<TransferenciaVisitaInmueble>("api/Visita/editarVisita",visita);
-                if (!tareaEditarVisita.Result.IsSuccessStatusCode) {
-                    error.codigoError = (int)tareaEditarVisita.Result.StatusCode;
-                    error.descripcionError = "Error: " + error.codigoError + " " + tareaEditarVisita.Result.StatusCode;
-                    return (error, null);
-
-                }
-                
-            }
+           
             datosPublicante.nombreCompletoPublicante = publicacion.Propiedad.Usuario.nombreUsuario + " " + publicacion.Propiedad.Usuario.apellidoUsuario;
             datosPublicante.email = publicacion.Propiedad.Usuario.email;
             datosPublicante.telefonoContactoPrincipal = String.Format("{0:(###) ### ####}", publicacion.Propiedad.Usuario.telefono1);
@@ -161,13 +146,13 @@ namespace LibreriaExperto.Visitas
             TransferenciaVisitaInmueble visitaInmueble = publicacion.VisitaInmueble.Where(x =>  x.usuarioId == usuarioIdVisita).FirstOrDefault();
             if (visitaInmueble != null)
             {
-                visitaInmueble.cantidadVecesQueRepitioVisita++;
+                
                 contacto = visitaInmueble.contactoPublicante;
             }
             // aca se resta el credito
             TransferenciaPlanUsuario planUsuario = respuestaObtenerUsuarioPublicante.usuarioPublicante.PlanUsuario.Where(x => x.activo == true).FirstOrDefault();
             if (contacto == false) { planUsuario.cantidadCreditosActivos = planUsuario.cantidadCreditosActivos - puntosResta; }
-
+           
             if (planUsuario.cantidadCreditosActivos <= 0)
             {
                 var tareaEditarPlanUsuario = clienteHttp.PostAsJsonAsync<TransferenciaPlanUsuario>("api/PlanUsuario/editarPlanUsuario", planUsuario);
@@ -187,27 +172,40 @@ namespace LibreriaExperto.Visitas
                 await ExpertoMensajeria.EnviarMailAvisoCreditosAgotados(publicacion.Propiedad.Usuario.email);
                 return (error, datosPublicante);
             }
-            if (contacto == false)
+           
+            if (visita == null)
+            {
+                error.codigoError = 666;
+                error.descripcionError = "Error: " + error.codigoError + " no se han podido obtener los datos del publicante.";
+                return (error, null);
+            }
+            if (visita.contactoPublicante == false)
             {
                 visita.contactoPublicante = true;
-               
-                var restarpunto = clienteHttp.PostAsJsonAsync<TransferenciaPlanUsuario>("api/Visita/EditarPlanusuario", planUsuario);
-                if (!restarpunto.Result.IsSuccessStatusCode)
+                var tareaEditarPlanUsuario = clienteHttp.PostAsJsonAsync<TransferenciaPlanUsuario>("api/PlanUsuario/editarPlanUsuario", planUsuario);
+                if (!tareaEditarPlanUsuario.Result.IsSuccessStatusCode)
                 {
-                    error.codigoError = (int)restarpunto.Result.StatusCode;
-                    error.descripcionError = "Error: " + error.codigoError + " " + restarpunto.Result.StatusCode;
+                    throw new Exception(tareaEditarPlanUsuario.Result.StatusCode.ToString());
+                }
+                var tareaEditarVisita = clienteHttp.PostAsJsonAsync<TransferenciaVisitaInmueble>("api/Visita/editarVisita", visita);
+                if (!tareaEditarVisita.Result.IsSuccessStatusCode)
+                {
+                    error.codigoError = (int)tareaEditarVisita.Result.StatusCode;
+                    error.descripcionError = "Error: " + error.codigoError + " " + tareaEditarVisita.Result.StatusCode;
                     return (error, null);
 
                 }
 
             }
-           
+
+
+
 
 
             #endregion
 
 
-           
+
 
             return (error, datosPublicante);
         }
@@ -289,7 +287,7 @@ namespace LibreriaExperto.Visitas
             }
             datosInmueble.amueblado = publicacion.Propiedad.amueblado;
 
-            #region Restar Crédito y Crear Visita
+            #region  Crear Visita
             (ErrorPropy error, TransferenciaUsuario usuarioPublicante) respuestaObtenerUsuarioPublicante = ExpertoUsuarios.ObtenerUsuarioPorID(publicacion.Propiedad.Usuario.usuarioId, clienteHttp);
             if (respuestaObtenerUsuarioPublicante.error.codigoError != 0)
             {
@@ -306,8 +304,8 @@ namespace LibreriaExperto.Visitas
             }
             TransferenciaPlanUsuario planUsuario = respuestaObtenerUsuarioPublicante.usuarioPublicante.PlanUsuario.Where(x => x.activo == true).FirstOrDefault();
             //if (cantidadVisitasUnMismoUsuario == 0) { planUsuario.cantidadCreditosActivos = planUsuario.cantidadCreditosActivos - puntosResta; }
-
-            if (planUsuario.cantidadCreditosActivos <= 0)
+           
+                if (planUsuario.cantidadCreditosActivos <= 0)
             {
                 var tareaEditarPlanUsuario = clienteHttp.PostAsJsonAsync<TransferenciaPlanUsuario>("api/PlanUsuario/editarPlanUsuario", planUsuario);
                 if (!tareaEditarPlanUsuario.Result.IsSuccessStatusCode)
@@ -326,7 +324,7 @@ namespace LibreriaExperto.Visitas
                 await ExpertoMensajeria.EnviarMailAvisoCreditosAgotados(publicacion.Propiedad.Usuario.email);
                 return (error, datosInmueble);
             }
-            if (cantidadVisitasUnMismoUsuario == 0) //Si es la primera vez que el usuario visita la publicacion se crea instancia de VisitaInmueble y se modifica la cantidad de créditos activos del plan del publicante.
+            if (cantidadVisitasUnMismoUsuario == 0) //Si es la primera vez que el usuario visita la publicacion se crea instancia de VisitaInmueble 
             {
                 TransferenciaNoPersistidoPlanUsuarioVisita planUsuarioVisita = new TransferenciaNoPersistidoPlanUsuarioVisita();
                 planUsuarioVisita.visita = new TransferenciaVisitaInmueble();
@@ -344,7 +342,15 @@ namespace LibreriaExperto.Visitas
                 }
                 if (cantidadVisitasUnMismoUsuario == 0)
                 {
-                    await ExpertoMensajeria.EnviarMailAvisoVisita(respuestaObtenerUsuarioPublicante.usuarioPublicante.email, publicacion.Propiedad.ubicacion, publicacion.Propiedad.TipoPropiedad.FirstOrDefault().nombreTipoPropiedad);
+                    try {
+                        await ExpertoMensajeria.EnviarMailAvisoVisita(respuestaObtenerUsuarioPublicante.usuarioPublicante.email, publicacion.Propiedad.ubicacion, publicacion.Propiedad.TipoPropiedad.FirstOrDefault().nombreTipoPropiedad);
+
+                    }catch (Exception ex)
+                    {
+                        Console.WriteLine("error al enviar el mail");
+
+                    }
+
                 }
             }
             else

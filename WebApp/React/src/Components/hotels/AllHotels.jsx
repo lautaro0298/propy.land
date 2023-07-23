@@ -120,7 +120,7 @@ export default function AllHotels() {
                                 }} />
                                     Ubicaci{'\u00f3'}n {data.propiedad.ubicacion}
                     <div className="arrow">
-                      <img src={imagen0} alt="arrow" />
+                                    <img src={imagen0} alt="arrow" onClick={console.log(data.propiedad.ubicacion) }/>
                     </div>
                   </label>
                 </div>

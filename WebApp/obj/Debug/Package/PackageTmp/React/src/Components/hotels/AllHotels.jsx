@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { SearchBar } from "../Search-Bar/SearchBar";
-import { getAllHotel, fliterPrecio, fliterPrecio1 } from '../../store/actions';
+import { getAllHotel, fliterPrecio, fliterPrecio1, fliterReciente, fliterviejo } from '../../store/actions';
 import Mapa from "../Map/Mapa";
 import { RatingView } from "react-simple-star-rating";
 import imagen from "../../Logos/placeholder.png";
@@ -120,7 +120,7 @@ export default function AllHotels() {
                                 }} />
                                     Ubicaci{'\u00f3'}n {data.propiedad.ubicacion}
                     <div className="arrow">
-                      <img src={imagen0} alt="arrow" />
+                                    <img src={imagen0} alt="arrow" onClick={console.log(data.propiedad.ubicacion) }/>
                     </div>
                   </label>
                 </div>
@@ -206,7 +206,10 @@ export default function AllHotels() {
                                   if (select == "menor") {
 
                                       hotel = dispatch(fliterPrecio())
-                                  } if (select == "mayor") { hotel = dispatch(fliterPrecio1()) }
+                                  } if (select == "mayor") { hotel = dispatch(fliterPrecio()) }
+                                  if (select == "menor") { hotel = dispatch(fliterPrecio1()) }
+                                  if (select == "reciente") { hotel = dispatch(fliterReciente()) }
+                                  if (select == "antigua") { hotel = dispatch(fliterviejo()) }
                               }
                           } } }>
                           
@@ -219,10 +222,10 @@ export default function AllHotels() {
                           <option value="menor" name="Rating_recomn" >
                 Precio, de menor a mayor
               </option>
-              <option value="menor" name="Rating_recomn">
+              <option value="reciente" name="Rating_recomn">
                               Publicaci{'\u00f3'}n m{'\u00e1'}s reciente
                </option>
-                <option value="menor" name="Rating_recomn">
+                <option value="antigua" name="Rating_recomn">
                               Publicaci{'\u00f3'}n m{'\u00e1'}s antigua
                </option>
             </select>

@@ -8,7 +8,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAOZpqDRv/0E29WrhVOe82UAAAAAACAAAAAAAQZgAAAAEAACAAAADTCsiX4Ot8/FwfUHy4nvlPHdNecrwXe+ahYSeIp09hiQAAAAAOgAAAAAIAACAAAAC+RPOrsapXKDvm+u3WtEPsxOV7e1mqXMSvqrkiH5ZJ/yAAAAA7CNJro31JOg2GbzBDuBh0Q6JcCngzjtDlPgeINYRY5EAAAADN/fhgh/gs38/OaarI90pe+lU9o2Jwz+A4NQLZ/do/2fuloaNyP8jZGbSMu7Xid2wS/rUHkgcRtNIovDsvGE8l</EncryptedPassword>
     <_PublishTargetUrl>C:\Users\Lautaro\Desktop\WebSite</_PublishTargetUrl>
-    <History>True|2023-07-07T16:08:29.1930876Z;True|2023-07-06T12:00:57.7810938-03:00;True|2023-07-06T10:02:39.0736448-03:00;True|2023-07-06T09:21:24.6317933-03:00;True|2023-07-06T09:18:19.2334647-03:00;True|2023-07-06T02:53:14.7017841-03:00;True|2023-07-04T11:37:28.7553026-03:00;True|2023-05-31T13:33:50.0097702-03:00;True|2023-05-31T13:22:37.9107428-03:00;False|2023-04-26T06:23:28.9215585-03:00;True|2023-03-31T13:14:12.6713304-03:00;True|2023-03-31T13:01:32.9874308-03:00;False|2023-03-31T12:39:55.4100928-03:00;True|2023-03-27T13:19:31.2551749-03:00;False|2023-03-27T13:17:00.0325028-03:00;False|2022-12-05T11:22:15.4008694-03:00;</History>
+    <History>True|2023-07-21T15:07:50.0092067Z;True|2023-07-21T11:19:15.0997425-03:00;True|2023-07-07T13:08:29.1930876-03:00;True|2023-07-06T12:00:57.7810938-03:00;True|2023-07-06T10:02:39.0736448-03:00;True|2023-07-06T09:21:24.6317933-03:00;True|2023-07-06T09:18:19.2334647-03:00;True|2023-07-06T02:53:14.7017841-03:00;True|2023-07-04T11:37:28.7553026-03:00;True|2023-05-31T13:33:50.0097702-03:00;True|2023-05-31T13:22:37.9107428-03:00;False|2023-04-26T06:23:28.9215585-03:00;True|2023-03-31T13:14:12.6713304-03:00;True|2023-03-31T13:01:32.9874308-03:00;False|2023-03-31T12:39:55.4100928-03:00;True|2023-03-27T13:19:31.2551749-03:00;False|2023-03-27T13:17:00.0325028-03:00;False|2022-12-05T11:22:15.4008694-03:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include=".babelrc">
@@ -150,19 +150,19 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>05/30/2023 01:55:01</publishTime>
     </File>
     <File Include="bin/LibreriaExperto.dll">
-      <publishTime>07/06/2023 02:37:13</publishTime>
+      <publishTime>07/10/2023 12:46:04</publishTime>
     </File>
     <File Include="bin/LibreriaExperto.pdb">
-      <publishTime>07/06/2023 02:37:13</publishTime>
+      <publishTime>07/10/2023 12:46:04</publishTime>
     </File>
     <File Include="bin/LibreriaMercadoPago.dll">
-      <publishTime>07/06/2023 02:37:13</publishTime>
+      <publishTime>07/19/2023 11:03:42</publishTime>
     </File>
     <File Include="bin/LibreriaMercadoPago.dll.config">
       <publishTime>05/17/2023 13:26:26</publishTime>
     </File>
     <File Include="bin/LibreriaMercadoPago.pdb">
-      <publishTime>07/06/2023 02:37:13</publishTime>
+      <publishTime>07/19/2023 11:03:42</publishTime>
     </File>
     <File Include="bin/MercadoPago.dll">
       <publishTime>05/15/2023 11:40:23</publishTime>
@@ -912,10 +912,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>05/15/2023 11:40:23</publishTime>
     </File>
     <File Include="bin/WebApp.dll">
-      <publishTime>07/06/2023 09:20:56</publishTime>
+      <publishTime>07/19/2023 11:04:25</publishTime>
     </File>
     <File Include="bin/WebApp.pdb">
-      <publishTime>07/06/2023 09:20:56</publishTime>
+      <publishTime>07/19/2023 11:04:25</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>05/15/2023 11:40:23</publishTime>
@@ -1266,7 +1266,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>07/07/2023 11:32:23</publishTime>
     </File>
     <File Include="React/src/Components/hotels/AllHotels.jsx">
-      <publishTime>07/07/2023 13:02:03</publishTime>
+      <publishTime>07/19/2023 13:46:18</publishTime>
     </File>
     <File Include="React/src/Components/Image SlideShow/ImageSliderData.js">
       <publishTime>05/15/2023 11:33:28</publishTime>
@@ -1455,7 +1455,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>05/15/2023 11:33:29</publishTime>
     </File>
     <File Include="React/src/store/actions.jsx">
-      <publishTime>06/15/2023 09:36:52</publishTime>
+      <publishTime>07/13/2023 13:00:15</publishTime>
     </File>
     <File Include="React/src/store/Reducer.jsx">
       <publishTime>05/15/2023 11:33:29</publishTime>
@@ -1506,7 +1506,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>05/15/2023 11:33:30</publishTime>
     </File>
     <File Include="Scripts/dist/app.bundle.js">
-      <publishTime>07/07/2023 13:02:07</publishTime>
+      <publishTime>07/21/2023 11:09:29</publishTime>
     </File>
     <File Include="Scripts/dist/app.bundle.js.LICENSE.txt">
       <publishTime>05/15/2023 11:33:31</publishTime>
@@ -2139,10 +2139,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>05/15/2023 11:33:37</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
-      <publishTime>05/15/2023 11:33:37</publishTime>
+      <publishTime>07/19/2023 13:40:32</publishTime>
     </File>
     <File Include="Views/Home/Contact.cshtml">
-      <publishTime>05/15/2023 11:33:37</publishTime>
+      <publishTime>07/19/2023 13:19:44</publishTime>
     </File>
     <File Include="Views/Home/Frequents.cshtml">
       <publishTime>05/15/2023 11:33:37</publishTime>

@@ -8,11 +8,18 @@ import {
   HOTEL_SUCCESS,
     HOTEL_FAILURE,
     HOTELSLIST,
+    HOTELSPRECIO,
   PRICE_FILTER
 } from "./actionTypes";
 
 import axios from "axios";
 import AllHotels from "../Components/hotels/AllHotels";
+const hotelprecio = (payload) => {
+    return {
+        type: HOTELSPRECIO,
+        payload: payload
+    };
+};
 const hotelList = (payload) => {
     return {
         type: HOTELSLIST,
@@ -93,7 +100,10 @@ export const getAllHotel = (query = null, currPage = 1) => dispatch => {
 
     return axios.get(`http://propyy.somee.com/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda`)
     .then((res) => {
-      dispatch(hotelSuccess(res.data));
+        dispatch(hotelSuccess(res.data));
+        dispatch(hotelprecio(res.data));
+
+        
     })
     .catch((err) => {
       const failureAction = hotelFailure(err, currPage, query);
@@ -125,51 +135,66 @@ export const priceFilter = (payload, query) => dispatch => {
 export const addHotelList2 = (moneda) => (dispatch) => {
     axios.get('http://propyy.somee.com/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda')
         .then((res) => {
-            let arrayObjeto = res.data;
+              let arrayObjeto = res.data;
+            if (moneda != "" || moneda != null || moneda != undefined) {
 
-            axios.get('https://api.bluelytics.com.ar/v2/latest')
-                .then((res) => {
-                    let cotizacionData = res.data;
-                    let cotizacionMoneda;
-                    if (moneda === 'ARS') {
-                        cotizacionMoneda = cotizacionData.blue.value_sell;
-                    } else {
-                        cotizacionMoneda = 1 / cotizacionData.blue.value_sell;
-                    }
-
-                    const result = arrayObjeto.map(obj => {
-                        if (obj.propiedad.tipoMoneda.denominacionMoneda === 'ARS' && moneda === 'USD') {
-                            obj.propiedad.precioPropiedad = obj.propiedad.precioPropiedad / cotizacionMoneda;
-                        } else if (obj.propiedad.tipoMoneda.denominacionMoneda === 'USD' && moneda === 'ARS') {
-                            obj.propiedad.precioPropiedad = obj.propiedad.precioPropiedad * cotizacionMoneda;
+                axios.get('https://api.bluelytics.com.ar/v2/latest')
+                    .then((res) => {
+                        let cotizacionData = res.data;
+                        let cotizacionMoneda;
+                        if (moneda === 'ARS') {
+                            cotizacionMoneda = cotizacionData.blue.value_sell;
+                        } else {
+                            cotizacionMoneda = 1 / cotizacionData.blue.value_sell;
                         }
-                        obj.propiedad.tipoMoneda.denominacionMoneda = moneda;
-                        return obj;
+
+                        const result = arrayObjeto.map(obj => {
+                            if (obj.propiedad.tipoMoneda.denominacionMoneda === 'ARS' && moneda === 'USD') {
+                                obj.propiedad.precioPropiedad = obj.propiedad.precioPropiedad / cotizacionMoneda;
+                            } else if (obj.propiedad.tipoMoneda.denominacionMoneda === 'USD' && moneda === 'ARS') {
+                                obj.propiedad.precioPropiedad = obj.propiedad.precioPropiedad * cotizacionMoneda;
+                            }
+                            obj.propiedad.tipoMoneda.denominacionMoneda = moneda;
+                            return obj;
+                        });
+                        dispatch(hotelSuccess(result));
+                        dispatch(hotelList(result));
+                    })
+                    .catch(error => {
+                        console.error('Error al obtener los datos de la API:', error);
                     });
-                    dispatch(hotelSuccess(result));
-                    dispatch(hotelList(result));
-                })
-                .catch(error => {
-                    console.error('Error al obtener los datos de la API:', error);
-                });
-        })
+            } else {
+                dispatch(hotelSuccess(arrayObjeto));
+                dispatch(hotelList(arrayObjeto)); }
+
+        })    
         .catch(error => {
             console.error('Error al obtener los datos de la API:', error);
         });
 }
         
 export const fliterPrecio2 = (cant) => dispatch => {
+    
     let hotel = store.getState().activities.hotel;
+    if (hotel == null || hotel.length == 0 &&cant !=0) {
+        
+         hotel = store.getState().activities.hotelPrecio;
+    }
+    console.log(typeof cant)
     let filtro = hotel.filter(res => {
-        return res.propiedad.precioPropiedad <= Math.max(...cant);
+        return res.propiedad.precioPropiedad <= cant;
+
     });
     dispatch(hotelSuccess(filtro));
     dispatch(hotelList(filtro));
+    
     
 }
 export const addHotelList = (cant ,moneda ) => dispatch => {
     axios.get('http://propyy.somee.com/api/Busqueda/buscardorPorPrecio?cant=' + cant + '&moneda=' + moneda).then((res) => {
         let { data } = res;
+        hotelprecio
+        dispatch(hotelprecio(data));
         dispatch(hotelSuccess(data));
     })
 }
@@ -190,6 +215,7 @@ export const fliterDormitorios = (values) => dispatch => {
         dispatch(hotelSuccess(filtro));  
     })
 }
+
 export const fliterPrecio = () => dispatch => {
     let hotel = store.getState().activities.hotel;
     hotel.sort(((a, b) => a.propiedad.precioPropiedad - b.propiedad.precioPropiedad));

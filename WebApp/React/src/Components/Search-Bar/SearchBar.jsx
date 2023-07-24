@@ -28,7 +28,7 @@ export function SearchBar() {
     let searchArea
     const [searchBox, setSearchBox] = useState(null);
     /* const [searchBox, setSearchBox] = useState(null);*/
-    const [price, setPrice] = useState(14100);
+    const [price, setPrice] = useState(10000);
     const [show, setShow] = useState(false);
     const [hotelClass, setHotelClass] = useState(false);
     const [houseClass, setHouseClass] = useState(false);
@@ -49,7 +49,7 @@ export function SearchBar() {
     const [publicante, setPublicante] = useState([]);
     let publicanteIs = false;
     let monedaIs = false;
-    const [monedaSelect, setMonedaSelect] = useState("ARS")
+    const [monedaSelect, setMonedaSelect] = useState("")
     const [publicacionSelect, setPublicacionSelect] = useState("")
     const dispatch = useDispatch();
     useEffect(() => {
@@ -449,7 +449,7 @@ export function SearchBar() {
                             </select>
                         </div>
                     </GuestRatingWrapper>
-                    <PriceNightWrapper onMouseEnter={hanldleAllCards}>
+                    <PriceNightWrapper >
 
 
                         <div className="priceNightSlider">
@@ -461,7 +461,7 @@ export function SearchBar() {
                                 step={300}
                                 max={1000000}
                                 aria-label="pretto slider"
-                                defaultValue={0}
+                               
                             />
                         </div>
                         <div className="priceNightText">
@@ -693,7 +693,11 @@ const PriceNightWrapper = styled.div`
   border-right:1px solid rgb(205, 208, 210) !important;
   padding-right: 2rem;
   padding-left: 1rem;
-
+  .priceNightWrapper button:active {
+  outline: none;
+  box-shadow: none;
+  /* Otras propiedades CSS para anular los estilos activos, si es necesario */
+}
   .priceNightText {
     display: grid;
     grid-template-columns: 1fr 1fr;

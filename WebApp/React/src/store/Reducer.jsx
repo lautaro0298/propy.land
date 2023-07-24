@@ -7,14 +7,17 @@ import {
   HOTEL_SUCCESS,
   HOTEL_FAILURE,
   HOTELSLIST,
-  PRICE_FILTER
+    PRICE_FILTER,
+  HOTELSPRECIO
 } from "./actionTypes";
 const initState = {
   data: [],
   isLoading: false,
   isError: false,
   hotelsList:[],
-  hotel: [],
+    hotel: [],
+    hotelPrecio: [],
+    
   hotLoad:false,
   hotErr: false,
   currPage: 1,
@@ -51,6 +54,12 @@ export const RecentlyReducer = (state = initState, { type, payload,currPage, que
         ...state,
         hotLoad: true,
       };
+      }
+      case HOTELSPRECIO: {
+          return {
+              ...state,
+              hotelPrecio: payload
+          };
       }
       case HOTELSLIST:{
           return {

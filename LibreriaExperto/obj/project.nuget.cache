@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SPLDEOmVWo7olduK/dcYixhkwCBHdhls412QBirdFG0BGYakbmno3GjHnSi5UiROMSI9lk333Ss99q2bo6lyzQ==",
+  "dgSpecHash": "kK044bcnq1r/XjKMy4oS1eq6KwFZdPpmnfRWcUiH1cPuGKc7vd8UKS7q9is8XKg8jRbkn8gXoAi7bZJAPoiY4A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Lautaro\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj",
+  "projectFilePath": "C:\\Users\\Lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lautaro\\.nuget\\packages\\legacy2cpsworkaround\\1.0.0\\legacy2cpsworkaround.1.0.0.nupkg.sha512",
     "C:\\Users\\Lautaro\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.9\\microsoft.aspnet.webapi.client.5.2.9.nupkg.sha512",

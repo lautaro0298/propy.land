@@ -21,7 +21,7 @@ export default function GuestCard({
   const useStyles = makeStyles({
     root: {
           position: position,
-          left:"30rem",
+          left:"81rem",
       minWidth: "300px",
       maxWidth: "300px",
       maxHeight: "auto",
@@ -72,7 +72,7 @@ export default function GuestCard({
   
     useEffect(() => {
 
-        axios.get("https://propycore.azurewebsites.net/api/TipoAmbiente/obtenerTiposAmbientes").then((res) => {
+        axios.get("https://propyy.somee.com/api/TipoAmbiente/obtenerTiposAmbientes").then((res) => {
 
             setTipoambiente(res.data)
             setIsload(true)

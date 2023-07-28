@@ -1,0 +1,57 @@
+﻿@model List<LibreriaClases.DTO.DTO_TP_Y_C>
+
+@{
+    ViewBag.Title = "EliminarTipoPropiedadTipoAmbiente";
+    Layout = "~/Views/Shared/MasterPanelAdministrador.cshtml";
+}
+
+<h2>Eliminar un ambiente a una propiedad que desees.</h2>
+
+@if (!String.IsNullOrEmpty(ViewBag.Error))
+{
+    <div class="alert alert-danger">
+        <button class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        @Html.ValidationSummary(false)
+    </div>
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Propiedad</th>
+                        <th>Ambientes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int x = 0; x < Model.Count(); x++)
+                    {
+                        <tr>
+                            <td>@Model.ElementAt(x).dTOTipoPropiedades.ElementAt(x).nombreTipoPropiedad</td>
+                            <td>
+                                @for (int y = 0; y < Model.ElementAt(x).dTOCaracteristicas.Count(); y++)
+                                {
+                                    <p><input type="checkbox" value="@Model.ElementAt(x).dTOCaracteristicas.ElementAt(y).caracteristicaId" name="TipoAmbiente" />@Model.ElementAt(x).dTOCaracteristicas.ElementAt(y).caracteristicaId</p>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4 ">
+            <button class="btn-danger" type="submit" onclick="Asignar_Ambiente_A_Propiedad();">Aceptar</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label id="resultadoOperacion"></label>
+        </div>
+    </div>
+</div>
+
+

@@ -7,4 +7,6 @@ export const HOTEL_REQUEST = "HOTEL_REQUEST";
 export const HOTEL_FAILURE = "HOTEL_FAILURE";
 export const HOTELSLIST = "HOTELSLIST";
 export const HOTELSPRECIO = "HOTELSPRECIO";
+export const HOTELSOPERACION = "HOTELSOPERACION";
+export const HOTELS1 = "HOTELS1";
 

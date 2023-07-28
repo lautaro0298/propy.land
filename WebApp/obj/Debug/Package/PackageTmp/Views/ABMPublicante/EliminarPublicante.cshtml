@@ -1,0 +1,46 @@
+﻿@model  List<LibreriaClases.DTO.DTOTipoPublicante>
+@{
+
+    ViewBag.Title = "Eliminar Tipo Publicante";
+    Layout = "~/Views/Shared/MasterPanelAdministrador.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Tipo de Publicante</th>
+                    <th scope="col">Activo</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @for (int m = 0; m < Model.Count; m++)
+                {
+                    <tr>
+                        <th scope="row">@m</th>
+                        <td>@Model.ElementAt(m).nombreTipoPublicante</td>
+                        <td></td>
+                        <td><form action="/ABMPublicante/EliminarPublicante" method="post"><input type="hidden" name="id" value="@Model.ElementAt(m).tipoPublicanteId" /><button class="btn btn-danger" type="submit">Eliminar</button></form></td>
+                    </tr>
+
+                }
+
+
+
+            </tbody>
+
+        </table>
+
+    </div>
+</body>
+</html>

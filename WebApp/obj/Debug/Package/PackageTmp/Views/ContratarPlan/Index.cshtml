@@ -1,0 +1,70 @@
+﻿@model LibreriaMercadoPago.DTO.DTOCompra
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/PanelControl2.cshtml";
+}
+<script src="https://www.mercadopago.com/v2/security.js" view="home"></script>
+
+@if (!String.IsNullOrEmpty(ViewBag.Error))
+{
+    <div class="alert alert-danger">
+        <button class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        @Html.ValidationSummary(false)
+    </div>
+}
+
+
+<h2 class="text-primary mt-4" style="color:purple;">Planes</h2>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+
+        @{
+            Int32 contador = 0;
+            foreach (var prefences in Model.preferences)
+            {
+                <div class="col-12 col-lg-3 card ml-lg-3 mt-3 Contenedor" style="background-image: linear-gradient(to bottom right,gold,white);">
+                    <div class="card-header" style="background-color:transparent;">
+                        <h3>@Model.dTOPlanes.ElementAt(contador).nombrePlan</h3>
+                        <hr />
+                        <h5>$@Model.dTOPlanes.ElementAt(contador).precioPlan @Model.dTOPlanes.ElementAt(contador).tipoMoneda.denominacionMoneda</h5>
+                    </div>
+                    <div class="card-body ">
+                        @if (Model.dTOPlanes.ElementAt(contador).accesoEstadisticasAvanzadas == true)
+                        {
+                            <h6 style="font-size:13px;"><b>Vista preferencial:</b>&nbsp;Si</h6>
+                        }
+                        else
+                        {
+                            <h6 style="font-size:13px;"><b>Vista preferencial:</b>&nbsp;No</h6>
+                        }
+                        <h6 style="font-size:13px;"><b>Fotos por publicación:</b>&nbsp;@Model.dTOPlanes.ElementAt(contador).cantidadMaxImagenesPermitidasPorPublicacion</h6>
+                        @if (Model.dTOPlanes.ElementAt(contador).permiteVideo == true)
+                        {
+                            <h6 style="font-size:13px;"><b>Publicar video:</b>&nbsp;Si</h6>
+                        }
+                        else
+                        {
+                            <h6 style="font-size:13px;"><b>Publicar video:</b>&nbsp;No</h6>
+                        }
+                        <!--<h6 style="font-size:13px;"><b>Vencimiento de créditos:</b>&nbsp;Model.dTOPlanes.ElementAt(contador).vencimientoCreditos</h6>-->
+                        <h6 style="font-size:13px;"><b>Créditos:</b>&nbsp;@Model.dTOPlanes.ElementAt(contador).cantidadCreditosIniciales</h6>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row justify-content-center">
+                            <form action="@Url.Action("Notification","ContratarPlan")" method="post">
+                                <script src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
+                                        data-preference-id="@Html.DisplayFor( model => prefences.Id)" data-button-label="Comprar">
+                                </script>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                contador++;
+            }
+        }
+    </div>
+</div>
+

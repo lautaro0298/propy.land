@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1pojiQbjTF401jaNRwKOmB/igSCGzIdrMEwzdbT8enxABPyIvugV4APb92QC0ruFg4ElKewsXkMqmoQ7btkzHQ==",
+  "dgSpecHash": "CEa2CIIiDOO4OCwAQUPRDyUciLpeWSrQdyF1A6OtIdrQS0gVlOZ1M8+C5zWgbOUgTLKpqTgsT0D/EDgQXw15aA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Lautaro\\Source\\Repos\\lautaro0298\\propy.land\\API Persistencia\\API Persistencia.csproj",
+  "projectFilePath": "C:\\Users\\Lautaro\\source\\repos\\lautaro0298\\propy.land\\API Persistencia\\API Persistencia.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lautaro\\.nuget\\packages\\google.apis\\1.60.0\\google.apis.1.60.0.nupkg.sha512",
     "C:\\Users\\Lautaro\\.nuget\\packages\\google.apis.auth\\1.60.0\\google.apis.auth.1.60.0.nupkg.sha512",

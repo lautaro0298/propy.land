@@ -183,12 +183,14 @@ export default function GuestCard({
                 <PeoplesWrapper>
                     <div className="peoplesSpan">
                         <span>{tipo.nombreTipoAmbiente}</span>
-                    </div>
-                    <div>
-                        <div>
-                        <input name={tipo.nombreTipoAmbiente} onChange={(e) => handleChange(e)} value={values[tipo.nombreTipoAmbiente]} type="number" style={{ width: "70px" }} />
-                        </div>
-                    </div>  
+                    
+                    
+                        
+                    <input name={tipo.nombreTipoAmbiente} onChange={(e) => handleChange(e)} value={values[tipo.nombreTipoAmbiente]} type="number" style={{ width: "70px", height: "30px" }} min="0" max="9" />
+                        <span>o mas</span>
+                   
+                   
+                </div>    
                      
                    
                 </PeoplesWrapper>
@@ -238,8 +240,8 @@ const PeoplesWrapper = styled.div`
   grid-template-columns: 2fr 1fr;
   .peoplesSpan {
     span {
-      font-size: 13px;
-      font-weight: bold;
+      font-size: 13.33px;
+      font-weight: 600;
     }
   }
   .btnInput {

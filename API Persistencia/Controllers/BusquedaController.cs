@@ -75,18 +75,18 @@ namespace API_Persistencia.Controllers
             var dormitorioId = "e05b8a62-c878-4679-9845-15fa116b713f";
             if (cantCocheras == 0 || cantCocheras == null) {
                  publicaciones = (from y in con.PropiedadTipoAmbiente
-                                              where y.tipoAmbienteId == dormitorioId && y.cantidad == cantDormitorios
+                                              where y.tipoAmbienteId == dormitorioId && y.cantidad >= cantDormitorios
                                               select y.propiedadId).ToList();
             }
             else if (cantDormitorios == 0 || cantDormitorios == null) {
                 publicaciones = (from x in con.PropiedadTipoAmbiente
-                                              where x.tipoAmbienteId == chocherasId && x.cantidad == cantCocheras
+                                              where x.tipoAmbienteId == chocherasId && x.cantidad >= cantCocheras
                                               select x.propiedadId).ToList();
             }
             else publicaciones = (from x in con.PropiedadTipoAmbiente
                                           from y in con.PropiedadTipoAmbiente
-                                          where x.tipoAmbienteId == chocherasId && x.cantidad == cantCocheras
-                                          where y.tipoAmbienteId == dormitorioId && y.cantidad == cantDormitorios
+                                          where x.tipoAmbienteId == chocherasId && x.cantidad >= cantCocheras
+                                          where y.tipoAmbienteId == dormitorioId && y.cantidad >= cantDormitorios
                                           && y.propiedadId == x.propiedadId
                                           select x.propiedadId ).ToList();
 

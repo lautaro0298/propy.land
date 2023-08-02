@@ -383,11 +383,11 @@ export function SearchBar() {
                                             <option>
 
                                             </option>
-                                            {publicante.map((mone, index) => {
+                                            {publicante.map((tipo, index) => {
 
                                                 return (
-                                                    <option key={index} value={mone.nombreTipoPublicacion}>
-                                                        {mone.nombreTipoPublicacion}
+                                                    <option key={index} value={tipo.nombreTipoPublicacion}>
+                                                        {tipo.nombreTipoPublicacion}
                                                     </option>
                                                 );
                                             })}

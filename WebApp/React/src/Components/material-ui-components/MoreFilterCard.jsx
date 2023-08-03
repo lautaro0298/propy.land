@@ -16,7 +16,7 @@ import CloseIcon from '@material-ui/icons/Close'; // Agregar el icono de cierre
 
 const useStyles = makeStyles({
     root: {
-        
+        position: "absolute",
         overflow: "auto!important",
         fontSize: "14px",
         display: "inline-block",
@@ -25,8 +25,8 @@ const useStyles = makeStyles({
         margin: "4rem auto",
         boxShadow: "1px 1px 20px black",
         
-        top: "15rem",
-        right: "21rem"
+        top: "3rem",
+        right: "15rem"
     },
     starsCont: {
         display: "inline-block",
@@ -136,7 +136,7 @@ export function MoreFilterCard({ handleMoreFilterCard}) {
   
     if (tipodepropy != null && Object.keys(hotel).length === 0) {
 
-        axios.get("propyy.somee.com/api/TipoPropiedadCaracteristica/ObtenerPorIDdePropiedad/" + tipodepropy.tipoPropiedadId).then(data => { setHotel(data.data); setIsLoad(true); });
+        axios.get("http://propyy.somee.com/api/TipoPropiedadCaracteristica/ObtenerPorIDdePropiedad/" + tipodepropy.tipoPropiedadId).then(data => { setHotel(data.data); setIsLoad(true); });
     } 
         return (
             <Card className={classes.root} variant="outlined" >
@@ -145,9 +145,9 @@ export function MoreFilterCard({ handleMoreFilterCard}) {
                     console.log('Cerrar ventana');
                 }
                 } style={{
-                        position: "absolute",
-                        top: "163px",
-                        right: "302px", cursor: 'pointer', color: 'red' }}  />
+                        position:"fixed",
+                        top: "130px",
+                        right: "260px", cursor: 'pointer', color: 'red' }}  />
                 <CardContent className={classes.facilitiesCont} >
                     <div>
                         <span>Popular Filters</span>

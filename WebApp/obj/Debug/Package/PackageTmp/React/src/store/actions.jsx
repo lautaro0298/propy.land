@@ -141,6 +141,7 @@ export const priceFilter = (payload, query) => dispatch => {
         console.log(data);
         dispatch(hotel1(data));
         dispatch(hotelprecio(data));
+        dispatch(hotelList(data));
             dispatch(hotelSuccess(data));
         }).catch(err => {
             dispatch(hotelFailure(err, 1, query));
@@ -149,6 +150,8 @@ export const priceFilter = (payload, query) => dispatch => {
 
 
 export const addHotelList2 = (moneda) => (dispatch) => {
+    let hotel = store.getState().activities.hotelPrecio
+
     axios.get('http://propyy.somee.com/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda')
         .then((res) => {
               let arrayObjeto = res.data;
@@ -156,7 +159,7 @@ export const addHotelList2 = (moneda) => (dispatch) => {
 
                 axios.get('https://api.bluelytics.com.ar/v2/latest')
                     .then((res) => {
-                        let cotizacionData = res.data;
+                         cotizacionData = res.data;
                         let cotizacionMoneda;
                         if (moneda === 'ARS') {
                             cotizacionMoneda = cotizacionData.blue.value_sell;
@@ -166,9 +169,9 @@ export const addHotelList2 = (moneda) => (dispatch) => {
 
                         const result = arrayObjeto.map(obj => {
                             if (obj.propiedad.tipoMoneda.denominacionMoneda === 'ARS' && moneda === 'USD') {
-                                obj.propiedad.precioPropiedad = obj.propiedad.precioPropiedad * cotizacionMoneda;
+                                obj.propiedad.precioPropiedad = trunc( obj.propiedad.precioPropiedad * cotizacionMoneda);
                             } else if (obj.propiedad.tipoMoneda.denominacionMoneda === 'USD' && moneda === 'ARS') {
-                                obj.propiedad.precioPropiedad = obj.propiedad.precioPropiedad * cotizacionMoneda;
+                                obj.propiedad.precioPropiedad = trunc(obj.propiedad.precioPropiedad * cotizacionMoneda);
                             }
                             obj.propiedad.tipoMoneda.denominacionMoneda = moneda;
                             return obj;
@@ -221,6 +224,7 @@ export const tipoPublicante = (tipoPublicante) => dispatch => {
         let { data } = res;
         
         dispatch(hotelprecio(data));
+        dispatch(hotelList(data));
             dispatch(hoteloperacion(data));
         dispatch(hotelSuccess(data));
         dispatch(hotel1(data));
@@ -228,14 +232,48 @@ export const tipoPublicante = (tipoPublicante) => dispatch => {
 }
 export const fliterDormitorios = (values) => dispatch => {
     let hotel = store.getState().activities.hotel;
+    let hotel1 = store.getState().activities.hotelPrecio
     let cant = Object.values(values);
-    let cocheras=Number(cant[0]);
+    let cocheras = Number(cant[0]);
     let habitaciones = Number(cant[1]);
-    axios.get('http://propyy.somee.com/api/Busqueda/buscardorAmbientes?cantCocheras=' + cocheras + '&caracteristicaId=' + habitaciones).then((res) => {
-        let { data } = res;       
-        let filtro = hotel.filter(res => { return data.find(element => { return element == res.propiedadId }) })
-        dispatch(hotelSuccess(filtro));  
-    })
+    if (hotel == null || hotel == undefined || hotel == 0 &&hotel1 == null || hotel1 == undefined || hotel1 == 0) {
+        axios.get('http://propyy.somee.com/api/Busqueda/buscardorAmbientes?cantCocheras=' + cocheras + '&caracteristicaId=' + habitaciones).then((res) => {
+            let { data } = res;
+            let filtro = hotel.filter(res => { return data.find(element => { return element == res.propiedadId }) })
+            dispatch(hotelSuccess(filtro));
+            dispatch(hotelprecio(filtro));
+            dispatch(hotelList(filtro));
+        })
+    }
+    else {
+    
+        let resultadosFiltrados = hotel.filter(objeto => {
+            // Verificar si el objeto tiene la propiedad "propiedadTipoAmbiente"
+            if (objeto.propiedad && objeto.propiedad.propiedadTipoAmbiente) {
+                // Filtrar los elementos de "propiedadTipoAmbiente" que cumplan las condiciones de cocheras
+                let cocherasFiltradas = objeto.propiedad.propiedadTipoAmbiente.filter(ambiente => {
+                    return ambiente.tipoAmbiente.nombreTipoAmbiente === "Cocheras" && ambiente.cantidad >= cocheras;
+                });
+
+                // Filtrar los elementos de "propiedadTipoAmbiente" que cumplan las condiciones de habitaciones
+                let habitacionesFiltradas = objeto.propiedad.propiedadTipoAmbiente.filter(ambiente => {
+                    return ambiente.tipoAmbiente.nombreTipoAmbiente === "Dormitorios" && ambiente.cantidad >= habitaciones;
+                });
+
+                // Devolver el objeto si cumple ambas condiciones (cocheras y habitaciones)
+                return cocherasFiltradas.length > 0 && habitacionesFiltradas.length > 0;
+            } else {
+                // Si el objeto no tiene "propiedadTipoAmbiente", no cumple las condiciones
+                return false;
+            }
+        });
+        dispatch(hotelSuccess(resultadosFiltrados));
+        dispatch(hotelprecio(resultadosFiltrados));
+        dispatch(hotelList(resultadosFiltrados));
+    
+    }
+   
+    
 }
 
 export const fliterPrecio = () => dispatch => {
@@ -292,6 +330,7 @@ export const sortHotelData = (tipoPropiedad) => dispatch => {
             });
         } else { filteredData = data }
         dispatch(hotel1(filteredData));
+        dispatch(hotelList(filteredData));
         dispatch(hotelSuccess(filteredData));
     }).catch(err => {
       dispatch(hotelFailure(err, 1));

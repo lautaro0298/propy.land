@@ -222,21 +222,22 @@ export const addHotelList = (cant ,moneda ) => dispatch => {
 export const tipoPublicante = (tipoPublicante) => dispatch => {
     axios.get('http://propyy.somee.com/api/Busqueda/buscardorPorPublicancion?Publicacion='  + tipoPublicante).then((res) => {
         let { data } = res;
-        
         dispatch(hotelprecio(data));
         dispatch(hotelList(data));
-            dispatch(hoteloperacion(data));
+        dispatch(hoteloperacion(data));
         dispatch(hotelSuccess(data));
         dispatch(hotel1(data));
         })
 }
 export const fliterDormitorios = (values) => dispatch => {
+    let hotel2 = store.getState().activities.hotelOperacion;
+    let hotel11 = store.getState().activities.hotel1;
     let hotel = store.getState().activities.hotel;
     let hotel1 = store.getState().activities.hotelPrecio
     let cant = Object.values(values);
     let cocheras = Number(cant[0]);
     let habitaciones = Number(cant[1]);
-    if (hotel == null || hotel == undefined || hotel == 0 &&hotel1 == null || hotel1 == undefined || hotel1 == 0) {
+    if (hotel == null || hotel == undefined || hotel == 0 && hotel1 == null || hotel1 == undefined || hotel1 == 0 && hotel2 == null || hotel2 == undefined || hotel2 == 0 && hotel11 == null || hotel11 == undefined || hotel11 == 0) {
         axios.get('http://propyy.somee.com/api/Busqueda/buscardorAmbientes?cantCocheras=' + cocheras + '&caracteristicaId=' + habitaciones).then((res) => {
             let { data } = res;
             let filtro = hotel.filter(res => { return data.find(element => { return element == res.propiedadId }) })
@@ -246,7 +247,8 @@ export const fliterDormitorios = (values) => dispatch => {
         })
     }
     else {
-    
+
+        
         let resultadosFiltrados = hotel.filter(objeto => {
             // Verificar si el objeto tiene la propiedad "propiedadTipoAmbiente"
             if (objeto.propiedad && objeto.propiedad.propiedadTipoAmbiente) {

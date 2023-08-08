@@ -217,15 +217,15 @@ export default function GuestCard({
       <BottomWrapper>
         <CardContent className={classes.content2}>
           <BtnsWrapper children={children}>
+            
             <div>
-              <button onClick={handleReset} className="muiBtn1">
-                Reset
-              </button>
-            </div>
-            <div>
-              <button onClick={handleApply} className="muiBtn2">
-                Apply
-              </button>
+                            <button onClick={handleApply} style={{
+                                left: '50px',
+                                top: '10px',
+                                position: 'relative'
+                            }} className="muiBtn2">
+                Aplicar
+                            </button >
             </div>
           </BtnsWrapper>
         </CardContent>

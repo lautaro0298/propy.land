@@ -51,82 +51,82 @@ export default function AllHotels() {
                     )}
                 </div>
             );
-        }
+        }else{ return(<h1>Sin resultados</h1>)}
     };
     function extra(data) {
         data.propiedad.propiedadTipoAmbiente.forEach((extr) => { return (<label>(extr.tipoAmbiente.nombreTipoAmbiente) : (extr.cantidad)</label>)})}
     const publicaciones = (data) => {
-        if (data != undefined && data != null) {
+        if (data != undefined && data != null && data != 0 ) {
             return (
                 <div key={data.publicacionId} className="hotel-info-div">
                     <img src={data.propiedad.imagenPropiedad[0].rutaImagenPropiedad} alt="img-hotel" />
 
-              <div className="about-hotel1">
-                
-                <div className="rat-div">
-                  
+                    <div className="about-hotel1">
+
+                        <div className="rat-div">
+
                             <div className="h3">
                                 <h2>{data.tipoPublicacion.nombreTipoPublicacion}</h2>
                             </div>
-                </div>
-                <hr></hr>
-                <div className="location">
+                        </div>
+                        <hr></hr>
+                        <div className="location">
                             <label>
                                 <img src={imagen} alt="arrow" style={{
-                    height: "20px",
-                     width: "20px"
+                                    height: "20px",
+                                    width: "20px"
                                 }} />
-                                    Ubicaci{'\u00f3'}n {data.propiedad.ubicacion}
-                    <div className="arrow">
+                                Ubicaci{'\u00f3'}n {data.propiedad.ubicacion}
+                                <div className="arrow">
                                     <img src={imagen0} alt="arrow" />
+                                </div>
+                            </label>
+                        </div>
+                        <hr></hr>
+
                     </div>
-                  </label>
-                </div>
-                <hr></hr>
-              
-              </div>
-              <div className="about-hotel">
-                <div className="view-detail-div">
-                  <div className="redi">
-                    <p>Descripci{'\u00f3'}n</p>
-                  </div>
-                  <div className="fact">
+                    <div className="about-hotel">
+                        <div className="view-detail-div">
+                            <div className="redi">
+                                <p>Descripci{'\u00f3'}n</p>
+                            </div>
+                            <div className="fact">
                                 <div> <p> {data.propiedad.descripcionPropiedad} </p></div>
-                   
-                  </div>
-                  <div className="deal">
-                    <div className="h3p">
+
+                            </div>
+                            <div className="deal">
+                                <div className="h3p">
                                     <h3 > $ {data.propiedad.precioPropiedad} {data.propiedad.tipoMoneda.denominacionMoneda}</h3>
-                    </div>
-                    <div className="btn">
+                                </div>
+                                <div className="btn">
                                     <Link to={`/VisitaInmueble/VisitarPublicacion?publicacionId=${data.publicacionId}`}>
-                        <button
-                          onClick={(e) => {
-                          
-                          }}
-                        >
-                            Visitar
-                        </button>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-                  <div className="agoda-price-div1">
-                    <div className="hot">
+                                        <button
+                                            onClick={(e) => {
+
+                                            }}
+                                        >
+                                            Visitar
+                                        </button>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="agoda-price-div1">
+                            <div className="hot">
                                 Fecha de publicacion:
-                               
+
                             </div>
 
-                    <div className="hotp">
+                            <div className="hotp">
                                 {new Date(data.fechaFinPublicacion).toLocaleDateString()}
+                            </div>
+                        </div>
+
                     </div>
-                  </div>
-                 
                 </div>
-              </div>
-             
+
             );
-        }
+        } else { return(<h1>Sin resultados</h1>)}
     }
  
     useEffect(() => {
@@ -179,11 +179,10 @@ export default function AllHotels() {
                   <br />
                       <br />
         <div class="contenedor">
-                      {/*{hotellist.length > 0 && hotellist.map((data) => (*/}
-                      {/*        publicaciones(data)*/}
+                      {hotellist.length == 0 && 
+                          <h1>Sin resultados</h1>
               
-              
-                      {/*    ))}*/}
+                          }
                       {showPublications(hotellist)}
                           <div className="hotel-info-div" style={{ backgroundColor: "#ebeced"}}>
 

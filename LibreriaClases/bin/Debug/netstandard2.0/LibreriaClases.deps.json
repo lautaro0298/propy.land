@@ -17,12 +17,7 @@
         }
       },
       "Microsoft.NETCore.Platforms/1.1.0": {},
-      "Microsoft.NETFramework.ReferenceAssemblies/1.0.0": {
-        "dependencies": {
-          "Microsoft.NETFramework.ReferenceAssemblies.net461": "1.0.0"
-        }
-      },
-      "Microsoft.NETFramework.ReferenceAssemblies.net461/1.0.0": {},
+      "Microsoft.NETFramework.ReferenceAssemblies/1.0.0": {},
       "NETStandard.Library/2.0.3": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0"
@@ -49,13 +44,6 @@
       "sha512": "sha512-7D2TMufjGiowmt0E941kVoTIS+GTNzaPopuzM1/1LSaJAdJdBrVP0SkZW7AgDd0a2U1DjsIeaKG1wxGVBNLDMw==",
       "path": "microsoft.netframework.referenceassemblies/1.0.0",
       "hashPath": "microsoft.netframework.referenceassemblies.1.0.0.nupkg.sha512"
-    },
-    "Microsoft.NETFramework.ReferenceAssemblies.net461/1.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-t4HKFwTQk/TkCCe1Sr2veze2QU6/RkRHkSQrZMHo2oFAoPANBg1l93O2Gh+ogqKRLFCRBbInm9hvEeSKVsuepw==",
-      "path": "microsoft.netframework.referenceassemblies.net461/1.0.0",
-      "hashPath": "microsoft.netframework.referenceassemblies.net461.1.0.0.nupkg.sha512"
     },
     "NETStandard.Library/2.0.3": {
       "type": "package",

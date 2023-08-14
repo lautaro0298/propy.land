@@ -30,157 +30,103 @@ export default function AllHotels() {
     let hotelState = useSelector((state) => state.activities, shallowEqual);
     let hotel = hotelState.hotel;
     let hotellist = hotelState.hotelsList;
+    const [publicationsToShow, setPublicationsToShow] = useState(3); // Número inicial de publicaciones a mostrar
+    const publicationsPerPage = 3; // Número de publicaciones a cargar cada vez que se haga clic en "Mostrar más"
+    // Implementa la función que muestra las publicaciones
+    const showPublications = (data) => {
+        if (data != undefined && data != null) {
+            
+            // Filtra las publicaciones a mostrar en base al número definido en publicationsToShow
+            const publicationsToRender = hotellist.slice(0, publicationsToShow);
+
+            return (
+                <div>
+                    {/* Muestra las publicaciones */}
+                    {publicationsToRender.map((data) => publicaciones(data))}
+
+                    {/* Muestra el botón "Mostrar más" solo si hay más publicaciones por cargar */}
+                    {publicationsToShow < hotellist.length && (
+                        <button class="btn btn-success" onClick={() => setPublicationsToShow(publicationsToShow + publicationsPerPage)} style={{position: "relative", left: "470px",top:"40px"}}>
+                            Mostrar m{'\u00e1'}s
+                        </button>
+                    )}
+                </div>
+            );
+        }else{ return(<h1>Sin resultados</h1>)}
+    };
     function extra(data) {
         data.propiedad.propiedadTipoAmbiente.forEach((extr) => { return (<label>(extr.tipoAmbiente.nombreTipoAmbiente) : (extr.cantidad)</label>)})}
     const publicaciones = (data) => {
-        if (data != undefined && data != null) {
+        if (data != undefined && data != null && data != 0 ) {
             return (
-                //<div key={data.publicacionId} className="hotel-info-div">
-
-                //    <img src={data.propiedad.imagenPropiedad[0].rutaImagenPropiedad} alt="img-hotel" />
-
-
-                //    <div className="about-hotel1">
-                //        <div className="fecha">
-                //            Fecha de publicacion: {new Date(data.fechaFinPublicacion).toLocaleDateString()}
-                //        </div>
-                //        <div className="location">
-                //            <label>
-                //                Precio: $ {data.propiedad.precioPropiedad}  {data.propiedad.tipoMoneda.denominacionMoneda}
-                //            </label>
-                //        </div>
-                //        <div className="descripcion">
-                //            <label>
-                //                Descripcion:  {data.propiedad.descripcionPropiedad}
-                //            </label>
-                //        </div>
-
-                //        <div className="rating">
-                //            < div className="revwrap">
-                //                <div className="rev">
-                //                    <b> Ubicacion:<br /> {data.propiedad.ubicacion}</b>
-                //                </div>
-                //                <br />
-                //            </div>
-                //        </div>
-                //       <br/>
-                       
-                //    </div>
-                //    <div className="tipoPublicacion">
-                //        <label>
-                //            Tipo de publicacion:  {data.tipoPublicacion.nombreTipoPublicacion}
-                //        </label>
-                       
-                //    </div>
-                    
-                //    <div className="about-hotel">
-                //        <div className="view-detail-div">
-                //            <div className="deal">
-
-                //                <div className="btn">
-
-                //                    <a class="btn btn-success" href={`/VisitaInmueble/VisitarPublicacion?publicacionId=${data.publicacionId}`}
-                //                        onClick={(e) => {
-                //                            console.log(e.target);
-                //                        }}
-                //                    >
-                //                        Visitar
-                //                    </a>
-
-                //                </div>
-                //            </div>
-                //        </div>
-
-                //    </div>
-                //</div>
-
-
-
-
-
-
-
                 <div key={data.publicacionId} className="hotel-info-div">
                     <img src={data.propiedad.imagenPropiedad[0].rutaImagenPropiedad} alt="img-hotel" />
 
-              <div className="about-hotel1">
-                
-                <div className="rat-div">
-                  
+                    <div className="about-hotel1">
+
+                        <div className="rat-div">
+
                             <div className="h3">
                                 <h2>{data.tipoPublicacion.nombreTipoPublicacion}</h2>
                             </div>
-                </div>
-                <hr></hr>
-                <div className="location">
+                        </div>
+                        <hr></hr>
+                        <div className="location">
                             <label>
                                 <img src={imagen} alt="arrow" style={{
-                    height: "20px",
-                     width: "20px"
+                                    height: "20px",
+                                    width: "20px"
                                 }} />
-                                    Ubicaci{'\u00f3'}n {data.propiedad.ubicacion}
-                    <div className="arrow">
+                                Ubicaci{'\u00f3'}n {data.propiedad.ubicacion}
+                                <div className="arrow">
                                     <img src={imagen0} alt="arrow" />
+                                </div>
+                            </label>
+                        </div>
+                        <hr></hr>
+
                     </div>
-                  </label>
-                </div>
-                <hr></hr>
-              
-              </div>
-              <div className="about-hotel">
-                <div className="view-detail-div">
-                  <div className="redi">
-                    <p>Descripci{'\u00f3'}n</p>
-                  </div>
-                  <div className="fact">
+                    <div className="about-hotel">
+                        <div className="view-detail-div">
+                            <div className="redi">
+                                <p>Descripci{'\u00f3'}n</p>
+                            </div>
+                            <div className="fact">
                                 <div> <p> {data.propiedad.descripcionPropiedad} </p></div>
-                   
-                  </div>
-                  <div className="deal">
-                    <div className="h3p">
+
+                            </div>
+                            <div className="deal">
+                                <div className="h3p">
                                     <h3 > $ {data.propiedad.precioPropiedad} {data.propiedad.tipoMoneda.denominacionMoneda}</h3>
-                    </div>
-                    <div className="btn">
-                                    <Link to={`/VisitaInmueble/VisitarPublicacion?publicacionId=${data.publicacionId}`}>
-                        <button
-                          onClick={(e) => {
-                          
-                          }}
-                        >
-                            Visitar
-                        </button>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-                  <div className="agoda-price-div1">
-                    <div className="hot">
+                                </div>
+                                <div className="btn">
+
+                                    <a class="btn btn-success" href={`/VisitaInmueble/VisitarPublicacion?publicacionId=${data.publicacionId}`}
+                                        onClick={(e) => {
+                                            console.log(e.target);
+                                        }}
+                                    >
+                                        Visitar
+                                    </a>
+                                    </div>
+                            </div>
+                        </div>
+                        <div className="agoda-price-div1">
+                            <div className="hot">
                                 Fecha de publicacion:
-                               
+
                             </div>
 
-                    <div className="hotp">
+                            <div className="hotp">
                                 {new Date(data.fechaFinPublicacion).toLocaleDateString()}
+                            </div>
+                        </div>
+
                     </div>
-                  </div>
-                  {/*<div className="agoda-price-div2">*/}
-                  {/*  <div className="hotlow">*/}
-                  {/*    <p>Our lowest price</p>*/}
-                  {/*  </div>*/}
-                  {/*  <div className="hotlowp">*/}
-                  {/*    <p>*/}
-                  {/*      ?*/}
-                  {/*      {*/}
-                  {/*      }*/}
-                  {/*      booking*/}
-                  {/*    </p>*/}
-                  {/*  </div>*/}
-                  {/*</div>*/}
                 </div>
-              </div>
-             
+
             );
-        }
+        } else { return(<h1>Sin resultados</h1>)}
     }
  
     useEffect(() => {
@@ -233,12 +179,11 @@ export default function AllHotels() {
                   <br />
                       <br />
         <div class="contenedor">
-                      {hotellist.length > 0 && hotellist.map((data) => (
-                              publicaciones(data)
+                      {hotellist.length == 0 && 
+                          <h1>Sin resultados</h1>
               
-              
-                          ))}
-                          
+                          }
+                      {showPublications(hotellist)}
                           <div className="hotel-info-div" style={{ backgroundColor: "#ebeced"}}>
 
                               

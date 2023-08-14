@@ -115,8 +115,8 @@ export function MoreFilterCard({ handleMoreFilterCard}) {
     };
     const handledone = () => {
         
-        hotels = dispatch(priceFilter([tipodepropy.tipoPropiedadId],facilities ))
-
+        hotels = dispatch(priceFilter([tipodepropy.tipoPropiedadId], facilities));
+        handleMoreFilterCard();
     }
     const handleCheckboxReset = () => {
         setIschecked(!isChecked);
@@ -162,11 +162,11 @@ export function MoreFilterCard({ handleMoreFilterCard}) {
                     <BtnsWrapper>
                         <div>
                             <button onClick={handleCheckboxReset} className="muiBtn1">
-                                Reset
+                                Resetear
                             </button>
                         </div>
                         <div>
-                            <button className="muiBtn2" onClick={handledone}>Done</button>
+                            <button className="muiBtn2" onClick={handledone}>Aplicar</button>
                         </div>
                     </BtnsWrapper>
                 </CardContent>

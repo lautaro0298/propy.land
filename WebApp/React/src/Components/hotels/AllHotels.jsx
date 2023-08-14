@@ -35,6 +35,7 @@ export default function AllHotels() {
     // Implementa la función que muestra las publicaciones
     const showPublications = (data) => {
         if (data != undefined && data != null) {
+            
             // Filtra las publicaciones a mostrar en base al número definido en publicationsToShow
             const publicationsToRender = hotellist.slice(0, publicationsToShow);
 
@@ -45,7 +46,7 @@ export default function AllHotels() {
 
                     {/* Muestra el botón "Mostrar más" solo si hay más publicaciones por cargar */}
                     {publicationsToShow < hotellist.length && (
-                        <button class="btn btn-primary" onClick={() => setPublicationsToShow(publicationsToShow + publicationsPerPage)} style={{position: "relative", left: "470px",top:"40px"}}>
+                        <button class="btn btn-success" onClick={() => setPublicationsToShow(publicationsToShow + publicationsPerPage)} style={{position: "relative", left: "470px",top:"40px"}}>
                             Mostrar m{'\u00e1'}s
                         </button>
                     )}
@@ -99,16 +100,15 @@ export default function AllHotels() {
                                     <h3 > $ {data.propiedad.precioPropiedad} {data.propiedad.tipoMoneda.denominacionMoneda}</h3>
                                 </div>
                                 <div className="btn">
-                                    <Link to={`/VisitaInmueble/VisitarPublicacion?publicacionId=${data.publicacionId}`}>
-                                        <button
-                                            onClick={(e) => {
 
-                                            }}
-                                        >
-                                            Visitar
-                                        </button>
-                                    </Link>
-                                </div>
+                                    <a class="btn btn-success" href={`/VisitaInmueble/VisitarPublicacion?publicacionId=${data.publicacionId}`}
+                                        onClick={(e) => {
+                                            console.log(e.target);
+                                        }}
+                                    >
+                                        Visitar
+                                    </a>
+                                    </div>
                             </div>
                         </div>
                         <div className="agoda-price-div1">

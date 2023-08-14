@@ -172,7 +172,8 @@ export default function GuestCard({
 // ACA YA HAY QUE HACER CAMBIOS EN EL STORE PARA PODER MODIFICAR LA LISTA
   const handleApply = () => {
       console.log(values);
-      dispatch(fliterDormitorios(values))
+      dispatch(fliterDormitorios(values));
+      handleGuestSelector();
   };
     let datos
 

@@ -150,8 +150,12 @@ export const priceFilter = (payload, query) => dispatch => {
 
 
 export const addHotelList2 = (moneda) => (dispatch) => {
+    let hotel1 = store.getState().activities.hotelOperacion;
+    let hotel2 = store.getState().activities.hotel1;
+    let hotel3 = store.getState().activities.hotellist
+    let hotel4 = store.getState().activities.hotelPrecio
     let hotel = store.getState().activities.hotel
-    if (hotel.length == 0 && hotel != null) {
+    if (hotel.length == 0 && hotel != null && hotel.length1 == 0 && hotel1 != null && hotel2.length == 0 && hotel2 != null && hotel3.length == 0 && hotel3 != null && hotel4.length == 0 && hotel4 != null  ) {
         axios.get('http://propyy.somee.com/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda')
             .then((res) => {
                 let arrayObjeto = res.data;
@@ -186,7 +190,7 @@ export const addHotelList2 = (moneda) => (dispatch) => {
                 console.error('Error al obtener los datos de la API:', error);
             });
     } else {
-        
+        if (hotel.length == 0 || hotel == undefined) { if (hotel1.length == 0 || hotel1 == undefined) { if (hotel2.length == 0 || hotel2 == undefined) { if (hotel3.length == 0 || hotel3 == undefined) { hotel=hotel4 } else { hotel = hotel3 } } else { hotel=hotel2 } } else { hotel=hotel1 } }
             let arrayObjeto = hotel;
 
             axios.get('https://api.bluelytics.com.ar/v2/latest')
@@ -243,14 +247,30 @@ export const addHotelList = (cant ,moneda ) => dispatch => {
     })
 }
 export const tipoPublicante = (tipoPublicante) => dispatch => {
-    axios.get('http://propyy.somee.com/api/Busqueda/buscardorPorPublicancion?Publicacion='  + tipoPublicante).then((res) => {
-        let { data } = res;
-        dispatch(hotelprecio(data));
-        dispatch(hotelList(data));
-        dispatch(hoteloperacion(data));
-        dispatch(hotelSuccess(data));
-        dispatch(hotel1(data));
+    let hotel1 = store.getState().activities.hotelOperacion;
+    let hotel2 = store.getState().activities.hotel1;
+    let hotel3 = store.getState().activities.hotellist
+    let hotel4 = store.getState().activities.hotelPrecio
+    let hotel = store.getState().activities.hotel
+    if (hotel.length == 0 && hotel1.lenght == 0 && hotel2.length == 0 && hotel.length == 0 && hotel3.length == 0 && hotel4.length) {
+        axios.get('http://propyy.somee.com/api/Busqueda/buscardorPorPublicancion?Publicacion=' + tipoPublicante).then((res) => {
+            let { data } = res;
+            dispatch(hotelprecio(data));
+            dispatch(hotelList(data));
+            dispatch(hoteloperacion(data));
+            dispatch(hotelSuccess(data));
+            dispatch(hotel1(data));
         })
+    } else {
+        if (hotel.length == 0 || hotel == undefined) { if (hotel1.length == 0 || hotel1 == undefined) { if (hotel2.length == 0 || hotel2 == undefined) { if (hotel3.length == 0 || hotel3 == undefined) { hotel = hotel4 } else { hotel = hotel3 } } else { hotel = hotel2 } } else { hotel = hotel1 } }
+        let tipoPublicanteFiltrar = tipoPublicante; //
+        let resultadosFiltrados = hotel.filter(objeto => objeto.tipoPublicacion.nombreTipoPublicacion === tipoPublicanteFiltrar);
+        dispatch(hotelprecio(resultadosFiltrados));
+        dispatch(hotelList(resultadosFiltrados));
+        dispatch(hoteloperacion(resultadosFiltrados));
+        dispatch(hotelSuccess(resultadosFiltrados));
+        dispatch(hotel1(resultadosFiltrados));
+    }
 }
 export const fliterDormitorios = (values) => dispatch => {
     let hotel2 = store.getState().activities.hotelOperacion;
@@ -264,6 +284,7 @@ export const fliterDormitorios = (values) => dispatch => {
     if (hotel.length == 0 && hotel1.length == 0 && hotel2.length == 0 && hotel11.length == 0) {
         axios.get('http://propyy.somee.com/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda' ).then((res) => {
             let { data } = res;
+            // Filtrar los objetos del array hotel que cumplan las condiciones
             let filtro = data.filter(objeto => {
                 // Verificar si el objeto tiene la propiedad "propiedadTipoAmbiente"
                 if (objeto.propiedad && objeto.propiedad.propiedadTipoAmbiente) {
@@ -277,15 +298,25 @@ export const fliterDormitorios = (values) => dispatch => {
                         return ambiente.tipoAmbiente.nombreTipoAmbiente === "Dormitorios" && ambiente.cantidad >= habitaciones;
                     });
 
+                    // Verificar si cocheras es 0 y no hay elementos de "Cocheras" en propiedadTipoAmbiente
+                    if (cocheras === 0 && cocherasFiltradas.length === 0) {
+                        return true;
+                    }
+
+                    // Verificar si habitaciones es 0 y no hay elementos de "Dormitorios" en propiedadTipoAmbiente
+                    if (habitaciones === 0 && habitacionesFiltradas.length === 0) {
+                        return true;
+                    }
+
                     // Devolver el objeto si cumple ambas condiciones (cocheras y habitaciones)
                     return cocherasFiltradas.length > 0 && habitacionesFiltradas.length > 0;
                 } else {
-                    // Si el objeto no tiene "propiedadTipoAmbiente", no cumple las condiciones
-                    return false;
+                    // Si el objeto no tiene "propiedadTipoAmbiente", devolverlo si cocheras o habitaciones es 0
+                    return cocheras === 0 || habitaciones === 0;
                 }
             });
             dispatch(hotelSuccess(filtro));
-            dispatch(hotelprecio(filtro));
+
             dispatch(hotelList(filtro));
         })
     }
@@ -298,7 +329,7 @@ export const fliterDormitorios = (values) => dispatch => {
             } else { hotel = hotel3 }
         }
         
-        let resultadosFiltrados = hotel.filter(objeto => {
+        let resultadosFiltrados  = hotel.filter(objeto => {
             // Verificar si el objeto tiene la propiedad "propiedadTipoAmbiente"
             if (objeto.propiedad && objeto.propiedad.propiedadTipoAmbiente) {
                 // Filtrar los elementos de "propiedadTipoAmbiente" que cumplan las condiciones de cocheras
@@ -311,6 +342,16 @@ export const fliterDormitorios = (values) => dispatch => {
                     return ambiente.tipoAmbiente.nombreTipoAmbiente === "Dormitorios" && ambiente.cantidad >= habitaciones;
                 });
 
+                // Verificar si cocheras es 0 y no hay elementos de "Cocheras" en propiedadTipoAmbiente
+                if (cocheras === 0 && cocherasFiltradas.length === 0) {
+                    return true;
+                }
+
+                // Verificar si habitaciones es 0 y no hay elementos de "Dormitorios" en propiedadTipoAmbiente
+                if (habitaciones === 0 && habitacionesFiltradas.length === 0) {
+                    return true;
+                }
+
                 // Devolver el objeto si cumple ambas condiciones (cocheras y habitaciones)
                 return cocherasFiltradas.length > 0 && habitacionesFiltradas.length > 0;
             } else {
@@ -319,7 +360,6 @@ export const fliterDormitorios = (values) => dispatch => {
             }
         });
         dispatch(hotelSuccess(resultadosFiltrados));
-        dispatch(hotelprecio(resultadosFiltrados));
         dispatch(hotelList(resultadosFiltrados));
     
     }

@@ -21,9 +21,9 @@ namespace LibreriaMercadoPago.Comunicacion_MercadoPago
 {
     public class ExpertoContratarPlan<T> : Compra<T> where T : DTOPlan
     {
-        private string ClientID = "310547333208529";
-        private string ClientSecret = "bQBIrPmu2I8OacRxbknqGR4wlPnvWw0O";
-        private string AccessToken = "TEST-310547333208529-010219-d8cdcce154be5b8148af156c1502b1f1-167342294";
+        private string ClientID = "6676181862368985";
+        private string ClientSecret = "rEm8ib9tejXnIWw5qpgBB7OqsDejL4nX";
+        private string AccessToken = "APP_USR-6676181862368985-081423-3f6228b8f78a72719143da7fa47cc5b4-172147688";
 
 
         #region Acá se arma la vista de compra

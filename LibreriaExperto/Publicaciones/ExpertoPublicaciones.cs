@@ -648,7 +648,7 @@ namespace LibreriaExperto.Publicaciones
         public static ErrorPropy EliminarPublicacion(string publicacionId) {
             ErrorPropy error = new ErrorPropy();
             HttpClient clienteHttp = ApiConfiguracion.Inicializar();
-            (ErrorPropy error,TransferenciaPublicacion publicacion) respuesta = ObtenerPublicacionReducida(publicacionId,clienteHttp);
+            (ErrorPropy error,TransferenciaPublicacion publicacion) respuesta = ObtenerPublicacion(publicacionId,clienteHttp);
             if (respuesta.error.codigoError!=0) {
                 error = respuesta.error;
                 return error;

@@ -26,6 +26,7 @@ using System.Drawing;
 using MercadoPago.DataStructures.Customer;
 using LibreriaExperto.Usuarios;
 using LibreriaClases.Transferencia;
+using Habanero.Util;
 
 namespace WebApp.Controllers
 {
@@ -131,21 +132,25 @@ namespace WebApp.Controllers
                 {
                     if (imagen!=null)
                     {
-                        imagenesEnviadas.Add(imagen);
+                        if (imagen.ContentLength != 0)
+                        {
+                            imagenesEnviadas.Add(imagen);
+                        }
                     }
                 }
-                foreach (var imagen in imagenesEnviadas)
+                if(imagenesRecibidas.IsNull()|| imagenesRecibidas.Count==0)
+                //foreach (var imagen in imagenesEnviadas)
+                //{
+                //    if (!ImagenServicios.ValidarImagen(imagen))
                 {
-                    if (!ImagenServicios.ValidarImagen(imagen))
-                    {
-                        ModelState.AddModelError("", "Formato de imagen incorrecto");
-                        (ErrorPropy error, LibreriaClases.DTO.DTOCrearPublicacion datosCrearPublicacion) respuesta = ExpertoPublicaciones.ObtenerDatosCrearPublicacion(Session["IDUsuario"].ToString());
-                        
-                        return View(respuesta.datosCrearPublicacion);
-                    }
+                    ModelState.AddModelError("", "No se subio ninguna imagen");
+                    (ErrorPropy error, LibreriaClases.DTO.DTOCrearPublicacion datosCrearPublicacion) respuesta = ExpertoPublicaciones.ObtenerDatosCrearPublicacion(Session["IDUsuario"].ToString());
+
+                    return View(respuesta.datosCrearPublicacion);
                 }
-                
-                string ruta = HttpContext.Server.MapPath("~/Temp/");
+            
+
+                    string ruta = HttpContext.Server.MapPath("~/Temp/");
                 List<string> rutasImagenes = ImagenServicios.SubirArchivo(ruta, imagenesEnviadas);
                 #endregion
 

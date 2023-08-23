@@ -45,8 +45,10 @@ namespace API_Persistencia.Controllers
             accessToken.Wait();
             // Aquí puedes almacenar la información del usuario en tu base de datos
             // y crear el token de acceso para la API REST
+
             var email = accessToken.Result.Email;
             var token = accessToken.Result.Scope;
+            
             var nombre = accessToken.Result.GivenName;
             var apellido = accessToken.Result.FamilyName;
        

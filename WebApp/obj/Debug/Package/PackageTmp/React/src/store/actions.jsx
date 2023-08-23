@@ -252,24 +252,24 @@ export const tipoPublicante = (tipoPublicante) => dispatch => {
     let hotel3 = store.getState().activities.hotellist
     let hotel4 = store.getState().activities.hotelPrecio
     let hotel = store.getState().activities.hotel
-    if (hotel.length == 0 && hotel1.lenght == 0 && hotel2.length == 0 && hotel.length == 0 && hotel3.length == 0 && hotel4.length) {
+    if (hotel.length == 0 && hotel1.lenght == undefined && hotel2.length == 0 && hotel.length == 0 && hotel3 ==undefined && hotel4.length==0) {
         axios.get('http://propyy.somee.com/api/Busqueda/buscardorPorPublicancion?Publicacion=' + tipoPublicante).then((res) => {
             let { data } = res;
             dispatch(hotelprecio(data));
             dispatch(hotelList(data));
             dispatch(hoteloperacion(data));
             dispatch(hotelSuccess(data));
-            dispatch(hotel1(data));
+         /*   dispatch(hotel1(data));*/
         })
     } else {
-        if (hotel.length == 0 || hotel == undefined) { if (hotel1.length == 0 || hotel1 == undefined) { if (hotel2.length == 0 || hotel2 == undefined) { if (hotel3.length == 0 || hotel3 == undefined) { hotel = hotel4 } else { hotel = hotel3 } } else { hotel = hotel2 } } else { hotel = hotel1 } }
+        if (hotel.length == 0 || hotel == undefined) { if (hotel1.length == 0 || hotel1 == undefined) { if (hotel2.length == 0 || hotel2 == undefined) { if (hotel3 == null || hotel3 == undefined || hotel3.lenght==0) { hotel = hotel4 } else { hotel = hotel3 } } else { hotel = hotel2 } } else { hotel = hotel1 } }
         let tipoPublicanteFiltrar = tipoPublicante; //
         let resultadosFiltrados = hotel.filter(objeto => objeto.tipoPublicacion.nombreTipoPublicacion === tipoPublicanteFiltrar);
         dispatch(hotelprecio(resultadosFiltrados));
         dispatch(hotelList(resultadosFiltrados));
         dispatch(hoteloperacion(resultadosFiltrados));
         dispatch(hotelSuccess(resultadosFiltrados));
-        dispatch(hotel1(resultadosFiltrados));
+       /* dispatch(hotel1(resultadosFiltrados));*/
     }
 }
 export const fliterDormitorios = (values) => dispatch => {

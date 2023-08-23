@@ -213,7 +213,7 @@ export function SearchBar() {
                 const map = new window.google.maps.Map(document.getElementById('map-google'),
                     {
                         
-                        zoom: 8,
+                        zoom: 12,
                         center: new google.maps.LatLng(searchBox.getPlaces()[0].geometry.location.lat(), searchBox.getPlaces()[0].geometry.location.lng()),
                         
                     }

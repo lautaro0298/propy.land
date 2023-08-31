@@ -21,6 +21,7 @@ import { hotellist } from '../../store/actions';
 import { addHotelList2 } from '../../store/actions';
 export function SearchBar() {
     let hotelState = useSelector((state) => state.activities, shallowEqual);
+    let reset= hotelState.reset;
     let hotel = hotelState.hotel;
     const [city, setCity] = useState();
     let [hotels, setHotels] = useState([]);
@@ -29,6 +30,7 @@ export function SearchBar() {
     const [searchBox, setSearchBox] = useState(null);
     /* const [searchBox, setSearchBox] = useState(null);*/
     const [price, setPrice] = useState(10000);
+    const [selectedValue, setSelectedValue] = useState("");
     const [show, setShow] = useState(false);
     const [hotelClass, setHotelClass] = useState(false);
     const [houseClass, setHouseClass] = useState(false);
@@ -52,6 +54,7 @@ export function SearchBar() {
     const [monedaSelect, setMonedaSelect] = useState("")
     const [publicacionSelect, setPublicacionSelect] = useState("")
     const dispatch = useDispatch();
+     
     useEffect(() => {
         axios.get(`http://propyy.somee.com/api/TipoMoneda/obtenerTiposMonedas`, {
             method: 'GET',
@@ -69,14 +72,25 @@ export function SearchBar() {
         })
             .then(res => { setPublicante(res.data); publicanteIs = true; });
     }, []);
+    useEffect(() => {
+        console.log("hola");
+        if (reset) {
+            setMonedaSelect("");
+            setSelectedValue("")
+        }
+        console.log(reset);
+    }, [reset]);
     function cambioMoneda(e) {
         console.log("a")
         setMonedaSelect(e.target.value)
-        if (e.target.value != null || e.target.value != undefined )
-        { dispatch(addHotelList2(e.target.value)) }
+        
+        if (e.target.value != null || e.target.value != undefined)
+            
+        { dispatch(addHotelList2(e.target.value));  }
         
     }
     function cambioPublicacion(e) {
+        setSelectedValue(e.target.value);
         setPublicacionSelect(e.target.value)
         dispatch(tipoPublicante(e.target.value))
     }
@@ -321,7 +335,14 @@ export function SearchBar() {
 
         history.push('/hotel-booking')
     }
-
+    useEffect(() => {
+        console.log("hola");
+        if (reset) {
+            setMonedaSelect("");
+            dispatch(addHotelList2(""));
+        }
+        console.log(reset);
+    }, [reset]);
     return (
         <SearchBarWrapper>
             <div className="search-bar-cont">
@@ -360,8 +381,7 @@ export function SearchBar() {
                                     <input
                                         placeholder="Ingrese el lugar donde quiere buscar propiedades"
                                         type="text"
-                                        value={location}
-                                        onChange={handleLocationInput}
+                                       
                                     />
                                 </StandaloneSearchBox>
 
@@ -458,8 +478,9 @@ export function SearchBar() {
                             <span>Tipo de moneda</span>
                         </div>
                         <div className="downTextandArrow">
-                            <select id="tipoMoneda" onChange={(event)=>
+                            <select id="tipoMoneda" value={selectedValue} onChange={(event)=>
                             {
+                                setSelectedValue(event.target.value);
                                 setMonedaSelect(event.target.value)
                                 if (event.target.value != null || event.target.value != undefined )
                                 { dispatch(addHotelList2(event.target.value))}}

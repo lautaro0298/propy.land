@@ -48,6 +48,9 @@ const useStyles = makeStyles({
 });
 
 export function RatingCard({ clickedCheckOut, handleClickedCheckOut }) {
+    let propiedad = useSelector((state) => state.activities, shallowEqual);
+    let propiedadEstado = propiedad.propiedad;
+    const [isLoad, setIsLoad] = useState(false);
     const [isOpen, setIsOpen] = useState(true);
     const dispatch = useDispatch();
     const [hotel, setHotel] = useState([]);
@@ -75,25 +78,45 @@ export function RatingCard({ clickedCheckOut, handleClickedCheckOut }) {
                 }} style={{ position: 'absolute', top: '5px', right: '5px', cursor: 'pointer',color:'red' }} />
                 {
                     hotel.map((data, index) => {
+                        
+                        if (data.tipoPropiedadId == propiedadEstado) {
+                            return (
+                                <CardContent data-id={index} data-index={index} onClick={(e) => {
 
-                        return (
-                            <CardContent data-id={index} data-index={index} onClick={(e) => {
+                                    const Index = parseInt(e.currentTarget.dataset.index, 10);
+                                    const newVisibilities = [...darkgreentick];
+                                    newVisibilities[Index] = !newVisibilities[Index];
+                                    setDarkgreentick(newVisibilities)
+                                    localStorage.removeItem("tipodepropy");
+                                    localStorage.setItem('tipodepropy', JSON.stringify(data));
+                                    dispatch(sortHotelData(data.tipoPropiedadId))
+                                     handleClickedCheckOut()
+                                }} className={true ? `greenTicked ${classes.ratingContent}` : `${classes.ratingContent}`}>
 
-                                const Index = parseInt(e.currentTarget.dataset.index, 10);
-                                const newVisibilities = [...darkgreentick];
-                                newVisibilities[Index] = !newVisibilities[Index];
-                                setDarkgreentick(newVisibilities)
-                                localStorage.removeItem("tipodepropy");
-                                localStorage.setItem('tipodepropy', JSON.stringify(data));
-                                dispatch(sortHotelData(data.tipoPropiedadId))
-                                handleClickedCheckOut()
-                            }} className={darkgreentick[index] ? `greenTicked ${classes.ratingContent}` : `${classes.ratingContent}`}>
+                                    <span> {data.nombreTipoPropiedad}</span>
+                                    <CheckIcon />
+                                </CardContent>); }
+                        else {
+                            return (
+                                <CardContent data-id={index} data-index={index} onClick={(e) => {
 
-                                <span> {data.nombreTipoPropiedad}</span>
-                                <CheckIcon />
-                            </CardContent>);
-                    }
-                    )}
+                                    const Index = parseInt(e.currentTarget.dataset.index, 10);
+                                    const newVisibilities = [...darkgreentick];
+                                    newVisibilities[Index] = !newVisibilities[Index];
+                                    setDarkgreentick(newVisibilities)
+                                    localStorage.removeItem("tipodepropy");
+                                    localStorage.setItem('tipodepropy', JSON.stringify(data));
+                                    dispatch(sortHotelData(data.tipoPropiedadId))
+                                     handleClickedCheckOut()
+                                }} className={darkgreentick[index] ? `greenTicked ${classes.ratingContent}` : `${classes.ratingContent}`}>
+
+                                    <span> {data.nombreTipoPropiedad}</span>
+                                    <CheckIcon />
+                                </CardContent>);
+                        }
+                    }  )} 
+                    
+                    
             </Card>
         </RatingWrapper>
     );

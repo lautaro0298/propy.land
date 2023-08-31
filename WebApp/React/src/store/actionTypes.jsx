@@ -9,4 +9,5 @@ export const HOTELSLIST = "HOTELSLIST";
 export const HOTELSPRECIO = "HOTELSPRECIO";
 export const HOTELSOPERACION = "HOTELSOPERACION";
 export const HOTELS1 = "HOTELS1";
-
+export const PROPIEDAD = "PROPIEDAD";
+export const RESET = "RESET";

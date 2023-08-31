@@ -18,6 +18,29 @@ function Mapa() {
     const coordenadas = [];
     const [onmap, setOnmap] = useState(false);
     let ubi;
+    const [latitude, setLatitude] = useState(null);
+    const [longitude, setLongitude] = useState(null);
+
+    useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    setLatitude(position.coords.latitude);
+                    setLongitude(position.coords.longitude);
+                    if (latitude !== null && longitude !== null) {
+                        setCenter({ lat: latitude, lng: longitude });
+                        setZoom(12);
+                    }
+                },
+                (error) => {
+                    console.error("Error getting location:", error);
+                }
+
+            );
+        } else {
+            console.error("Geolocation is not supported by this browser.");
+        }
+    }, []);
 
     const onLoad = (circle) => {
         console.log('Circle onLoad circle: ', circle);

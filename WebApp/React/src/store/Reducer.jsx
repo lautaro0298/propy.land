@@ -10,10 +10,13 @@ import {
     HOTELSOPERACION,
     HOTELS1,
     PRICE_FILTER,
-  HOTELSPRECIO
+    HOTELSPRECIO,
+    PROPIEDAD,
+    RESET
 } from "./actionTypes";
 const initState = {
   data: [],
+  propiedad:"",
   isLoading: false,
   isError: false,
   hotelsList:[],
@@ -22,7 +25,8 @@ const initState = {
     hotelOperacion: [],
     hotel1: [],
   hotLoad:false,
-  hotErr: false,
+    hotErr: false,
+    reset: false,
   currPage: 1,
   currQuery: null
 };
@@ -36,7 +40,14 @@ export const RecentlyReducer = (state = initState, { type, payload,currPage, que
         data: payload,
         isLoading: false,
       };
-    }
+      }
+
+      case RESET: {
+    return {
+        ...state,
+        reset: payload
+    };
+        }
     case GET_RECENTLY_REQUEST: {
       return {
         ...state,
@@ -97,11 +108,19 @@ export const RecentlyReducer = (state = initState, { type, payload,currPage, que
       return {
         ...state,
         hotLoad: false,
-        hotErr: true,
+        
         currPage: currPage,
         query: query
       };
-    }
+      }
+      case PROPIEDAD: {
+          return {
+              ...state,
+              propiedad: payload,
+              hotErr: true
+            
+          };
+      }
     default:
       return state;
   }

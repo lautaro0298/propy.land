@@ -836,6 +836,11 @@
     <Compile Include="Models\TipoPublicacion.cs" />
     <Compile Include="Models\TipoUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Servicios\APIGoogleMapsServicios.cs" />
     <Compile Include="Servicios\BusquedaServicios.cs" />
     <Compile Include="Servicios\ClickPublicacionServicios.cs" />
@@ -1118,6 +1123,10 @@
     <None Include="Properties\PublishProfiles\propy26-001-site1 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\propy26-001-site1 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\propycore - FTP.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />

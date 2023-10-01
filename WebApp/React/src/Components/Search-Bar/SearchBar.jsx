@@ -227,7 +227,7 @@ export function SearchBar() {
                 const map = new window.google.maps.Map(document.getElementById('map-google'),
                     {
                         
-                        zoom: 12,
+                        zoom: 14,
                         center: new google.maps.LatLng(searchBox.getPlaces()[0].geometry.location.lat(), searchBox.getPlaces()[0].geometry.location.lng()),
                         
                     }
@@ -399,7 +399,7 @@ export function SearchBar() {
                                         <span>Operaci{'\u00f3'}n:</span>
                                     </div>
                                     <div className="downTextandArrow">
-                                        <select id="tipoMoneda" onChange={cambioPublicacion} style={{ border: "transparent", fontSize: "xxx-large", background: "transparent" }}>
+                                        <select id="tipoMoneda" onChange={cambioPublicacion} style={{ border: "transparent", fontSize: "xx-large", background: "transparent" }}>
                                             <option>
 
                                             </option>

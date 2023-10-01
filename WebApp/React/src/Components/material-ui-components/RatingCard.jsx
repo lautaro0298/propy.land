@@ -60,7 +60,7 @@ export function RatingCard({ clickedCheckOut, handleClickedCheckOut }) {
 };
     const [darkgreentick, setDarkgreentick] = React.useState(() => hotel.map((x) => false));
     useEffect(() => {
-
+        
         axios.get("https://propyy.somee.com/api/TipoPropiedad/obtenerTiposPropiedades").then((res) => {
 
             setHotel(res.data)

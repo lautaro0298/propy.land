@@ -1,4 +1,5 @@
 ﻿using LibreriaClases.Transferencia;
+using LibreriaClases.DTO;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -10,13 +11,13 @@ namespace LibreriaExperto.ConsultaAsincrona
     {
         private int CreditosActuales { get; set; }
        // se agrega este codigo para poder obtener caracterisiticas en todo los controllers necesarios
-        public List<TransferenciaPropiedadCaracteristica> ConsultaCaracteristica(string tipoPropiedad)
+        public List<DTOCaracteristica> ConsultaCaracteristica(string tipoPropiedad)
         {
             HttpClient httpClient = ApiConfiguracion.Inicializar();
             
             var tareaObtenercaracteristicas = httpClient.GetAsync($"api/TipoPropiedadCaracteristica/ObtenerPorIDdePropiedad/{tipoPropiedad}");
             tareaObtenercaracteristicas.Wait();
-            var carac = tareaObtenercaracteristicas.Result.Content.ReadAsAsync<List<TransferenciaPropiedadCaracteristica>>().Result;
+            var carac = tareaObtenercaracteristicas.Result.Content.ReadAsAsync<List<DTOCaracteristica>>().Result;
             
             return carac;
         }

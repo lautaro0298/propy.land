@@ -155,6 +155,7 @@ namespace LibreriaExperto.Publicaciones
             propiedad.descripcionPropiedad = reseña;
 
             foreach (var imagen in rutasImagenes) {
+
                 TransferenciaImagenPropiedad imagenPropiedad = new TransferenciaImagenPropiedad();
                 imagenPropiedad.ImagenPropiedadId = Guid.NewGuid().ToString();
                 imagenPropiedad.activo = true;
@@ -162,9 +163,24 @@ namespace LibreriaExperto.Publicaciones
                 imagenPropiedad.propiedadId = propiedad.propiedadId;
                 propiedad.ImagenPropiedad.Add(imagenPropiedad);
             }
-           
+
             // editar para la nueva modelacion 
-            
+            List<TransferenciaPropiedadCaracteristica> caracteristicas=new  List<TransferenciaPropiedadCaracteristica>();  
+            foreach (var extra in extras)
+            {
+
+                TransferenciaPropiedadCaracteristica propiedadCaracteristica = new TransferenciaPropiedadCaracteristica();
+                var transferenciaPropiedadCaracteristica = clienteHttp.GetAsync("api/TipoPropiedadCaracteristica/ObtenerPorIDdePropiedadCaracteristica&id=" + extra+ "&idPropiedad="+tipoPropiedad);
+                transferenciaPropiedadCaracteristica.Wait();
+                if (!transferenciaPropiedadCaracteristica.Result.IsSuccessStatusCode)
+                {
+                    throw new Exception(tareaObtenerDuplicado.Result.StatusCode.ToString());
+                }
+                propiedadCaracteristica = transferenciaPropiedadCaracteristica.Result.Content.ReadAsAsync<TransferenciaPropiedadCaracteristica>().Result;
+                
+                caracteristicas.Add(propiedadCaracteristica);
+            }
+
             //foreach (var extra in extras) {
             //    TransferenciaPropiedadCaracteristica propiedadCaracteristica = new TransferenciaPropiedadCaracteristica();
             //    propiedadCaracteristica.tipoPropiedadCaracteristicaID = Guid.NewGuid().ToString();
@@ -173,7 +189,7 @@ namespace LibreriaExperto.Publicaciones
             //    //propiedadCaracteristica.caracteristicas.Add( );
             //    propiedad.PropiedadCaracteristica.Add(propiedadCaracteristica);
             //}
-        
+
             var tareaObtenerTiposAmbientes = clienteHttp.GetAsync("api/TipoAmbiente/obtenerTiposAmbientes");
             tareaObtenerTiposAmbientes.Wait();
             if (!tareaObtenerTiposAmbientes.Result.IsSuccessStatusCode) {
@@ -230,14 +246,18 @@ namespace LibreriaExperto.Publicaciones
             publicacion.Propiedad = propiedad;
             publicacion.Caracteristicas = new List<TransferenciaPublicacionCaracteristica>();
             #region extras
-            foreach (var ex in extras) {
+            //publicacion.Caracteristicas = caracteristicas;
+            foreach (var ex in extras)
+            {
                 TransferenciaPublicacionCaracteristica publicacioncaracteristica = new TransferenciaPublicacionCaracteristica();
+                publicacioncaracteristica.Publicacion = publicacion;
                 publicacioncaracteristica.PublicacionCaracteristicaId = Guid.NewGuid().ToString();
                 publicacioncaracteristica.CaracteristicaId = ex;
-                publicacioncaracteristica.PublicacionId = publicacion.publicacionId;
                
+                publicacioncaracteristica.PublicacionId = publicacion.publicacionId;
+                 publicacioncaracteristica.Caracteristica= caracteristicas[extras.IndexOf(ex)].caracteristicas; 
                 publicacion.Caracteristicas.Add(publicacioncaracteristica);
-                }
+            }
             #endregion
             var tareaCrearPublicacion = clienteHttp.PostAsJsonAsync<TransferenciaPublicacion>("api/Publicacion/crearPublicacion", publicacion);
             tareaCrearPublicacion.Wait();

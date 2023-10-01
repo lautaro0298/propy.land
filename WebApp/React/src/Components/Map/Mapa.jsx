@@ -27,18 +27,21 @@ function Mapa() {
                 (position) => {
                     setLatitude(position.coords.latitude);
                     setLongitude(position.coords.longitude);
-                    if (latitude !== null && longitude !== null) {
-                        setCenter({ lat: latitude, lng: longitude });
+                   let latitud = position.coords.latitude
+                    let longitud = position.coords.longitude
+                    
+                    if (latitud !== null && longitud !== null) {
+                        setCenter({ lat: latitud, lng: longitud });
                         setZoom(12);
                     }
                 },
                 (error) => {
-                    console.error("Error getting location:", error);
+                    console.log("Error getting location:", error);
                 }
 
             );
         } else {
-            console.error("Geolocation is not supported by this browser.");
+            console.log("Geolocation is not supported by this browser.");
         }
     }, []);
 

@@ -43,7 +43,7 @@ namespace LibreriaExperto.Desarrollo
             List<DTOTipoPropiedadTipoAmbiente> ListaTipoPropiedadTipoAmbiente = new List<DTOTipoPropiedadTipoAmbiente>();
             HttpClient httpClient = ApiConfiguracion.Inicializar();
 
-            var tareaTraerTP = httpClient.GetAsync("api/TipoPropiedad/obtenerTipoPropiedadesConTipoAmbientes");
+            var tareaTraerTP = httpClient.GetAsync("api/TipoPropiedad/obtenerTipoPropiedadesConTipoAmbiente");
             tareaTraerTP.Wait();
 
             if (!tareaTraerTP.Result.IsSuccessStatusCode)

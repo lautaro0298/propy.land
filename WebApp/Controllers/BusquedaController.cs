@@ -63,8 +63,8 @@ namespace WebApp.Controllers
             {
                 return new SelectListItem()
                 {
-                    Text = d.caracteristicas.nombreCaracteristica.ToString(),
-                    Value = d.caracteristicas.caracteristicaId.ToString(),
+                    Text = d.nombreCaracteristica.ToString(),
+                    Value = d.caracteristicaId.ToString(),
                     Selected = false
                 };
             });

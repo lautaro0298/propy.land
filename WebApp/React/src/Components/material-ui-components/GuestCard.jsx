@@ -58,7 +58,7 @@ export default function GuestCard({
 
    
     const [values, setValues] = useState({
-        'Cocheras': 0, 'Dormitorios':0})
+        'Cocheras': 0, 'Dormitorios': 0,'Ba\u00f1os':0})
   const dispatch = useDispatch();
   const classes = useStyles();
   const [adults, setAdults] = useState(2);

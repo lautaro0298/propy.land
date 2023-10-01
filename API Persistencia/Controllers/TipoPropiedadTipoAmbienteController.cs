@@ -37,11 +37,36 @@ namespace API_Persistencia.Controllers
             }
             return Ok();
         }
-
+        [HttpPost("EliminarTipoPropiedadTipoAmbiente")]
+        public ActionResult eliminarTipoPropiedad(TipoPropiedadTipoAmbiente tipoPropiedad)
+        {
+            using (var db = con.Database.BeginTransaction())
+            {
+                try
+                {
+                    con.Entry(tipoPropiedad).State = EntityState.Deleted;
+                    con.SaveChanges();
+                    db.Commit();
+                }
+                catch (Exception)
+                {
+                    db.Rollback();
+                    throw;
+                }
+                return Ok();
+            }
+        }
         [HttpGet("ObtenerPorID/{id}")]
         public TipoPropiedadTipoAmbiente obtenerPorID(string id)
         {
             TipoPropiedadTipoAmbiente tipoPropiedadTipoAmbiente = (from x in con.TipoPropiedadTipoAmbiente where x.tipoPropiedadTipoAmbienteId == id select x).FirstOrDefault();
+
+            return tipoPropiedadTipoAmbiente;
+        }
+        [HttpGet("Obtener")]
+        public List<TipoPropiedadTipoAmbiente> obtener()
+        {
+            List<TipoPropiedadTipoAmbiente> tipoPropiedadTipoAmbiente = (from x in con.TipoPropiedadTipoAmbiente select x).ToList() ;
 
             return tipoPropiedadTipoAmbiente;
         }

@@ -72,14 +72,16 @@ export function MoreFilterCard({ handleMoreFilterCard}) {
         extras = hotel.map((tipo, index) => {
            /* console.log(tipo.caracteristicas);*/
             return (
-                <div>
-                    <span>{tipo.caracteristicas.nombreCaracteristica}</span>
+                <div style={{
+                    padding: "15px"
+                }}  >
+                    <span>{tipo.nombreCaracteristica}</span>
                     <input
                         key={index}
                         checked={isChecked ? false : null}
                         onChange={handleChange}
 
-                        value={tipo.caracteristicas.caracteristicaId}
+                        value={tipo.caracteristicaId}
                         type="checkbox"
                         onClick={(e) => handleChange(e)}
                     />
@@ -114,9 +116,10 @@ export function MoreFilterCard({ handleMoreFilterCard}) {
         }
     };
     const handledone = () => {
-        
+        if (tipodepropy == null) { dispatch(priceFilter([], facilities)) } else { 
         hotels = dispatch(priceFilter([tipodepropy.tipoPropiedadId], facilities));
-        handleMoreFilterCard();
+            handleMoreFilterCard();
+        }
     }
     const handleCheckboxReset = () => {
         setIschecked(!isChecked);
@@ -128,16 +131,14 @@ export function MoreFilterCard({ handleMoreFilterCard}) {
         setFacilitieslength(Object.keys(facilities).length);
     };
     useEffect(() => {
-        console.log(facilities);
-        console.log(Object.keys(facilities).length);
-        setFacilitieslength(Object.keys(facilities).length);
-        setFacilitiesforfilter(facilities);
-    }, [facilities]);
-  
-    if (tipodepropy != null && Object.keys(hotel).length === 0) {
 
-        axios.get("http://propyy.somee.com/api/TipoPropiedadCaracteristica/ObtenerPorIDdePropiedad/" + tipodepropy.tipoPropiedadId).then(data => { setHotel(data.data); setIsLoad(true); });
-    } 
+        if (tipodepropy != null && Object.keys(hotel).length === 0) {
+
+            axios.get("https://localhost:50001/api/TipoPropiedadCaracteristica/ObtenerPorIDdePropiedad/" + tipodepropy.tipoPropiedadId).then(data => { setHotel(data.data); setIsLoad(true); });
+        } else { axios.get("http://propyy.somee.com/api/Caracteristica/obtenerCaracteristicas").then(data => { setHotel(data.data); setIsLoad(true); }); }
+    }, []);
+  
+    
         return (
             <Card className={classes.root} variant="outlined" >
                 < CloseIcon onClick={() => {
@@ -153,9 +154,9 @@ export function MoreFilterCard({ handleMoreFilterCard}) {
                         <span>Popular Filters</span>
                     </div>
                     <FacilitiesWrapper>
-
-                        {extras}
-
+                        <div className="extras-container" style={{ maxHeight: '15em', overflowY: 'auto', fontSize: 'large' }}>
+                            {extras}
+                        </div>
                     </FacilitiesWrapper>
                 </CardContent>
                 <CardContent>
@@ -204,18 +205,18 @@ const HotelstarsWrapper = styled.div`
 `;
 
 const FacilitiesWrapper = styled.div`
-  display: grid;
+ /* display: grid;*/
   grid-template-columns: 1fr 1fr;
   grid-gap: 2px;
   & > div {
     display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
+    /*grid-template-columns: 1fr 4fr 1fr;*/
     
     justify-content: start;
     align-items: center;
     box-shadow: 0px 2px 1px -2px grey;
-    border-radius: 2px;
-    padding: 1rem;
+   /* border-radius: 2px;*/
+   /* padding: 1rem;*/
     cursor: pointer;
     input {
       cursor: pointer;

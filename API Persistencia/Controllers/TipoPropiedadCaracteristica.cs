@@ -52,24 +52,45 @@ namespace API_Persistencia.Controllers
             }
             return Ok();
         }
-
-        [HttpGet("ObtenerPorIDdePropiedad/{id}")]
-        public List<TipoPropiedadCaracteristica> obtenerPorID(string id)
+        [HttpGet("obtenerTiposPropiedadesycaracteristica")]
+        public List<TipoPropiedadCaracteristica> obtenerC()
         {
             List<TipoPropiedadCaracteristica> tipoPropiedadCaracteristica = (from x in con.TipoPropiedadCaracteristica
-                                                                             .Include(x=>x.caracteristicas)
-                                                                             where x.caracteristicaId==id  select x).ToList();//uso caracteristicaid por que es el id del tipo de propiedad se guardo al revez
+                                                                             .Include(x => x.caracteristicas)
+                                                                             select x).ToList();//uso caracteristicaid por que es el id del tipo de propiedad se guardo al revez
+
+            return tipoPropiedadCaracteristica;
+        }
+        [HttpGet("ObtenerPorIDdePropiedadCaracteristica")]
+        public List<TipoPropiedadCaracteristica> PropiedadCaracteristica(string id, string idPropiedad)
+        {
+            List<TipoPropiedadCaracteristica> tipoPropiedadCaracteristica = (from x in con.TipoPropiedadCaracteristica
+                                                                where x.TipopropiedadId==idPropiedad
+                                                                where x.caracteristicaId == id
+                                                                select x).ToList();//uso caracteristicaid por que es el id del tipo de propiedad se guardo al revez
+
+            return tipoPropiedadCaracteristica;
+        }
+        [HttpGet("ObtenerPorIDdePropiedad/{id}")]
+        public List<Caracteristica> obtenerPorID(string id)
+        {
+            List<Caracteristica> tipoPropiedadCaracteristica = (from x in con.TipoPropiedadCaracteristica
+                                                                             
+                                                                             where x.caracteristicaId==id  select x.caracteristicas).ToList();//uso caracteristicaid por que es el id del tipo de propiedad se guardo al revez
 
             return tipoPropiedadCaracteristica;
         }
         [HttpPost("eliminarCaracteristica")]
-        public ActionResult eliminarTipoAmbiente(Caracteristica caracteristica)
+        public List<TipoPropiedadCaracteristica> eliminarTipoAmbiente(TipoPropiedadCaracteristica dto)
         {
             using (var db = con.Database.BeginTransaction())
             {
                 try
                 {
-                    con.Entry(caracteristica).State = EntityState.Deleted;
+                    TipoPropiedadCaracteristica tipoPropiedadCaracteristica = (from x in con.TipoPropiedadCaracteristica
+                                                                                    where x.tipoPropiedadCaracteristicaID== dto.tipoPropiedadCaracteristicaID
+                                                                                     select x).FirstOrDefault();
+                    con.Entry(tipoPropiedadCaracteristica).State = EntityState.Deleted;
                     con.SaveChanges();
                     db.Commit();
                 }
@@ -78,14 +99,14 @@ namespace API_Persistencia.Controllers
                     db.Rollback();
                     throw;
                 }
-                return Ok();
+                return obtenerTiposPropiedadesycaracteristicas();
             }
         }
         //  obtenerTiposPropiedadesycaracteristicas
         [HttpGet("obtenerTiposPropiedadesycaracteristicas")]
         public List<TipoPropiedadCaracteristica> obtenerTiposPropiedadesycaracteristicas()
         {
-            List<TipoPropiedadCaracteristica> tipoPropiedades = (from x in con.TipoPropiedadCaracteristica select x).ToList<TipoPropiedadCaracteristica>();
+            List<TipoPropiedadCaracteristica> tipoPropiedades = (from x in con.TipoPropiedadCaracteristica.Include(x => x.caracteristicas).Include(x=> x.tipoPropiedad) select x).ToList<TipoPropiedadCaracteristica>();
 
             return tipoPropiedades;
         }

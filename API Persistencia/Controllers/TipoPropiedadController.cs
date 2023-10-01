@@ -26,7 +26,7 @@ namespace API_Persistencia.Controllers
                                            select x).FirstOrDefault();
             return tipoPropiedad;
         }
-        [HttpGet("obtenerTipoPropiedadesConTipoAmbientes")]
+        [HttpGet("obtenerTipoPropiedadesConTipoAmbiente")]
         public List<TipoPropiedad> ObtenerTipoPropiedadConTipoAmbiente()
         {
             List<TipoPropiedad> tipoPropiedades = (from x in con.TipoPropiedad.Include(x => x.TipoPropiedadTipoAmbiente) where x.activo == true orderby x.nombreTipoPropiedad ascending select x).ToList() ;

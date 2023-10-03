@@ -15,9 +15,21 @@ namespace API_Persistencia
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<TipoPropiedadCaracteristica>().HasKey(sc => new { sc.TipopropiedadId, sc.caracteristicaId });
-            modelBuilder.Entity<TipoPropiedadCaracteristica>().HasOne(x => x.tipoPropiedad).WithMany(y => y.caracteristica).HasForeignKey(x => x.caracteristicaId);
-            modelBuilder.Entity<TipoPropiedadCaracteristica>().HasOne(x=>x.caracteristicas).WithMany(y=>y.tipoPropiedadCaracteristicas).HasForeignKey(x=>x.TipopropiedadId);
+            //modelBuilder.Entity<TipoPropiedadCaracteristica>().HasKey(sc => new { sc.TipopropiedadId, sc.caracteristicaId });
+            //modelBuilder.Entity<TipoPropiedadCaracteristica>().HasOne(x => x.tipoPropiedad).WithMany(y => y.caracteristica).HasForeignKey(x => x.caracteristicaId);
+            //modelBuilder.Entity<TipoPropiedadCaracteristica>().HasOne(x=>x.caracteristicas).WithMany(y=>y.tipoPropiedadCaracteristicas).HasForeignKey(x=>x.TipopropiedadId);
+            modelBuilder.Entity<TipoPropiedadCaracteristica>()
+                .HasKey(sc => new { sc.caracteristicaId, sc.TipopropiedadId });
+
+            modelBuilder.Entity<TipoPropiedadCaracteristica>()
+                .HasOne(x => x.caracteristicas)
+                .WithMany(y => y.tipoPropiedadCaracteristicas)
+                .HasForeignKey(x => x.caracteristicaId);
+
+            modelBuilder.Entity<TipoPropiedadCaracteristica>()
+                .HasOne(x => x.tipoPropiedad)
+                .WithMany(y => y.caracteristica)
+                .HasForeignKey(x => x.TipopropiedadId);
             modelBuilder.Entity<PublicacionCaracteristica>().HasKey(sc => new { sc.PublicacionId, sc.CaracteristicaId });
 
 

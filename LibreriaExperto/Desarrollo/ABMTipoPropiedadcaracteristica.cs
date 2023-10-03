@@ -12,27 +12,43 @@ namespace LibreriaExperto.Desarrollo
     public static class ABMTipoPropiedadcaracteristica
     {
 
-        public static ErrorPropy Crear_y_Asignar_Caracteristica_A_Propiedad(string TipoPropiedad, string caracteristica)
+        public static ErrorPropy Crear_y_Asignar_Caracteristicas_A_Propiedades(string[] tiposPropiedad, string[] caracteristicas)
         {
-
             ErrorPropy errorPropy = new ErrorPropy();
             HttpClient httpClient = ApiConfiguracion.Inicializar();
-            
-            TransferenciaPropiedadCaracteristica transferenciaTipoPropiedadCaracteristica = new TransferenciaPropiedadCaracteristica();
-            transferenciaTipoPropiedadCaracteristica.TipopropiedadId = TipoPropiedad;
-            transferenciaTipoPropiedadCaracteristica.caracteristicaId = caracteristica;
-                transferenciaTipoPropiedadCaracteristica.tipoPropiedadCaracteristicaID = System.Guid.NewGuid().ToString();
-            var tareaCrearTipoPropiedadCaracteristica = httpClient.PostAsJsonAsync<TransferenciaPropiedadCaracteristica >("api/TipoPropiedadCaracteristica/CrearTipoPropiedadCaracteristica", transferenciaTipoPropiedadCaracteristica );
-                tareaCrearTipoPropiedadCaracteristica.Wait();
-          
-            if (!tareaCrearTipoPropiedadCaracteristica.Result.IsSuccessStatusCode)
+
+            try
+            {
+                foreach (var tipoProp in tiposPropiedad)
                 {
-                    errorPropy.codigoError = (int)tareaCrearTipoPropiedadCaracteristica.Result.StatusCode;
-                    errorPropy.descripcionError = "Error: " + errorPropy.codigoError + " " + tareaCrearTipoPropiedadCaracteristica.Result.StatusCode;
-                 
+                    foreach (var carac in caracteristicas)
+                    {
+                        TransferenciaPropiedadCaracteristica transferenciaTipoPropiedadCaracteristica = new TransferenciaPropiedadCaracteristica();
+                        transferenciaTipoPropiedadCaracteristica.TipopropiedadId = tipoProp;
+                        transferenciaTipoPropiedadCaracteristica.caracteristicaId = carac;
+                        transferenciaTipoPropiedadCaracteristica.tipoPropiedadCaracteristicaID = System.Guid.NewGuid().ToString();
+
+                        var tareaCrearTipoPropiedadCaracteristica = httpClient.PostAsJsonAsync<TransferenciaPropiedadCaracteristica>("api/TipoPropiedadCaracteristica/CrearTipoPropiedadCaracteristica", transferenciaTipoPropiedadCaracteristica);
+                        tareaCrearTipoPropiedadCaracteristica.Wait();
+
+                        if (!tareaCrearTipoPropiedadCaracteristica.Result.IsSuccessStatusCode)
+                        {
+                            errorPropy.codigoError = (int)tareaCrearTipoPropiedadCaracteristica.Result.StatusCode;
+                            errorPropy.descripcionError = "Error: " + errorPropy.codigoError + " " + tareaCrearTipoPropiedadCaracteristica.Result.StatusCode;
+                            return errorPropy; // Puedes detener el proceso si hay un error en una de las asignaciones.
+                        }
+                    }
                 }
-            
-            return errorPropy;
+
+                return errorPropy;
+            }
+            catch (Exception ex)
+            {
+                // Maneja cualquier excepción que pueda ocurrir durante el proceso.
+                errorPropy.codigoError = -1; // Código de error personalizado, si es necesario.
+                errorPropy.descripcionError = ex.Message;
+                return errorPropy;
+            }
         }
 
         public static (ErrorPropy, List<DTO_TP_Y_C>) EliminarTipoPropiedadCaracteristica(string id )

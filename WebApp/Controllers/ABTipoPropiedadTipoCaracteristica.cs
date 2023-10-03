@@ -47,39 +47,26 @@ namespace WebApp.Controllers
             return View(dTO_TP_Y_C);
         }
         [HttpPost]
-        public ActionResult AsignarTipoPropiedadTipoCaracteristica(string TipoPropiedad, string caracteristica)
+        public ActionResult AsignarTipoPropiedadTipoCaracteristica(string[] TipoPropiedad, string[] caracteristica)
         {
-
-            ABMTipoPropiedadcaracteristica.Crear_y_Asignar_Caracteristica_A_Propiedad(TipoPropiedad, caracteristica);
-
-            (ErrorPropy errorPropy, List<DTOCaracteristica> ListaDTOCaracteristica) respuesta = ABMCaracteristica.TraerCaracteristicas();
-            (ErrorPropy errorPropy, List<DTOTipoPropiedad> ListaDTOTIpoPropiedad) respuesta2 = ABM_TipoPropiedad.TraerTipoPropiedad();
+            // Verifica si TipoPropiedad y caracteristica son null o vacíos y maneja los errores si es necesario.
 
             try
             {
-                if (respuesta.errorPropy.codigoError != 0)
-                {
-                    throw new Exception(respuesta.errorPropy.descripcionError);
-                }
-                else
-                {
-                    if (respuesta2.errorPropy.codigoError != 0)
-                    {
-                        throw new Exception(respuesta2.errorPropy.descripcionError);
-                    }
-                }
+                
+                        ABMTipoPropiedadcaracteristica.Crear_y_Asignar_Caracteristicas_A_Propiedades(TipoPropiedad, caracteristica);
+                  
+                
+
+                // Tu código para obtener las listas de TipoPropiedad y Caracteristica aquí...
+
+                return (AsignarTipoPropiedadTipoCaracteristica());
             }
             catch (Exception error)
             {
                 ViewBag.Error = error.Message;
                 return View("Error");
             }
-
-            (List<DTOTipoPropiedad>, List<DTOCaracteristica>) dTO_TP_Y_C;
-            dTO_TP_Y_C.Item2 = respuesta.ListaDTOCaracteristica;
-            dTO_TP_Y_C.Item1 = respuesta2.ListaDTOTIpoPropiedad;
-
-            return View(dTO_TP_Y_C);
         }
         [HttpGet]
         public ActionResult EliminarTipoPropiedadTipoCaracteristica()

@@ -62,12 +62,12 @@ namespace API_Persistencia.Controllers
             return tipoPropiedadCaracteristica;
         }
         [HttpGet("ObtenerPorIDdePropiedadCaracteristica")]
-        public List<TipoPropiedadCaracteristica> PropiedadCaracteristica(string id, string idPropiedad)
+        public TipoPropiedadCaracteristica PropiedadCaracteristica(string id, string idPropiedad)
         {
-            List<TipoPropiedadCaracteristica> tipoPropiedadCaracteristica = (from x in con.TipoPropiedadCaracteristica
+            TipoPropiedadCaracteristica tipoPropiedadCaracteristica = (from x in con.TipoPropiedadCaracteristica
                                                                 where x.TipopropiedadId==idPropiedad
                                                                 where x.caracteristicaId == id
-                                                                select x).ToList();//uso caracteristicaid por que es el id del tipo de propiedad se guardo al revez
+                                                                select x).FirstOrDefault();//uso caracteristicaid por que es el id del tipo de propiedad se guardo al revez
 
             return tipoPropiedadCaracteristica;
         }
@@ -76,7 +76,7 @@ namespace API_Persistencia.Controllers
         {
             List<Caracteristica> tipoPropiedadCaracteristica = (from x in con.TipoPropiedadCaracteristica
                                                                              
-                                                                             where x.caracteristicaId==id  select x.caracteristicas).ToList();//uso caracteristicaid por que es el id del tipo de propiedad se guardo al revez
+                                                                             where x.TipopropiedadId==id  select x.caracteristicas).ToList();//uso caracteristicaid por que es el id del tipo de propiedad se guardo al revez
 
             return tipoPropiedadCaracteristica;
         }

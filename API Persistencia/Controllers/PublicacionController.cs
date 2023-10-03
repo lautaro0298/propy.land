@@ -31,7 +31,7 @@ namespace API_Persistencia.Controllers
             Publicacion publicacion = (from x in con.Publicacion
                                        .Include(x=>x.Propiedad.Usuario)
                                       .Include(x => x.Propiedad)
-                                      
+                                      .Include(x=>x.Caracteristicas).ThenInclude(pc => pc.Caracteristica)
                                       .Include(x => x.Propiedad).ThenInclude(x=>x.TipoPublicante)
                                       .Include(x => x.TipoPublicacion)
                                       .Include(x => x.Propiedad.TipoConstruccion)
@@ -75,6 +75,7 @@ namespace API_Persistencia.Controllers
                     con.Add(publicacion);
                     con.SaveChanges();
                     db.Commit();
+                
                 }
                 catch (Exception)
                 {

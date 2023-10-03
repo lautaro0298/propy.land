@@ -496,18 +496,18 @@ namespace API_Persistencia.Migrations
 
             modelBuilder.Entity("API_Persistencia.Models.TipoPropiedadCaracteristica", b =>
                 {
-                    b.Property<string>("TipopropiedadId")
+                    b.Property<string>("caracteristicaId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("caracteristicaId")
+                    b.Property<string>("TipopropiedadId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("tipoPropiedadCaracteristicaID")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("TipopropiedadId", "caracteristicaId");
+                    b.HasKey("caracteristicaId", "TipopropiedadId");
 
-                    b.HasIndex("caracteristicaId");
+                    b.HasIndex("TipopropiedadId");
 
                     b.ToTable("TipoPropiedadCaracteristica");
                 });
@@ -799,14 +799,14 @@ namespace API_Persistencia.Migrations
 
             modelBuilder.Entity("API_Persistencia.Models.TipoPropiedadCaracteristica", b =>
                 {
-                    b.HasOne("API_Persistencia.Models.Caracteristica", "caracteristicas")
-                        .WithMany("tipoPropiedadCaracteristicas")
+                    b.HasOne("API_Persistencia.Models.TipoPropiedad", "tipoPropiedad")
+                        .WithMany("caracteristica")
                         .HasForeignKey("TipopropiedadId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("API_Persistencia.Models.TipoPropiedad", "tipoPropiedad")
-                        .WithMany("caracteristica")
+                    b.HasOne("API_Persistencia.Models.Caracteristica", "caracteristicas")
+                        .WithMany("tipoPropiedadCaracteristicas")
                         .HasForeignKey("caracteristicaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

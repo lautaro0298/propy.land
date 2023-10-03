@@ -254,12 +254,13 @@ namespace LibreriaExperto.Visitas
                 }
             }
 
-            //foreach (var extra in publicacion.Propiedad.PropiedadCaracteristica) {
-            //    if (extra.activo==true) {
-            //        datosInmueble.extras.Add(extra.caracteristicas.nombreCaracteristica);
+            foreach (var extra in publicacion.Caracteristicas)
+            {
+               
+                    datosInmueble.extras.Add(extra.Caracteristica.nombreCaracteristica);
 
-            //    }
-            //}
+                
+            }
             datosInmueble.precioPropiedad = String.Format("{0:c}", publicacion.Propiedad.precioPropiedad);
             datosInmueble.tipoMoneda = publicacion.Propiedad.TipoMoneda.denominacionMoneda;
             datosInmueble.ubicacionPropiedad = publicacion.Propiedad.ubicacion;

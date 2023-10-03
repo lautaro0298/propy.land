@@ -170,11 +170,11 @@ namespace LibreriaExperto.Publicaciones
             {
 
                 TransferenciaPropiedadCaracteristica propiedadCaracteristica = new TransferenciaPropiedadCaracteristica();
-                var transferenciaPropiedadCaracteristica = clienteHttp.GetAsync("api/TipoPropiedadCaracteristica/ObtenerPorIDdePropiedadCaracteristica&id=" + extra+ "&idPropiedad="+tipoPropiedad);
+                var transferenciaPropiedadCaracteristica = clienteHttp.GetAsync("api/TipoPropiedadCaracteristica/ObtenerPorIDdePropiedadCaracteristica?id=" + extra+ "&idPropiedad="+tipoPropiedad);
                 transferenciaPropiedadCaracteristica.Wait();
                 if (!transferenciaPropiedadCaracteristica.Result.IsSuccessStatusCode)
                 {
-                    throw new Exception(tareaObtenerDuplicado.Result.StatusCode.ToString());
+                    throw new Exception(transferenciaPropiedadCaracteristica.Result.StatusCode.ToString());
                 }
                 propiedadCaracteristica = transferenciaPropiedadCaracteristica.Result.Content.ReadAsAsync<TransferenciaPropiedadCaracteristica>().Result;
                 
@@ -250,7 +250,7 @@ namespace LibreriaExperto.Publicaciones
             foreach (var ex in extras)
             {
                 TransferenciaPublicacionCaracteristica publicacioncaracteristica = new TransferenciaPublicacionCaracteristica();
-                publicacioncaracteristica.Publicacion = publicacion;
+                
                 publicacioncaracteristica.PublicacionCaracteristicaId = Guid.NewGuid().ToString();
                 publicacioncaracteristica.CaracteristicaId = ex;
                

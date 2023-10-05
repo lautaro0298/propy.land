@@ -25,16 +25,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for (int x = 0; x < Model.Count(); x++)
+                    @for (int x = 0; x < Model.Count; x++)
                     {
                         <tr>
-                            <td>@Model.ElementAt(x).dTOTipoPropiedades.ElementAt(x).nombreTipoPropiedad</td>
                             <td>
-                                @for (int y = 0; y < Model.ElementAt(x).dTOCaracteristicas.Count(); y++)
-                                {
-                                    <p><input type="checkbox" value="@Model.ElementAt(x).dTOCaracteristicas.ElementAt(y).caracteristicaId" name="TipoAmbiente" />@Model.ElementAt(x).dTOCaracteristicas.ElementAt(y).caracteristicaId</p>
-                                }
+                                @Model.ElementAt(x).dTOTipoPropiedades.nombreTipoPropiedad
                             </td>
+                            <td>
+
+
+                                <p>@Model.ElementAt(x).dTOCaracteristicas.nombreCaracteristica</p>
+                            <td><form action="/ABTipoPropiedadTipoCaracteristica/EliminarTipoPropiedadTipoCaracteristica" method="post" value="@Model.ElementAt(x).tipoPropiedadCaracteristicaID"><input type="hidden" name="id" value="@Model.ElementAt(x).tipoPropiedadCaracteristicaID" /><button class="btn btn-danger" type="submit" value="@Model.ElementAt(x).tipoPropiedadCaracteristicaID">Eliminar</button></form></td>
+                            
                         </tr>
                     }
                 </tbody>
@@ -42,11 +44,7 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-4 ">
-            <button class="btn-danger" type="submit" onclick="Asignar_Ambiente_A_Propiedad();">Aceptar</button>
-        </div>
-    </div>
+    
     <div class="row">
         <div class="col">
             <label id="resultadoOperacion"></label>

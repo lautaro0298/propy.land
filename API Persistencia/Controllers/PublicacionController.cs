@@ -108,7 +108,7 @@ namespace API_Persistencia.Controllers
                 try
                 {
                     foreach (var publicacion in publicaciones) {
-                        con.Entry(publicacion).State = EntityState.Modified;
+                        con.Entry(publicacion).State = EntityState.Deleted;
                     }
                     
                     con.SaveChanges();

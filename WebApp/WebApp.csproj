@@ -952,6 +952,9 @@
     <Content Include="React\src\Components\Map\MapComponent.jsx" />
     <Content Include="React\src\Components\Map\MultiMap.jsx" />
     <Content Include="React\src\Components\Map\StaticMap.jsx" />
+    <Content Include="React\src\Components\material-ui-components\GuestCard.jsx" />
+    <Content Include="React\src\Components\material-ui-components\MoreFilterCard.jsx" />
+    <Content Include="React\src\Components\material-ui-components\RatingCard.jsx" />
     <Content Include="React\src\Components\Navbar\Navbar.css" />
     <Content Include="React\src\Components\Navbar\Navbar.jsx" />
     <Content Include="React\src\Components\Navbar\ShowProfile.jsx" />
@@ -1384,7 +1387,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="React\dist\" />
-    <Folder Include="React\src\Components\material-ui-components\" />
     <Folder Include="Views\ABMCaracteristica\" />
     <Folder Include="Views\ABMP\" />
     <Folder Include="Views\ABMTipoP\" />

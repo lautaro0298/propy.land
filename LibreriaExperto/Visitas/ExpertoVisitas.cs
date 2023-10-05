@@ -256,10 +256,10 @@ namespace LibreriaExperto.Visitas
 
             foreach (var extra in publicacion.Caracteristicas)
             {
-               
-                    datosInmueble.extras.Add(extra.Caracteristica.nombreCaracteristica);
 
-                
+                datosInmueble.extras.Add(extra.Caracteristica.nombreCaracteristica);
+
+
             }
             datosInmueble.precioPropiedad = String.Format("{0:c}", publicacion.Propiedad.precioPropiedad);
             datosInmueble.tipoMoneda = publicacion.Propiedad.TipoMoneda.denominacionMoneda;
@@ -295,15 +295,19 @@ namespace LibreriaExperto.Visitas
                 error = respuestaObtenerUsuarioPublicante.error;
                 return (error, null);
             }
+            TransferenciaVisitaInmueble visitaInmueble;
             int cantidadVisitasUnMismoUsuario = 0;
+            if (publicacion.VisitaInmueble != null) { visitaInmueble = publicacion.VisitaInmueble.Where(x => x.usuarioId == usuarioIdVisita).FirstOrDefault(); } else { visitaInmueble = null; }
 
-            TransferenciaVisitaInmueble visitaInmueble = publicacion.VisitaInmueble.Where(x => x.usuarioId == usuarioIdVisita).FirstOrDefault();
             if (visitaInmueble != null)
             {
                 visitaInmueble.cantidadVecesQueRepitioVisita++;
                 cantidadVisitasUnMismoUsuario = visitaInmueble.cantidadVecesQueRepitioVisita;
             }
-            TransferenciaPlanUsuario planUsuario = respuestaObtenerUsuarioPublicante.usuarioPublicante.PlanUsuario.Where(x => x.activo == true).FirstOrDefault();
+            TransferenciaPlanUsuario planUsuario;
+            if (respuestaObtenerUsuarioPublicante.usuarioPublicante.PlanUsuario != null) {
+                planUsuario = respuestaObtenerUsuarioPublicante.usuarioPublicante.PlanUsuario.Where(x => x.activo == true).FirstOrDefault(); }
+            else { planUsuario= null; }
             //if (cantidadVisitasUnMismoUsuario == 0) { planUsuario.cantidadCreditosActivos = planUsuario.cantidadCreditosActivos - puntosResta; }
            
                 if (planUsuario.cantidadCreditosActivos <= 0)

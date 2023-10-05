@@ -337,35 +337,33 @@ else
             </div>
         </div>
     </div>-->
-    <div class="modal fade" id="create-room" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Extras</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body text-dark" id="ModalBody">
-
-                    @foreach (var item in Model.listadoCaracteristicas)
-                    {
-                        <div class="form-check">
-                            <input class="form-check-input" name="extras" type="checkbox" value="@item.caracteristicaId" id="@item.caracteristicaId">
-                            <label class="form-check-label" for="@item.caracteristicaId">
-                                @item.nombreCaracteristica
-                            </label>
-                        </div>
-                    }
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Guardar</button>
-                </div>
+<div class="modal fade" id="create-room" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Extras</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-dark" id="ModalBody">
+                @foreach (var item in Model.listadoCaracteristicas)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" name="extras" type="checkbox" value="@item.caracteristicaId" id="@item.caracteristicaId">
+                        <label class="form-check-label" for="@item.caracteristicaId">
+                            @item.nombreCaracteristica
+                        </label>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
             </div>
         </div>
     </div>
+</div>
     <hr />
     <div class="row justify-content-center">
         <button type="submit" class="btn btn-lg btn-outline-success btn-block">Enviar</button>
@@ -395,10 +393,13 @@ else
             /*  $.getJSON('<%= Url.Action("Getcaracteristicas") %>' + "/" + value,*/
             $.getJSON("/Busqueda/Getcaracteristicas" + "/" + value,
                 function (data) {
+
                     $("#" + updateId).empty();
                     $.each(data, function (i, item) {
+                       
+
                         $("#" + updateId).append("<input class='form - check - input' type='checkbox' name='extras'  value='"
-                            + item.tipoPropiedadCaracteristicaID + " id='" + item.caracteristicaId + "' >" + "<label for='" + item.caracteristicaId + "'>" + item.caracteristicas.nombreCaracteristica
+                            + item.caracteristicaId +  "' >" + "<label for='" + item.caracteristicaId + "'>" + item.nombreCaracteristica
                             + "</label> </br>"); { }
                     });
                 });

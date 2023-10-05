@@ -134,7 +134,7 @@ export function MoreFilterCard({ handleMoreFilterCard}) {
 
         if (tipodepropy != null && Object.keys(hotel).length === 0) {
 
-            axios.get("https://localhost:50001/api/TipoPropiedadCaracteristica/ObtenerPorIDdePropiedad/" + tipodepropy.tipoPropiedadId).then(data => { setHotel(data.data); setIsLoad(true); });
+            axios.get("http://propyy.somee.com/api/TipoPropiedadCaracteristica/ObtenerPorIDdePropiedad/" + tipodepropy.tipoPropiedadId).then(data => { setHotel(data.data); setIsLoad(true); });
         } else { axios.get("http://propyy.somee.com/api/Caracteristica/obtenerCaracteristicas").then(data => { setHotel(data.data); setIsLoad(true); }); }
     }, []);
   

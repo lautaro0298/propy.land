@@ -1,6 +1,7 @@
 ﻿using API_Persistencia.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,15 +15,13 @@ namespace API_Persistencia.Controllers
     public class DailyCleanupServiceController : ControllerBase
     {
         private ConexionDB con;
-        private Timer _timer;
+        private DateTime lastExecutionTime = DateTime.MinValue;
+
         public DailyCleanupServiceController(ConexionDB conexion) {
             con = conexion;
-            _timer = new Timer(24 * 60 * 60 * 1000); // 24 horas en milisegundos
-            _timer.Elapsed += OnTimerElapsed;
-            _timer.Start();
+           
         }
-
-        private void OnTimerElapsed(object sender, ElapsedEventArgs e)
+        private void PerformCleanup()
         {
             var now = DateTime.Now;
             var expiredPublications = con.Set<Publicacion>()
@@ -32,11 +31,46 @@ namespace API_Persistencia.Controllers
             // Eliminar las publicaciones vencidas
             foreach (var publication in expiredPublications)
             {
-                con.Set<Publicacion>().Remove(publication);
+                con.Publicacion.Remove(publication);
+                var visitasRelacionadas = con.VisitaInmueble.Where(v => v.publicacionId == publication.publicacionId).ToList();
+
+                // Si existen visitas relacionadas, elimina las referencias
+                foreach (var visita in visitasRelacionadas)
+                {
+                    visita.publicacionId = null;
+                }
             }
 
             con.SaveChanges();
         }
-    
+        [HttpGet("BorrarPublicaciones")]
+        public ActionResult CleanupIfNeeded()
+        {
+            var now = DateTime.Now;
+            var timeSinceLastExecution = now - lastExecutionTime;
+
+            if (timeSinceLastExecution >= TimeSpan.FromHours(24))
+            {
+                using (var db = con.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        PerformCleanup();
+                        db.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        db.Rollback();
+                        throw;
+                    }
+                }
+
+                lastExecutionTime = now;
+            }
+
+            return Ok();
+        }
     }
+    
+    
 }

@@ -26,36 +26,26 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col">
-                        <select class="form-control" name="TipoPropiedad">
-                            <option value="-1">Seleccione una opción</option>
+                        <select class="form-control" name="TipoPropiedad" multiple>
                             @foreach (var tipoProp in Model.Item1)
                             {
-                                <option value="@tipoProp.tipoPropiedadId" name=tipopropiedad>@tipoProp.nombreTipoPropiedad</option>
-                                
+                                <option value="@tipoProp.tipoPropiedadId">@tipoProp.nombreTipoPropiedad</option>
                             }
-
                         </select>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <table>
-                            <select class="form-control" name="caracteristica">
-                                @foreach (var caracteristica in Model.Item2)
-                                {
-
-
-                                    <option type="checkbox" value="@caracteristica.caracteristicaId" name="Caracteristica" >
-                                    @caracteristica.nombreCaracteristica</option>
-                                    
-
-                                }
-                            </select>
-                        </table>
+                        <select class="form-control" name="Caracteristica" multiple>
+                            @foreach (var caracteristica in Model.Item2)
+                            {
+                                <option value="@caracteristica.caracteristicaId">@caracteristica.nombreCaracteristica</option>
+                            }
+                        </select>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-4 ">
+                    <div class="col-4">
                         <button class="btn-danger" type="submit">Aceptar</button>
                     </div>
                 </div>

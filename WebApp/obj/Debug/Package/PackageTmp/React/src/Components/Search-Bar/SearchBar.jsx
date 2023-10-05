@@ -49,11 +49,18 @@ export function SearchBar() {
     const [showMoreFilterCard, setShowMoreFilterCard] = useState(false);
     const [moneda, setMoneda] = useState(["ARS", "USD"]);
     const [publicante, setPublicante] = useState([]);
+    const [priceFilterCompleted, setPriceFilterCompleted] = useState(false); 
     let publicanteIs = false;
     let monedaIs = false;
     const [monedaSelect, setMonedaSelect] = useState("")
     const [publicacionSelect, setPublicacionSelect] = useState("")
     const dispatch = useDispatch();
+    useEffect(() => {
+        // Utiliza useEffect para ejecutar handlePriceFilter automáticamente cuando priceFilter haya terminado
+        if (priceFilterCompleted) {
+            handlePriceFilter();
+        }
+    }, [priceFilterCompleted]);
      
     useEffect(() => {
         axios.get(`http://propyy.somee.com/api/TipoMoneda/obtenerTiposMonedas`, {
@@ -77,6 +84,7 @@ export function SearchBar() {
         if (reset) {
             setMonedaSelect("");
             setSelectedValue("")
+            setPublicacionSelect("")
         }
         console.log(reset);
     }, [reset]);
@@ -227,7 +235,7 @@ export function SearchBar() {
                 const map = new window.google.maps.Map(document.getElementById('map-google'),
                     {
                         
-                        zoom: 12,
+                        zoom: 14,
                         center: new google.maps.LatLng(searchBox.getPlaces()[0].geometry.location.lat(), searchBox.getPlaces()[0].geometry.location.lng()),
                         
                     }
@@ -291,6 +299,21 @@ export function SearchBar() {
             }
         }
     }
+    const handlePriceFilter = () => {
+        // Llama a priceFilter y espera la resolución de la promesa
+        priceFilter(payload, query)
+            .then((data) => {
+                // Luego de que priceFilter haya completado su acción,
+                // puedes llamar a cambioPublicacion si es necesario
+                cambioPublicacion();
+
+                // Realiza otras acciones si es necesario
+            })
+            .catch((error) => {
+                // Maneja los errores si es necesario
+            });
+    };
+
     const libraries = ['places'];
     const handleSearchButton = () => {
 
@@ -399,7 +422,7 @@ export function SearchBar() {
                                         <span>Operaci{'\u00f3'}n:</span>
                                     </div>
                                     <div className="downTextandArrow">
-                                        <select id="tipoMoneda" onChange={cambioPublicacion} style={{ border: "transparent", fontSize: "xxx-large", background: "transparent" }}>
+                                        <select id="tipoMoneda" onChange={cambioPublicacion} value={publicacionSelect} style={{ border: "transparent", fontSize: "xx-large", background: "transparent" }}>
                                             <option>
 
                                             </option>

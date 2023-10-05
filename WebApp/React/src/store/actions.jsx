@@ -39,7 +39,7 @@ const hoteloperacion = (payload) => {
         payload: payload
     };
 };
-const hotel1 = (payload) => {
+const hotel11 = (payload) => {
     return {
         type: HOTELS1,
         payload: payload
@@ -144,29 +144,52 @@ export const getAllHotel = (query = null, currPage = 1) => dispatch => {
     });
 };
 
-export const priceFilter = (payload, query) => dispatch => {     
-      let caracteristicaIds;
-      let tipoPropiedadId;
+export const priceFilter = (payload, query) => (dispatch, getState) => {
+    const hotel = getState().activities.hotel; // Obtén el estado actual de 'hotel'
+
+    let tipoPropiedadId;
+    let caracteristicaIds;
+
     for (var i = 0; i < payload.length; i++) {
-        if (tipoPropiedadId == undefined) { tipoPropiedadId = "tipoPropiedadId=" + payload[i] }
-        else { tipoPropiedadId = tipoPropiedadId + "&tipoPropiedadId=" + payload[i] }
+        if (tipoPropiedadId == undefined) {
+            tipoPropiedadId = "tipoPropiedadId=" + payload[i];
+        } else {
+            tipoPropiedadId = tipoPropiedadId + "&tipoPropiedadId=" + payload[i];
+        }
     }
+
     for (var i = 0; i < query.length; i++) {
-        if (caracteristicaIds == undefined){ caracteristicaIds = "&caracteristicaId=" + query[i]; }
-        else { caracteristicaIds = caracteristicaIds + "&caracteristicaId=" + query[i]; }
+        if (caracteristicaIds == undefined) {
+            caracteristicaIds = "&caracteristicaId=" + query[i];
+        } else {
+            caracteristicaIds = caracteristicaIds + "&caracteristicaId=" + query[i];
+        }
     }
-    axios.get('http://propyy.somee.com/api/Busqueda/buscardortipo?'+tipoPropiedadId + caracteristicaIds).then((res) => {
-            let { data } = res;
-        console.log(data);
-        dispatch(hotel1(data));
-        dispatch(hotelprecio(data)); 
-        dispatch(hotelList(data));
-        dispatch(rest(true));
-            dispatch(hotelSuccess(data));
-        }).catch(err => {
-            dispatch(hotelFailure(err, 1, query));
+
+    axios
+        .get('http://propyy.somee.com/api/Busqueda/buscardortipo?' + tipoPropiedadId + caracteristicaIds)
+        .then((res) => {
+            const { data } = res;
+            if (hotel.length != 0 || hotel != undefined) {
+                // Filtra 'hotel' para mantener solo los elementos que existen en 'data'
+                const filteredHotel = hotel.filter(item => data.some(dataItem => dataItem.publicacionId === item.publicacionId));
+                dispatch(hotel11(filteredHotel));
+                dispatch(hotelprecio(filteredHotel));
+                dispatch(hotelList(filteredHotel));
+                /* dispatch(rest(true));*/
+                dispatch(hotelSuccess(filteredHotel));
+            }else{
+                dispatch(hotel11(data));
+                dispatch(hotelprecio(data));
+                dispatch(hotelList(data));
+                 dispatch(rest(true));
+                dispatch(hotelSuccess(data));
+            }
         })
-}
+        .catch((err) => {
+            dispatch(hotelFailure(err, 1, query));
+        });
+};
 
 
 export const addHotelList2 = (moneda) => (dispatch) => {
@@ -275,53 +298,36 @@ export const tipoPublicante = (tipoPublicante) => dispatch => {
     let hotel3 = store.getState().activities.hotellist
     let hotel4 = store.getState().activities.hotelPrecio
     let hotel = store.getState().activities.hotel
-
-    if (hotel.length == 0 && hotel1.lenght == undefined && hotel2.length == 0 && hotel.length == 0 && hotel3 ==undefined && hotel4.length==0) {
+    if (hotel.length == 0 && hotel1.lenght == undefined && hotel2.length == 0 && hotel.length == 0 && hotel3 == undefined && hotel4.length == 0) {
         axios.get('http://propyy.somee.com/api/Busqueda/buscardorPorPublicancion?Publicacion=' + tipoPublicante).then((res) => {
-
-    if ((hotel.length == 0 || hotel == undefined) && (hotel1.length == 0 || hotel1 == undefined) && (hotel2.length == 0 || hotel2 == undefined) && (hotel3 == undefined) && (hotel4.length == 0 || hotel4== undefined) && (hotel.length == 0 || hotel == undefined)) {
-        
-        hotel.length == 0 || hotel == undefined
-        restconsult(tipoPublicante)
-    } else {
-        if (hotel.length == 0 || hotel == undefined) { if (hotel1.length == 0 || hotel1 == undefined) { if (hotel2.length == 0 || hotel2 == undefined) { if (hotel3.length == 0 || hotel3 == undefined) { hotel = hotel4 } else { hotel = hotel3 } } else { hotel = hotel2 } } else { hotel = hotel1 } }
-        let tipoPublicanteFiltrar = tipoPublicante; //
-        let resultadosFiltrados = hotel.filter(objeto => objeto.tipoPublicacion.nombreTipoPublicacion === tipoPublicanteFiltrar);
-        if (resultadosFiltrados == null || resultadosFiltrados == undefined || resultadosFiltrados.length == 0) { restconsult(tipoPublicante) }
-        else {
-            dispatch(rest(false));
-            dispatch(hotelprecio(resultadosFiltrados));
-            dispatch(hotelList(resultadosFiltrados));
-            dispatch(hoteloperacion(resultadosFiltrados));
-            dispatch(hotelSuccess(resultadosFiltrados));
-               
-        }
-    }
-    function restconsult(tipopublicante) {
-        axios.get('http://propyy.somee.com/api/Busqueda/buscardorPorPublicancion?Publicacion=' + tipopublicante).then((res) => {
-
             let { data } = res;
             dispatch(hotelprecio(data));
             dispatch(hotelList(data));
             dispatch(hoteloperacion(data));
             dispatch(hotelSuccess(data));
-
-         /*   dispatch(hotel1(data));*/
+               dispatch(hotel11(data));
         })
-    }/* else {
-        if (hotel.length == 0 || hotel == undefined) { if (hotel1.length == 0 || hotel1 == undefined) { if (hotel2.length == 0 || hotel2 == undefined) { if (hotel3 == null || hotel3 == undefined || hotel3.lenght==0) { hotel = hotel4 } else { hotel = hotel3 } } else { hotel = hotel2 } } else { hotel = hotel1 } }
+    } else {
+
+        // if (hotel.length == 0 || hotel == undefined) { if (hotel1.length == 0 || hotel1 == undefined) { if (hotel2.length == 0 || hotel2 == undefined) { if (hotel3 == null || hotel3 == undefined || hotel3.lenght == 0) { hotel = hotel4 } else { hotel = hotel3 } } else { hotel = hotel2 } } else { hotel = hotel1 } }
+
         let tipoPublicanteFiltrar = tipoPublicante; //
         let resultadosFiltrados = hotel.filter(objeto => objeto.tipoPublicacion.nombreTipoPublicacion === tipoPublicanteFiltrar);
-        dispatch(hotelprecio(resultadosFiltrados));
-        dispatch(hotelList(resultadosFiltrados));
-        dispatch(hoteloperacion(resultadosFiltrados));
-        dispatch(hotelSuccess(resultadosFiltrados));
-       /* dispatch(hotel1(resultadosFiltrados));*/
+        if (resultadosFiltrados != undefined) {
+            dispatch(hotelprecio(resultadosFiltrados));
+            dispatch(hotelList(resultadosFiltrados));
+            dispatch(hoteloperacion(resultadosFiltrados));
+            dispatch(hotelSuccess(resultadosFiltrados));
 
-            dispatch(rest(true));  
-          
-        })
+            dispatch(hotel11(resultadosFiltrados));
+        } else {
+            dispatch(hotelprecio([]));
+            dispatch(hotelList([]));
+            dispatch(hoteloperacion([]));
+            dispatch(hotelSuccess([]));
 
+            dispatch(hotel11([]));
+        }
     }
 }
 export const fliterDormitorios = (values) => dispatch => {
@@ -381,7 +387,7 @@ export const fliterDormitorios = (values) => dispatch => {
     else {
         if (hotel.length == 0) {
             if (hotel3 == undefined) {
-                if (hotel11.lengt == 0) {
+                if (hotel11.length == 0) {
                     if (hotel1.length == 0) { hotel = hotel2 } else (hotel = hotel1)
                 } else { hotel = hotel11 }
             } else { hotel = hotel3 }
@@ -485,7 +491,7 @@ export const sortHotelData = (tipoPropiedad) => dispatch => {
         } else { filteredData = data }
      
 
-        dispatch(hotel1(filteredData));
+        dispatch(hotel11(filteredData));
         dispatch(hotelList(filteredData));
         dispatch(hotelSuccess(filteredData));
         

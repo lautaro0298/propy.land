@@ -24,6 +24,7 @@ namespace API_Persistencia.Controllers
         public List<Publicacion> ObtenerPropiedadesParaEvaluarBusqueda() {
             List<Publicacion> publicaciones = (from x in con.Publicacion
                                              .Include(x => x.Propiedad)
+                                             .Include(x=>x.Caracteristicas)
                                              .Include(x => x.Propiedad).ThenInclude(x => x.ImagenPropiedad)  
                                              .Include(x => x.Propiedad).ThenInclude(x => x.PropiedadTipoAmbiente).ThenInclude(x => x.TipoAmbiente)
                                              .Include(x => x.Propiedad).ThenInclude(x => x.TipoConstruccion)
@@ -40,6 +41,7 @@ namespace API_Persistencia.Controllers
         {
             List<Models.Publicacion> publicaciones = (from x in con.Publicacion
                                              .Include(x => x.Propiedad)
+                                             .Include(x=>x.Caracteristicas)
                                              .Include(x => x.Propiedad).ThenInclude(x => x.ImagenPropiedad)
                                              .Include(x => x.Propiedad).ThenInclude(x => x.PropiedadTipoAmbiente).ThenInclude(x => x.TipoAmbiente)
                                              .Include(x => x.Propiedad).ThenInclude(x => x.TipoConstruccion)
@@ -55,9 +57,12 @@ namespace API_Persistencia.Controllers
         public List<Models.Publicacion> filtarporcaracteristicas([FromQuery(Name = "tipoPropiedadId")] string[] tipoPropiedadId , [FromQuery(Name = "caracteristicaId")] string[] caracteristicaId)
         {
             List<Models.Publicacion> publicaciones = (from x in con.PublicacionCaracteristicas
-                                               .Include(x =>x.Publicacion).ThenInclude(x=>x.Propiedad).ThenInclude(x => x.ImagenPropiedad)
+                                               .Include(x =>x.Publicacion).ThenInclude(x=>x.Propiedad)
+                                               .ThenInclude(x => x.ImagenPropiedad)
+                                               .Include(x => x.Publicacion).ThenInclude(x=>x.Caracteristicas)
                                              .Include(x => x.Publicacion.Propiedad).ThenInclude(x => x.TipoConstruccion)
                                              .Include(x => x.Publicacion.TipoPublicacion)
+                                             
                                              .Include(x => x.Publicacion.Propiedad).ThenInclude(x => x.TipoPublicante)
                                              .Include(x => x.Publicacion.Propiedad).ThenInclude(x => x.TipoMoneda)
                                                       where tipoPropiedadId.Contains(x.Publicacion.Propiedad.tipoPropiedadId)
@@ -132,13 +137,16 @@ namespace API_Persistencia.Controllers
         public List<Publicacion> filtarporPublicacion( [FromQuery(Name = "Publicacion")] string publicacion)
         {
             List<Publicacion> publicaciones = (from x in con.Publicacion
+                                               .Include(x=>x.Caracteristicas)
                                              .Include(x => x.Propiedad)
                                              .Include(x => x.Propiedad).ThenInclude(x => x.ImagenPropiedad)
+
                                              .Include(x => x.Propiedad).ThenInclude(x => x.PropiedadTipoAmbiente).ThenInclude(x => x.TipoAmbiente)
                                              .Include(x => x.Propiedad).ThenInclude(x => x.TipoConstruccion)
                                              .Include(x => x.TipoPublicacion)
                                              .Include(x => x.Propiedad).ThenInclude(x => x.TipoPublicante)
                                              .Include(x => x.Propiedad).ThenInclude(x => x.TipoMoneda)
+
                                                where x.TipoPublicacion.nombreTipoPublicacion== publicacion
                                                select x).ToList();
 

@@ -39,7 +39,7 @@ const hoteloperacion = (payload) => {
         payload: payload
     };
 };
-const hotel1 = (payload) => {
+const hotel11 = (payload) => {
     return {
         type: HOTELS1,
         payload: payload
@@ -144,31 +144,55 @@ export const getAllHotel = (query = null, currPage = 1) => dispatch => {
     });
 };
 
-export const priceFilter = (payload, query) => dispatch => {     
+export const priceFilter = (payload, query) => (dispatch, getState) => {
+    const hotel = getState().activities.hotel; // Obtén el estado actual de 'hotel'
 
-      let caracteristicaIds;
-      let tipoPropiedadId;
+    let tipoPropiedadId;
+    let caracteristicaIds;
+
     for (var i = 0; i < payload.length; i++) {
-        if (tipoPropiedadId == undefined) { tipoPropiedadId = "tipoPropiedadId=" + payload[i] }
-        else { tipoPropiedadId = tipoPropiedadId + "&tipoPropiedadId=" + payload[i] }
+        if (tipoPropiedadId == undefined) {
+            tipoPropiedadId = "tipoPropiedadId=" + payload[i];
+        } else {
+            tipoPropiedadId = tipoPropiedadId + "&tipoPropiedadId=" + payload[i];
+        }
     }
-    for (var i = 0; i < query.length; i++) {
-        if (caracteristicaIds == undefined){ caracteristicaIds = "&caracteristicaId=" + query[i]; }
-        else { caracteristicaIds = caracteristicaIds + "&caracteristicaId=" + query[i]; }
-    }
-    axios.get('http://propyy.somee.com/api/Busqueda/buscardortipo?'+tipoPropiedadId + caracteristicaIds).then((res) => {
-            let { data } = res;
-        console.log(data);
-        dispatch(hotel1(data));
-        dispatch(hotelprecio(data)); 
-        dispatch(hotelList(data));
-        dispatch(rest(true));
-            dispatch(hotelSuccess(data));
-        }).catch(err => {
-            dispatch(hotelFailure(err, 1, query));
-        })
-}
 
+    for (var i = 0; i < query.length; i++) {
+        if (caracteristicaIds == undefined) {
+            caracteristicaIds = "&caracteristicaId=" + query[i];
+        } else {
+            caracteristicaIds = caracteristicaIds + "&caracteristicaId=" + query[i];
+        }
+    }
+
+    axios
+        .get('http://propyy.somee.com/api/Busqueda/buscardortipo?' + tipoPropiedadId + caracteristicaIds)
+        .then((res) => {
+            const { data } = res;
+            if (hotel.length != 0 || hotel != undefined) {
+                // Filtra 'hotel' para mantener solo los elementos que existen en 'data'
+                const filteredHotel = hotel.filter(item => data.some(dataItem => dataItem.publicacionId === item.publicacionId));
+                dispatch(hotel11(filteredHotel));
+                dispatch(hotelprecio(filteredHotel));
+                dispatch(hotelList(filteredHotel));
+                /* dispatch(rest(true));*/
+                dispatch(hotelSuccess(filteredHotel));
+            }else{
+                dispatch(hotel11(data));
+                dispatch(hotelprecio(data));
+                dispatch(hotelList(data));
+                 dispatch(rest(true));
+                dispatch(hotelSuccess(data));
+            }
+        })
+        .catch((err) => {
+            dispatch(hotelFailure(err, 1, query));
+        });
+};
+export const restFuntion = (res) => (dispacth) => {
+    dispacth(rest(res));
+}
 
 export const addHotelList2 = (moneda) => (dispatch) => {
     let hotel1 = store.getState().activities.hotelOperacion;
@@ -200,7 +224,7 @@ export const addHotelList2 = (moneda) => (dispatch) => {
                             obj.propiedad.tipoMoneda.denominacionMoneda = moneda;
                             return obj;
                         });
-                        dispatch(rest(true));
+                       /* dispatch(rest(true));*/
                         dispatch(hotelSuccess(result));
                         dispatch(hotelList(result));
                     })
@@ -283,7 +307,7 @@ export const tipoPublicante = (tipoPublicante) => dispatch => {
             dispatch(hotelList(data));
             dispatch(hoteloperacion(data));
             dispatch(hotelSuccess(data));
-               dispatch(hotel1(data));
+               dispatch(hotel11(data));
         })
     } else {
 
@@ -297,14 +321,14 @@ export const tipoPublicante = (tipoPublicante) => dispatch => {
             dispatch(hoteloperacion(resultadosFiltrados));
             dispatch(hotelSuccess(resultadosFiltrados));
 
-            dispatch(hotel1(resultadosFiltrados));
+            dispatch(hotel11(resultadosFiltrados));
         } else {
             dispatch(hotelprecio([]));
             dispatch(hotelList([]));
             dispatch(hoteloperacion([]));
             dispatch(hotelSuccess([]));
 
-            dispatch(hotel1([]));
+            dispatch(hotel11([]));
         }
     }
 }
@@ -316,7 +340,7 @@ export const fliterDormitorios = (values) => dispatch => {
     let hotel1 = store.getState().activities.hotelPrecio
     let cant = Object.values(values);
     let cocheras = Number(cant[0]);
-    let banos = Number(cant[0]);
+    let banos = Number(cant[2]);
     let habitaciones = Number(cant[1]);
     if (hotel.length == 0 && hotel1.length == 0 && hotel2.length == 0 && hotel11.length == 0) {
         axios.get('http://propyy.somee.com/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda' ).then((res) => {
@@ -365,7 +389,7 @@ export const fliterDormitorios = (values) => dispatch => {
     else {
         if (hotel.length == 0) {
             if (hotel3 == undefined) {
-                if (hotel11.lengt == 0) {
+                if (hotel11.length == 0) {
                     if (hotel1.length == 0) { hotel = hotel2 } else (hotel = hotel1)
                 } else { hotel = hotel11 }
             } else { hotel = hotel3 }
@@ -400,7 +424,9 @@ export const fliterDormitorios = (values) => dispatch => {
                 }
 
                 // Devolver el objeto si cumple ambas condiciones (cocheras y habitaciones)
-                return cocherasFiltradas.length > 0 && habitacionesFiltradas.length > 0 &&BanosFiltradas.lenght > 0 ;
+                if (cocherasFiltradas.length > 0 && habitacionesFiltradas.length > 0 && BanosFiltradas.length > 0) {
+                    return cocherasFiltradas[0].cantidad >= cocheras && habitacionesFiltradas[0].cantidad >= habitaciones && BanosFiltradas[0].cantidad >= banos
+                } else return false
             } else {
                 // Si el objeto no tiene "propiedadTipoAmbiente", no cumple las condiciones
                 return false;
@@ -469,7 +495,7 @@ export const sortHotelData = (tipoPropiedad) => dispatch => {
         } else { filteredData = data }
      
 
-        dispatch(hotel1(filteredData));
+        dispatch(hotel11(filteredData));
         dispatch(hotelList(filteredData));
         dispatch(hotelSuccess(filteredData));
         

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { SearchBar } from "../Search-Bar/SearchBar";
-import { getAllHotel, fliterPrecio, fliterPrecio1, fliterReciente, fliterviejo } from '../../store/actions';
+import { getAllHotel, fliterPrecio, fliterPrecio1, fliterReciente, fliterviejo, restFuntion } from '../../store/actions';
 import Mapa from "../Map/Mapa";
 import { RatingView } from "react-simple-star-rating";
 import imagen from "../../Logos/placeholder.png";
@@ -12,6 +12,7 @@ import imagen0 from "../../../public/down-arrow.png";
 import StaticMap from "../Map/StaticMap";
 import { Link } from "react-router-dom";
 import { GoogleMap, InfoBox } from '@react-google-maps/api';
+import axios from "axios";
 const initState = {
     data: [],
     isLoading: false,
@@ -20,19 +21,55 @@ const initState = {
     hotLoad: false,
     hotErr: false,
     currPage: 1,
-    currQuery: null
+    currQuery: null,
+    rest: false
 };
 export default function AllHotels() {
   
     const MiContexto = React.createContext();
     // aca usamos la context de react 
     const dispatch = useDispatch();
+    const Caracteristica = ({ caracteristicaId }) => {
+        const [nombreCaracteristica, setNombreCaracteristica] = useState("");
+
+        useEffect(() => {
+            // Realizar la solicitud de la característica cuando el componente se monte
+            axios
+                .get(`https://localhost:50001/api/Caracteristica/obtenerPorID/${caracteristicaId}`)
+                .then((response) => {
+                    if (response.data) {
+                        setNombreCaracteristica(response.data.nombreCaracteristica);
+                    } else {
+                        setNombreCaracteristica("Caracteristica no disponible"); // Manejar el caso de error
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener la caracteristica:", error);
+                    setNombreCaracteristica(""); // Manejar el caso de error
+                });
+        }, [caracteristicaId]);
+
+        return <span>{nombreCaracteristica}</span>;
+    };
     let hotelState = useSelector((state) => state.activities, shallowEqual);
     let hotel = hotelState.hotel;
     let hotellist = hotelState.hotelsList;
     const [publicationsToShow, setPublicationsToShow] = useState(3); // Número inicial de publicaciones a mostrar
     const publicationsPerPage = 3; // Número de publicaciones a cargar cada vez que se haga clic en "Mostrar más"
     // Implementa la función que muestra las publicaciones
+    const peticion = (caracteristicaId) => {
+        return axios.get(`https://localhost:50001/api/Caracteristica/obtenerPorID/${caracteristicaId}`)
+            .then(response => response.data)
+            .catch(error => {
+                console.error("", error);
+                return null; // Manejo de error, puedes retornar un valor predeterminado en caso de error
+            });
+    };
+    useEffect(() => {
+        if (hotellist.length === 0) {
+            dispatch(restFuntion(true));
+        }
+    }, [hotellist]);
     const showPublications = (data) => {
         if (data != undefined && data != null) {
             
@@ -52,7 +89,11 @@ export default function AllHotels() {
                     )}
                 </div>
             );
-        }else{ return(<h1>Sin resultados</h1>)}
+        } else {
+
+           /* dispatch(restFuntion(true))*/
+            return (<h1>Sin resultados</h1>)
+        }
     };
     function extra(data) {
         data.propiedad.propiedadTipoAmbiente.forEach((extr) => { return (<label>(extr.tipoAmbiente.nombreTipoAmbiente) : (extr.cantidad)</label>)})}
@@ -62,7 +103,7 @@ export default function AllHotels() {
                 <div key={data.publicacionId} className="hotel-info-div">
                     <img src={data.propiedad.imagenPropiedad[0].rutaImagenPropiedad} alt="img-hotel" />
 
-                    <div className="about-hotel1">
+                    <div className="about-hotel1" style={{ overflow: "hidden" }}>
 
                         <div className="rat-div">
 
@@ -84,10 +125,23 @@ export default function AllHotels() {
                             </label>
                         </div>
                         <hr></hr>
-
+                        {data.caracteristicas !== null && (
+                            <div className="caracteristicas" style={{ display:"flex" }}>
+                                <h4>Caracter{'\u00ED'}sticas:</h4>
+                                <ul>
+                                    {data.caracteristicas.slice(0, 3).map((caracteristica, index) => (
+                                        <li key={index}>
+                                            {caracteristica.caracteristicaId !== null && (
+                                                <Caracteristica caracteristicaId={caracteristica.caracteristicaId} />
+                                            )}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
                     </div>
                     <div className="about-hotel">
-                        <div className="view-detail-div">
+                        <div className="view-detail-div" style={{ display: "table-row-group" }}>
                             <div className="redi">
                                 <p>Descripci{'\u00f3'}n</p>
                             </div>
@@ -111,6 +165,7 @@ export default function AllHotels() {
                                     </div>
                             </div>
                         </div>
+                       
                         <div className="agoda-price-div1">
                             <div className="hot">
                                 Fecha de publicacion:
@@ -118,7 +173,7 @@ export default function AllHotels() {
                             </div>
 
                             <div className="hotp">
-                                {new Date(data.fechaFinPublicacion).toLocaleDateString()}
+                                {new Date(data.fechaInicioPublicacion).toLocaleDateString()}
                             </div>
                         </div>
 
@@ -126,7 +181,10 @@ export default function AllHotels() {
                 </div>
 
             );
-        } else { return(<h1>Sin resultados</h1>)}
+        } else {
+           /* dispatch(restFuntion(true));*/
+            return (<h1>Sin resultados</h1>)
+        }
     }
  
     useEffect(() => {
@@ -179,9 +237,9 @@ export default function AllHotels() {
                   <br />
                       <br />
         <div class="contenedor">
-                      {hotellist.length == 0 && 
-                          <h1>Sin resultados</h1>
-              
+                      {hotellist.length == 0 &&
+                          <h1 >Sin resultados</h1>
+                           
                           }
                       {showPublications(hotellist)}
                           <div className="hotel-info-div" style={{ backgroundColor: "#ebeced"}}>

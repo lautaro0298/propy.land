@@ -130,6 +130,7 @@ export function MoreFilterCard({ handleMoreFilterCard}) {
         setFacilitiesforfilter(facilities);
         setFacilitieslength(Object.keys(facilities).length);
     };
+   
     useEffect(() => {
 
         if (tipodepropy != null && Object.keys(hotel).length === 0) {

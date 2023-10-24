@@ -151,19 +151,19 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>09/26/2023 14:13:32</publishTime>
     </File>
     <File Include="bin/LibreriaExperto.dll">
-      <publishTime>10/04/2023 06:57:38</publishTime>
+      <publishTime>10/05/2023 12:00:11</publishTime>
     </File>
     <File Include="bin/LibreriaExperto.pdb">
-      <publishTime>10/04/2023 06:57:38</publishTime>
+      <publishTime>10/05/2023 12:00:11</publishTime>
     </File>
     <File Include="bin/LibreriaMercadoPago.dll">
-      <publishTime>10/04/2023 06:57:38</publishTime>
+      <publishTime>10/05/2023 12:27:07</publishTime>
     </File>
     <File Include="bin/LibreriaMercadoPago.dll.config">
       <publishTime>08/15/2023 00:39:01</publishTime>
     </File>
     <File Include="bin/LibreriaMercadoPago.pdb">
-      <publishTime>10/04/2023 06:57:38</publishTime>
+      <publishTime>10/05/2023 12:27:07</publishTime>
     </File>
     <File Include="bin/MercadoPago.dll">
       <publishTime>07/23/2023 02:53:36</publishTime>
@@ -913,10 +913,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>07/23/2023 02:53:35</publishTime>
     </File>
     <File Include="bin/WebApp.dll">
-      <publishTime>10/04/2023 06:57:58</publishTime>
+      <publishTime>10/05/2023 12:27:14</publishTime>
     </File>
     <File Include="bin/WebApp.pdb">
-      <publishTime>10/04/2023 06:57:58</publishTime>
+      <publishTime>10/05/2023 12:27:14</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>07/23/2023 02:53:35</publishTime>
@@ -1267,7 +1267,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>07/23/2023 02:48:15</publishTime>
     </File>
     <File Include="React/src/Components/hotels/AllHotels.jsx">
-      <publishTime>08/15/2023 22:44:24</publishTime>
+      <publishTime>10/05/2023 12:26:45</publishTime>
     </File>
     <File Include="React/src/Components/Image SlideShow/ImageSliderData.js">
       <publishTime>07/23/2023 02:48:15</publishTime>
@@ -1318,7 +1318,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>09/26/2023 18:54:23</publishTime>
     </File>
     <File Include="React/src/Components/material-ui-components/MoreFilterCard.jsx">
-      <publishTime>10/04/2023 03:38:01</publishTime>
+      <publishTime>10/05/2023 11:17:46</publishTime>
     </File>
     <File Include="React/src/Components/material-ui-components/RatingCard.jsx">
       <publishTime>09/22/2023 16:24:12</publishTime>
@@ -1465,7 +1465,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>07/23/2023 02:48:15</publishTime>
     </File>
     <File Include="React/src/store/actions.jsx">
-      <publishTime>10/04/2023 06:56:21</publishTime>
+      <publishTime>10/05/2023 09:52:30</publishTime>
     </File>
     <File Include="React/src/store/Reducer.jsx">
       <publishTime>09/04/2023 15:44:23</publishTime>
@@ -1516,7 +1516,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>07/23/2023 02:48:15</publishTime>
     </File>
     <File Include="Scripts/dist/app.bundle.js">
-      <publishTime>10/04/2023 06:56:22</publishTime>
+      <publishTime>10/05/2023 12:26:47</publishTime>
     </File>
     <File Include="Scripts/dist/app.bundle.js.LICENSE.txt">
       <publishTime>07/23/2023 02:48:15</publishTime>

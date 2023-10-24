@@ -63,7 +63,7 @@ export function SearchBar() {
     }, [priceFilterCompleted]);
      
     useEffect(() => {
-        axios.get(`https://localhost:50001/api/TipoMoneda/obtenerTiposMonedas`, {
+        axios.get(`https://propyy.somee.com/api/TipoMoneda/obtenerTiposMonedas`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -71,7 +71,7 @@ export function SearchBar() {
 
         })
             .then(res => { setMoneda(res.data); monedaIs = true; });
-        axios.get(`https://localhost:50001/api/TipoPublicacion/obtenerTiposPublicaciones`, {
+        axios.get(`https://propyy.somee.com/api/TipoPublicacion/obtenerTiposPublicaciones`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',

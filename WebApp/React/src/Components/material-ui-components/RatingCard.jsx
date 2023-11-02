@@ -15,7 +15,7 @@ const useStyles = makeStyles({
         overflow: "auto!important",
         minWidth: "250px",
         maxWidth: "250px",
-        maxHeight: "200px",
+        maxHeight: "440px",
         minHeight: "200px",
         boxShadow: "1px 1px 20px black",
         margin: "4rem auto",
@@ -30,7 +30,7 @@ const useStyles = makeStyles({
         display: "grid",
         gridTemplateColumns: "2fr 5fr 1fr",
         alignItems: "center",
-        fontSize: "10px",
+        fontSize: "22px",
         fontWeight: "bold",
         backgroundColor: "rgb(235,236,237)"
     },

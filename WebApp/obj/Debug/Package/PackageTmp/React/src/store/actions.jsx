@@ -131,7 +131,7 @@ export const getAllHotel = (query = null, currPage = 1) => dispatch => {
   const requestAction = hotelRequest();
   dispatch(requestAction);
 
-    return axios.get(`http://propyy.somee.com/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda`)
+    return axios.get(`https://propyy.somee.com/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda`)
     .then((res) => {
         dispatch(hotelSuccess(res.data));
         dispatch(hotelprecio(res.data));
@@ -167,7 +167,7 @@ export const priceFilter = (payload, query) => (dispatch, getState) => {
     }
 
     axios
-        .get('http://propyy.somee.com/api/Busqueda/buscardortipo?' + tipoPropiedadId + caracteristicaIds)
+        .get('https://propyy.somee.com/api/Busqueda/buscardortipo?' + tipoPropiedadId + caracteristicaIds)
         .then((res) => {
             const { data } = res;
             if (hotel.length != 0 || hotel != undefined) {
@@ -201,7 +201,7 @@ export const addHotelList2 = (moneda) => (dispatch) => {
     let hotel4 = store.getState().activities.hotelPrecio
     let hotel = store.getState().activities.hotel
     if (hotel.length == 0 && (hotel == undefined || hotel1.length==0) && hotel2.length == 0 && hotel3 == undefined && hotel4.length == 0) {
-        axios.get('http://propyy.somee.com/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda')
+        axios.get('https://propyy.somee.com/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda')
             .then((res) => {
                 let arrayObjeto = res.data;
 
@@ -287,7 +287,7 @@ export const fliterPrecio2 = (cant) => dispatch => {
     
 }
 export const addHotelList = (cant ,moneda ) => dispatch => {
-    axios.get('http://propyy.somee.com/api/Busqueda/buscardorPorPrecio?cant=' + cant + '&moneda=' + moneda).then((res) => {
+    axios.get('https://propyy.somee.com/api/Busqueda/buscardorPorPrecio?cant=' + cant + '&moneda=' + moneda).then((res) => {
         let { data } = res;
         hotelprecio
         dispatch(hotelprecio(data));
@@ -301,7 +301,7 @@ export const tipoPublicante = (tipoPublicante) => dispatch => {
     let hotel4 = store.getState().activities.hotelPrecio
     let hotel = store.getState().activities.hotel
     if (hotel.length == 0 && hotel1.lenght == undefined && hotel2.length == 0 && hotel.length == 0 && hotel3 == undefined && hotel4.length == 0) {
-        axios.get('http://propyy.somee.com/api/Busqueda/buscardorPorPublicancion?Publicacion=' + tipoPublicante).then((res) => {
+        axios.get('https://propyy.somee.com/api/Busqueda/buscardorPorPublicancion?Publicacion=' + tipoPublicante).then((res) => {
             let { data } = res;
             dispatch(hotelprecio(data));
             dispatch(hotelList(data));
@@ -343,7 +343,7 @@ export const fliterDormitorios = (values) => dispatch => {
     let banos = Number(cant[2]);
     let habitaciones = Number(cant[1]);
     if (hotel.length == 0 && hotel1.length == 0 && hotel2.length == 0 && hotel11.length == 0) {
-        axios.get('http://propyy.somee.com/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda' ).then((res) => {
+        axios.get('https://propyy.somee.com/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda' ).then((res) => {
             let { data } = res;
             // Filtrar los objetos del array hotel que cumplan las condiciones
             let filtro = data.filter(objeto => {
@@ -483,7 +483,7 @@ export const fliterPrecio1 = () => dispatch => {
 export const sortHotelData = (tipoPropiedad) => dispatch => {
   dispatch(hotelRequest())
     
-    axios.get(`http://propyy.somee.com/api/Busqueda/buscardortipoPropiedad?tipoPropiedadId=` +tipoPropiedad).then((res) => {
+    axios.get(`https://propyy.somee.com/api/Busqueda/buscardortipoPropiedad?tipoPropiedadId=` +tipoPropiedad).then((res) => {
         let filteredData
         let { data } = res;
         let hotel = store.getState().activities.hotelOperacion;
@@ -509,7 +509,7 @@ export const sortHotelData = (tipoPropiedad) => dispatch => {
 export const palabra = (Palabra) => dispatch => {
     dispatch(hotelRequest())
     if (Palabra == undefined || Palabra == null || Palabra == "") {
-        axios.get(`http://propyy.somee.com/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda`)
+        axios.get(`https://propyy.somee.com/api/Busqueda/obtenerPropiedadesParaEvaluarBusqueda`)
         .then((res) => {
             dispatch(hotelSuccess(res.data));
         })
@@ -517,7 +517,7 @@ export const palabra = (Palabra) => dispatch => {
             const failureAction = hotelFailure(err, currPage, query);
             dispatch(failureAction);
         }); } else {
-        axios.get(`http://propyy.somee.com/api/Busqueda/buscardorPorPalabra?Palabra=` + Palabra).then((res) => {
+        axios.get(`https://propyy.somee.com/api/Busqueda/buscardorPorPalabra?Palabra=` + Palabra).then((res) => {
             let { data } = res;
             dispatch(hotelSuccess(data));
         }).catch(err => {

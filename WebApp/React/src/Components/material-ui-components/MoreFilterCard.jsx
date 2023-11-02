@@ -26,7 +26,7 @@ const useStyles = makeStyles({
         boxShadow: "1px 1px 20px black",
         
         top: "3rem",
-        right: "15rem"
+        right: "-2rem"
     },
     starsCont: {
         display: "inline-block",
@@ -149,7 +149,7 @@ export function MoreFilterCard({ handleMoreFilterCard}) {
                 } style={{
                         position:"fixed",
                         top: "130px",
-                        right: "260px", cursor: 'pointer', color: 'red' }}  />
+                        right: "-16px", cursor: 'pointer', color: 'red' }}  />
                 <CardContent className={classes.facilitiesCont} >
                     <div>
                         <span>Popular Filters</span>

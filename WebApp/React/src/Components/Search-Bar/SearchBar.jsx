@@ -20,6 +20,9 @@ import { Marker, MarkerClusterer, InfoWindow, StandaloneSearchBox } from '@react
 import { hotellist } from '../../store/actions';
 import { addHotelList2 } from '../../store/actions';
 export function SearchBar() {
+    let propiedad = useSelector((state) => state.activities, shallowEqual);
+    let propiedadEstado = propiedad.propiedad;
+
     let hotelState = useSelector((state) => state.activities, shallowEqual);
     let reset= hotelState.reset;
     let hotel = hotelState.hotel;
@@ -27,6 +30,7 @@ export function SearchBar() {
     let [hotels, setHotels] = useState([]);
     let map
     let searchArea
+    const [propertyType, setPropertyType] = useState(null);
     const [searchBox, setSearchBox] = useState(null);
     /* const [searchBox, setSearchBox] = useState(null);*/
     const [price, setPrice] = useState(10000);
@@ -55,6 +59,19 @@ export function SearchBar() {
     const [monedaSelect, setMonedaSelect] = useState("")
     const [publicacionSelect, setPublicacionSelect] = useState("")
     const dispatch = useDispatch();
+    useEffect(() => {
+        if (propiedadEstado) {
+            axios.get(`https://propyy.somee.com/api/TipoPropiedad/obtenerPorId/${propiedadEstado}`)
+                .then((response) => {
+                    setPropertyType(response.data.nombreTipoPropiedad);
+                })
+                .catch((error) => {
+                    // Handle error, e.g., setPropertyType('Error fetching data');
+                    console.error('Error fetching data:', error);
+                });
+        }
+    }, [propiedadEstado]);
+
     useEffect(() => {
         // Utiliza useEffect para ejecutar handlePriceFilter automáticamente cuando priceFilter haya terminado
         if (priceFilterCompleted) {
@@ -447,7 +464,7 @@ export function SearchBar() {
                                     <div className="date-al date-al-margin">
 
                                         Tipo de propiedad:
-
+                                        {propertyType && <div>{propertyType}</div>}
                                     </div>
                                    
                                 </div>
@@ -455,6 +472,21 @@ export function SearchBar() {
                             </div>
                         </PickDateWrapper>
                      
+                       
+                        
+                        <SelectGuestsWrapper>
+                            <div>
+                                <div onClick={handleGuestSelector} className="guestsnumber">
+                                    <img src={addgroup} alt="" />
+                                    <div className="guest-al">
+                                        Caracteristicas
+                                    </div>
+                                </div>
+
+                            </div>
+                            </SelectGuestsWrapper>
+                      
+                        <span className="partitionLine" style={{ width: "0.01%", backgroundColor: "rgb(205 205 205)" }}></span>
                         <MoreFilteringWrapper onClick={() => {
                             handleMoreFilterCard()
                             setDatePicker(false);
@@ -474,51 +506,34 @@ export function SearchBar() {
                                 </span>
                                 <KeyboardArrowDownIcon />
                             </div>
-                             
-                     
-                        </MoreFilteringWrapper>
-                        <hr className="line-divider" />
-                        <span className="partitionLine" style={{ width: "0.01%", backgroundColor: "rgb(205 205 205)" }}></span>
-                        
-                        <SelectGuestsWrapper>
-                            <div>
-                                <div onClick={handleGuestSelector} className="guestsnumber">
-                                    <img src={addgroup} alt="" />
-                                    <div className="guest-al">
-                                        Caracteristicas
-                                    </div>
-                                </div>
 
-                            </div>
-                            </SelectGuestsWrapper>
-                        
+
+                        </MoreFilteringWrapper>
                     </SearchBarMainWrapper>
-                        
+                    
+                    
                     
                     {/*barra de precio*/}
                     <GuestRatingWrapper >
                         <div>
                             <span>Tipo de moneda</span>
                         </div>
-                        <div className="downTextandArrow">
-                            <select id="tipoMoneda" value={selectedValue} onChange={(event)=>
-                            {
-                                setSelectedValue(event.target.value);
-                                setMonedaSelect(event.target.value)
-                                if (event.target.value != null || event.target.value != undefined )
-                                { dispatch(addHotelList2(event.target.value))}}
-                           }>
-                                <option>
-
-                                </option>
+                        <div className="">
+                         
+                                
                                 {moneda.map((mone, index) => {
                                     return (
-                                        <option key={index} value={mone.denominacionMoneda}>
+                                        <button class="btn btn-default" key={index} value={mone.denominacionMoneda} onClick={(event) => {
+                                            setSelectedValue(event.target.value);
+                                            setMonedaSelect(event.target.value)
+                                            if (event.target.value != null || event.target.value != undefined) { dispatch(addHotelList2(event.target.value)) }
+                                        }
+                                        }>
                                             {mone.denominacionMoneda}
-                                        </option>
+                                        </button>
                                     );
                                 })}
-                            </select>
+                          
                         </div>
                     </GuestRatingWrapper>
                     <PriceNightWrapper >

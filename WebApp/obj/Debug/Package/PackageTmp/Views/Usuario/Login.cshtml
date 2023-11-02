@@ -7,7 +7,7 @@
 <style>
     /* Estilos para la caja flotante */
     .floating-box {
-        display:none;
+        display: none;
         position: fixed;
         top: 50%;
         left: 50%;
@@ -21,7 +21,7 @@
 
     /* Estilos para el fondo oscuro */
     .overlay {
-        display:none;
+        display: none;
         position: fixed;
         top: 0;
         left: 0;
@@ -31,7 +31,8 @@
         z-index: 9998;
     }
 </style>
-
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v18.0" nonce="UCa3RNiM"></script>
 <link href="~/Estilos/MisEstilos.css" rel="stylesheet" />
 <!--Script Google-->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -173,6 +174,7 @@
                                         <span class="input-group-text" id="inputGroup-sizing-default">Clave</span>
                                     </div>
                                     <input class="form-control" type="password" name="clave" required />
+                                    <button class="btn btn-outline-secondary" type="button" id="showPasswordButton">Ver</button>
                                 </div>
                             </div>
                         </div>
@@ -187,6 +189,7 @@
                             </div>
                         </div>
                     </div>
+                    <div class="fb-login-button" data-width="" data-size="" data-button-type="" data-layout="" data-auto-logout-link="false" data-use-continue-as="false" style="width: -webkit-fit-content; height:38px;"></div>
                     <div id="buttonDiv"></div>
 
                     <div class="card-footer bg-dark border-dark">
@@ -204,5 +207,48 @@
     </div>
 
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const showPasswordButton = document.getElementById('showPasswordButton');
+        const passwordInput = document.querySelector('input[type="password"]');
 
+        showPasswordButton.addEventListener('click', function () {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+        });
+    });
+</script>
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: 'Tu-App-ID-de-Facebook',
+            cookie: true,
+            xfbml: true,
+            version: 'v12.0'
+        });
+    };
 
+    function checkLoginState() {
+        FB.getLoginStatus(function (response) {
+            statusChangeCallback(response);
+        });
+    }
+
+    function statusChangeCallback(response) {
+        if (response.status === 'connected') {
+            // El usuario está conectado a tu aplicación y a Facebook.
+            // Aquí puedes realizar acciones con la API de Facebook o enviar la información al servidor.
+            console.log('Usuario conectado.');
+            console.log(response.authResponse.accessToken);
+        } else if (response.status === 'not_authorized') {
+            // El usuario está conectado a Facebook, pero no a tu aplicación.
+            console.log('Usuario no autorizado para tu aplicación.');
+        } else {
+            // El usuario no está conectado a Facebook y posiblemente no haya iniciado sesión en tu aplicación.
+            console.log('Usuario no conectado a Facebook.');
+        }
+    }
+</script>

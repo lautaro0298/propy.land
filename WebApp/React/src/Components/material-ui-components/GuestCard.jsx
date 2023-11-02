@@ -21,13 +21,13 @@ export default function GuestCard({
   const useStyles = makeStyles({
     root: {
           position: position,
-          left:"81rem",
+          left:"67rem",
       minWidth: "300px",
       maxWidth: "300px",
       maxHeight: "auto",
       boxShadow: "0px 0px 17px -2px black",
       top: top,
-      right: right,
+      right: "0.5rem",
       zIndex: "999",
     },
     content: {

@@ -35,7 +35,7 @@ export default function AllHotels() {
         useEffect(() => {
             // Realizar la solicitud de la característica cuando el componente se monte
             axios
-                .get(`http://propyy.somee.com/api/Caracteristica/obtenerPorID/${caracteristicaId}`)
+                .get(`https://propyy.somee.com/api/Caracteristica/obtenerPorID/${caracteristicaId}`)
                 .then((response) => {
                     if (response.data) {
                         setNombreCaracteristica(response.data.nombreCaracteristica);
@@ -58,7 +58,7 @@ export default function AllHotels() {
     const publicationsPerPage = 3; // Número de publicaciones a cargar cada vez que se haga clic en "Mostrar más"
     // Implementa la función que muestra las publicaciones
     const peticion = (caracteristicaId) => {
-        return axios.get(`http://propyy.somee.com/api/Caracteristica/obtenerPorID/${caracteristicaId}`)
+        return axios.get(`https://propyy.somee.com/api/Caracteristica/obtenerPorID/${caracteristicaId}`)
             .then(response => response.data)
             .catch(error => {
                 console.error("", error);

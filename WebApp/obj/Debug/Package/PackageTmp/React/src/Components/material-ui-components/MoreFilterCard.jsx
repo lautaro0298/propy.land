@@ -26,7 +26,7 @@ const useStyles = makeStyles({
         boxShadow: "1px 1px 20px black",
         
         top: "3rem",
-        right: "15rem"
+        right: "-2rem"
     },
     starsCont: {
         display: "inline-block",
@@ -135,8 +135,8 @@ export function MoreFilterCard({ handleMoreFilterCard}) {
 
         if (tipodepropy != null && Object.keys(hotel).length === 0) {
 
-            axios.get("http://propyy.somee.com/api/TipoPropiedadCaracteristica/ObtenerPorIDdePropiedad/" + tipodepropy.tipoPropiedadId).then(data => { setHotel(data.data); setIsLoad(true); });
-        } else { axios.get("http://propyy.somee.com/api/Caracteristica/obtenerCaracteristicas").then(data => { setHotel(data.data); setIsLoad(true); }); }
+            axios.get("https://propyy.somee.com/api/TipoPropiedadCaracteristica/ObtenerPorIDdePropiedad/" + tipodepropy.tipoPropiedadId).then(data => { setHotel(data.data); setIsLoad(true); });
+        } else { axios.get("https://propyy.somee.com/api/Caracteristica/obtenerCaracteristicas").then(data => { setHotel(data.data); setIsLoad(true); }); }
     }, []);
   
     
@@ -149,7 +149,7 @@ export function MoreFilterCard({ handleMoreFilterCard}) {
                 } style={{
                         position:"fixed",
                         top: "130px",
-                        right: "260px", cursor: 'pointer', color: 'red' }}  />
+                        right: "-16px", cursor: 'pointer', color: 'red' }}  />
                 <CardContent className={classes.facilitiesCont} >
                     <div>
                         <span>Popular Filters</span>

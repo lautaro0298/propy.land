@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LibreriaExperto")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+170ce2647ddc8ed61d099e89b316e5ee850ccfde")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6dde7345c0483e7eb79a8f363f286ac4842d5dee")]
 [assembly: System.Reflection.AssemblyProductAttribute("LibreriaExperto")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LibreriaExperto")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

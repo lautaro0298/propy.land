@@ -23,13 +23,14 @@
                     </div>
                     <div class="col-md-2">
 
-                        <button class="btn btn-outline-primary" onclick="location.href='@Url.Action("ObtenerDatosPublicante","VisitaInmueble",new {publicacionId=Model.publicacionId })'">Obtener contacto de @Model.tipoPublicante</button>
+                        <button class="btn btn-outline-primary" onclick="location.href='@Url.Action("ObtenerDatosPublicante","VisitaInmueble",new {publicacionId=Model.publicacionId })'">Contactar</button>
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-md btn-info" onclick="AgregarFavorito('@Model.publicacionId');">Agregar a mi lista de favoritos</button>
+                        <button class="btn btn-outline-danger" onclick="checkIsFavorited('@Model.publicacionId');">
+                            <span id="icon-@Model.publicacionId"></span>
+                        </button>
                     </div>
                 </div>
-
             </div>
             <div class="card-body">
 
@@ -225,6 +226,42 @@
 @section scripts{
 
     <script>
+        function checkIsFavorited(publicacionId) {
+            $.ajax({
+                type: 'GET',
+                url: '/Usuario/ConsultarIsFavorito',
+                data: { publicacionId: publicacionId },
+                success: function (response) {
+                    // La respuesta debe ser verdadero o falso
+                    isFavorited[publicacionId] = response === "true";
+                    updateIcon(publicacionId);
+                },
+                error: function (error) {
+                    console.error("Error al consultar el favorito:", error);
+                    // Manejar el error si es necesario
+                }
+            });
+        }
+
+        function updateIcon(publicacionId) {
+            const iconElement = document.getElementById(`icon-${publicacionId}`);
+            if (isFavorited[publicacionId]) {
+                iconElement.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+            </svg>
+        `;
+            } else {
+                iconElement.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+            </svg>
+        `;
+            }
+        }
+
+
+
     function AgregarFavorito(publicacionId) {
             var url = "'@Url.Action("AddFavorito","Usuario")'";
 

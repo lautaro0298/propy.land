@@ -19,6 +19,23 @@ namespace LibreriaExperto.Usuarios
 
     public static class ExpertoUsuarios
     {
+        public static bool ConsultarIsFavorito(string usuarioId,string publicacionID)
+        {
+            ErrorPropy error = new ErrorPropy();
+            HttpClient clienteHttp = ApiConfiguracion.Inicializar();
+            (ErrorPropy error, TransferenciaUsuario usuario) respuestaObtenerUsuario = ExpertoUsuarios.ObtenerUsuarioPorID(usuarioId, clienteHttp);
+            if (respuestaObtenerUsuario.error.codigoError != 0)
+            {
+                return (false);
+            }
+            bool ret =false;
+            foreach (var favorito in respuestaObtenerUsuario.usuario.Favorito)
+            {
+                if (favorito.publicacionId==publicacionID) { ret = true; }
+
+            }
+            return ret;
+        }
         public static (ErrorPropy, List<DTOFavorito>) ConsultarListaFavoritos(string usuarioId) {
             ErrorPropy error = new ErrorPropy();
             HttpClient clienteHttp = ApiConfiguracion.Inicializar();

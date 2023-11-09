@@ -57,6 +57,25 @@ namespace WebApp.Controllers
 
         }
         [HttpGet]
+        public bool ConsultarIsFavorito(string publicacionId)
+        {
+            try
+            {
+
+                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return false; }
+                bool respuesta = ExpertoUsuarios.ConsultarIsFavorito(Session["IDUsuario"].ToString() , publicacionId);
+
+                return respuesta;
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                ViewBag.ErrorDetalle = ex.StackTrace;
+                return false;
+                throw;
+            }
+        }
+        [HttpGet]
         public ActionResult ConsultarListaFavoritos()
         {
             try

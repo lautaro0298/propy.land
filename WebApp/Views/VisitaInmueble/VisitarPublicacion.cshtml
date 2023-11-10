@@ -26,7 +26,7 @@
                         <button class="btn btn-outline-primary" onclick="location.href='@Url.Action("ObtenerDatosPublicante","VisitaInmueble",new {publicacionId=Model.publicacionId })'">Contactar</button>
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-outline-danger" onclick="checkIsFavorited('@Model.publicacionId');">
+                        <button class="btn btn-outline-danger" onclick="AgregarFavorito('@Model.publicacionId');">
                             <span id="icon-@Model.publicacionId"></span>
                         </button>
                     </div>
@@ -226,6 +226,11 @@
 @section scripts{
 
     <script>
+        var isFavorited = {};
+           $(document).ready(function () {
+            // Llamada a la función checkIsFavorited al cargar la página
+            checkIsFavorited('@Model.publicacionId');
+        });
         function checkIsFavorited(publicacionId) {
             $.ajax({
                 type: 'GET',
@@ -233,7 +238,7 @@
                 data: { publicacionId: publicacionId },
                 success: function (response) {
                     // La respuesta debe ser verdadero o falso
-                    isFavorited[publicacionId] = response === "true";
+                    isFavorited[publicacionId] = response === "True";
                     updateIcon(publicacionId);
                 },
                 error: function (error) {
@@ -247,7 +252,7 @@
             const iconElement = document.getElementById(`icon-${publicacionId}`);
             if (isFavorited[publicacionId]) {
                 iconElement.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
             </svg>
         `;

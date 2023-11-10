@@ -69,7 +69,19 @@ export default function GuestCard({
   const [childrenArr, setChildrenArr] = useState([]);
     const [tipoambiente, setTipoambiente] = useState([]);
     const [isLoad, setIsload] = useState(false);
-  
+    useEffect(() => {
+        const handleKeyPress = (event) => {
+            if (event.key === 'Escape') {
+                handleGuestSelector();
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyPress);
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyPress);
+        };
+    }, [handleGuestSelector]);
     useEffect(() => {
 
         axios.get("https://propyy.somee.com/api/TipoAmbiente/obtenerTiposAmbientes").then((res) => {

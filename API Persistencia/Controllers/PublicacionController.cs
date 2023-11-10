@@ -26,6 +26,16 @@ namespace API_Persistencia.Controllers
                                    select x.Propiedad).ToList();
             return propiedades;
         }
+        [HttpGet("obtenerVistaPorPublicacion/{publicacionId}&{IDUsuarioVisitante}")]
+        public VisitaInmueble ObtenerPublicacionPorIDExpandida(string publicacionId , string IDUsuarioVisitante)
+        {
+            VisitaInmueble publicacion = (from x in con.VisitaInmueble
+                                       where x.publicacionId == publicacionId && x.usuarioId == IDUsuarioVisitante
+                                       select x).FirstOrDefault();
+            return publicacion;
+
+
+        }
         [HttpGet("obtenerPublicacionPorId/{publicacionId}")]
         public Publicacion ObtenerPublicacionPorIDExpandida(string publicacionId) {
             Publicacion publicacion = (from x in con.Publicacion

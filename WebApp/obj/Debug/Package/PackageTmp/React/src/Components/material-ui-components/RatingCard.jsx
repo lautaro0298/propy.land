@@ -57,7 +57,24 @@ export function RatingCard({ clickedCheckOut, handleClickedCheckOut }) {
     const classes = useStyles();
     const handleClose = () => {
   setIsOpen(false); // actualizar el estado para cerrar la ventana
-};
+    };
+
+    useEffect(() => {
+        const handleKeyPress = (event) => {
+            if (event.key === 'Escape') {
+                handleClickedCheckOut();
+            }
+        };
+
+        // Agregar el event listener al cargar el componente
+        document.addEventListener('keydown', handleKeyPress);
+
+        // Remover el event listener al desmontar el componente
+        return () => {
+            document.removeEventListener('keydown', handleKeyPress);
+        };
+    }, [handleClickedCheckOut]);
+
     const [darkgreentick, setDarkgreentick] = React.useState(() => hotel.map((x) => false));
     useEffect(() => {
         

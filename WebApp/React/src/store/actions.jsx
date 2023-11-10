@@ -444,8 +444,8 @@ export const fliterPrecio = () => dispatch => {
     let hotel = store.getState().activities.hotel;
     hotel.sort(((a, b) => a.propiedad.precioPropiedad - b.propiedad.precioPropiedad));
     dispatch(hotelSuccess(hotel));
-    dispatch(hotelList(hotel));
-    
+    dispatch(hotellist(hotel));
+    dispatch(hotel11(hotel))
 }
 export const fliterviejo = () => dispatch => {
     let hotel = store.getState().activities.hotel;
@@ -455,8 +455,8 @@ export const fliterviejo = () => dispatch => {
     let corto = hotel.sort((a, b) => new Date(a.fechaInicioPublicacion).getTime() - new Date(b.fechaInicioPublicacion).getTime())
     console.log(corto);
     dispatch(hotelSuccess(hotel));
-    dispatch(hotelList(hotel));
-    
+    dispatch(hotellist(hotel));
+    dispatch(hotel11(hotel))
 }
 export const fliterReciente = () => dispatch => {
     let hotel = store.getState().activities.hotel;
@@ -464,8 +464,8 @@ export const fliterReciente = () => dispatch => {
     console.log(hotel.sort((a, b) => new Date(a.fechaInicioPublicacion).getTime() - new Date(b.fechaInicioPublicacion).getTime()));
     hotel = hotel.reverse();
     dispatch(hotelSuccess(hotel));
-    dispatch(hotelList(hotel));
-
+    dispatch(hotellist(hotel));
+    dispatch(hotel11(hotel))
 }
 export const hotellist = (hotellist) => dispatch => {
     dispatch(hotelList(hotellist));
@@ -477,8 +477,8 @@ export const fliterPrecio1 = () => dispatch => {
     let hotel = store.getState().activities.hotel;
    hotel= hotel.reverse();
     dispatch(hotelSuccess(hotel));
-    dispatch(hotelList(hotel));
-    console.log(hotel)
+    dispatch(hotellist(hotel));
+    dispatch(hotel11(hotel))
 }
 export const sortHotelData = (tipoPropiedad) => dispatch => {
   dispatch(hotelRequest())

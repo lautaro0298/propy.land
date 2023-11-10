@@ -234,7 +234,7 @@ export default function AllHotels() {
                                 </div>
                                 <div> <button class="btn btn-outline-danger" onclick="">
                                     {isFavorited[data.publicacionId] ? (
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
                                         </svg>
                                     ) : (
@@ -291,10 +291,10 @@ export default function AllHotels() {
 
                             </option>
                             <option value="mayor" name="Our_recomn" >
-                                Precio , de mayor a menor
+                                Precio , de menor a mayor
                             </option>
                             <option value="menor" name="Rating_recomn" >
-                                Precio, de menor a mayor
+                                Precio, de mayor a menor
                             </option>
                             <option value="reciente" name="Rating_recomn">
                                 Publicaci{'\u00f3'}n m{'\u00e1'}s reciente
@@ -302,6 +302,12 @@ export default function AllHotels() {
                             <option value="antigua" name="Rating_recomn">
                                 Publicaci{'\u00f3'}n m{'\u00e1'}s antigua
                             </option>
+                            <option value="fav" name="Rating_recomn" >
+                                Favoritos
+                            </option>
+                            {/*<option value="Des" name="Rating_recomn" >*/}
+                            {/*    Destacados*/}
+                            {/*</option>*/}
                         </select>
                     </div>
                     <br />

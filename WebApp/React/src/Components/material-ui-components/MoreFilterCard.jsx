@@ -91,6 +91,19 @@ export function MoreFilterCard({ handleMoreFilterCard}) {
     }
  
     
+    useEffect(() => {
+        const handleKeyPress = (event) => {
+            if (event.key === 'Escape') {
+                handleMoreFilterCard();
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyPress);
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyPress);
+        };
+    }, [handleMoreFilterCard]);
 
     const handleChange = (event) => {
         console.log(event.target.value)

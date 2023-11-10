@@ -119,8 +119,16 @@ namespace LibreriaExperto.Visitas
                 return(error, null);
             }
             TransferenciaPublicacion publicacion = tareaObtenerPublicacion.Result.Content.ReadAsAsync<TransferenciaPublicacion>().Result;
-            TransferenciaVisitaInmueble visita = publicacion.VisitaInmueble.Where(x => x.usuarioId == usuarioIdVisita).FirstOrDefault();
-           
+         // TransferenciaVisitaInmueble visita = publicacion.VisitaInmueble.Where(x => x.usuarioId == usuarioIdVisita).FirstOrDefault();
+            var tareaObtenerSolicitudContactoVisitante = clienteHttp.GetAsync("api/Publicacion/obtenerVistaPorPublicacion/" + publicacionId + "&" + usuarioIdVisita);
+            tareaObtenerSolicitudContactoVisitante.Wait();
+            if (!tareaObtenerSolicitudContactoVisitante.Result.IsSuccessStatusCode)
+            {
+                error.codigoError = (int)tareaObtenerSolicitudContactoVisitante.Result.StatusCode;
+                error.descripcionError = "Error: " + error.codigoError + " " + tareaObtenerSolicitudContactoVisitante.Result.StatusCode;
+                return (error, null);
+            }
+            TransferenciaVisitaInmueble visita = tareaObtenerSolicitudContactoVisitante.Result.Content.ReadAsAsync<TransferenciaVisitaInmueble>().Result;
             datosPublicante.nombreCompletoPublicante = publicacion.Propiedad.Usuario.nombreUsuario + " " + publicacion.Propiedad.Usuario.apellidoUsuario;
             datosPublicante.email = publicacion.Propiedad.Usuario.email;
             datosPublicante.telefonoContactoPrincipal = String.Format("{0:(###) ### ####}", publicacion.Propiedad.Usuario.telefono1);
@@ -143,7 +151,7 @@ namespace LibreriaExperto.Visitas
             }
             bool contacto=false ;
 
-            TransferenciaVisitaInmueble visitaInmueble = publicacion.VisitaInmueble.Where(x =>  x.usuarioId == usuarioIdVisita).FirstOrDefault();
+            TransferenciaVisitaInmueble visitaInmueble = visita;
             if (visitaInmueble != null)
             {
                 

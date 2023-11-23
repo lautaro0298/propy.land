@@ -31,7 +31,7 @@ namespace LibreriaExperto.Usuarios
             bool ret =false;
             foreach (var favorito in respuestaObtenerUsuario.usuario.Favorito)
             {
-                if (favorito.publicacionId==publicacionID) { ret = true; }
+                if (favorito.publicacionId==publicacionID && favorito.activo==true) { ret = true; }
 
             }
             return ret;
@@ -68,6 +68,32 @@ namespace LibreriaExperto.Usuarios
                 
             }
             return (error, favoritos);
+        }
+        public static  List<TransferenciaPublicacion> ConsultarListaFavoritosPublicacion(string usuarioId)
+        {
+            ErrorPropy error = new ErrorPropy();
+            HttpClient clienteHttp = ApiConfiguracion.Inicializar();
+            (ErrorPropy error, TransferenciaUsuario usuario) respuestaObtenerUsuario = ExpertoUsuarios.ObtenerUsuarioPorID(usuarioId, clienteHttp);
+            if (respuestaObtenerUsuario.error.codigoError != 0)
+            {
+                return  null;
+            }
+
+            List<TransferenciaPublicacion> favoritos = new List<TransferenciaPublicacion>();
+            foreach (var favorito in respuestaObtenerUsuario.usuario.Favorito)
+            {
+                (ErrorPropy error, TransferenciaPublicacion publicacion) respuestaObtenerPublicacion = ExpertoPublicaciones.ObtenerPublicacion(favorito.publicacionId, clienteHttp);
+                if (respuestaObtenerPublicacion.error.codigoError != 0)
+                {
+                    return  null;
+                }
+                if (favorito.activo != false)
+                {
+                    favoritos.Add(respuestaObtenerPublicacion.publicacion);
+                }
+
+            }
+            return  favoritos;
         }
         public static ErrorPropy QuitarFavorito(string publicacionId,string usuarioId) {
             HttpClient clienteHttp = ApiConfiguracion.Inicializar();

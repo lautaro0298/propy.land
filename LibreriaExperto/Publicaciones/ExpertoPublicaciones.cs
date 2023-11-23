@@ -368,6 +368,18 @@ namespace LibreriaExperto.Publicaciones
             TransferenciaPublicacion publicacion = tareaObtenerPublicacion.Result.Content.ReadAsAsync<TransferenciaPublicacion>().Result;
             return (error, publicacion);
         }
+        public static (ErrorPropy, TransferenciaPublicacion) ObtenerPublicacionNew(string publicacionId, HttpClient clienteHttp)
+        {
+            ErrorPropy error = new ErrorPropy();
+            var tareaObtenerPublicacion = clienteHttp.GetAsync("api/Busqueda/buscardorPorPublicancion?Publicacion=" + publicacionId);
+            tareaObtenerPublicacion.Wait();
+            if (!tareaObtenerPublicacion.Result.IsSuccessStatusCode)
+            {
+                throw new Exception(tareaObtenerPublicacion.Result.StatusCode.ToString());
+            }
+            TransferenciaPublicacion publicacion = tareaObtenerPublicacion.Result.Content.ReadAsAsync<TransferenciaPublicacion>().Result;
+            return (error, publicacion);
+        }
         public static (ErrorPropy, TransferenciaPublicacion) ObtenerPublicacion(string publicacionId,HttpClient clienteHttp) {
             ErrorPropy error = new ErrorPropy();
             var tareaObtenerPublicacion = clienteHttp.GetAsync("api/Publicacion/obtenerPublicacionPorId/" + publicacionId);

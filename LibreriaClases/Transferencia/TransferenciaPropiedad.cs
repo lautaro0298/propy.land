@@ -34,6 +34,7 @@ namespace LibreriaClases.Transferencia
         public virtual List<TransferenciaTipoPropiedad> TipoPropiedad { get; set; }
         public virtual ICollection<TransferenciaPropiedadTipoAmbiente> PropiedadTipoAmbiente { get; set; }
         public virtual ICollection<TransferenciaImagenPropiedad> ImagenPropiedad { get; set; }
+         public virtual ICollection<TransferenciaImagenPropiedad> imagenPropiedad { get; set; }
         public virtual TransferenciaUsuario Usuario { get; set; }
         public virtual TransferenciaTipoMoneda TipoMoneda { get; set; }
     }

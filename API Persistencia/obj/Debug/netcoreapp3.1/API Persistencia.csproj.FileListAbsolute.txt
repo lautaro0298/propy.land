@@ -1196,7 +1196,15 @@ C:\eluxsegundaprueba\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreap
 C:\eluxsegundaprueba\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.dll
 C:\eluxsegundaprueba\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.pdb
 C:\eluxsegundaprueba\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.genruntimeconfig.cache
+C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.csproj.AssemblyReference.cache
+C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.AssemblyInfoInputs.cache
+C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.AssemblyInfo.cs
+C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.csproj.CoreCompileInputs.cache
+C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.sourcelink.json
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\bin\Debug\netcoreapp3.1\API Persistencia.StaticWebAssets.xml
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\bin\Debug\netcoreapp3.1\API Persistencia.exe
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\bin\Debug\netcoreapp3.1\API Persistencia.deps.json
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\bin\Debug\netcoreapp3.1\API Persistencia.runtimeconfig.json
@@ -1321,22 +1329,14 @@ C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\bin\Debug\
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\bin\Debug\netcoreapp3.1\LibreriaClases.dll
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\bin\Debug\netcoreapp3.1\LibreriaClases.pdb
-C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.csproj.AssemblyReference.cache
-C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.AssemblyInfoInputs.cache
-C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.AssemblyInfo.cs
-C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.csproj.CoreCompileInputs.cache
-C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.RazorTargetAssemblyInfo.cache
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\staticwebassets\API Persistencia.StaticWebAssets.Manifest.cache
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\staticwebassets\API Persistencia.StaticWebAssets.Pack.cache
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.API Persistencia.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.build.API Persistencia.props
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.buildMultiTargeting.API Persistencia.props
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.buildTransitive.API Persistencia.props
-C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.RazorTargetAssemblyInfo.cache
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.csproj.CopyComplete
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.dll
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.pdb
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.genruntimeconfig.cache
-C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\bin\Debug\netcoreapp3.1\API Persistencia.StaticWebAssets.xml
-C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.sourcelink.json

@@ -467,6 +467,30 @@ export const fliterReciente = () => dispatch => {
     dispatch(hotellist(hotel));
     dispatch(hotel11(hotel))
 }
+export const fliterFavoritos = () => dispatch => {
+    let hotel = store.getState().activities.hotel;
+    axios.get(`/Usuario/ConsultarFavoritos` ).then((res) => {
+        let filteredData = res.data;
+        hotel = hotel.filter(objeto =>
+            
+        {
+            return filteredData.some(favorito => favorito.publicacionId === objeto.publicacionId);
+
+        }
+        );
+     
+
+
+        dispatch(hotel11(hotel));
+        dispatch(hotelList(hotel));
+        dispatch(hotelSuccess(hotel));
+
+    }).catch(err => {
+        dispatch(hotelFailure(err, 1));
+    })
+ 
+  
+}
 export const hotellist = (hotellist) => dispatch => {
     dispatch(hotelList(hotellist));
    

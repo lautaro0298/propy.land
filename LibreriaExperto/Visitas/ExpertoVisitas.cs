@@ -231,7 +231,7 @@ namespace LibreriaExperto.Visitas
             }
             TransferenciaPublicacion publicacion = tareaObtenerPublicacion.Result.Content.ReadAsAsync<TransferenciaPublicacion>().Result;
             DTOVisitaInmueble datosInmueble = new DTOVisitaInmueble();
-            foreach (var imagen in publicacion.Propiedad.ImagenPropiedad)
+            foreach (var imagen in publicacion.Propiedad.imagenPropiedad)
             {
                 if (imagen.activo == true)
                 {

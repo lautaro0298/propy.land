@@ -9,5 +9,8 @@ namespace LibreriaClases.DTO
         public string PublicacionCaracteristicaID;
          public  string PublicacionID ;
         public string CaracteristicaID;
+        public DTOPublicacion Publicacion;
+        public DTOCaracteristica dTOCaracteristica;
+
     }
 }

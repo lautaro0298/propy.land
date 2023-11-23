@@ -265,7 +265,37 @@
             }
         }
 
+        function EliminarFavorito(publicacionId) {
+            $.ajax({
+                type: 'GET',
+                url: '/Usuario/EliminarFavorito',
+                data: { publicacionId: publicacionId },
+                success: function (response) {
+                    if (response.resultado === "OK") {
+                        $.notify("¡Se eliminó la publicación de tus favoritos!", {
+                            className: "success",
+                            clickToHide: true,
+                            autoHide: true,
+                            globalPosition: 'bottom-center'
+                        });
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1000);
 
+                    } else {
+                        $.notify("Error al eliminar la publicación de tus favoritos: " + response.mensaje, {
+                            className: "error",
+                            clickToHide: true,
+                            autoHide: true,
+                            globalPosition: 'bottom-center'
+                        });
+                    }
+                },
+                error: function (error) {
+                    console.error("Error al eliminar el favorito:", error);
+                }
+            });
+        }
 
     function AgregarFavorito(publicacionId) {
             var url = "'@Url.Action("AddFavorito","Usuario")'";
@@ -287,14 +317,12 @@
                             globalPosition: 'bottom-center'
 
                         });
-                    } else if(response=="YAEXISTE") {
-                        $.notify("Ya agregó esta publicación a su lista", {
-                            className: "warning",
-                            clickToHide: true,
-                            autoHide: false,
-                            globalPosition: 'bottom-center'
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1000);
 
-                        });
+                    } else if(response=="YAEXISTE") {
+                        EliminarFavorito(publicacionId);
                     } else{
                         $.notify("¡No se pudo agregar el elemento a su lista de favoritos!", {
                             className: "error",

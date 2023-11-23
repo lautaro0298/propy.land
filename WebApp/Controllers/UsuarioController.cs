@@ -25,7 +25,8 @@ using System.Net.Sockets;
 using System.Xml.Linq;
 using System.Web.Http.Cors;
 using Microsoft.AspNet.Identity;
-
+using System.Web.Http.Results;
+using WebApp.Models;
 
 namespace WebApp.Controllers
 {
@@ -76,6 +77,26 @@ namespace WebApp.Controllers
             }
         }
         [HttpGet]
+        public JsonResult ConsultarFavoritos()
+        {
+            try
+            {
+
+                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return ( null); }
+                List<Publicacion> publicacions = new List<Publicacion>();
+                 List<TransferenciaPublicacion>  respuesta = ExpertoUsuarios.ConsultarListaFavoritosPublicacion(Session["IDUsuario"].ToString());
+
+                return Json( respuesta,JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                ViewBag.ErrorDetalle = ex.StackTrace;
+                return null;
+                throw;
+            }
+        }
+        [HttpGet]
         public ActionResult ConsultarListaFavoritos()
         {
             try
@@ -122,6 +143,24 @@ namespace WebApp.Controllers
             }
         }
         [HttpGet]
+        public ActionResult EliminarFavorito(string publicacionId)
+        {
+            try
+            {
+                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Login", "Usuario", null); }
+                ErrorPropy error = ExpertoUsuarios.QuitarFavorito(publicacionId, Session["IDUsuario"].ToString());
+
+                return Json(new { resultado = "OK" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                ViewBag.ErrorDetalle = ex.StackTrace;
+                return Json(new { resultado = "Error", mensaje = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+    
+    [HttpGet]
         public ActionResult DeleteFavorito(string publicacionId)
         {
             try

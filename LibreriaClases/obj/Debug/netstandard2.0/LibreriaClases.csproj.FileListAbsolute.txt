@@ -74,5 +74,6 @@ C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaClases\obj\Debug\ne
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaClases\obj\Debug\netstandard2.0\LibreriaClases.AssemblyInfoInputs.cache
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaClases\obj\Debug\netstandard2.0\LibreriaClases.AssemblyInfo.cs
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaClases\obj\Debug\netstandard2.0\LibreriaClases.csproj.CoreCompileInputs.cache
+C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaClases\obj\Debug\netstandard2.0\LibreriaClases.sourcelink.json
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaClases\obj\Debug\netstandard2.0\LibreriaClases.dll
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaClases\obj\Debug\netstandard2.0\LibreriaClases.pdb

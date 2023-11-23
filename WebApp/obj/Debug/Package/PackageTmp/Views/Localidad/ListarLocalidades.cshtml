@@ -1,9 +1,0 @@
-﻿@model IEnumerable<WebApp.Models.Localidad>
-
-<select class="form-control" name="localidad" id="loc">
-    @foreach (var item in Model)
-    {
-        <option value="@item.localidadId">@item.nombreLocalidad</option>
-    }
-
-</select>

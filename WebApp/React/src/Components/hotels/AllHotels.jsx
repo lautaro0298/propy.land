@@ -1,10 +1,10 @@
-import React from "react";
+
+import React, { useState, useEffect } from "react";
 import "./AllHotels.css";
 import styled from "styled-components";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
 import { SearchBar } from "../Search-Bar/SearchBar";
-import { getAllHotel, fliterPrecio, fliterPrecio1, fliterReciente, fliterviejo, restFuntion } from '../../store/actions';
+import { getAllHotel, fliterPrecio, fliterPrecio1, fliterReciente, fliterviejo, restFuntion, fliterFavoritos } from '../../store/actions';
 import Mapa from "../Map/Mapa";
 import { RatingView } from "react-simple-star-rating";
 import imagen from "../../Logos/placeholder.png";
@@ -13,6 +13,7 @@ import StaticMap from "../Map/StaticMap";
 import { Link } from "react-router-dom";
 import { GoogleMap, InfoBox } from '@react-google-maps/api';
 import axios from "axios";
+
 const initState = {
     data: [],
     isLoading: false,
@@ -24,11 +25,20 @@ const initState = {
     currQuery: null,
     rest: false
 };
-export default function AllHotels() {
 
+export default function AllHotels() {
+    const [favoritos, setFavoritos] = useState([]);
+    const [sessionId, setSessionId] = useState("");
     const MiContexto = React.createContext();
-    // aca usamos la context de react 
+    const [showTooltip, setShowTooltip] = useState(false);
     const dispatch = useDispatch();
+    const hotelState = useSelector((state) => state.activities, shallowEqual);
+    const hotel = hotelState.hotel;
+    const hotellist = hotelState.hotelsList;
+    const [publicationsToShow, setPublicationsToShow] = useState(3);
+    const publicationsPerPage = 3;
+    const [isButtonClicked, setIsButtonClicked] = useState(false);
+    const [isFavorited, setIsFavorited] = useState({});
     const Caracteristica = ({ caracteristicaId }) => {
         const [nombreCaracteristica, setNombreCaracteristica] = useState("");
 
@@ -53,111 +63,60 @@ export default function AllHotels() {
 
         return <span>{nombreCaracteristica}</span>;
     };
-    const [isFavorited, setIsFavorited] = useState({});
-
-    const checkIfFavorited = (publicacionId) => {
-        const sessionId = document.getElementById('root').dataset.sessionId;
-        if (!sessionId) {
-            return Promise.resolve(false);
-        }
-        return axios.get(`/Usuario/ConsultarIsFavorito?publicacionId=${publicacionId}`, {
-            headers: {
-                Authorization: `Bearer ${sessionId}`,
-            },
-        }).then(response => response.data)
-            .catch(error => {
-                console.error("Error al verificar si es favorito:", error);
-                return false;
-            });
+    const handleMouseOver = () => {
+        setShowTooltip(true);
     };
-    let hotelState = useSelector((state) => state.activities, shallowEqual);
-    let hotel = hotelState.hotel;
-    let hotellist = hotelState.hotelsList;
-    const [publicationsToShow, setPublicationsToShow] = useState(3); // Número inicial de publicaciones a mostrar
-    const publicationsPerPage = 3; // Número de publicaciones a cargar cada vez que se haga clic en "Mostrar más"
-    // Implementa la función que muestra las publicaciones
-    const peticion = (caracteristicaId) => {
-        return axios.get(`https://propyy.somee.com/api/Caracteristica/obtenerPorID/${caracteristicaId}`)
-            .then(response => response.data)
-            .catch(error => {
-                console.error("", error);
-                return null; // Manejo de error, puedes retornar un valor predeterminado en caso de error
-            });
+
+    const handleMouseOut = () => {
+        setShowTooltip(false);
     };
     useEffect(() => {
         if (hotellist.length === 0) {
             dispatch(restFuntion(true));
         }
     }, [hotellist]);
-    const showPublications = (data) => {
-        if (data != undefined && data != null) {
 
-            // Filtra las publicaciones a mostrar en base al número definido en publicationsToShow
-            const publicationsToRender = hotellist.slice(0, publicationsToShow);
-
-            return (
-                <div>
-                    {/* Muestra las publicaciones */}
-                    {publicationsToRender.map((data) => publicaciones(data))}
-
-                    {/* Muestra el botón "Mostrar más" solo si hay más publicaciones por cargar */}
-                    {publicationsToShow < hotellist.length && (
-                        <button class="btn btn-success" onClick={() => setPublicationsToShow(publicationsToShow + publicationsPerPage)} style={{ position: "relative", left: "470px", top: "40px" }}>
-                            Mostrar m{'\u00e1'}s
-                        </button>
-                    )}
-                </div>
-            );
-        } else {
-
-            /* dispatch(restFuntion(true))*/
-            return (<h1>Sin resultados</h1>)
+    const showPublications = () => {
+        if (!hotellist.length) {
+          
         }
-    };
-    const [data, setData] = useState(null);
 
-    const updateIsFavorited = (publicacionId) => {
-        checkIfFavorited(publicacionId)
-            .then((isFavorited) => {
-                setIsFavorited(prevState => ({
-                    ...prevState,
-                    [publicacionId]: isFavorited === "True", // Convertir a booleano
-                }));
-            })
-            .catch((error) => {
-                console.error("Error al verificar si es favorito:", error);
-                setIsFavorited(prevState => ({
-                    ...prevState,
-                    [publicacionId]: false,
-                }));
-            });
-    };
+        const publicationsToRender = hotellist.slice(0, publicationsToShow);
 
-    useEffect(() => {
-        if (hotellist.length > 0) {
-            hotellist.forEach((data) => {
-                if (data && data.publicacionId) {
-                    if (isFavorited[data.publicacionId] === undefined) {
-                        updateIsFavorited(data.publicacionId);
-                    }
-                }
-            });
-        }
-    }, [hotellist]);
-    function extra(data) {
-        data.propiedad.propiedadTipoAmbiente.forEach((extr) => { return (<label>(extr.tipoAmbiente.nombreTipoAmbiente) : (extr.cantidad)</label>) })
-    }
-    const publicaciones = (data) => {
-        if (data != undefined && data != null && data != 0) {
-    
-
-
-
-
-                return (
+        return (
+            <div>
+                {publicationsToRender.map((data) => (
                     <div key={data.publicacionId} className="hotel-info-div">
-                        <img src={data.propiedad.imagenPropiedad[0].rutaImagenPropiedad} alt="img-hotel" />
+                        <div className="hotel-info-container about-hotel1" style={{ position: "absolute" }}>
+                            <div style={{ position: "absolute" }}>
+                                <img src={data.propiedad.imagenPropiedad[0].rutaImagenPropiedad} alt="img-hotel" style={{ position: "absolute" }} />
 
+                            </div>
+                        </div>
+                        <div className="hotel-info-container about-hotel1" style={{ width: "25%" }}>
+                            <div style={{ position: "absolute", width: "1498px", right: "-13.95px" }}>
+                                <button
+
+                                    className="btn btn-outline-danger heart-button"
+                                    style={{ position: "absolute", top: "10px" }}
+                                    onClick={() => handleFavoritoButtonClick(data.publicacionId)}
+                                    disabled={!sessionId} // Agrega la propiedad disabled si sessionId está vacío
+                                    onMouseOver={handleMouseOver} // Mostrar tooltip al poner el cursor sobre el botón
+                                    onMouseOut={handleMouseOut}   // Ocultar tooltip al quitar el cursor del botón
+                                    title={showTooltip && !sessionId ? "Por favor inicia sesi\u00f3n para habilitar esta opci\u00f3n" : ""}  // Mensaje del tooltip
+                                >
+                                    {favoritos.includes(data.publicacionId) ? (
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className=" bi-heart-fill" viewBox="0 0 16 16">
+                                            <path fillRule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                                        </svg>
+                                    ) : (
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-heart-fill" viewBox="0 0 16 16">
+                                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                        </svg>
+                                    )}
+                                </button>
+                            </div>
+                        </div>
                         <div className="about-hotel1" style={{ overflow: "hidden" }}>
 
                             <div className="rat-div">
@@ -232,37 +191,130 @@ export default function AllHotels() {
                                     </div>
 
                                 </div>
-                                <div> <button class="btn btn-outline-danger" onclick="">
-                                    {isFavorited[data.publicacionId] ? (
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                                        </svg>
-                                    ) : (
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16" >
-                                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
-                                        </svg>
-                                    )}
-
-                                </button></div></div>
+                                <div></div></div>
                         </div>
                     </div>
-
-                );
-
-
-            }
-        
-    }
-    
-    
+                ))}
+                {publicationsToShow < hotellist.length && (
+                    <button className="btn btn-success" onClick={() => setPublicationsToShow(publicationsToShow + publicationsPerPage)} style={{ position: "relative", left: "470px", top: "40px" }}>
+                        Mostrar m{'\u00e1'}s
+                    </button>
+                )}
+            </div>
+        );
+    };
 
     useEffect(() => {
-        hotel = dispatch(getAllHotel("", 1))
-
+        setSessionId(document.getElementById('root').dataset.sessionId);
     }, []);
 
+    useEffect(() => {
+        if (hotellist.length > 0) {
+            hotellist.forEach((data) => {
+                if (data && data.publicacionId) {
+                    if (isFavorited[data.publicacionId] === undefined) {
+                        updateIsFavorited(data.publicacionId);
+                    }
+                }
+            });
+        }
+    }, [hotellist]);
+
+    const addFavorito = (publicacionId) => {
+        axios.post(`/Usuario/AddFavorito?publicacionId=${publicacionId}`, null, {
+            headers: {
+                Authorization: `Bearer ${sessionId}`,
+            },
+        })
+            .then((response) => {
+                if (response.data.resultado === "OK") {
+                    updateIsFavorited(publicacionId);
+                    // Puedes realizar otras acciones después de agregar a favoritos si es necesario
+                } else {
+                    console.error("Error al agregar favorito:", response.data.mensaje);
+                    // Manejar el error, mostrar mensaje, etc.
+                }
+            })
+            .catch((error) => {
+                console.error("Error al agregar favorito:", error);
+            });
+    };
+
+    const eliminarFavorito = (publicacionId) => {
+        axios.get(`/Usuario/EliminarFavorito?publicacionId=${publicacionId}`, {
+            headers: {
+                Authorization: `Bearer ${sessionId}`,
+            },
+        })
+            .then((response) => {
+                if (response.data.resultado === "OK") {
+                    updateIsFavorited(publicacionId);
+                    // Puedes realizar otras acciones después de eliminar de favoritos si es necesario
+                } else {
+                    console.error("Error al eliminar favorito:", response.data.mensaje);
+                    // Manejar el error, mostrar mensaje, etc.
+                }
+            })
+            .catch((error) => {
+                console.error("Error al eliminar favorito:", error);
+            });
+    };
+    const checkIfFavorited = (publicacionId) => {
+        const sessionId = document.getElementById('root').dataset.sessionId;
+        if (!sessionId) {
+            return Promise.resolve(false);
+        }
+        return axios.get(`/Usuario/ConsultarIsFavorito?publicacionId=${publicacionId}`, {
+            headers: {
+                Authorization: `Bearer ${sessionId}`,
+            },
+        }).then(response => response.data)
+            .catch(error => {
+                console.error("Error al verificar si es favorito:", error);
+                return false;
+            });
+    };
+    const handleFavoritoClick = () => {
+        if (!sessionId) {
+            console.log("Usuario no autenticado");
+            return;
+        }
+
+        setIsButtonClicked(!isButtonClicked); // Cambia el estado al hacer clic en el botón
+        dispatch(fliterFavoritos());
+    };
+    const handleFavoritoButtonClick = (publicacionId) => {
+        if (!sessionId) {
+            console.log("Usuario no autenticado");
+            return;
+        }
+        addFavorito(publicacionId);
+        updateIsFavorited(publicacionId);
+    };
+    const updateIsFavorited = (publicacionId) => {
+        checkIfFavorited(publicacionId)
+            .then((isFavorited) => {
+                setIsFavorited(prevState => ({
+                    ...prevState,
+                    [publicacionId]: isFavorited === "True", // Convertir a booleano
+                }));
+
+                if (isFavorited === "True") {
+                    setFavoritos(prevFavoritos => [...prevFavoritos, publicacionId]);
+                } else {
+                    setFavoritos(prevFavoritos => prevFavoritos.filter(id => id !== publicacionId));
+                }
+            })
+            .catch((error) => {
+                console.error("Error al verificar si es favorito:", error);
+                setIsFavorited(prevState => ({
+                    ...prevState,
+                    [publicacionId]: false,
+                }));
+            });
+    };
+
     return (
-        /*<MiContexto.Provider value={nombre}>*/
         <div class="dev" style={{
             position: "absolute",
             zoom: "86.9%",
@@ -272,7 +324,11 @@ export default function AllHotels() {
             <div className="allhotelwrap" >
                 <div className="parent-container-allhotels">
                     <div className="sort-div">
-                        <label> Ordenar por : </label><select name="hotels" onChange={(e) => {
+                   
+                        <label> Ordenar por : </label>
+
+                        <div style={{ display: "flex" }}>
+                        <select name="hotels" onChange={(e) => {
                             if (e != undefined) {
                                 if (e.target != null && e.target != undefined) {
                                     var select = e.target.value
@@ -302,14 +358,36 @@ export default function AllHotels() {
                             <option value="antigua" name="Rating_recomn">
                                 Publicaci{'\u00f3'}n m{'\u00e1'}s antigua
                             </option>
-                            <option value="fav" name="Rating_recomn" >
-                                Favoritos
-                            </option>
+                          
                             {/*<option value="Des" name="Rating_recomn" >*/}
                             {/*    Destacados*/}
                             {/*</option>*/}
                         </select>
+                        {sessionId && (  // Mostrar el botón de favoritos solo si el usuario está autenticado
+                            <button
+                                className="btn btn-outline-danger heart-button"
+                                onClick={() => handleFavoritoClick()}
+                                onMouseOver={handleMouseOver}
+                                onMouseOut={handleMouseOut}
+                                title={showTooltip && !sessionId ? "Por favor inicia sesión para habilitar esta opción" : ""}
+                            >
+
+                                {isButtonClicked ? (
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className=" bi-heart-fill" viewBox="0 0 16 16">
+                                        <path fillRule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                                    </svg>
+                                ) : (
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-heart-fill" viewBox="0 0 16 16">
+                                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                    </svg>
+                                )}
+                            </button>
+                        )}
+
                     </div>
+                    </div>
+                  
+                       
                     <br />
                     <br />
                     <div class="contenedor">
@@ -453,4 +531,5 @@ export default function AllHotels() {
 const dev = styled.div`
  position: absolute;
 `;
+
 

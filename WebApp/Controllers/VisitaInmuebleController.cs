@@ -35,11 +35,11 @@ namespace WebApp.Controllers
                 
             }
         }
-        public async Task<ActionResult> ObtenerDatosPublicante(string publicacionId) {
+        public async Task<ActionResult> ObtenerDatosPublicante(string publicacionId, string returnUrl = null) {
             
             try
             {
-                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Login", "Usuario", null); }
+                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Login", "Usuario", new { returnUrl }); }
                 (ErrorPropy error, DTOContactoPublicante datosPublicante) respuestaObtenerContactoPublicante =await ExpertoVisitas.ObtenerContactoPublicanteAsync(publicacionId, Session["IDUsuario"].ToString(),1);
                 if (respuestaObtenerContactoPublicante.error.codigoError!=0) {
                     throw new Exception(respuestaObtenerContactoPublicante.error.descripcionError);

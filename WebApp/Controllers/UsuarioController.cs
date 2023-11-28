@@ -33,8 +33,8 @@ namespace WebApp.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UsuarioController : Controller
     {
-        public static string token ;
-        public static string sign ;
+        public static string token;
+        public static string sign;
         public static DateTime generationTime;
         public static DateTime expirationTime;
         [EnableCors(origins: "*", headers: "*", methods: "*")]
@@ -64,7 +64,7 @@ namespace WebApp.Controllers
             {
 
                 if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return false; }
-                bool respuesta = ExpertoUsuarios.ConsultarIsFavorito(Session["IDUsuario"].ToString() , publicacionId);
+                bool respuesta = ExpertoUsuarios.ConsultarIsFavorito(Session["IDUsuario"].ToString(), publicacionId);
 
                 return respuesta;
             }
@@ -82,11 +82,11 @@ namespace WebApp.Controllers
             try
             {
 
-                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return ( null); }
+                if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return (null); }
                 List<Publicacion> publicacions = new List<Publicacion>();
-                 List<TransferenciaPublicacion>  respuesta = ExpertoUsuarios.ConsultarListaFavoritosPublicacion(Session["IDUsuario"].ToString());
+                List<TransferenciaPublicacion> respuesta = ExpertoUsuarios.ConsultarListaFavoritosPublicacion(Session["IDUsuario"].ToString());
 
-                return Json( respuesta,JsonRequestBehavior.AllowGet);
+                return Json(respuesta, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -159,8 +159,8 @@ namespace WebApp.Controllers
                 return Json(new { resultado = "Error", mensaje = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-    
-    [HttpGet]
+
+        [HttpGet]
         public ActionResult DeleteFavorito(string publicacionId)
         {
             try
@@ -296,9 +296,13 @@ namespace WebApp.Controllers
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public ActionResult Login()
         {
+            // Almacena la URL actual en returnUrl
+            string returnUrl = Request.UrlReferrer?.AbsoluteUri;
+            ViewBag.ReturnUrl = returnUrl;
+
             return View();
         }
-     
+
         [HttpPost]
         public ActionResult Login(string email, string clave)
         {
@@ -329,7 +333,22 @@ namespace WebApp.Controllers
                     return View();
                 }
 
+                // Almacena la URL actual en returnUrl
+                string returnUrl = ViewBag.ReturnUrl as string;
+
+                // Establece la sesión del usuario
                 Session["IDUsuario"] = respuesta.usuario.usuarioId;
+
+                if (!string.IsNullOrEmpty(returnUrl))
+                {
+                    // Redirige a la URL almacenada después del inicio de sesión
+                    return Redirect(returnUrl);
+                }
+                else
+                {
+                    // Si no hay returnUrl, redirige a la acción predeterminada
+                    return RedirectToAction("Index", "PanelControl2");
+                }
             }
             catch (Exception ex)
             {
@@ -337,8 +356,6 @@ namespace WebApp.Controllers
                 ViewBag.ErrorDetalle = ex.StackTrace;
                 return View("Error");
             }
-
-            return RedirectToAction("Index", "PanelControl2");
         }
         [HttpGet]
         public ActionResult ConfirmarCuenta(string email)
@@ -364,9 +381,9 @@ namespace WebApp.Controllers
         [HttpPost]
         public ActionResult CrearCuenta(string nombreUsuario, string apellidoUsuario, string telefono1, string telefono2, string email, string clave, string claveRepetida, bool permitirSerContactadoPorPublicante, bool permitirSerNotificado)
         {
-          
+
             ErrorPropy error = new ErrorPropy();
-           
+
             try
             {
                 error = ValidacionParametros.ValidacionParametrosCrearCuenta(nombreUsuario, apellidoUsuario, telefono1, telefono2, email, clave, claveRepetida);
@@ -376,7 +393,7 @@ namespace WebApp.Controllers
                     ModelState.AddModelError("", error.descripcionError);
                     return View();
                 }
-              
+
 
 
 
@@ -396,27 +413,23 @@ namespace WebApp.Controllers
         }
 
 
-    
 
-[HttpGet]
+
+        [HttpGet]
         public ActionResult CrearCuenta()
         {
             return View();
         }
 
-
         [System.Web.Mvc.HttpPost]
         [System.Web.Mvc.AllowAnonymous]
-        public  ActionResult loginGoogleAsync([System.Web.Http.FromBody] string id_token )
+        public ActionResult loginGoogleAsync([System.Web.Http.FromBody] string id_token, string returnUrl)
         {
             var tokenDeId = id_token;
-
 
             ErrorPropy error = new ErrorPropy();
             try
             {
-
-
                 (ErrorPropy error, TransferenciaUsuario usuario) respuesta = ((ErrorPropy error, TransferenciaUsuario usuario))ExpertoUsuarios.LoginGoogle(tokenDeId);
                 error = respuesta.error;
                 if (error.codigoError == -1)
@@ -434,6 +447,17 @@ namespace WebApp.Controllers
                 }
 
                 Session["IDUsuario"] = respuesta.usuario.usuarioId;
+
+                if (!string.IsNullOrEmpty(returnUrl) && !returnUrl.Contains("Login"))
+                {
+                    // Verifica si la returnUrl no contiene "Login" (evitar bucle de redirección)
+                    return Redirect(returnUrl);
+                }
+                else
+                {
+                    // Si no es una returnUrl válida, redirige a la acción predeterminada
+                    return RedirectToAction("Index", "PanelControl2");
+                }
             }
             catch (Exception ex)
             {
@@ -441,10 +465,12 @@ namespace WebApp.Controllers
                 ViewBag.ErrorDetalle = ex.StackTrace;
                 return View("Error");
             }
+        }
 
-            return RedirectToAction("Index", "PanelControl2");
-        }  
+
+
     }
+
 }
 
 

@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var currentUrl = ViewBag.ReturnUrl;
+ 
 }
 <style>
     /* Estilos para la caja flotante */
@@ -37,13 +39,15 @@
 <!--Script Google-->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
+    var returnUrl = '@currentUrl';
     function handleCredentialResponse(response) {
         console.log("Encoded JWT ID token: " + response.credential);
         showModal();
         var id_token = response.credential;
 
-        // Configura la solicitud HTTP
-        var url = '/Usuario/loginGoogleAsync';
+        // Configura la solicitud HTTP con el returnUrl
+        var url = `/Usuario/loginGoogleAsync?id_token=${id_token}&returnUrl=${returnUrl}`;
+
         var options = {
             method: 'POST',
             headers: {
@@ -63,7 +67,8 @@
                 // Maneja la respuesta del servidor
                 if (response.ok) {
                     console.log('El token de ID se envió correctamente al servidor');
-                    window.location.replace(response.url);
+                    // Cambia la ubicación de la página después de una respuesta exitosa
+                    window.location.href = response.url;
                 } else {
                     console.error('Ocurrió un error al enviar el token de ID al servidor');
                 }
@@ -76,6 +81,9 @@
                 hideModal();
             });
     }
+
+
+
 
     // Función para mostrar el modal de carga
     function showModal() {

@@ -1,0 +1,542 @@
+﻿@model LibreriaClases.DTO.DTOParametrosBusqueda
+@{
+    ViewBag.Title = "Buscar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    
+    
+}
+@section Styles{
+    <link href="~/Estilos/MisEstilos.css" rel="stylesheet" />
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+        /* Optional: Makes the sample page fill the window. */
+
+
+        #description {
+            font-family: Roboto;
+            font-size: 15px;
+            font-weight: 300;
+        }
+
+        #infowindow-content .title {
+            font-weight: bold;
+        }
+
+        #infowindow-content {
+            display: none;
+        }
+
+        #map #infowindow-content {
+            display: inline;
+        }
+
+        .pac-card {
+            margin: 10px 10px 0 0;
+            border-radius: 2px 0 0 2px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            outline: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            background-color: #fff;
+            font-family: Roboto;
+        }
+
+        #pac-container {
+            padding-bottom: 12px;
+            margin-right: 12px;
+        }
+
+        .pac-controls {
+            display: inline-block;
+            padding: 5px 11px;
+        }
+
+            .pac-controls label {
+                font-family: Roboto;
+                font-size: 13px;
+                font-weight: 300;
+            }
+
+        #pac-input {
+            background-color: #fff;
+            font-family: Roboto;
+            font-size: 15px;
+            font-weight: 300;
+            margin-left: 12px;
+            padding: 0 11px 0 13px;
+            text-overflow: ellipsis;
+            width: 800px;
+        }
+
+            #pac-input:focus {
+                border-color: #4d90fe;
+            }
+
+        #title {
+            color: #fff;
+            background-color: #4d90fe;
+            font-size: 25px;
+            font-weight: 500;
+            padding: 6px 12px;
+        }
+
+        #target {
+            width: 345px;
+        }
+    </style>
+}
+<div class="container">
+    <div class="jumbotron card bg-dark">
+        <div class="text-center">
+            <h2 class="display-1 text-light">Propy</h2>
+            <h6 class="text-light">La plataforma de inmuebles.</h6>
+        </div>
+    </div>
+
+
+    <hr />
+    <form action="@Url.Action("Buscar","Busqueda")" method="post">
+        @if (!String.IsNullOrEmpty(ViewBag.Error))
+        {
+            <div class="alert alert-danger">
+                <button class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                @Html.ValidationSummary(false)
+            </div>
+        }
+        <div class="card bg-dark text-light">
+            <div class="card-header bg-primary text-light border-dark">
+                <h6><i class="fas fa-globe-americas mr-3"></i>Zona de búsqueda</h6>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+
+                    <div id="busquedaEspecifica" class="text-left">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label for="selectRadio">Quiero especificar mi radio de búsqueda en:</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <select id="selectRadio" name="radio" class="form-control">
+                                    <option value="-1">Sin especificar</option>
+                                    <option value="1">1 KM</option>
+                                    <option value="2">2 KM</option>
+                                    <option value="3">3 KM</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Ej: Godoy Cruz, Mendoza, Argentina" name="clientAddress" id="pac-input" />
+
+                    <div class="row justify-content-end">
+
+                        <div class="col-sm-2">
+                            <input id="lat" class="form-control" type="hidden" name="latitud" value="-1" />
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="long" class="form-control" type="hidden" name="longitud" value="-1" />
+                        </div>
+                    </div>
+
+                    <br />
+
+                    <div id="map" class="img-fluid">
+
+                    </div>
+                    <small class="text-light">
+                        En el mapa se destacan los límites de la localidad donde Propy buscará las propiedades.
+                        Si prefiere buscar en un área menor o en los límites entre dos localidades, a continuación indique el radio del
+                        círculo de búsqueda alrededor de la posición del marcador mostrado en el mapa. Podrá mover el marcador haciendo click sobre él
+                        para desplazarlo al lugar que desee que sea el centro de su círculo de búsqueda.
+                    </small>
+
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card border-dark bg-dark">
+                    <div class="card-header bg-primary text-light">
+                        <h6><i class="fas fa-hand-pointer mr-3"></i>Tipo de operación</h6>
+                    </div>
+                    <div class="card-body">
+                        <select value="Indistinto" class="custom-select" name="tipoOperacion">
+                            <option selected>Indistinto</option>
+                            @foreach (var tipoOperacion in Model.tiposPublicaciones)
+                            {
+                                <option value="@tipoOperacion.tipoPublicacionId">@tipoOperacion.nombreTipoPublicacion</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-dark border-dark">
+                    <div class="card-header bg-primary text-light border-dark">
+                        <h6><i class="fas fa-home mr-3"></i>Tipo de propiedad</h6>
+                    </div>
+                    <div class="card-body border-dark">
+                        @*@Html.DropDownList("tipoPropiedad", Model.tiposPropiedades as List<SelectListItem>,
+                            " -- Seleccionar tipo de propiedad --", new { @class = "form-control" });*@
+                       
+                            <select class="custom-select" id="tipoPropiedad" name="tipoPropiedad">
+                                <option value="Indistinto" selected>Indistinto</option>
+                                @foreach (var Propiedad in Model.tiposPropiedades)
+                                {
+                                    <option value="@Propiedad.tipoPropiedadId">@Propiedad.nombreTipoPropiedad</option>
+                                    
+                                }
+
+                            </select>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-dark border-dark">
+                    <div class="card-header bg-primary text-light border-dark">
+                        <h6><i class="fas fa-tools mr-3"></i>Tipo de construccion</h6>
+                    </div>
+                    <div class="card-body border-dark">
+                        <select class="custom-select" name="tipoConstruccion">
+                            <option value="Indistinto" selected>Indistinto</option>
+                            @foreach (var tipoConstruccion in Model.tiposConstrucciones)
+                            {
+                                <option value="@tipoConstruccion.tipoConstruccionId">@tipoConstruccion.nombreTipoConstruccion</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3">
+                <div class="card border-dark bg-dark">
+                    <div class="card-header bg-primary text-light border-dark">
+                        <h6><i class="fas fa-user-tie mr-3"></i>Tipo de publicante</h6>
+                    </div>
+                    <div class="card-body border-dark">
+                        <select class="custom-select" name="tipoPublicante">
+                            <option value="Indistinto" selected>Indistinto</option>
+                            @foreach (var tipoPublicante in Model.tiposPublicantes)
+                            {
+                                <option value="@tipoPublicante.tipoPublicanteId">@tipoPublicante.nombreTipoPublicante</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card bg-dark border-dark text-light" s>
+                    <div class="card-header bg-primary">
+                        <h6><i class="fas fa-money-bill mr-3"></i>Precios.</h6>
+                    </div>
+                    <div class="card-body border-primary">
+                        <div class="row">
+                            <p>Se mostrarán todas "las" propiedades que se encuentren dentro del rango especificado, tanto las publicadas con sus precios en la moneda elegida como las publicadas con sus precios en la otra moneda. El sistema efectúa una conversión aproximada entre monedas aplicando la cotización oficial.</p>
+                            <div class="col-md-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="moneda" id="ars" value="ARS" checked>
+                                    <label class="form-check-label" for="ars">
+                                        ARS
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="moneda" id="dolar" value="USD" checked>
+                                    <label class="form-check-label" for="dolar">
+                                        USS
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Precio desde $</span>
+                                    </div>
+                                    <input type="number" class="form-control" name="precioDesde" placeholder="Precio desde" value="0">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Precio hasta $</span>
+                                    </div>
+                                    <input type="number" class="form-control" name="precioHasta" placeholder="Precio hasta" value="0">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card bg-dark border-dark text-light">
+                    <div class="card-header bg-primary text-light border-dark">
+                        <h6><i class="fas fa-check-double mr-3"></i>Características y extras.</h6>
+
+                    </div>
+                    <div class="card-body">
+                        <input class="form-check-inline mb-3" type="checkbox" id="caracteristicasEspecificasHabilitadas" name="característicasEspecificas" value="true" />
+                        <input type="hidden" name="característicasEspecificas" value="false" />
+                        <label class="form-check-label" for="caracteristicasEspecificasHabilitadas">Tener en cuenta las características específicas.</label>
+                        <p>¿Qué características debe tener la propiedad?</p>
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="ambientes">Ambientes</span>
+                                    </div>
+                                    <input type="text" class="form-control" name="cantidadAmbientes" aria-label="Sizing example input" aria-describedby="ambientes">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="dormitorios">Dormitorios</span>
+                                    </div>
+                                    <input type="text" class="form-control" name="cantidadDormitorios" aria-label="Sizing example input" aria-describedby="dormitorios">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="baños">Baños</span>
+                                    </div>
+                                    <input type="text" class="form-control" name="cantidadBaños" aria-label="Sizing example input" aria-describedby="baños">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="cocheras">Cocheras</span>
+                                    </div>
+                                    <input type="text" class="form-control" name="cantidadCocheras" aria-label="Sizing example input" aria-describedby="cocheras">
+                                </div>
+                            </div>
+                        </div>
+                        <p>Si desea refinar la búsqueda, a continuación marque los extras que debe tener la propiedad:</p>
+
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-room">
+                            Extras
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="create-room" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Extras</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body text-dark" id="ModalBody">
+
+                                            @foreach (var extra in Model.caracteristicas)
+                                            {
+                                                <div class="form-check text-dark">
+                                                    <input class="form-check-input" type="checkbox" name="extras" value="@extra.caracteristicaId" id="@extra.nombreCaracteristica">
+                                                    <label  for="@extra.nombreCaracteristica">
+                                                        @extra.nombreCaracteristica.ToString()
+                                                    </label>
+                                                </div>
+                                            }
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-primary">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="text-center">
+            <input type="submit" name="name" class="btn btn-lg btn-primary" value="Buscar" />
+        </div>
+
+    </form>
+
+
+</div>
+@section scripts {
+
+    <script>
+        //manejador de las caracteristicas adicionales
+        $(document).ready(function () {
+            $("#tipoPropiedad").change(function () {
+                fillCombo("ModalBody", $("#tipoPropiedad").val());
+            });
+        });
+        function fillCombo(updateId, value) {
+            /*  $.getJSON('<%= Url.Action("Getcaracteristicas") %>' + "/" + value,*/
+            $.getJSON("Getcaracteristicas" + "/" + value,
+                function (data) {
+                    $("#" + updateId).empty();
+                    $.each(data, function (i, item) {
+                        $("#" + updateId).append("<input class='form - check - input' type='checkbox' name='extras'  value='"
+                            + item.tipoPropiedadCaracteristicaID + " id='" + item.caracteristicaId + "' >" + "<label for='" + item.caracteristicaId + "'>" + item.caracteristicas.nombreCaracteristica
+                            + "</label> </br>"); { }
+                    });
+                });
+        };
+    </script>
+    <script>
+        $(function () {
+            $('input[name=cantidadBaños]').prop('disabled', true);
+            $('input[name=cantidadDormitorios]').prop('disabled', true);
+            $('input[name=cantidadAmbientes]').prop('disabled', true);
+            $('input[name=cantidadCocheras]').prop('disabled', true);
+
+            $('#caracteristicasEspecificasHabilitadas').on('click', function () {
+
+                if ($(this).is(":checked")) {
+                    $('input[name=cantidadBaños]').prop('disabled', false);
+                    $('input[name=cantidadDormitorios]').prop('disabled', false);
+                    $('input[name=cantidadAmbientes]').prop('disabled', false);
+                    $('input[name=cantidadCocheras]').prop('disabled', false);
+                } else {
+                    $('input[name=cantidadBaños]').prop('disabled', true);
+                    $('input[name=cantidadDormitorios]').prop('disabled', true);
+                    $('input[name=cantidadAmbientes]').prop('disabled', true);
+                    $('input[name=cantidadCocheras]').prop('disabled', true);
+                }
+
+
+            });
+        });
+
+    </script>
+    <script>
+        // This example adds a search box to a map, using the Google Place Autocomplete
+        // feature. People can enter geographical searches. The search box will return a
+        // pick list containing a mix of places and predicted search terms.
+
+        // This example requires the Places library. Include the libraries=places
+        // parameter when you first load the API. For example:
+        // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+        
+        function initAutocomplete() {
+            document.getElementById('busquedaEspecifica').style.display = "none";
+            var marker;
+            var cityCircle;
+            var contadorMarcadores = 0;
+            var latLong = new google.maps.LatLng(-34.0000000, -64.000000);
+            var mapOptions = {
+                zoom: 4,
+                center: latLong
+            }
+            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+            map.setMapTypeId('hybrid');
+
+            var input = document.getElementById('pac-input');
+
+            var options = {
+                types: ['(cities)'],
+                componentRestrictions: { country: 'ar' }
+            };
+            map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+            var autocomplete = new google.maps.places.Autocomplete(input, options);
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                document.getElementById('busquedaEspecifica').style.display = "block";
+                var place = autocomplete.getPlace();
+
+                map.setCenter(place.geometry.location);
+                map.setZoom(12);
+                var myLatLng = { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() };
+                if (contadorMarcadores == 0) {
+                    marker = new google.maps.Marker({
+                        position: myLatLng,
+                        map: map,
+                        title: place.formatted_address,
+                        draggable: false,
+                        icon: "/Icons/ojoIcono.png"
+                    });
+                    cityCircle = new google.maps.Circle({
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 0,
+                        strokeWeight: 2,
+                        fillColor: '#FF0000',
+                        fillOpacity: 0,
+                        map: map,
+                        center: myLatLng,
+                        radius: 3 * 1000,
+                        draggable: false
+                    });
+                } else {
+                    marker.setMap(null);
+                    cityCircle.setMap(null);
+                    marker = new google.maps.Marker({
+                        position: myLatLng,
+                        map: map,
+                        title: place.formatted_address,
+                        draggable: false,
+                        icon: "/Icons/ojoIcono.png"
+                    });
+                    cityCircle = new google.maps.Circle({
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 0,
+                        strokeWeight: 2,
+                        fillColor: '#FF0000',
+                        fillOpacity: 0,
+                        map: map,
+                        center: myLatLng,
+                        radius: 3 * 1000,
+                        draggable: false
+                    });
+                }
+
+                contadorMarcadores = contadorMarcadores + 1;
+
+                var selectRadio = document.getElementById("selectRadio");
+
+
+                selectRadio.addEventListener('change', function () {
+                    if ($('#selectRadio').val() == -1) {
+                        marker.setDraggable(false);
+                        cityCircle.setOptions({ fillOpacity: 0, strokeOpacity: 0 });
+                    } else {
+                        marker.setDraggable(true);
+                        cityCircle.setOptions({ fillOpacity: 0.35, strokeOpacity: 0.3, radius: $('#selectRadio').val() * 1000 });
+                        $("#lat").val(place.geometry.location.lat().toFixed(6));
+                        $("#long").val(place.geometry.location.lng().toFixed(6));
+
+                    }
+                });
+
+                google.maps.event.addListener(marker, 'dragend', function (evt) {
+                    $("#lat").val(evt.latLng.lat().toFixed(6));
+                    $("#long").val(evt.latLng.lng().toFixed(6));
+                    cityCircle.setOptions({ center: { lat: evt.latLng.lat(), lng: evt.latLng.lng() } });
+                    map.panTo(evt.latLng);
+                });
+
+            });
+
+        }
+    </script>}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXxPwQsLSfF4gC7VtJdl9GIIcyAzVdmhk&libraries=places&callback=initAutocomplete"
+            async defer></script>
+    

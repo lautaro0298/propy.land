@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <script src="~/Scripts/ActualizarCredito.js"></script>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body onpageshow="ActualizarCredito();">
+
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
+        <div class="container">
+            <div class="col-1">
+                @Html.ActionLink("Propy", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarbotton">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarbotton">
+                <div class="col">
+                    <ul class="navbar-nav">
+                        <li class="nav-item mx-lg-2">
+                            @Html.ActionLink("Mis Publicaciones", "Index", "Publicacion", routeValues: null ,htmlAttributes: new { @style = "text-decoration:none; color: white;" })
+                        </li>
+                        <li class="nav-item mx-lg-2">
+                            @Html.ActionLink("Mi Perfil", "Index", "ABMUsuario", routeValues: null ,htmlAttributes: new { @style = "text-decoration:none; color: white;" })
+                        </li>
+                        <li class="nav-item mx-lg-2">
+                            @Html.ActionLink("Gestión de Planes", "Index", "ContratarPlan", routeValues: null,htmlAttributes: new { @style="text-decoration:none; color: white;"})
+                        </li>
+                    </ul>
+                </div>
+                <div class="col">
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container body-content">
+        @RenderBody()
+
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Propy</p>
+        </footer>
+    </div>
+
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script type="text/javascript" src='https://maps.google.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyCFOVpHRw8qUsavmBVtrD7I7ir_LWqUGjM'></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

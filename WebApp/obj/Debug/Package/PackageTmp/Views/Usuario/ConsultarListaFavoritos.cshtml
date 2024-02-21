@@ -1,0 +1,66 @@
+﻿@model IEnumerable<LibreriaClases.DTO.DTOFavorito> 
+@{
+    ViewBag.Title = "ConsultarListaFavoritos";
+    Layout = "~/Views/Shared/PanelControl2.cshtml";
+}
+
+<div class="container">
+    <h2>Mis favoritos</h2>
+    <hr />
+    @if (Model.Count() == 0)
+    {
+        <p>Aún no ha agregado publicaciones a su lista de favoritos. Navege a través de Propy para encontrar inmuebles de su interés.</p>
+    }
+    else {
+<table id="dataTable" class="table table-striped table-responsive">
+    <thead>
+        <tr>
+            <th>Ubicación</th>
+            <th>Tipo</th>
+            <th>Estado</th>
+            <th>Precio</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(item.ubicación, "VisitarPublicacion","VisitaInmueble",new {publicacionId=item.publicacionId },null)</td>
+                <td>@item.tipoPropiedad</td>
+                <td>@item.tipoPublicacion</td>
+                <td>@item.tipoMoneda @item.precioPropiedad</td>
+                <td>
+                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#modal-@item.publicacionId">
+                        Quitar
+                    </button>
+                </td>
+            </tr>
+            
+        }
+    </tbody>
+</table>
+    }
+    @foreach (var favorito in Model) {
+<div class="modal fade" id="modal-@favorito.publicacionId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="exampleModalLabel">Eliminar favorito</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <p>¿Quiere <b class="text-danger">eliminar</b> la publicación con ubicación en @favorito.ubicación?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button class="btn btn-success" onclick="location.href='@Url.Action("DeleteFavorito","Usuario",new {publicacionId=favorito.publicacionId })'">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+    }
+</div>
+

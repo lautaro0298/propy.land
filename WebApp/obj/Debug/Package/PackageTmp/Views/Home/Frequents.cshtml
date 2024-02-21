@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "Preguntas Frecuentes";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title color:"black">Preguntas Frecuentes</title>
+</head>
+<body>
+    <link href="~/Styles.css" rel="stylesheet" type="text/css" />
+
+    <div class="row justify-content-center ">
+        <h2 class="mt-2">@ViewBag.Title.</h2>
+        <h3>@ViewBag.Message</h3>
+    </div>
+
+
+
+    <div class="container">
+
+        <div class="alert alert-success">
+            <div class="alert-heading">
+                <h3 class="panel-title">¿Qué es una “visualización”?</h3>
+            </div>
+            <p> Llamamos “visualización” a la solicitud de los datos de contacto del propietario efectuada por un usuario interesado en el inmueble.</p>
+        </div>
+
+        <div class="alert alert-success">
+            <div class="alert-heading">
+                <h3 class="panel-title">¿Quién puede solicitar los datos de contacto del propietario?</h3>
+            </div>
+            <p> Sólo los usuarios registrados pueden solicitar los datos de contacto del propietario.</p>
+        </div>
+
+        <div class="alert alert-success">
+            <div class="alert-heading">
+                <h3 class="panel-title">¿Puedo buscar inmuebles sin estar registrado?</h3>
+            </div>
+            <p>Sí, pero no podrá solicitar los datos de contacto del propietario si algún inmueble le resulta de interés.</p>
+        </div>
+
+        <div class="alert alert-success">
+            <div class="alert-heading">
+                <h3 class="panel-title">¿Cómo se cuentan las “visualizaciones”?</h3>
+            </div>
+            <p> Se contará como “visualización” cada vez que un usuario registrado solicite los datos del propietario de un inmueble. Solicitudes posteriores de datos de una propiedad ya visualizada por un mismo usuario no cuentan como “visualización”.</p>
+        </div>
+
+        <div class="alert alert-success">
+            <div class="alert-heading">
+                <h3 class="panel-title">¿Cómo se establece el contacto entre el usuario que busca y el que publica?</h3>
+            </div>
+            <p>
+                El propietario deberá informar los datos (nombre, teléfono y/o email) que recibirá el usuario que se interese por el inmueble publicado.
+                Quien busca un inmueble deberá informar los datos (nombre, teléfono y/o email) que recibirá el usuario que ha publicado el inmueble visualizado, o bien indicar que él se pondrá en contacto con el propietario.
+            </p>
+        </div>
+
+        <div class="alert alert-success">
+            <div class="alert-heading">
+                <h3 class="panel-title">¿Qué pasa si no confirmo la disponibilidad de la propiedad publicada?</h3>
+            </div>
+            <p>
+                El propietario recibirá cada 15 días una solicitud de confirmación de la disponibilidad del inmueble publicado y tendrá 3 días para confirmarla. Esto garantiza que los inmuebles publicados se encuentren disponibles.
+                Si el propietario no confirma en el plazo indicado, la publicación dejará de aparecer en las búsquedas, aún cuando tenga saldo de visualizaciones, hasta tanto el propietario efectúe la confirmación.
+            </p>
+        </div>
+
+        <div class="alert alert-success">
+            <div class="alert-heading">
+                <h3 class="panel-title">¿Qué pasa si se consumen todas las visualizaciones contratadas?</h3>
+            </div>
+            <p>
+                Para evitar que el inmueble deje de aparecer en las búsquedas por haberse consumido la totalidad de las visualizaciones contratadas, el sistema enviará un alerta al propietario cuando se haya consumido el 75% de las mismas, de manera que pueda contratar un nuevo paquete.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+

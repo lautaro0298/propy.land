@@ -26,7 +26,7 @@ public class GoogleOAuth2Service
                 ClientId = clientId,
                 ClientSecret = clientSecret,
             },
-            Scopes = new[] { Oauth2Service.Scope.UserinfoEmail, Oauth2Service.Scope.UserinfoProfile, Oauth2Service.Scope.PlusMe },
+            Scopes = new[] { Oauth2Service.Scope.UserinfoEmail, Oauth2Service.Scope.UserinfoProfile, Oauth2Service.Scope.PlusMe, "https://www.googleapis.com/auth/user.phonenumbers.read" },
         });
         this.redirectUri = "https://localhost:44394/Usuario/Login";
         this.con = con;

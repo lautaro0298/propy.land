@@ -1,0 +1,28 @@
+﻿
+@{
+
+    ViewBag.Title = "Agregar Ambiente";
+    Layout = "~/Views/Shared/MasterPanelAdministrador.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        <h2>Agregar tipo de ambiente</h2>
+        <form action="/TipoAmbiente/AgregarAmbiente" method="post">
+            <label for="nombre">Nombre del nuevo tipo de ambiente:</label>
+            <br />
+            <input type="text" name="nombre" id="nombre" placeholder="Nombre"  />
+            <br />
+            <br />
+            <button type="submit" class="btn btn-danger">Enviar</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+﻿@model WebApp.DTO.DTOError
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Error</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4 text-danger">¡Error! @Model.codigoError</h1>
+            <p class="lead">Al parecer ha ocurrido un error al intentar realizar la operación solicitada.</p>
+            <hr class="my-4">
+            <p>Codigo de error: @Model.codigoError</p>
+            <p>Descripción:</p>
+            <ul>
+                @foreach (var error in Model.descripcionError)
+                {
+                    <li>@error</li>
+                }
+            </ul>
+
+            @Html.ActionLink("Volver a Propy", "Index", "Home", null, new { @class = "btn btn-lg btn-primary" })
+            
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    
+</body>
+</html>

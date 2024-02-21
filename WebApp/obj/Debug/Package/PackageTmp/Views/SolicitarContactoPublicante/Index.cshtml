@@ -1,0 +1,27 @@
+﻿@model WebApp.DTO.DTOPublicante
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <div class="container">
+        <div class="alert alert-danger mt-4">
+            <div class="alert-heading">
+                <h3 class="text-primary">Datos del Publicante</h3>
+            </div>
+            <div class="text-dark">
+
+                <label class="">Nombre:</label>
+                <b>@Model.nombrePublicante</b><br/>
+                <label class="">Apellido:</label>
+                <b>@Model.apellidoPublicante</b><br />
+                <label class="">Email:</label>
+                <b>@Model.email</b><br />
+                <label class="">Teléfono:</label>
+                <b>@Model.telefono</b><br />
+            </div>
+        </div>
+        <h6>@Html.ActionLink("Volver", "Index", "Busqueda")</h6>
+    </div>

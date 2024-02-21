@@ -1,0 +1,73 @@
+﻿@model WebApp.DTO.DTOUsuario
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_PanelControl.cshtml";
+}
+
+<h2>Editar Perfil</h2>
+<div class="form-horizontal">
+    <div class="form-group">
+        <label for="inputNombre" class="col-sm-2 control-label">Nombre:</label>
+        <div class="col-sm-10">
+            <input class="form-control" type="text" id="inputNombre" name="nombre" value="@Model.nombre" />
+        </div>
+
+    </div>
+    <div class="form-group">
+        <label for="inputApellido" class="col-sm-2 control-label">Apellido:</label>
+        <div class="col-sm-10">
+            <input class="form-control" type="text" id="inputApellido" name="apellido" value="@Model.apellido" />
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <label for="inputTipoDocumento" class="col-sm-2 control-label">Tipo de documento:</label>
+        <div class="col-sm-2">
+            <select id="inputTipoDocumento" name="tipoDocumento" class="form-control">
+                <option value="DNI">@Model.tipoDocumento</option>
+                <option value="CUIL">CUIL</option>
+
+            </select>
+        </div>
+        <label for="inputDocumento" class="col-sm-2 control-label">Documento:</label>
+        <div class="col-sm-2">
+            <input class="form-control" id="inputDocumento" type="number" name="documento" value="@Model.nroDocumento" />
+        </div>
+
+    </div>
+    <div class="form-group">
+        <label for="checkboxPermiteSerNotificado" class="col-sm-2 control-label">Ud permite ser notificado:</label>
+
+        <div class="col-sm-10">
+            @if (Model.permitirSerNotificado == true)
+            {
+                <input id="checkboxpermiteSerNotificado" type="checkbox" name="permiteSerNotificado" value="" checked />
+            }
+            else
+            {
+                <input id="checkboxradioPermiteSerNotifcado" type="checkbox" name="permiteSerNotificado" value="" />
+            }
+
+        </div>
+
+    </div>
+    <small class="label label-info">Al permitir ser notificado, Propy le enviará notificaciones a su correo electrónico</small>
+    <div class="form-group">
+        <label for="checkboxPermiteSerContactado" class="col-sm-2 control-label">Ud permite ser contactado:</label>
+        <div class="col-sm-10">
+            @if (Model.permitirSerContactadoPublicante == true)
+            {
+                <input type="checkbox" name="permiteSerContactado" value="" checked />
+            }
+            else
+            {
+                <input type="checkbox" name="permiteSerContactado" value="" />
+            }
+        </div>
+    </div>
+    <small class="label label-info">Al permitir ser contactado, los publicantes podrán ponerse en contacto con ud</small>
+</div>
+
+

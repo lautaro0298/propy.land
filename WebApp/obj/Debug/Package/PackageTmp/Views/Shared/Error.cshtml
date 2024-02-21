@@ -1,0 +1,48 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error";
+}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-light border-danger">
+                <div class="card-header border-danger">
+                    <div class="img-fluid text-center">
+                        <img src="~/Temp/Error.png" />
+                        
+                    </div>
+                    <h6 class="text-danger text-center">¡Error!</h6>
+                </div>
+                <div class="card-body">
+                    <h6 class="text-danger"> A ocurrido un error inesperado...</h6>
+                    <h6 class="text-center">@ViewBag.Error</h6>
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        Ver detalles
+                    </button>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                            @ViewBag.ErrorDetalle
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer border-danger">
+                    <center>
+                        @Html.ActionLink("Volver", "Index", "Home", null, new { @class = "btn btn-lg btn-primary" })
+                    </center>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+
+        </div>
+    </div>
+    
+</div>
+
+
+

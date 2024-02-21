@@ -39,9 +39,11 @@ namespace API_Persistencia.Controllers
         [HttpGet("callback")]
         public async Task<Usuario> GoogleAuthCallback(string tokenDeId)
         {
+
             //var tokenDeIdwe = await HttpContext.GetTokenAsync("id_token");
             var oauthService = new GoogleOAuth2Service(con,ClientId, ClientSecret, "");
             var accessToken =  oauthService.AuthorizeAsync(tokenDeId);
+            var validPayload = await oauthService.AuthorizeAsync(tokenDeId);
             accessToken.Wait();
             // Aquí puedes almacenar la información del usuario en tu base de datos
             // y crear el token de acceso para la API REST

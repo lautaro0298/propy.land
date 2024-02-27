@@ -13,7 +13,7 @@ import StaticMap from "../Map/StaticMap";
 import { Link } from "react-router-dom";
 import { GoogleMap, InfoBox } from '@react-google-maps/api';
 import axios from "axios";
-import Caracteristica from "./Caracteristica";  // Asegúrate de importar el componente Caracteristica
+//import Caracteristica from "./Caracteristica";  // Asegúrate de importar el componente Caracteristica
 
 
 const initState = {
@@ -41,31 +41,31 @@ export default function AllHotels() {
     const publicationsPerPage = 3;
     const [isButtonClicked, setIsButtonClicked] = useState(false);
     const [isFavorited, setIsFavorited] = useState({});
-    const CaracteristicaMemo = React.memo(Caracteristica);
-    //const Caracteristica = ({ caracteristicaId }) => {
-    //    const [nombreCaracteristica, setNombreCaracteristica] = useState("");
+    /*const CaracteristicaMemo = React.memo(Caracteristica);*/
+    const Caracteristica = ({ caracteristicaId }) => {
+        const [nombreCaracteristica, setNombreCaracteristica] = useState("");
 
-    //    useEffect(() => {
-    //        // Realizar la solicitud de la característica cuando el componente se monte
-    //        const sessionId = document.getElementById('root').dataset.sessionId;
+        useEffect(() => {
+            // Realizar la solicitud de la característica cuando el componente se monte
+            const sessionId = document.getElementById('root').dataset.sessionId;
 
-    //        axios
-    //            .get(`https://propyy.somee.com/api/Caracteristica/obtenerPorID/${caracteristicaId}`)
-    //            .then((response) => {
-    //                if (response.data) {
-    //                    setNombreCaracteristica(response.data.nombreCaracteristica);
-    //                } else {
-    //                    setNombreCaracteristica("Caracteristica no disponible"); // Manejar el caso de error
-    //                }
-    //            })
-    //            .catch((error) => {
-    //                console.error("Error al obtener la caracteristica:", error);
-    //                setNombreCaracteristica(""); // Manejar el caso de error
-    //            });
-    //    }, [caracteristicaId]);
+            axios
+                .get(`https://propyy.somee.com/api/Caracteristica/obtenerPorID/${caracteristicaId}`)
+                .then((response) => {
+                    if (response.data) {
+                        setNombreCaracteristica(response.data.nombreCaracteristica);
+                    } else {
+                        setNombreCaracteristica("Caracteristica no disponible"); // Manejar el caso de error
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error al obtener la caracteristica:", error);
+                    setNombreCaracteristica(""); // Manejar el caso de error
+                });
+        }, [caracteristicaId]);
 
-    //    return <span>{nombreCaracteristica}</span>;
-    //};
+        return <span>{nombreCaracteristica}</span>;
+    };
     const handleMouseOver = () => {
         setShowTooltip(true);
     };
@@ -148,7 +148,9 @@ export default function AllHotels() {
                                     <ul>
                                         {data.caracteristicas.slice(0, 3).map((caracteristica, index) => (
                                             <li key={index}>
-                                                <CaracteristicaMemo caracteristicaId={caracteristica.caracteristicaId} />
+                                                {caracteristica.caracteristicaId !== null && (
+                                                    <Caracteristica caracteristicaId={caracteristica.caracteristicaId} />
+                                                )}
                                             </li>
                                         ))}
                                     </ul>

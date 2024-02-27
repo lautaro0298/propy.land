@@ -1,3 +1,5 @@
 is_global = true
 build_property.RootNamespace = LibreriaClases
-build_property.ProjectDir = C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaClases\
+build_property.ProjectDir = C:\Propy\propy.land\LibreriaClases\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 

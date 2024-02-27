@@ -9447,11 +9447,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Lautaro\\source\\repos\\lautaro0298\\propy.land\\API Persistencia\\API Persistencia.csproj",
+      "projectUniqueName": "C:\\Propy\\propy.land\\API Persistencia\\API Persistencia.csproj",
       "projectName": "API Persistencia",
-      "projectPath": "C:\\Users\\Lautaro\\source\\repos\\lautaro0298\\propy.land\\API Persistencia\\API Persistencia.csproj",
+      "projectPath": "C:\\Propy\\propy.land\\API Persistencia\\API Persistencia.csproj",
       "packagesPath": "C:\\Users\\Lautaro\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lautaro\\source\\repos\\lautaro0298\\propy.land\\API Persistencia\\obj\\",
+      "outputPath": "C:\\Propy\\propy.land\\API Persistencia\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Lautaro\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -9468,8 +9468,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\Lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj": {
-              "projectPath": "C:\\Users\\Lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj"
+            "C:\\Propy\\propy.land\\LibreriaClases\\LibreriaClases.csproj": {
+              "projectPath": "C:\\Propy\\propy.land\\LibreriaClases\\LibreriaClases.csproj"
             }
           }
         }
@@ -9478,6 +9478,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -9572,7 +9577,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100-preview.5.23303.2\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

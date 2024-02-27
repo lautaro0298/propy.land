@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZusMk7Pqw0LsrrPNRBsdIoNHXiGZjewSubQa/6L3AA7FgdyyiSBrVWttaVWQy6JYCaDjzoL73knxNPZsEL2KcQ==",
+  "dgSpecHash": "DQkxDDwpic4BJokViPn0PTjIRc6Sv7+4gx8e4uA3SwIL9XsHHkuCy1zlr8O/pXDfKqdasghzTAxAjx8Nj8Wqmw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj",
+  "projectFilePath": "C:\\Propy\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lautaro\\.nuget\\packages\\legacy2cpsworkaround\\1.0.0\\legacy2cpsworkaround.1.0.0.nupkg.sha512",
     "C:\\Users\\Lautaro\\.nuget\\packages\\microsoft.aspnet.razor\\3.2.3\\microsoft.aspnet.razor.3.2.3.nupkg.sha512",
@@ -27,6 +27,16 @@
     "C:\\Users\\Lautaro\\.nuget\\packages\\system.valuetuple\\4.5.0\\system.valuetuple.4.5.0.nupkg.sha512"
   ],
   "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "El paquete \"Newtonsoft.Json\" 12.0.3 tiene una vulnerabilidad de gravedad alta conocida, https://github.com/advisories/GHSA-5crp-9r3c-p9vr",
+      "libraryId": "Newtonsoft.Json",
+      "targetGraphs": [
+        ".NETStandard,Version=v2.0"
+      ]
+    },
     {
       "code": "NU1701",
       "level": "Warning",

@@ -940,6 +940,7 @@
     <Content Include="React\src\Components\Hotel Page\SortBy.jsx" />
     <Content Include="React\src\Components\hotels\AllHotels.css" />
     <Content Include="React\src\Components\hotels\AllHotels.jsx" />
+    <Content Include="React\src\Components\hotels\Caracteristica.jsx" />
     <Content Include="React\src\Components\Image SlideShow\ImageSliderData.js" />
     <Content Include="React\src\Components\Image SlideShow\ImageSlideShow.jsx" />
     <Content Include="React\src\Components\LandingPage\LandingPage.css" />
@@ -1252,7 +1253,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -1386,6 +1386,7 @@
     <Content Include="Views\Usuario\ConsultarListaFavoritos.cshtml" />
     <Content Include="Views\Usuario\ConsultarActividad.cshtml" />
     <Content Include="Views\TipoAmbiente\AgregarAmbiente.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
     <None Include="Web References\AFIP.WSAA\LoginCms.wsdl" />
     <Content Include="Web References\AFIP.WSAA\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

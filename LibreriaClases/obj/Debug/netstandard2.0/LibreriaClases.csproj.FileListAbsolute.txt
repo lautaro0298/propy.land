@@ -77,3 +77,14 @@ C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaClases\obj\Debug\ne
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaClases\obj\Debug\netstandard2.0\LibreriaClases.sourcelink.json
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaClases\obj\Debug\netstandard2.0\LibreriaClases.dll
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaClases\obj\Debug\netstandard2.0\LibreriaClases.pdb
+C:\Propy\propy.land\LibreriaClases\bin\Debug\netstandard2.0\LibreriaClases.deps.json
+C:\Propy\propy.land\LibreriaClases\bin\Debug\netstandard2.0\LibreriaClases.dll
+C:\Propy\propy.land\LibreriaClases\bin\Debug\netstandard2.0\LibreriaClases.pdb
+C:\Propy\propy.land\LibreriaClases\obj\Debug\netstandard2.0\LibreriaClases.csproj.AssemblyReference.cache
+C:\Propy\propy.land\LibreriaClases\obj\Debug\netstandard2.0\LibreriaClases.GeneratedMSBuildEditorConfig.editorconfig
+C:\Propy\propy.land\LibreriaClases\obj\Debug\netstandard2.0\LibreriaClases.AssemblyInfoInputs.cache
+C:\Propy\propy.land\LibreriaClases\obj\Debug\netstandard2.0\LibreriaClases.AssemblyInfo.cs
+C:\Propy\propy.land\LibreriaClases\obj\Debug\netstandard2.0\LibreriaClases.csproj.CoreCompileInputs.cache
+C:\Propy\propy.land\LibreriaClases\obj\Debug\netstandard2.0\LibreriaClases.sourcelink.json
+C:\Propy\propy.land\LibreriaClases\obj\Debug\netstandard2.0\LibreriaClases.dll
+C:\Propy\propy.land\LibreriaClases\obj\Debug\netstandard2.0\LibreriaClases.pdb

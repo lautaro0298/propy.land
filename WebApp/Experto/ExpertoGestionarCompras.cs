@@ -20,9 +20,9 @@ namespace WebApp.Experto
         public DTOCompras Trolley(string user, DTOCompras dTOCompras)
         {
             MercadoPago.SDK.CleanConfiguration();
-            MercadoPago.SDK.ClientId = "310547333208529";
-            MercadoPago.SDK.ClientSecret = "bQBIrPmu2I8OacRxbknqGR4wlPnvWw0O";
-            MercadoPago.SDK.AccessToken = "TEST-310547333208529-010219-d8cdcce154be5b8148af156c1502b1f1-167342294";
+            MercadoPago.SDK.ClientId = "6676181862368985";
+            MercadoPago.SDK.ClientSecret = "rEm8ib9tejXnIWw5qpgBB7OqsDejL4nX";
+            MercadoPago.SDK.AccessToken = "TEST-6676181862368985-081423-d1e488a560e8eed32b3be8d2a78fbb9c-172147688";
 
             using (var database = new ApplicationDbContext())
             {

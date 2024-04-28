@@ -11,7 +11,8 @@ namespace API_Persistencia.Models
         {
             caracteristica = new List<TipoPropiedadCaracteristica>();
         }
-        
+
+        public int index { get; set; }
         public string tipoPropiedadId { get; set; }
         public string nombreTipoPropiedad { get; set; }
         public bool activo { get; set; }

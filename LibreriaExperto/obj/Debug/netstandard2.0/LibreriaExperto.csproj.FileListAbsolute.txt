@@ -115,3 +115,17 @@ C:\Propy\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\LibreriaExperto.sou
 C:\Propy\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\Libreria.8E2DF83E.Up2Date
 C:\Propy\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\LibreriaExperto.dll
 C:\Propy\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\LibreriaExperto.pdb
+C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\LibreriaExperto\bin\Debug\netstandard2.0\LibreriaExperto.deps.json
+C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\LibreriaExperto\bin\Debug\netstandard2.0\LibreriaExperto.dll
+C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\LibreriaExperto\bin\Debug\netstandard2.0\LibreriaExperto.pdb
+C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\LibreriaExperto\bin\Debug\netstandard2.0\LibreriaClases.dll
+C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\LibreriaExperto\bin\Debug\netstandard2.0\LibreriaClases.pdb
+C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\LibreriaExperto.csproj.AssemblyReference.cache
+C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\LibreriaExperto.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\LibreriaExperto.AssemblyInfoInputs.cache
+C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\LibreriaExperto.AssemblyInfo.cs
+C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\LibreriaExperto.csproj.CoreCompileInputs.cache
+C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\LibreriaExperto.sourcelink.json
+C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\Libreria.8E2DF83E.Up2Date
+C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\LibreriaExperto.dll
+C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\LibreriaExperto.pdb

@@ -279,7 +279,7 @@ namespace LibreriaExperto.Visitas
             //    datosInmueble.tipoPropiedad.Add(publicacion.Propiedad.TipoPropiedad.ElementAt(count).nombreTipoPropiedad);
             //    count++;
             //}
-            datosInmueble.tipoConstruccion = publicacion.Propiedad.TipoConstruccion.nombreTipoConstruccion;
+           // datosInmueble.tipoConstruccion = publicacion.Propiedad.TipoConstruccion.nombreTipoConstruccion;
             datosInmueble.tipoPublicacion = publicacion.TipoPublicacion.nombreTipoPublicacion;
 
             datosInmueble.superficieCubierta = publicacion.Propiedad.superficieCubierta;

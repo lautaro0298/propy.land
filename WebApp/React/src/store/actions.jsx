@@ -268,23 +268,22 @@ export const addHotelList2 = (moneda) => (dispatch) => {
         }
 }
         
-export const fliterPrecio2 = (cant) => dispatch => {
+export const filterPrecio2 = (range) => dispatch => {
+  const minPrice = range[0];
+  const maxPrice = range[1];
   
-    
-        
-        let hotel = store.getState().activities.hotelPrecio;
-    
-    
-    let filtro = hotel.filter(res => {
-        return res.propiedad.precioPropiedad <= cant;
+  // Aquí obtienes los hoteles del estado
+  const hotel = store.getState().activities.hotelPrecio;
 
-    });
-    dispatch(rest(false));
+  // Filtras los hoteles por el rango de precios
+  const filtro = hotel.filter(res => {
+    return res.propiedad.precioPropiedad >= minPrice && res.propiedad.precioPropiedad <= maxPrice;
+  });
 
-    dispatch(hotelSuccess(filtro));
-    dispatch(hotelList(filtro));
-    
-    
+  // Despachas las acciones para actualizar el estado
+  dispatch(rest(false));
+  dispatch(hotelSuccess(filtro));
+  dispatch(hotelList(filtro));
 }
 export const addHotelList = (cant ,moneda ) => dispatch => {
     axios.get('https://propyy.somee.com/api/Busqueda/buscardorPorPrecio?cant=' + cant + '&moneda=' + moneda).then((res) => {

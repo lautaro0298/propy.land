@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Propy\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj": {}
+    "C:\\Users\\Administrador\\source\\repos\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj": {}
   },
   "projects": {
-    "C:\\Propy\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj": {
+    "C:\\Users\\Administrador\\source\\repos\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Propy\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj",
+        "projectUniqueName": "C:\\Users\\Administrador\\source\\repos\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj",
         "projectName": "LibreriaExperto",
-        "projectPath": "C:\\Propy\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj",
-        "packagesPath": "C:\\Users\\Lautaro\\.nuget\\packages\\",
-        "outputPath": "C:\\Propy\\propy.land\\LibreriaExperto\\obj\\",
+        "projectPath": "C:\\Users\\Administrador\\source\\repos\\lautaro0298\\propy.land\\LibreriaExperto\\LibreriaExperto.csproj",
+        "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Administrador\\source\\repos\\lautaro0298\\propy.land\\LibreriaExperto\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Lautaro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Administrador\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -88,7 +88,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

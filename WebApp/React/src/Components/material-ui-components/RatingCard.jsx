@@ -161,7 +161,7 @@ width: 25px;
     
 `;
 
-const RatingWrapper = styled.div`
+export const  RatingWrapper = styled.div`
     width: 300px;
     height: 300px;
     margin: auto;

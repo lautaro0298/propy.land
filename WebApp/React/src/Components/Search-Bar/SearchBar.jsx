@@ -2,18 +2,21 @@ import styled from "styled-components";
 import axios from "axios";
 import placeholder from "../../Logos/placeholder.png";
 import addgroup from "../../Logos/addgroup.png";
-import { Button } from "@material-ui/core";
+import { Button, Card, CardContent, Typography, Grid } from "@material-ui/core";
+import { withStyles } from '@material-ui/core/styles';
 import ClearIcon from "@material-ui/icons/Clear";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import GuestCard from "../material-ui-components/GuestCard";
-import { RatingCard } from "../material-ui-components/RatingCard"
+import { RatingCard, RatingWrapper } from "../material-ui-components/RatingCard"
 import { useState, useEffect, useRef } from "react";
-import { fliterPrecio2, tipoPublicante } from '../../store/actions';
+import { filterPrecio2, tipoPublicante } from '../../store/actions';
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { MoreFilterCard } from "../material-ui-components/MoreFilterCard";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import Slider from "@material-ui/core/Slider";
+
 import { PrettoSlider } from "../material-ui-components/LocationCard";
 import { palabra } from '../../store/actions';
 import { Marker, MarkerClusterer, InfoWindow, StandaloneSearchBox } from '@react-google-maps/api';
@@ -24,7 +27,7 @@ export function SearchBar() {
     let propiedadEstado = propiedad.propiedad;
 
     let hotelState = useSelector((state) => state.activities, shallowEqual);
-    let reset= hotelState.reset;
+    let reset = hotelState.reset;
     let hotel = hotelState.hotel;
     const [city, setCity] = useState();
     let [hotels, setHotels] = useState([]);
@@ -33,7 +36,7 @@ export function SearchBar() {
     const [propertyType, setPropertyType] = useState(null);
     const [searchBox, setSearchBox] = useState(null);
     /* const [searchBox, setSearchBox] = useState(null);*/
-    const [price, setPrice] = useState(10000);
+    const [price, setPrice] = useState([1, 400000]);
     const [selectedValue, setSelectedValue] = useState("");
     const [show, setShow] = useState(false);
     const [hotelClass, setHotelClass] = useState(false);
@@ -48,12 +51,13 @@ export function SearchBar() {
     const [guestNumber, setGuestNumber] = useState(2)
     const [roomsNumber, setRoomsNumber] = useState(1)
     const [infoWindowID, setInfoWindowID] = useState("");
+    const [open, setOpen] = useState(false); // Estado para controlar si la card está abierta o cerrada
     const [facilitiesforfilter, setFacilitiesforfilter] = useState({});
     const [facilitieslength, setFacilitieslength] = useState(0);
     const [showMoreFilterCard, setShowMoreFilterCard] = useState(false);
     const [moneda, setMoneda] = useState(["ARS", "USD"]);
     const [publicante, setPublicante] = useState([]);
-    const [priceFilterCompleted, setPriceFilterCompleted] = useState(false); 
+    const [priceFilterCompleted, setPriceFilterCompleted] = useState(false);
     let publicanteIs = false;
     let monedaIs = false;
     const [monedaSelect, setMonedaSelect] = useState("")
@@ -78,7 +82,7 @@ export function SearchBar() {
             handlePriceFilter();
         }
     }, [priceFilterCompleted]);
-     
+
     useEffect(() => {
         axios.get(`https://propyy.somee.com/api/TipoMoneda/obtenerTiposMonedas`, {
             method: 'GET',
@@ -97,22 +101,20 @@ export function SearchBar() {
             .then(res => { setPublicante(res.data); publicanteIs = true; });
     }, []);
     useEffect(() => {
-       
+
         if (reset) {
             setMonedaSelect("");
             setSelectedValue("")
             setPublicacionSelect("")
         }
-        
+
     }, [reset]);
     function cambioMoneda(e) {
-     
+
         setMonedaSelect(e.target.value)
-        
-        if (e.target.value != null || e.target.value != undefined)
-            
-        { dispatch(addHotelList2(e.target.value));  }
-        
+
+        if (e.target.value != null || e.target.value != undefined) { dispatch(addHotelList2(e.target.value)); }
+
     }
     function cambioPublicacion(e) {
         setSelectedValue(e.target.value);
@@ -122,12 +124,12 @@ export function SearchBar() {
     const history = useHistory()
     const onSBLoad = ref => {
         setSearchBox(ref);
-   
+
     };
     const mapaRef = useRef(null);
     function handleLoad(map) {
         mapaRef.current = map;
-      
+
     }
 
     const handleCenterChanged = () => {
@@ -171,10 +173,14 @@ export function SearchBar() {
         setHotelClass(false);
         setBorder(false);
     };
-    const getPrice = (e, value) => {
-        setPrice(value);
-        dispatch(fliterPrecio2(value))
+    const getPrice = (event, newValue) => {
+        setPrice(newValue); // Actualiza el estado del precio con el nuevo rango
+        dispatch(filterPrecio2(newValue)); // Llama a la acción con el nuevo rango de precios
     };
+    const closeWindow = () => {
+        setOpen(false); // Cierra la card sin aplicar el filtro
+    };
+
     const handleLocationInput = (e) => {
         e.preventDefault();
         console.log(location);
@@ -537,27 +543,16 @@ export function SearchBar() {
                         </div>
                     </GuestRatingWrapper>
                     <PriceNightWrapper >
-
-
-                        <div className="priceNightSlider">
-                            <PrettoSlider
-                                value={price}
-                                onChange={getPrice}
-
-                                min={0}
-                                step={300}
-                                max={1000000}
-                                aria-label="pretto slider"
-                               
-                            />
-                        </div>
+                        
+                       
                         <div className="priceNightText">
 
                             <div>
                                 <span>Precio</span>
                             </div>
                             <div>
-                                <span>{monedaSelect}   $ 0 - $ {price} </span>
+                                <Button onClick={() => setOpen(true)}> <span>{monedaSelect}   $  {price[0]} - $ {price[1]} </span>
+                                 </Button>
                             </div>
                         </div>
                     </PriceNightWrapper>
@@ -576,7 +571,34 @@ export function SearchBar() {
                     </PriceNightWrapper>
                     
                 </SearchBoxWrapper>
+                {open && (
 
+                    <div style={{position:"relative",left:"10rem",top:"80px"}}>    
+                    <RatingWrapper>
+                    <Card >
+                    <CardContent>
+                        <Typography variant="h5" component="div">
+                            Rango de precios
+                        </Typography>
+                      
+                            <PrettoSlider
+                                value={price}
+                                onChange={getPrice}
+
+
+                                max={1000000}
+                                valueLabelDisplay="auto"
+                                aria-label="pretto slider"
+                                aria-labelledby="range-slider"
+                            />
+
+                        
+                                    <Button onClick={closeWindow}>Cerrar </Button>
+                    </CardContent>
+                        </Card>
+                        </RatingWrapper>
+                    </div>
+                )}
                 {showMoreFilterCard && (
                     <MoreFilterCard
                         handleMoreFilterCard={handleMoreFilterCard}

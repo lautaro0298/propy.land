@@ -3,6 +3,7 @@ import axios from "axios";
 import placeholder from "../../Logos/placeholder.png";
 import addgroup from "../../Logos/addgroup.png";
 import { Button } from "@material-ui/core";
+import { withStyles } from '@material-ui/core/styles';
 import ClearIcon from "@material-ui/icons/Clear";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
@@ -22,7 +23,30 @@ import { addHotelList2 } from '../../store/actions';
 export function SearchBar() {
     let propiedad = useSelector((state) => state.activities, shallowEqual);
     let propiedadEstado = propiedad.propiedad;
+    
+    const thumbStyles = {
+        thumb: {
+            height: 24,
+            width: 24,
+            backgroundColor: '#fff',
+            border: '2px solid currentColor',
+            marginTop: -8,
+            marginLeft: -12,
+            '&:focus, &:hover, &$active': {
+                boxShadow: 'inherit',
+            },
+        },
+    };
+    const handleFocus = () => {
+        // Aquí puedes agregar la lógica que deseas ejecutar cuando el componente recibe el foco
+        console.log('El componente Thumb2 ha recibido el foco');
+    };
+    const Thumb2 = withStyles(thumbStyles)(({}) => (
+        <div>
 
+            <span onClick={{}} focusThumb={handleFocus} className={` MuiSlider-thumb WithStyles(ForwardRef(Slider))-thumb-2 MuiSlider-thumbColorPrimary`} style={{ left: '50%' }}></span><span onClick={{}} class="MuiSlider-thumb WithStyles(ForwardRef(Slider))-thumb-2 MuiSlider-thumbColorPrimary" ></span>
+        </div>
+    ));
     let hotelState = useSelector((state) => state.activities, shallowEqual);
     let reset= hotelState.reset;
     let hotel = hotelState.hotel;
@@ -543,13 +567,13 @@ export function SearchBar() {
                             <PrettoSlider
                                 value={price}
                                 onChange={getPrice}
-
+                               ThumbComponent={Thumb2}
                                 min={0}
                                 step={300}
                                 max={1000000}
                                 aria-label="pretto slider"
-                               
                             />
+                  
                         </div>
                         <div className="priceNightText">
 

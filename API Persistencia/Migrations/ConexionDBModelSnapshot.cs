@@ -486,6 +486,9 @@ namespace API_Persistencia.Migrations
                     b.Property<bool>("activo")
                         .HasColumnType("bit");
 
+                    b.Property<int>("index")
+                        .HasColumnType("int");
+
                     b.Property<string>("nombreTipoPropiedad")
                         .HasColumnType("nvarchar(max)");
 

@@ -43,14 +43,15 @@ else
 
     </div>
     <hr />
-    <div class="row">
-        <div class="col-md-3">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
             <div class="card bg-light">
                 <div class="card-header">
                     <h6> <i class="fas fa-dharmachakra mr-3"></i>Tipo de operación</h6>
                 </div>
                 <div class="card-body">
-                    <select class="form-control" name="tipoPublicacion">
+                    <select class="form-control" name="tipoPublicacion" required>
+                        <option value="" selected disabled>Selecciona una opción</option>
                         @foreach (var item in Model.listadoTiposPublicaciones)
                         {
                             <option value="@item.tipoPublicacionId">@item.nombreTipoPublicacion</option>
@@ -81,13 +82,14 @@ else
             </div>
         </div>*@
 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="card bg-light">
                 <div class="card-header">
                     <h6> <i class="fas fa-igloo mr-3"></i>Tipo de propiedad</h6>
                 </div>
                 <div class="card-body">
-                    <select class="form-control" name="tipoPropiedad" id="tipoPropiedad">
+                    <select class="form-control" name="tipoPropiedad" id="tipoPropiedad" required>
+                        <option value="" selected disabled>Selecciona una opción</option>
                         @foreach (var item in Model.listadoTiposPropiedades)
                         {
                             <option value="@item.tipoPropiedadId">@item.nombreTipoPropiedad</option>
@@ -99,12 +101,12 @@ else
 
             </div>
         </div>
-        <div class="col-md-3">
+        <!--<div class="col-md-3">
             <div class="card bg-light">
                 <div class="card-header">
                     <h6> <i class="fas fa-tools mr-3"></i>Tipo de construcción</h6>
-                </div>
-                <div class="card-body">
+                </div>-->
+                @*<div class="card-body">
                     <select class="form-control" name="tipoConstruccion">
                         @foreach (var item in Model.listadoTiposConstruccion)
                         {
@@ -112,11 +114,11 @@ else
                         }
 
                     </select>
-                </div>
+                </div>*@
 
 
-            </div>
-        </div>
+            <!--</div>
+        </div>-->
     </div>
     <hr />
     <div class="row justify-content-center">

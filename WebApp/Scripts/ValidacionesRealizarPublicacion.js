@@ -2,8 +2,8 @@
 var tipomoneda
 
 function initialvalor() {
-    select = document.getElementsByName('tipoMoneda')[0].value;
-    tipomoneda = document.getElementById(select).innerText;
+    select ="ARS";
+    tipomoneda = select;
 }
 
 function valor(Moneda) {

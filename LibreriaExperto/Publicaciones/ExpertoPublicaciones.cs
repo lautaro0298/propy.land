@@ -132,7 +132,7 @@ namespace LibreriaExperto.Publicaciones
             propiedad.tipoConstruccionId = tipoConstruccion;
             propiedad.tipoPropiedadId = tipoPropiedad;
             propiedad.tipoPublicanteId = tipoPublicante;
-            propiedad.ImagenPropiedad = new List<TransferenciaImagenPropiedad>();
+            propiedad.imagenPropiedad = new List<TransferenciaImagenPropiedad>();
             //publicacion.Caracteristicas = new List<TransferenciaPropiedadCaracteristica>();
             // editado para la nueva modelacion
             //propiedad.PropiedadCaracteristica = new List<TransferenciaPropiedadCaracteristica>();
@@ -161,7 +161,7 @@ namespace LibreriaExperto.Publicaciones
                 imagenPropiedad.activo = true;
                 imagenPropiedad.rutaImagenPropiedad = imagen;
                 imagenPropiedad.propiedadId = propiedad.propiedadId;
-                propiedad.ImagenPropiedad.Add(imagenPropiedad);
+                propiedad.imagenPropiedad.Add(imagenPropiedad);
             }
 
             // editar para la nueva modelacion 

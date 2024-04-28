@@ -129,9 +129,13 @@ export function MoreFilterCard({ handleMoreFilterCard}) {
         }
     };
     const handledone = () => {
-        if (tipodepropy == null) { dispatch(priceFilter([], facilities)) } else { 
-        hotels = dispatch(priceFilter([tipodepropy.tipoPropiedadId], facilities));
-            handleMoreFilterCard();
+        if (tipodepropy == null) {
+            if (facilities.length > 0) { dispatch(priceFilter([], facilities)) }
+        } else {
+            if (facilities.length > 0) {
+                hotels = dispatch(priceFilter([tipodepropy.tipoPropiedadId], facilities));
+                handleMoreFilterCard();
+            }
         }
     }
     const handleCheckboxReset = () => {

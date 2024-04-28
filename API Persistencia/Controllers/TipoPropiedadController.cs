@@ -53,7 +53,7 @@ namespace API_Persistencia.Controllers
         {
             List<TipoPropiedad> listadoTiposPropiedades= (from x in con.TipoPropiedad
                                                         where x.activo == true
-                                                        orderby x.nombreTipoPropiedad  
+                                                        orderby x.index  
                                                         select x).ToList();
             
             return listadoTiposPropiedades;

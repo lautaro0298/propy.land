@@ -2945,7 +2945,6 @@ C:\Users\Lautaro\source\repos\lautaro0298\propy.land\WebApp\bin\es\Microsoft.Owi
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\WebApp\bin\es\Microsoft.Owin.Security.Google.resources.dll
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\WebApp\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\WebApp\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
-C:\Users\Lautaro\source\repos\lautaro0298\propy.land\WebApp\obj\Debug\WebApp.csproj.CopyComplete
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\WebApp\obj\Debug\WebApp.dll
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\WebApp\obj\Debug\WebApp.pdb
 C:\Propy\propy.land\WebApp\bin\ApplicationInsights.config
@@ -3828,3 +3827,4 @@ C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\WebApp\obj\Debug\WebA
 C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\WebApp\obj\Debug\WebApp.csproj.Up2Date
 C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\WebApp\obj\Debug\WebApp.dll
 C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\WebApp\obj\Debug\WebApp.pdb
+C:\Users\Lautaro\Source\Repos\lautaro0298\propy.land\WebApp\obj\Debug\WebApp.csproj.Up2Date

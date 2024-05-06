@@ -1386,7 +1386,7 @@
     <Content Include="Views\Usuario\ConsultarListaFavoritos.cshtml" />
     <Content Include="Views\Usuario\ConsultarActividad.cshtml" />
     <Content Include="Views\TipoAmbiente\AgregarAmbiente.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout1.cshtml" />
     <None Include="Web References\AFIP.WSAA\LoginCms.wsdl" />
     <Content Include="Web References\AFIP.WSAA\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

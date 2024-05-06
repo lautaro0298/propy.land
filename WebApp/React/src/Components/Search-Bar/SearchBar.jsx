@@ -86,7 +86,7 @@ export function SearchBar() {
     useEffect(() => {
         axios.get(`/ABMTipoMoneda/Listar`, {
             method: 'GET',
-            headers: {
+            headers: {v
                 'content-type': 'application/json',
             }
 

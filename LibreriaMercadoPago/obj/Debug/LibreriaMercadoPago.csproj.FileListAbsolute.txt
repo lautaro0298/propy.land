@@ -979,7 +979,6 @@ C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaMercadoPago\bin\Deb
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.csproj.App.config
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.csproj.AssemblyReference.cache
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.csproj.CoreCompileInputs.cache
-C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.csproj.CopyComplete
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.dll
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.pdb
 C:\Propy\propy.land\LibreriaMercadoPago\bin\Debug\LibreriaMercadoPago.dll.config
@@ -1228,3 +1227,4 @@ C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\LibreriaMercadoPago\o
 C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\LibreriaMercadoPago\obj\Debug\Libreria.02D89F31.Up2Date
 C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.dll
 C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\LibreriaMercadoPago\obj\Debug\LibreriaMercadoPago.pdb
+C:\Users\Lautaro\Source\Repos\lautaro0298\propy.land\LibreriaMercadoPago\obj\Debug\Libreria.02D89F31.Up2Date

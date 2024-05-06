@@ -5,11 +5,7 @@
     "\\WebApp\\React",
     "\\WebApp\\React\\src",
     "\\WebApp\\React\\src\\Components",
-    "\\WebApp\\React\\src\\Components\\hotels",
-    "\\WebApp\\React\\src\\Components\\Search-Bar",
-    "\\WebApp\\Scripts",
-    "\\WebApp\\Views",
-    "\\WebApp\\Views\\Shared"
+    "\\WebApp\\React\\src\\Components\\Search-Bar"
   ],
   "SelectedNode": "\\WebApp\\React\\src\\Components\\Search-Bar\\SearchBar.jsx",
   "PreviewInSolutionExplorer": false

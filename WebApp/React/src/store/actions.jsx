@@ -300,7 +300,7 @@ export const tipoPublicante = (tipoPublicante) => dispatch => {
     let hotel4 = store.getState().activities.hotelPrecio
     let hotel = store.getState().activities.hotel
     if (hotel.length == 0 && hotel1.lenght == undefined && hotel2.length == 0 && hotel.length == 0 && hotel3 == undefined && hotel4.length == 0) {
-        axios.get('https://propyy.somee.com/api/Busqueda/buscardorPorPublicancion?Publicacion=' + tipoPublicante).then((res) => {
+        axios.get('/Publicacion/buscardorPorPublicancion?Publicacion=' + tipoPublicante).then((res) => {
             let { data } = res;
             dispatch(hotelprecio(data));
             dispatch(hotelList(data));

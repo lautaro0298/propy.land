@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,15 @@ namespace WebApp.Servicios
             using (var db = new ApplicationDbContext()) {
                 return db.TipoPropiedad.ToList();
             }
+
+        }
+        public TipoPropiedad ListarTipoPropiedadesPorId(string id)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                return db.TipoPropiedad.Find(id);
+            }
+
         }
     }
 }

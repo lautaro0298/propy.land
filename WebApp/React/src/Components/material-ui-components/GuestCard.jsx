@@ -186,6 +186,7 @@ export default function GuestCard({
       console.log(values);
       dispatch(fliterDormitorios(values));
       handleGuestSelector();
+      localStorage.setItem('dormitorios', JSON.stringify(values));
   };
     let datos
 

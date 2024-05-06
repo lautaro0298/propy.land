@@ -34,8 +34,13 @@ namespace WebApp.Controllers
         }
 
         // GET: ABMTipoMoneda/Edit/5
-     
 
+        public ActionResult Listar()
+        {
+            var tarea = ABMTipoMoneda.traerTipoMoneda();
+            List<DTOTipoMoneda> lista = tarea.Item2;
+            return PartialView(lista);
+        }
 
         public ActionResult EliminarMoneda()
         {

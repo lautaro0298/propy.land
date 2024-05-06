@@ -76,7 +76,11 @@ namespace WebApp.Controllers
             
 
         }
+        public ActionResult BuscarPorId(string id) {
+            DTOPublicaciones respuesta = ExpertoPublicaciones.ListarPublicacionesPorId(id);
 
+            return View(respuesta.publicaciones);
+        }
         [HttpGet]
         public ActionResult CrearPublicacion() {
             if (!ControlAcceso.Autorizacion(Session["IDUsuario"])) { return RedirectToAction("Login", "Usuario", null); }

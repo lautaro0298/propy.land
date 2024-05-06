@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,6 +21,12 @@ namespace WebApp.Controllers
             var data = servicios.ListarTipoPropiedades();
             return PartialView(data);
                 
+        }
+        public ActionResult Id( string id)
+        {
+            var data = servicios.ListarTipoPropiedadesPorId(id);
+            return PartialView(data);
+
         }
     }
 }

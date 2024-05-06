@@ -54,6 +54,44 @@ namespace LibreriaExperto.Publicaciones
             }
             return (error, respuesta.publicaciones);
         }
+        public static  DTOPublicaciones ListarPublicacionesPorId(string Id)
+        {
+            HttpClient clienteHttp = ApiConfiguracion.Inicializar();
+            ErrorPropy error = new ErrorPropy();
+            DTOPublicaciones pubs = new DTOPublicaciones();
+            var tareaObtenerPublicacionesPorUsuario = clienteHttp.GetAsync("api/Busqueda/buscardorPorPublicancion?Publicacion=" + Id);
+            tareaObtenerPublicacionesPorUsuario.Wait();
+            if (!tareaObtenerPublicacionesPorUsuario.Result.IsSuccessStatusCode)
+            {
+                throw new Exception(tareaObtenerPublicacionesPorUsuario.Result.StatusCode.ToString());
+            }
+            TimeZoneInfo zonaHorariaArgentina = TimeZoneInfo.FindSystemTimeZoneById("Argentina Standard Time");
+            List<TransferenciaPublicacion> publicaciones = tareaObtenerPublicacionesPorUsuario.Result.Content.ReadAsAsync<List<TransferenciaPublicacion>>().Result;
+          
+
+            foreach (var publicacion in publicaciones)
+            {
+                DTOPublicacion objPublicacion = new DTOPublicacion();
+                objPublicacion.publicacionId = publicacion.publicacionId;
+                objPublicacion.fechaInicioPublicacion = TimeZoneInfo.ConvertTimeFromUtc(publicacion.fechaInicioPublicacion, zonaHorariaArgentina).ToShortDateString();
+                objPublicacion.fechaFinPublicacion = TimeZoneInfo.ConvertTimeFromUtc(publicacion.fechaFinPublicacion, zonaHorariaArgentina).ToShortDateString();
+                objPublicacion.estado = publicacion.estado;
+                int cout = 0;
+                //foreach (var c in publicacion.Propiedad.TipoPropiedad) {
+                //    objPublicacion.tipoPropiedad[cout] = publicacion.Propiedad.TipoPropiedad.ElementAt(cout).nombreTipoPropiedad;
+                //    cout++;
+                //}
+                objPublicacion.precioPropiedad = String.Format("{0:c}", publicacion.Propiedad.precioPropiedad);
+                objPublicacion.ubicacionPropiedad = publicacion.Propiedad.ubicacion;
+                objPublicacion.tipoMoneda = publicacion.Propiedad.TipoMoneda.denominacionMoneda;
+                objPublicacion.pais = publicacion.Propiedad.pais;
+                objPublicacion.provincia = publicacion.Propiedad.AreaAdmNivel1;
+                objPublicacion.departamento = publicacion.Propiedad.AreaAdmNivel2;
+                pubs.publicaciones.Add(objPublicacion);
+            }
+            return  pubs;
+
+        }
         public static (ErrorPropy,DTOPublicaciones) ListarPublicaciones(string usuarioId) {
             HttpClient clienteHttp = ApiConfiguracion.Inicializar();
             ErrorPropy error = new ErrorPropy();

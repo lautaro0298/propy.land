@@ -65,7 +65,7 @@ export function SearchBar() {
     const dispatch = useDispatch();
     useEffect(() => {
         if (propiedadEstado) {
-            axios.get(`https://propyy.somee.com/api/TipoPropiedad/obtenerPorId/${propiedadEstado}`)
+            axios.get(`/TipoPropiedad/ListarTipoPropiedadesPorId?id=${propiedadEstado}`)
                 .then((response) => {
                     setPropertyType(response.data.nombreTipoPropiedad);
                 })
@@ -84,7 +84,7 @@ export function SearchBar() {
     }, [priceFilterCompleted]);
 
     useEffect(() => {
-        axios.get(`https://propyy.somee.com/api/TipoMoneda/obtenerTiposMonedas`, {
+        axios.get(`/ABMTipoMoneda/Listar`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -92,7 +92,7 @@ export function SearchBar() {
 
         })
             .then(res => { setMoneda(res.data); monedaIs = true; });
-        axios.get(`https://propyy.somee.com/api/TipoPublicacion/obtenerTiposPublicaciones`, {
+        axios.get(`/TipoPublicacion/Index`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',

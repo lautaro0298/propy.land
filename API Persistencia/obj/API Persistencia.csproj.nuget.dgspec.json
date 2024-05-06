@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lautaro\\source\\repos\\lautaro0298\\propy.land\\API Persistencia\\API Persistencia.csproj": {}
+    "C:\\Users\\Administrador\\source\\repos\\lautaro0298\\propy.land\\API Persistencia\\API Persistencia.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lautaro\\source\\repos\\lautaro0298\\propy.land\\API Persistencia\\API Persistencia.csproj": {
+    "C:\\Users\\Administrador\\source\\repos\\lautaro0298\\propy.land\\API Persistencia\\API Persistencia.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lautaro\\source\\repos\\lautaro0298\\propy.land\\API Persistencia\\API Persistencia.csproj",
+        "projectUniqueName": "C:\\Users\\Administrador\\source\\repos\\lautaro0298\\propy.land\\API Persistencia\\API Persistencia.csproj",
         "projectName": "API Persistencia",
-        "projectPath": "C:\\Users\\Lautaro\\source\\repos\\lautaro0298\\propy.land\\API Persistencia\\API Persistencia.csproj",
-        "packagesPath": "C:\\Users\\Lautaro\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lautaro\\source\\repos\\lautaro0298\\propy.land\\API Persistencia\\obj\\",
+        "projectPath": "C:\\Users\\Administrador\\source\\repos\\lautaro0298\\propy.land\\API Persistencia\\API Persistencia.csproj",
+        "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Administrador\\source\\repos\\lautaro0298\\propy.land\\API Persistencia\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Lautaro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Administrador\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,8 +28,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\Lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj": {
-                "projectPath": "C:\\Users\\Lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj"
+              "C:\\Users\\Administrador\\source\\repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj": {
+                "projectPath": "C:\\Users\\Administrador\\source\\repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj"
               }
             }
           }
@@ -119,21 +119,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj": {
+    "C:\\Users\\Administrador\\source\\repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj",
+        "projectUniqueName": "C:\\Users\\Administrador\\source\\repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj",
         "projectName": "LibreriaClases",
-        "projectPath": "C:\\Users\\Lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj",
-        "packagesPath": "C:\\Users\\Lautaro\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lautaro\\source\\repos\\lautaro0298\\propy.land\\LibreriaClases\\obj\\",
+        "projectPath": "C:\\Users\\Administrador\\source\\repos\\lautaro0298\\propy.land\\LibreriaClases\\LibreriaClases.csproj",
+        "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Administrador\\Source\\Repos\\lautaro0298\\propy.land\\LibreriaClases\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Lautaro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Administrador\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -188,7 +188,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

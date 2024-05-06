@@ -98,6 +98,7 @@ C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\obj\Debug\n
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\LibreriaExperto.AssemblyInfo.cs
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\LibreriaExperto.csproj.CoreCompileInputs.cache
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\LibreriaExperto.sourcelink.json
+C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\LibreriaExperto.csproj.CopyComplete
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\LibreriaExperto.dll
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\LibreriaExperto.pdb
 C:\Propy\propy.land\LibreriaExperto\bin\Debug\netstandard2.0\LibreriaExperto.deps.json
@@ -128,4 +129,3 @@ C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\LibreriaExperto\obj\D
 C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\Libreria.8E2DF83E.Up2Date
 C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\LibreriaExperto.dll
 C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\LibreriaExperto.pdb
-C:\Users\Lautaro\Source\Repos\lautaro0298\propy.land\LibreriaExperto\obj\Debug\netstandard2.0\Libreria.8E2DF83E.Up2Date

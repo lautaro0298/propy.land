@@ -1336,6 +1336,7 @@ C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.build.API Persistencia.props
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.buildMultiTargeting.API Persistencia.props
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.buildTransitive.API Persistencia.props
+C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.csproj.CopyComplete
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.dll
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.pdb
 C:\Users\Lautaro\source\repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.genruntimeconfig.cache
@@ -1627,4 +1628,3 @@ C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\API Persistencia\obj\
 C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.dll
 C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.pdb
 C:\Users\Administrador\Source\Repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Persistencia.genruntimeconfig.cache
-C:\Users\Lautaro\Source\Repos\lautaro0298\propy.land\API Persistencia\obj\Debug\netcoreapp3.1\API Pers.42F88910.Up2Date

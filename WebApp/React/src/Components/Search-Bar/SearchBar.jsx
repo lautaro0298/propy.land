@@ -84,7 +84,7 @@ export function SearchBar() {
     }, [priceFilterCompleted]);
 
     useEffect(() => {
-        axios.get(`/ABMTipoMoneda/Listar`, {
+        axios.get(`/ABMTipoMoneda/ListarNew`, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
@@ -452,8 +452,8 @@ export function SearchBar() {
                                             {publicante.map((tipo, index) => {
 
                                                 return (
-                                                    <option key={index} value={tipo.nombreTipoPublicacion}>
-                                                        {tipo.nombreTipoPublicacion}
+                                                    <option key={index} value={tipo.NombreTipoPublicacion}>
+                                                        {tipo.NombreTipoPublicacion}
                                                     </option>
                                                 );
                                             })}

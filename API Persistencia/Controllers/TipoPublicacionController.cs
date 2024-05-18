@@ -19,7 +19,7 @@ namespace API_Persistencia.Controllers
             con = conexion;
         }
         [HttpGet("obtenerPorID/{id}")]
-        public TipoPublicacion ObtenerPorID(string id)
+        public TipoPublicacion ObtenerPorID(Guid id)
         {
             TipoPublicacion tipoPublicacion = (from x in con.TipoPublicacion
                                      where x.tipoPublicacionId == id

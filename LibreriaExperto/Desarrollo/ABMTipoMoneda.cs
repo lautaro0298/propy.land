@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using LibreriaClases;
 using LibreriaClases.DTO;
 using LibreriaClases.Transferencia;
@@ -53,8 +54,39 @@ namespace LibreriaExperto.Desarrollo
 
             return error;
         }
+        public static async Task<(ErrorPropy, List<DTOTipoMoneda>)> traerTipoMoneda2()
+        {
+            ErrorPropy errorPropy = new ErrorPropy();
+            List<DTOTipoMoneda> ListaMonedas = new List<DTOTipoMoneda>();
 
-            public static (ErrorPropy, List<DTOTipoMoneda>) traerTipoMoneda()
+            HttpClient httpClient = ApiConfiguracion.Inicializar();
+            var response = await httpClient.GetAsync("api/TipoMoneda/obtenerTiposMonedas");
+
+            if (response.IsSuccessStatusCode)
+            {
+                List<TransferenciaTipoMoneda> transferenciaTipoMonedas = await response.Content.ReadAsAsync<List<TransferenciaTipoMoneda>>();
+
+                // Convertir las transferencias de tipo de moneda a DTOs de tipo de moneda
+                foreach (var TM in transferenciaTipoMonedas)
+                {
+                    DTOTipoMoneda dTOTipoMoneda = new DTOTipoMoneda();
+                    dTOTipoMoneda.denominacionMoneda = TM.denominacionMoneda;
+                    dTOTipoMoneda.tipoMonedaId = TM.tipoMonedaId;
+
+                    ListaMonedas.Add(dTOTipoMoneda);
+                }
+            }
+            else
+            {
+                errorPropy.codigoError = (int)response.StatusCode;
+                errorPropy.descripcionError = "Error: " + errorPropy.codigoError + " " + response.StatusCode;
+            }
+
+            return (errorPropy, ListaMonedas);
+        }
+
+
+        public static (ErrorPropy, List<DTOTipoMoneda>) traerTipoMoneda()
         {
             ErrorPropy errorPropy = new ErrorPropy();
             List<DTOTipoMoneda> ListaMonedas = new List<DTOTipoMoneda>();

@@ -7,7 +7,7 @@ namespace API_Persistencia.Models
 {
     public class TipoPublicacion
     {
-        public string tipoPublicacionId { get; set; }
+        public Guid tipoPublicacionId { get; set; }
         public string nombreTipoPublicacion { get; set; }
         public bool activo { get; set; }
     }

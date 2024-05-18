@@ -15,5 +15,23 @@ namespace WebApp.Servicios
                 return db.TipoPublicacion.ToList();
             }
         }
+        public List<SimpleTipoPublicacionDto> ListarTipoPublicacionesSimple()
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                return db.TipoPublicacion.Select(tp => new SimpleTipoPublicacionDto
+                {
+                    TipoPublicacionId = tp.tipoPublicacionId,
+                    NombreTipoPublicacion = tp.nombreTipoPublicacion,
+                    Activo = tp.activo
+                }).ToList();
+            }
+        }
+        public class SimpleTipoPublicacionDto
+        {
+            public Guid TipoPublicacionId { get; set; }
+            public string NombreTipoPublicacion { get; set; }
+            public bool Activo { get; set; }
+        }
     }
 }

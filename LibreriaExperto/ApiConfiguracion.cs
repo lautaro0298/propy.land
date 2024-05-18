@@ -18,7 +18,7 @@ namespace LibreriaExperto
             //configuracion linea https://propyy.somee.com/
             //configuracion linea https://propyy.somee.com/
             //http://localhost:5000/
-            //configuracion local sin ssl http://localhost:500001/
+            //configuracion local sin ssl 
             //configuracion local con ssl https://localhost:500001/
             cliente.BaseAddress = new Uri("https://propyy.somee.com/");
             return cliente;

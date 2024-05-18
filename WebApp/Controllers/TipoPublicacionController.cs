@@ -17,9 +17,10 @@ namespace WebApp.Controllers
         // GET: TipoPublicacion
         public ActionResult Index()
         {
-            var data=servicios.ListarTipoPublicaciones();
-            return PartialView(data);
-                
+            var data=servicios.ListarTipoPublicacionesSimple();
+           
+            return Json(data, JsonRequestBehavior.AllowGet);
+
         }
     }
 }

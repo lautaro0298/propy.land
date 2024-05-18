@@ -3,6 +3,7 @@ using LibreriaExperto.Desarrollo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -34,6 +35,12 @@ namespace WebApp.Controllers
         }
 
         // GET: ABMTipoMoneda/Edit/5
+        public async Task<ActionResult> ListarNew()
+        {
+            var tarea = await ABMTipoMoneda.traerTipoMoneda2();
+            List<DTOTipoMoneda> lista = tarea.Item2;
+            return Json(lista, JsonRequestBehavior.AllowGet); ;
+        }
 
         public ActionResult Listar()
         {

@@ -1,9 +1,0 @@
-﻿@model IEnumerable<WebApp.Models.TipoPublicacion>
-<select class="form-control" name="tipoPublicacion">
-    @foreach (var item in Model)
-    {
-        <option value="@item.tipoPublicacionId">@item.nombreTipoPublicacion</option>
-    }
-
-</select>
-

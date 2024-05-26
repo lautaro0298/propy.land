@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -15,32 +15,44 @@ namespace API_Persistencia.Controllers
     [ApiController]
     public class CreditoController : ControllerBase
     {
-        private ConexionDB con;
+        private readonly ConexionDB _con;
+
         public CreditoController(ConexionDB conexion)
         {
-            con = conexion;
+            _con = conexion;
         }
+
         [HttpGet("obtenerCredito")]
-        public List<Credito> ObtenerTodos()
+        public async Task<ActionResult<List<Credito>>> ObtenerTodos()
         {
-            List<Credito> listadoCredito = (from x in con.Credito.Include(x => x.TipoMoneda)
-                                        where x.Activo == true
-                                        orderby x.NombrePack ascending
-                                        select x).ToList();
-            return listadoCredito;
+            List<Credito> listadoCredito = await _con.Credito
+                .Include(x => x.TipoMoneda)
+                .Where(x => x.Activo == true)
+                .OrderBy(x => x.NombrePack)
+                .ToListAsync();
+
+            return Ok(listadoCredito);
         }
+
         [HttpPost("crearPack")]
-        public ActionResult CrearPlan(Credito credito)
+        public async Task<ActionResult<Credito>> CrearPlan(Credito credito)
         {
-         
+            if (credito == null)
+            {
+                return BadRequest("Credito object is null.");
+            }
 
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            using (var db = con.Database.BeginTransaction())
+            using (var db = _con.Database.BeginTransaction())
             {
                 try
                 {
-                    con.Add(credito);
-                    con.SaveChanges();
+                    _con.Add(credito);
+                    await _con.SaveChangesAsync();
                     db.Commit();
                 }
                 catch (Exception)
@@ -49,32 +61,56 @@ namespace API_Persistencia.Controllers
                     throw;
                 }
             }
-            return Ok();
-        }
-        [HttpGet("Obtener_Packs_Creditos")]
-        public List<Credito> Obtener_Packs_Creditos()
-        {
-            List<Credito> creditos = (from x in con.Credito.Include(x => x.TipoMoneda) where x.Activo == true orderby x.Precio ascending select x).ToList();
 
-            return creditos;
+            return CreatedAtAction(nameof(ObtenerPorID), new { id = credito.PaqueteID }, credito);
+        }
+
+        [HttpGet("Obtener_Packs_Creditos")]
+        public async Task<ActionResult<List<Credito>>> Obtener_Packs_Creditos()
+        {
+            List<Credito> creditos = await _con.Credito
+                .Include(x => x.TipoMoneda)
+                .Where(x => x.Activo == true)
+                .OrderBy(x => x.Precio)
+                .ToListAsync();
+
+            return Ok(creditos);
         }
 
         [HttpGet("ObtenerPorID/{id}")]
-        public Credito ObtenerPorID(string id)
+        public async Task<ActionResult<Credito>> ObtenerPorID(string id)
         {
-            Credito credito = (from x in con.Credito.Include(x => x.TipoMoneda) where x.PaqueteID == id select x).FirstOrDefault();
+            Credito credito = await _con.Credito
+                .Include(x => x.TipoMoneda)
+                .FirstOrDefaultAsync(x => x.PaqueteID == id);
 
-            return credito;
+            if (credito == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(credito);
         }
+
         [HttpPost("EditarCredito")]
-        public ActionResult EditarCaracteristica(Credito credito)
+        public async Task<ActionResult> EditarCaracteristica(Credito credito)
         {
-            using (var db = con.Database.BeginTransaction())
+            if (credito == null)
+            {
+                return BadRequest("Credito object is null.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            using (var db = _con.Database.BeginTransaction())
             {
                 try
                 {
-                    con.Entry(credito).State = EntityState.Modified;
-                    con.SaveChanges();
+                    _con.Entry(credito).State = EntityState.Modified;
+                    await _con.SaveChangesAsync();
                     db.Commit();
                 }
                 catch (Exception)
@@ -83,17 +119,31 @@ namespace API_Persistencia.Controllers
                     throw;
                 }
             }
-            return Ok();
+
+            return NoContent();
         }
+
         [HttpPost("eliminarCredito")]
-        public ActionResult eliminarCredito(Credito credito)
+        public async Task<ActionResult> eliminarCredito(Credito credito)
         {
-            using (var db = con.Database.BeginTransaction())
+            if (credito == null)
+            {
+                return BadRequest("Credito object is null.");
+            }
+
+            Credito existingCredito = await _con.Credito.FindAsync(credito.PaqueteID);
+
+            if (existingCredito == null)
+            {
+                return NotFound();
+            }
+
+            using (var db = _con.Database.BeginTransaction())
             {
                 try
                 {
-                    con.Entry(credito).State = EntityState.Deleted;
-                    con.SaveChanges();
+                    _con.Entry(existingCredito).State = EntityState.Deleted;
+                    await _con.SaveChangesAsync();
                     db.Commit();
                 }
                 catch (Exception)
@@ -101,8 +151,9 @@ namespace API_Persistencia.Controllers
                     db.Rollback();
                     throw;
                 }
-                return Ok();
             }
+
+            return NoContent();
         }
     }
 }

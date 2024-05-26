@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,9 +7,13 @@ namespace API_Persistencia.Models
 {
     public class Actividad
     {
-        public string actividadId { get; set; }
-        public DateTime fechaActividad { get; set; }
-        public string descripcionActividad { get; set; }
-        public string usuarioId { get; set; }
+        public string ActividadId { get; set; }
+        public DateTime? FechaActividad { get; set; }
+        public string DescripcionActividad { get; set; }
+        public string UsuarioId { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public string LastModifiedBy { get; set; }
+        public DateTime? LastModifiedDate { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +20,9 @@ namespace API_Persistencia.Models
         [JsonIgnore]
         public virtual ICollection<VisitaInmueble> VisitaInmueble { get; set; }
         public virtual ICollection<VisitaPerfilPublicante> VisitaPerfilPublicante { get; set; }
+        public virtual ICollection<Favorito> Favoritos { get; set; }
+        public virtual ICollection<ImagenPublicacion> Imagenes { get; set; }
+        public virtual ICollection<Mensaje> Mensajes { get; set; }
+        public virtual ICollection<SolicitudReserva> SolicitudesReserva { get; set; }
     }
 }

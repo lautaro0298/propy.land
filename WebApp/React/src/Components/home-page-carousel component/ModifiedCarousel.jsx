@@ -12,11 +12,11 @@ const StyledCarousel = styled(Carousel)`
         box-shadow: none;
     }
     & .rec-arrow-right {
-
         left:53%
     }
 `;
-export const ModifiedCarousel = ({children}) => <StyledCarousel breakPoints={breakPoints}>{children }</StyledCarousel>;
+
+export const ModifiedCarousel = ({children, breakPoints}) => <StyledCarousel breakPoints={breakPoints}>{children }</StyledCarousel>;
 
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
@@ -25,3 +25,7 @@ const breakPoints = [
   { width: 1200, itemsToShow: 4 }
 ];
 
+// Usage
+<ModifiedCarousel breakPoints={breakPoints}>
+  {children}
+</ModifiedCarousel>

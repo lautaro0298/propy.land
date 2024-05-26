@@ -1,45 +1,64 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import DateRangePicker from 'react-date-range';
+import './Search.css';
 
-
-import styled from 'styled-components'
-import './Search.css'
-export function Search({ setCheckOutDate, setCheckInDate, top, left, position }) {
-    console.log(top)
-    const [startDate, setStartDate] = useState(new Date())
-    const [endDate, setEndDate] = useState(new Date())
-
-    const selectionRange = {
-        startDate: startDate,
-        endDate: endDate,
-        key: "selection"
-    }
-    function handleSelect(ranges) {
-        setStartDate(ranges.selection.startDate)
-        // console.log(ranges.selection.startDate)
-
-        setCheckInDate(ranges.selection.startDate.toString().slice(0, 15))
-        setEndDate(ranges.selection.endDate)
-        setCheckOutDate(ranges.selection.endDate.toString().slice(0, 15))
-        // console.log(ranges.selection.endDate)
-    }
-    return <SearchWrapper top={top} position={position} left={left} >
-        <DateRangePicker minDate={new Date()} ranges={[selectionRange]} onChange={handleSelect} />
-    </SearchWrapper>
-}
-export const SearchWrapper = styled.div`
-  left:  ${(props) => (props.left)};
+const SearchWrapper = styled.div`
+  position: ${(props) => props.position};
+  top: ${(props) => props.top};
+  left: ${(props) => props.left};
   width: 46vw;
   background-color: white;
-  position:  ${(props) => (props.position)};
-  top:   ${(props) => (props.top)};
   box-shadow: 1px 7px 27px -3px black;
   animation: 0.8s AnimateRight 0s forwards;
   transform: translateX(-30%);
   font-size: 14px;
+  z-index: 1;
+`;
 
+export function Search({ setCheckOutDate, setCheckInDate, top, left, position }) {
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
-    z-index: 1;
+  const selectionRange = {
+    startDate,
+    endDate,
+    key: 'selection',
+  };
 
+  function handleSelect(ranges) {
+    setStartDate(ranges.selection.startDate);
+    setEndDate(ranges.selection.endDate);
 
+    try {
+      setCheckInDate(ranges.selection.startDate.toISOString().slice(0, 10));
+      setCheckOutDate(ranges.selection.endDate.toISOString().slice(0, 10));
+    } catch (error) {
+      console.error(error);
+    }
 
-`
+    if (endDate < startDate) {
+      setEndDate(startDate);
+    }
+  }
+
+  return (
+    <SearchWrapper top={top} position={position} left={left}>
+      <DateRangePicker
+        minDate={new Date()}
+        ranges={[selectionRange]}
+        onChange={handleSelect}
+        key="selection"
+      />
+    </SearchWrapper>
+  );
+}
+
+Search.propTypes = {
+  setCheckOutDate: PropTypes.func.isRequired,
+  setCheckInDate: PropTypes.func.isRequired,
+  top: PropTypes.string.isRequired,
+  left: PropTypes.string.isRequired,
+  position: PropTypes.string.isRequired,
+};

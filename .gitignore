@@ -1,9 +1,11 @@
-./API Persistencia/appsettings.json
-API Persistencia/appsettings.json
-/.vs/WebApp/FileContentIndex
-/WebApp/obj/Debug/Package/PackageTmp/Scripts/dist/node_modules_web-vitals_dist_web-vitals_js.bundle.js
-/.vs/
-/LibreriaMercadoPago/Comunicacion MercadoPago/ExpertoComprarCreditos.cs
-/LibreriaMercadoPago/Comunicacion MercadoPago/ExpertoContratarPlan.cs
-/LibreriaMercadoPago/Comunicacion MercadoPago/ExpertoNotification.cs
-/WebApp/Views/Shared/_Layout.cshtml
+string[] filePaths = new string[]
+{
+    "./API/Persistencia/appsettings.json",
+    "./API/Persistencia/FileContentIndex",
+    "./WebApp/obj/Debug/Package/PackageTmp/Scripts/dist/node_modules_web-vitals_dist_web-vitals_js.bundle.js",
+    "./.vs/",
+    "./LibreriaMercadoPago/Comunicacion MercadoPago/ExpertoComprarCreditos.cs",
+    "./LibreriaMercadoPago/Comunicacion MercadoPago/ExpertoContratarPlan.cs",
+    "./LibreriaMercadoPago/Comunicacion MercadoPago/ExpertoNotification.cs",
+    "./WebApp/Views/Shared/_Layout.cshtml"
+};

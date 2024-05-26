@@ -1,13 +1,27 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace LibreriaClases.Transferencia
 {
+    /// <summary>
+    /// Represents the type of publisher.
+    /// </summary>
     public class TransferenciaTipoPublicante
     {
-        public string tipoPublicanteId { get; set; }
-        public string nombreTipoPublicante { get; set; }
-        public bool activo { get; set; }
+        /// <summary>
+        /// The unique identifier of the publisher type.
+        /// </summary>
+        public string TipoPublicanteId { get; set; }
+
+        /// <summary>
+        /// The name of the publisher type.
+        /// </summary>
+        public string NombreTipoPublicante { get; set; }
+
+        /// <summary>
+        /// A value indicating whether the publisher type is active.
+        /// </summary>
+        public bool Activo { get; set; }
     }
 }

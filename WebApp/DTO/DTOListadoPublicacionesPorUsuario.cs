@@ -1,17 +1,17 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace WebApp.DTO
 {
-    public class DTOListadoPublicacionesPorUsuario
+    public class PublicationUserListDto
     {
-        public List<DTOPublicacionUsuario> dtoContenedor = new List<DTOPublicacionUsuario>();
+        public List<PublicationUserDto> Publications { get; } = new List<PublicationUserDto>();
+    }
 
-        public void AgregarDtoPublicacionUsuario(DTOPublicacionUsuario dto) {
-            
-            dtoContenedor.Add(dto);
-        }
+    public class PublicationUserDto
+    {
+        // Add any necessary properties for a DTOPublicacionUsuario object
     }
 }

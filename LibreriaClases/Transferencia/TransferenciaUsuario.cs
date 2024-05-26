@@ -1,26 +1,24 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Collections.ObjectModel;
 
 namespace LibreriaClases.Transferencia
 {
+    /// <summary>
+    /// Represents a user transfer object.
+    /// </summary>
     public class TransferenciaUsuario
     {
+        /// <summary>
+        /// The unique identifier of the user.
+        /// </summary>
         public string usuarioId { get; set; }
+
+        /// <summary>
+        /// The username of the user.
+        /// </summary>
         public string nombreUsuario { get; set; }
-        public string apellidoUsuario { get; set; }
-        public string email { get; set; }
-        public byte[] contraseña { get; set; }
-        public bool emailConfirmado { get; set; }
-        public bool permiterSerContactadoPorPublicante { get; set; }
-        public bool permiteSerNotificado { get; set; }
-        public long telefono1 { get; set; }
-        public long telefono2 { get; set; }
-        public bool admin { get; set; } = false;
-        public byte[] Key { get; set; }
-        public byte[] Vector { get; set; }
-        public virtual ICollection<TransferenciaPlanUsuario> PlanUsuario { get; set; }
-        public virtual ICollection<TransferenciaFavorito> Favorito { get; set; }
-        public virtual ICollection<TransferenciaActividad> Actividad { get; set; }
-    }
-}
+
+        /// <summary>
+       

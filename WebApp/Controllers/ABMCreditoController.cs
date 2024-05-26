@@ -1,4 +1,4 @@
-﻿using LibreriaClases;
+using LibreriaClases;
 using LibreriaClases.DTO;
 using LibreriaExperto.Desarrollo;
 using System;
@@ -11,106 +11,92 @@ namespace WebApp.Controllers
 {
     public class ABMCreditoController : Controller
     {
+        private ActionResult DisplayError(Exception ex)
+        {
+            ViewBag.Error = ex.Message;
+            return View("Error");
+        }
+
+        private ActionResult DisplayCreditos(List<DTOCredito> creditos)
+        {
+            if (creditos == null)
+            {
+                return DisplayError(new Exception("No creditos found."));
+            }
+
+            return View(creditos);
+        }
+
         [HttpGet]
         public ActionResult CrearPaqueteCredito()
         {
-            (ErrorPropy errorPropy, List<DTOTipoMoneda> dTOTipoMoneda) resultado = ABMTipoMoneda.traerTipoMoneda();
-            try
-            {
-                if (resultado.errorPropy.codigoError != 0) throw new Exception(resultado.errorPropy.descripcionError);
-            }
-            catch (Exception error)
-            {
-                ViewBag.Error = error.Message;
-                return View("Error");
-            }
-
-            return View(resultado.dTOTipoMoneda);
+            return View();
         }
+
         [HttpPost]
         public ActionResult CrearPaqueteCredito(string nombredelpack, int cantidad, decimal Precio, string TipoMoneda)
         {
-          var resultado= ABMPaquete.CrearPaquete(nombredelpack, cantidad, TipoMoneda, Precio);
-
-            (ErrorPropy errorPropy, List<DTOTipoMoneda> dTOTipoMonedas) resultado1 = ABMTipoMoneda.traerTipoMoneda();
-            try
+            if (Precio <= 0 || cantidad <= 0)
             {
-                if (resultado1.errorPropy.codigoError != 0) throw new Exception(resultado1.errorPropy.descripcionError);
-            }
-            catch (Exception error)
-            {
-                ViewBag.Error = error.Message;
-                return View("Error");
+                return DisplayError(new Exception("Precio and cantidad must be greater than zero."));
             }
 
-            return View(resultado1.dTOTipoMonedas);
+            var resultado = ABMPaquete.CrearPaquete(nombredelpack, cantidad, TipoMoneda, Precio);
+
+            return DisplayCreditos(resultado.dTOCreditos);
         }
+
         [HttpGet]
         public ActionResult EditarPaqueteCredito()
         {
             (ErrorPropy errorPropy, List<DTOCredito> dTOCreditos) resultado = ABMPaquete.traerCredito();
-            
 
-            try
-            {
-                if (resultado.errorPropy.codigoError != 0) throw new Exception(resultado.errorPropy.descripcionError);
-            }
-            catch (Exception error)
-            {
-                ViewBag.Error = error.Message;
-                return View("Error");
-            }
-
-            return View(resultado.dTOCreditos);
-
+            return DisplayCreditos(resultado.dTOCreditos);
         }
+
         [HttpPost]
-        public ActionResult EditarPaqueteCredito(string id , string nombredelpack, int cantidad, decimal Precio, string TipoMoneda)
+        public ActionResult EditarPaqueteCredito(string id, string nombredelpack, int cantidad, decimal Precio, string TipoMoneda)
         {
-            DTOCredito dTOCredito = new DTOCredito();
-            dTOCredito.PaqueteID = id;
-            dTOCredito.Precio = Precio;
-            dTOCredito.CantidadCreditos = cantidad;
-            dTOCredito.TipoMonedaID = TipoMoneda;
-            dTOCredito.NombrePack = nombredelpack;
-            
+            if (string.IsNullOrEmpty(id))
+            {
+                return DisplayError(new Exception("Invalid id."));
+            }
+
+            DTOCredito dTOCredito = new DTOCredito
+            {
+                PaqueteID = id,
+                Precio = Precio,
+                CantidadCreditos = cantidad,
+                TipoMonedaID = TipoMoneda,
+                NombrePack = nombredelpack
+            };
+
             ABMPaquete.EditarCredito(dTOCredito);
 
             (ErrorPropy errorPropy, List<DTOCredito> dTOCreditos) resultado = ABMPaquete.traerCredito();
 
-
-            try
-            {
-                if (resultado.errorPropy.codigoError != 0) throw new Exception(resultado.errorPropy.descripcionError);
-            }
-            catch (Exception error)
-            {
-                ViewBag.Error = error.Message;
-                return View("Error");
-            }
-
-            return View(resultado.dTOCreditos);
-
-
+            return DisplayCreditos(resultado.dTOCreditos);
         }
-        [HttpGet]
 
+        [HttpGet]
         public ActionResult EliminarCredito()
         {
             var tarea = ABMPaquete.traerCredito();
-            List<DTOCredito> lista = tarea.Item2;
-            return View(lista);
+            return DisplayCreditos(tarea.Item2);
         }
-
 
         [HttpPost]
         public ActionResult EliminarCredito(String id)
         {
+            if (string.IsNullOrEmpty(id))
+            {
+                return DisplayError(new Exception("Invalid id."));
+            }
+
             ABMPaquete.EliminarPaquete(id);
+
             var tarea = ABMPaquete.traerCredito();
-            List<DTOCredito> lista = tarea.Item2;
-            return View(lista);
+            return DisplayCreditos(tarea.Item2);
         }
     }
-    
 }

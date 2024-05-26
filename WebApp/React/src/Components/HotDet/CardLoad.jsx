@@ -7,44 +7,82 @@ const CardLoad = () => {
   return (
     <Cont>
       <Imag>
-        <Skeleton variant="rect" animation="wave" width="100%" height="100%" />
+        <Skeleton
+          variant="rect"
+          animation="wave"
+          width="100%"
+          height="100%"
+          style={{ borderRadius: "15px" }}
+        />
       </Imag>
       <Mid>
         <div>
           <h2>
-            <Skeleton animation="wave" width="30%" />
+            <Skeleton
+              animation="wave"
+              width="30%"
+              height={30}
+              style={{ fontWeight: "700" }}
+            />
           </h2>
         </div>
-        <Skeleton animation="wave" width="50%" />
-        <button>
+        <Skeleton
+          animation="wave"
+          width="50%"
+          height={15}
+          style={{ minWidth: "150px" }}
+        />
+        <button role="button">
           <div>
             <p>
-              <Skeleton animation="wave" width="400px" height="100%" />
+              <Skeleton
+                animation="wave"
+                width="400px"
+                height={30}
+                style={{ minWidth: "150px" }}
+              />
             </p>
           </div>
         </button>
-        <button>
+        <button role="button">
           <div>
-            <Skeleton animation="wave" width="400px" height="100%" />
+            <Skeleton
+              animation="wave"
+              width="400px"
+              height={30}
+              style={{ minWidth: "150px" }}
+            />
+          </div>
+        </button>
+        <button style={{ marginBottom: "10px" }} role="button">
+          <div>
+            <p>
+              <Skeleton
+                animation="wave"
+                width="400px"
+                height={30}
+                style={{ minWidth: "150px" }}
+              />
+            </p>
           </div>
         </button>
       </Mid>
       <Last>
         <BigGrn>
           <p>
-            <Skeleton animation="wave" width="100px" />
+            <Skeleton animation="wave" width="100px" height={15} />
           </p>
           <div>
             <p>
-              <Skeleton animation="wave" width="150px" />
+              <Skeleton animation="wave" width="150px" height={15} />
             </p>
           </div>
           <div>
             <h2>
-              <Skeleton animation="wave" width="100px" />
+              <Skeleton animation="wave" width="100px" height={15} />
             </h2>
-            <button>
-              <Skeleton animation="wave" width="80px" />
+            <button role="button">
+              <Skeleton animation="wave" width="80px" height={30} />
             </button>
           </div>
         </BigGrn>
@@ -55,6 +93,7 @@ const CardLoad = () => {
               width={"100%"}
               height={200}
               animation="wave"
+              style={{ borderRadius: "10px" }}
             />
           </div>
           <div>
@@ -63,6 +102,7 @@ const CardLoad = () => {
               width={"100%"}
               height={200}
               animation="wave"
+              style={{ borderRadius: "10px" }}
             />
           </div>
         </div>
@@ -90,6 +130,9 @@ const Cont = styled.div`
     img {
       width: 100%;
       height: 100%;
+      border-radius: 15px;
+      object-fit: cover;
+      alt: "Card image";
     }
   }
   > div:nth-child(2) {

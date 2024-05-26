@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,50 +12,72 @@ namespace WebApp.Models
     {
         [Key]
         [Display(Name = "Id")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid propiedadId { get; set; }
 
+        [Required]
+        [StringLength(100)]
+        [Display(Name = "Dirección Formateada")]
         public string direccionFormateada { get; set; }
 
         [Required]
+        [StringLength(50)]
+        [Display(Name = "País")]
         public string pais { get; set; }
 
         [Required]
+        [StringLength(50)]
+        [Display(Name = "Área Administrativa Nivel 1")]
         public string areaAdministrativaNivel1 { get; set; }
 
         [Required]
+        [StringLength(50)]
+        [Display(Name = "Área Administrativa Nivel 2")]
         public string areaAdministrativaNivel2 { get; set; }
 
         [Required]
+        [Range(1, int.MaxValue)]
+        [Display(Name = "Nro Calle")]
         public int nroCalle { get; set; }
 
+        [Display(Name = "Latitud")]
         public double latitud { get; set; }
 
+        [Display(Name = "Longitud")]
         public double longitud { get; set; }
 
         [Required]
+        [StringLength(100)]
+        [Display(Name = "Identificador Ubicación Google")]
         public string identificadorUbicacionGoogle { get; set; }
 
         [Required]
-        [Display(Name = "Antiguedad")]
+        [Range(0, int.MaxValue)]
+        [Display(Name = "Antigüedad")]
         public int antiguedad { get; set; }
 
         [Required]
-        [Display(Name ="N° Plantas")]
+        [Range(1, int.MaxValue)]
+        [Display(Name = "N° Plantas")]
         public int nroPlantas { get; set; }
 
         [Required]
-        [Display(Name ="Superficie Terreno")]
+        [Display(Name = "Superficie Terreno")]
+        [Column("superficie_terreno")]
         public float superficieTerreno { get; set; }
 
         [Required]
-        [Display(Name ="Superficie Cubierta")]
+        [Display(Name = "Superficie Cubierta")]
+        [Column("superficie_cubierta")]
         public float superficieCubierta { get; set; }
 
         [Required]
-        [Display(Name = "Dirección")]
+        [StringLength(100)]
+        [Display(Name = "Calle")]
         public string calle { get; set; }
 
-        [Display(Name ="Fecha Registro")]
+        [Display(Name = "Fecha Registro")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime fechaRegistro { get; set; }
 
         //Clave Externa Tipo Propiedad
@@ -63,12 +85,10 @@ namespace WebApp.Models
         [ForeignKey("tipoPropiedadId")]
         public virtual TipoPropiedad TipoPropiedad { get; set; }
 
-        //Clave Externa Tipo Construccion
+        //Clave Externa Tipo Construcción (nullable)
         public Guid? tipoConstruccionId { get; set; }
         [ForeignKey("tipoConstruccionId")]
         public virtual TipoConstruccion TipoConstruccion { get; set; }
-
-        
 
         //Clave Externa Usuario
         public string UserId { get; set; }
@@ -80,6 +100,5 @@ namespace WebApp.Models
 
         //Indico que una Propiedad puede tener una o muchas PropiedadTipoAmbiente
         public virtual ICollection<PropiedadTipoAmbiente> PropiedadTipoAmbiente { get; set; }
-
     }
 }

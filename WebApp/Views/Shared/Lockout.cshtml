@@ -1,10 +1,17 @@
-﻿@model System.Web.Mvc.HandleErrorInfo
+@model System.Web.Mvc.HandleErrorInfo
 
 @{
-    ViewBag.Title = "Bloqueado";
+    ViewBag.Title = "Account Locked";
 }
 
-<hgroup>
-    <h1 class="text-danger">Bloqueado.</h1>
-    <h2 class="text-danger">Esta cuenta se ha bloqueado, inténtelo de nuevo más tarde.</h2>
-</hgroup>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <hgroup>
+                <h1 class="text-danger">Account Locked</h1>
+                <h2 class="text-danger">Your account has been locked. Please try again later.</h2>
+                <p>If you continue to have issues, please contact our support team at <a href="mailto:support@example.com">support@example.com</a> for assistance.</p>
+            </hgroup>
+        </div>
+    </div>
+</div>

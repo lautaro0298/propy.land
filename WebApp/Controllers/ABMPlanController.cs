@@ -1,4 +1,4 @@
-﻿using LibreriaClases;
+using LibreriaClases;
 using LibreriaClases.DTO;
 using LibreriaExperto.Desarrollo;
 using System;
@@ -15,14 +15,10 @@ namespace WebApp.Controllers
         [HttpGet]
         public ActionResult CrearPlan()
         {
-            (ErrorPropy errorPropy, List<DTOTipoMoneda> dTOTipoMonedas) resultado = ABMTipoMoneda.traerTipoMoneda();
-            try
+            var resultado = ABMTipoMoneda.traerTipoMoneda();
+            if (!resultado.errorPropy.EsExito)
             {
-                if (resultado.errorPropy.codigoError != 0) throw new Exception(resultado.errorPropy.descripcionError);
-            }
-            catch (Exception error)
-            {
-                ViewBag.Error = error.Message;
+                ViewBag.Error = resultado.errorPropy.Descripcion;
                 return View("Error");
             }
 
@@ -30,109 +26,95 @@ namespace WebApp.Controllers
         }
 
         [HttpPost]
-        public JsonResult CrearPlan(string NombrePlan, string TipoMoneda, bool PermitirVideo, bool PermitirEstadisticas, int Precio, int CantCreditos , int CantImage )
+        [ValidateAntiForgeryToken]
+        public ActionResult CrearPlan(DTOPlan plan)
         {
-            DTOPlan dTOPlan = new DTOPlan();
-
-            dTOPlan.nombrePlan = NombrePlan;
-            dTOPlan.precioPlan = Precio;
-            dTOPlan.tipoMonedaId = TipoMoneda;
-            dTOPlan.cantidadCreditosIniciales = CantCreditos;
-            dTOPlan.cantidadMaxImagenesPermitidasPorPublicacion = CantImage;
-            dTOPlan.permiteVideo = PermitirVideo;
-            dTOPlan.accesoEstadisticasAvanzadas = PermitirEstadisticas;
-
-            ErrorPropy errorPropy = ABMPlan.CrearPlan(dTOPlan);
-
-            string result = "";
-
-            try
+            if (!ModelState.IsValid)
             {
-                if (errorPropy.codigoError != 0)
-                {
-                    result = "Error";
-                    throw new Exception(errorPropy.descripcionError);
-                }
-            }
-            catch (Exception error)
-            {
-                ViewBag.Error = error.Message;
-                return Json(result, JsonRequestBehavior.AllowGet);
+                return View(plan);
             }
 
-            result = "OK";
+            var errorPropy = ABMPlan.CrearPlan(plan);
+            if (!errorPropy.EsExito)
+            {
+                ModelState.AddModelError("", errorPropy.Descripcion);
+                return View(plan);
+            }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return RedirectToAction("EditarPlan");
         }
+
         [HttpGet]
         public ActionResult EditarPlan()
         {
-            (ErrorPropy errorPropy, List<DTOTipoMoneda> dTOTipoMonedas) resultado = ABMTipoMoneda.traerTipoMoneda();
-            (ErrorPropy error1, List<DTOPlan> dTOPlans) resultado2 = ABMPlan.traerPlan();
-
-            try
+            var resultado = ABMTipoMoneda.traerTipoMoneda();
+            if (!resultado.errorPropy.EsExito)
             {
-                if (resultado.errorPropy.codigoError != 0) throw new Exception(resultado.errorPropy.descripcionError);
-            }
-            catch (Exception error)
-            {
-                ViewBag.Error = error.Message;
+                ViewBag.Error = resultado.errorPropy.Descripcion;
                 return View("Error");
             }
 
-            return View( resultado2.dTOPlans) ;
-        
+            var resultado2 = ABMPlan.traerPlan();
+            if (!resultado2.errorPropy.EsExito)
+            {
+                ViewBag.Error = resultado2.errorPropy.Descripcion;
+                return View("Error");
+            }
+
+            return View(resultado2.dTOPlans);
         }
+
         [HttpPost]
-        public JsonResult EditarPlan(string NombrePlan,string planId, string TipoMoneda, int Precio , int CantCreditos , int CantImage, bool PermitirVideo = false, bool PermitirEstadisticas=false)
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarPlan(DTOPlan plan)
         {
-            DTOPlan dTOPlan = new DTOPlan();
-            dTOPlan.planId = planId;
-            dTOPlan.nombrePlan = NombrePlan;
-            dTOPlan.precioPlan = Precio;
-            dTOPlan.tipoMonedaId = TipoMoneda;
-            dTOPlan.cantidadCreditosIniciales = CantCreditos;
-            dTOPlan.cantidadMaxImagenesPermitidasPorPublicacion = CantImage;
-            dTOPlan.permiteVideo = PermitirVideo;
-            dTOPlan.accesoEstadisticasAvanzadas = PermitirEstadisticas;
-
-            ErrorPropy errorPropy = ABMPlan.EditarPlan(dTOPlan);
-
-            string result = "";
-
-            try
+            if (!ModelState.IsValid)
             {
-                if (errorPropy.codigoError != 0)
-                {
-                    result = "Error";
-                    throw new Exception(errorPropy.descripcionError);
-                }
-            }
-            catch (Exception error)
-            {
-                ViewBag.Error = error.Message;
-                return Json(result, JsonRequestBehavior.AllowGet);
+                return View(plan);
             }
 
-            result = "OK";
+            var errorPropy = ABMPlan.EditarPlan(plan);
+            if (!errorPropy.EsExito)
+            {
+                ModelState.AddModelError("", errorPropy.Descripcion);
+                return View(plan);
+            }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return RedirectToAction("EditarPlan");
         }
+
         [HttpGet]
         public ActionResult EliminarPlan()
         {
             var tarea = ABMPlan.traerPlan();
-            List<DTOPlan> lista = tarea.Item2;
-            return View(lista);
+            if (!tarea.errorPropy.EsExito)
+            {
+                ViewBag.Error = tarea.errorPropy.Descripcion;
+                return View("Error");
+            }
+
+            return View(tarea.dTOPlans);
         }
+
         [HttpPost]
-        public ActionResult EliminarPlan(String id)
+        [ValidateAntiForgeryToken]
+        public ActionResult EliminarPlan(string id)
         {
-            ABMPlan.EliminarPlan(id);
-            
+            var errorPropy = ABMPlan.EliminarPlan(id);
+            if (!errorPropy.EsExito)
+            {
+                ViewBag.Error = errorPropy.Descripcion;
+                return View("Error");
+            }
+
             var tarea = ABMPlan.traerPlan();
-            List <DTOPlan> lista = tarea.Item2;
-            return View(lista);
+            if (!tarea.errorPropy.EsExito)
+            {
+                ViewBag.Error = tarea.errorPropy.Descripcion;
+                return View("Error");
+            }
+
+            return View(tarea.dTOPlans);
         }
     }
 }

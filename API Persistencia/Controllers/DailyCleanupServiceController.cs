@@ -1,4 +1,4 @@
-﻿using API_Persistencia.Models;
+using API_Persistencia.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -6,43 +6,56 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Timers;
 
 namespace API_Persistencia.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DailyCleanupServiceController : ControllerBase
+    public class DailyCleanupServiceController : ControllerBase, IDisposable
     {
-        private ConexionDB con;
+        private readonly ConexionDB con;
         private DateTime lastExecutionTime = DateTime.MinValue;
 
-        public DailyCleanupServiceController(ConexionDB conexion) {
-            con = conexion;
-           
-        }
-        private void PerformCleanup()
+        public DailyCleanupServiceController(ConexionDB conexion)
         {
-            var now = DateTime.Now;
-            var expiredPublications = con.Set<Publicacion>()
-                .Where(p => p.fechaFinPublicacion <= now)
-                .ToList();
-
-            // Eliminar las publicaciones vencidas
-            foreach (var publication in expiredPublications)
+            if (conexion == null)
             {
-                con.Publicacion.Remove(publication);
-                var visitasRelacionadas = con.VisitaInmueble.Where(v => v.publicacionId == publication.publicacionId).ToList();
-
-                // Si existen visitas relacionadas, elimina las referencias
-                foreach (var visita in visitasRelacionadas)
-                {
-                    visita.publicacionId = null;
-                }
+                throw new ArgumentNullException(nameof(conexion));
             }
 
-            con.SaveChanges();
+            con = conexion;
         }
+
+        private void PerformCleanup()
+        {
+            try
+            {
+                var now = DateTime.Now;
+                var expiredPublications = con.Set<Publicacion>()
+                    .Where(p => p.fechaFinPublicacion <= now)
+                    .ToList();
+
+                // Eliminar las publicaciones vencidas
+                foreach (var publication in expiredPublications)
+                {
+                    con.Publicacion.Remove(publication);
+                    var visitasRelacionadas = con.VisitaInmueble.Where(v => v.publicacionId == publication.publicacionId).ToList();
+
+                    // Si existen visitas relacionadas, elimina las referencias
+                    foreach (var visita in visitasRelacionadas)
+                    {
+                        visita.publicacionId = null;
+                    }
+                }
+
+                con.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         [HttpGet("BorrarPublicaciones")]
         public ActionResult CleanupIfNeeded()
         {
@@ -70,7 +83,10 @@ namespace API_Persistencia.Controllers
 
             return Ok();
         }
+
+        public void Dispose()
+        {
+            con.Dispose();
+        }
     }
-    
-    
 }

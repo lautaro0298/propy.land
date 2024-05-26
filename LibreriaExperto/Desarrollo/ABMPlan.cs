@@ -1,16 +1,18 @@
-﻿using LibreriaClases;
+using LibreriaClases;
 using LibreriaClases.DTO;
 using LibreriaClases.Transferencia;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace LibreriaExperto.Desarrollo
 {
     public static class ABMPlan
     {
-        public static ErrorPropy CrearPlan(DTOPlan dTOPlan)
+        public static async Task<ErrorPropy> CrearPlan(DTOPlan dTOPlan)
         {
             ErrorPropy errorPropy = new ErrorPropy();
             HttpClient httpClient = ApiConfiguracion.Inicializar();
@@ -26,42 +28,38 @@ namespace LibreriaExperto.Desarrollo
             transferenciaPlan.accesoEstadisticasAvanzadas = dTOPlan.accesoEstadisticasAvanzadas;
             transferenciaPlan.activo = true;
 
-            var tareaCrearPLan = httpClient.PostAsJsonAsync<TransferenciaPlan>("api/Plan/crearPlan", transferenciaPlan);
-            tareaCrearPLan.Wait();
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync<TransferenciaPlan>("api/Plan/crearPlan", transferenciaPlan);
 
-            if (!tareaCrearPLan.Result.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
             {
-                errorPropy.codigoError = (int)tareaCrearPLan.Result.StatusCode;
-                errorPropy.descripcionError = "Error: " + errorPropy.codigoError + " " + tareaCrearPLan.Result.StatusCode;
+                errorPropy.codigoError = (int)response.StatusCode;
+                errorPropy.descripcionError = "Error: " + errorPropy.codigoError + " " + response.StatusCode;
             }
 
             return errorPropy;
         }
-        public static (ErrorPropy, List<DTOPlan>) traerPlan()
+
+        public static async Task<(ErrorPropy, List<DTOPlan>)> traerPlan()
         {
             ErrorPropy errorPropy = new ErrorPropy();
             List<DTOPlan> ListaPlanes = new List<DTOPlan>();
             HttpClient httpClient = ApiConfiguracion.Inicializar();
 
-            var tareaTraerPlan = httpClient.GetAsync("api/Plan/obtenerPlanes");
-            tareaTraerPlan.Wait();
+            HttpResponseMessage response = await httpClient.GetAsync("api/Plan/obtenerPlanes");
 
+            if (!response.IsSuccessStatusCode)
+            {
+                errorPropy.codigoError = (int)response.StatusCode;
+                errorPropy.descripcionError = "Error: " + errorPropy.codigoError + " " + response.StatusCode;
+                return (errorPropy, null);
+            }
 
-            if (!tareaTraerPlan.Result.IsSuccessStatusCode)
-            {
-                errorPropy.codigoError = (int)tareaTraerPlan.Result.StatusCode;
-                errorPropy.descripcionError = "Error: " + errorPropy.codigoError + " " + tareaTraerPlan.Result.StatusCode;
-                ListaPlanes = null;
-            }
-            else
-            {
-                ListaPlanes = tareaTraerPlan.Result.Content.ReadAsAsync<List<DTOPlan>>().Result;
-                
-                
-            }
+            ListaPlanes = await response.Content.ReadAsAsync<List<DTOPlan>>();
+
             return (errorPropy, ListaPlanes);
         }
-        public static ErrorPropy EditarPlan(DTOPlan dTOPlan)
+
+        public static async Task<ErrorPropy> EditarPlan(DTOPlan dTOPlan)
         {
             ErrorPropy errorPropy = new ErrorPropy();
             HttpClient httpClient = ApiConfiguracion.Inicializar();
@@ -77,40 +75,40 @@ namespace LibreriaExperto.Desarrollo
             transferenciaPlan.accesoEstadisticasAvanzadas = dTOPlan.accesoEstadisticasAvanzadas;
             transferenciaPlan.activo = true;
 
-            var tareaCrearPLan = httpClient.PostAsJsonAsync<TransferenciaPlan>("api/Plan/EditarPlan", transferenciaPlan);
-            tareaCrearPLan.Wait();
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync<TransferenciaPlan>("api/Plan/EditarPlan", transferenciaPlan);
 
-            if (!tareaCrearPLan.Result.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
             {
-                errorPropy.codigoError = (int)tareaCrearPLan.Result.StatusCode;
-                errorPropy.descripcionError = "Error: " + errorPropy.codigoError + " " + tareaCrearPLan.Result.StatusCode;
+                errorPropy.codigoError = (int)response.StatusCode;
+                errorPropy.descripcionError = "Error: " + errorPropy.codigoError + " " + response.StatusCode;
             }
 
             return errorPropy;
         }
-        public static ErrorPropy EliminarPlan(string idPlan)
+
+        public static async Task<ErrorPropy> EliminarPlan(string idPlan)
         {
             ErrorPropy error = new ErrorPropy();
             HttpClient clienteHttp = ApiConfiguracion.Inicializar();
-            var Plan = clienteHttp.GetAsync("api/Plan/obtenerPorID/" + idPlan);
-            Plan.Wait();
-            if (!Plan.Result.IsSuccessStatusCode)
+            HttpResponseMessage PlanResponse = await clienteHttp.GetAsync("api/Plan/obtenerPorID/" + idPlan);
+
+            if (!PlanResponse.IsSuccessStatusCode)
             {
-                throw new Exception(Plan.Result.StatusCode.ToString());
+                throw new Exception(PlanResponse.StatusCode.ToString());
             }
 
-            TransferenciaPlan tipo = Plan.Result.Content.ReadAsAsync<TransferenciaPlan>().Result;
-            var tareaeliminarPlan = clienteHttp.PostAsJsonAsync<TransferenciaPlan>("api/Plan/eliminarPlan", tipo);
-            tareaeliminarPlan.Wait();
-            if (!tareaeliminarPlan.Result.IsSuccessStatusCode)
+            TransferenciaPlan tipo = await PlanResponse.Content.ReadAsAsync<TransferenciaPlan>();
+
+            HttpResponseMessage eliminarPlanResponse = await clienteHttp.PostAsJsonAsync<TransferenciaPlan>("api/Plan/eliminarPlan", tipo);
+
+            if (!eliminarPlanResponse.IsSuccessStatusCode)
             {
-                error.codigoError = (int)tareaeliminarPlan.Result.StatusCode;
-                error.descripcionError = "Error: " + error.codigoError + " " + tareaeliminarPlan.Result.StatusCode;
+                error.codigoError = (int)eliminarPlanResponse.StatusCode;
+                error.descripcionError = "Error: " + error.codigoError + " " + eliminarPlanResponse.StatusCode;
                 return error;
             }
 
             return error;
-
         }
     }
 }

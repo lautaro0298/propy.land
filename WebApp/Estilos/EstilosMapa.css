@@ -1,125 +1,161 @@
-﻿#modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5);
+/* Modal */
+#modal {
+  /* Hidden by default */
+  display: none;
+  /* Positioned fixed at the top left corner of the viewport */
+  position: fixed;
+  /* Overlay the entire viewport */
+  top: 0;
+  left: 0;
+  /* Full width and height */
+  width: 100%;
+  height: 100%;
+  /* Allow scrolling */
+  overflow: auto;
+  /* Dark transparent background */
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-#modal-content {
-    background-color: #fff;
-    margin: 20% auto;
-    padding: 20px;
-    width: 80%;
-    text-align: center;
-    position: relative;
+/* Modal content */
+#modal-content.modal-content {
+  /* Center the content */
+  margin: 20% auto;
+  /* White background */
+  background-color: #fff;
+  /* Padding for content */
+  padding: 20px;
+  /* Center the content */
+  text-align: center;
+  /* Position relative to the modal */
+  position: relative;
 }
 
-#loader {
-    border: 16px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 16px solid #3498db;
-    width: 120px;
-    height: 120px;
-    animation: spin 2s linear infinite;
-    margin: 0 auto 20px;
+/* Loader */
+#loader.loader {
+  /* Center the loader */
+  margin: 0 auto 20px;
+  /* Border radius for circle */
+  border-radius: 50%;
+  /* Width and height */
+  width: 120px;
+  height: 120px;
+  /* Animation for spinning loader */
+  animation: spin 2s linear infinite;
+  /* Border styles */
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  /* Transition for smoother animation */
+  transition: transform 0.2s ease-in-out;
 }
 
+/* Loader animation keyframes */
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
-    100% {
-        transform: rotate(360deg);
-    }
+/* Map container */
+#map {
+  /* Height and width */
+  height: 300px;
+  width: 1200px;
 }
 
 /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-#map {
-    height: 300px;
-    width:1200px;
-}
-/* Optional: Makes the sample page fill the window. */
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+   * element that contains the map. */
+html,
+body {
+  /* Fill the entire viewport */
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-#description {
-    font-family: Roboto;
-    font-size: 15px;
-    font-weight: 300;
+/* Infowindow content */
+#infowindow-content.infowindow-content {
+  /* Hidden by default */
+  display: none;
+  /* Transition for smoother display */
+  transition: display 0.2s ease-in-out;
 }
 
-#infowindow-content .title {
-    font-weight: bold;
-}
-
-#infowindow-content {
-    display: none;
-}
-
-#map #infowindow-content {
-    display: inline;
-}
-
+/* Search card */
 .pac-card {
-    margin: 10px 10px 0 0;
-    border-radius: 2px 0 0 2px;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    outline: none;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    background-color: #fff;
-    font-family: Roboto;
+  /* Styles for search card */
+  margin: 10px 10px 0 0;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  font-family: Roboto;
 }
 
+/* Search container */
 #pac-container {
-    padding-bottom: 12px;
-    margin-right: 12px;
+  /* Padding for container */
+  padding-bottom: 12px;
+  margin-right: 12px;
 }
 
+/* Search controls */
 .pac-controls {
-    display: inline-block;
-    padding: 5px 11px;
+  /* Display inline block */
+  display: inline-block;
+  /* Padding for controls */
+  padding: 5px 11px;
 }
 
-    .pac-controls label {
-        font-family: Roboto;
-        font-size: 13px;
-        font-weight: 300;
-    }
+/* Search controls label */
+.pac-controls label {
+  /* Styles for label */
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
 
+/* Search input field */
 #pac-input {
-    background-color: #fff;
-    font-family: Roboto;
-    font-size: 14px;
-    font-weight: 100;
-    margin-left: 12px;
-    padding: 0 11px 0 13px;
-    text-overflow: ellipsis;
-    
+  /* Styles for input field */
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 100;
+  /* Margin and padding for input field */
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  /* Text overflow ellipsis */
+  text-overflow: ellipsis;
 }
 
-    #pac-input:focus {
-        border-color: #4d90fe;
-    }
-
-#title {
-    color: #fff;
-    background-color: #4d90fe;
-    font-size: 25px;
-    font-weight: 500;
-    padding: 6px 12px;
+/* Focus styles for input field */
+#pac-input:focus {
+  /* Blue border color */
+  border-color: #4d90fe;
 }
 
-#target {
-    width: 345px;
+/* Title */
+#title.title {
+  /* Styles for title */
+  color: #fff;
+  background-color: #4d90fe;
+  font-size: 25px;
+  font-weight: 500;
+  /* Padding for title */
+  padding: 6px 12px;
+  /* Transition for smoother background color */
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Target */
+#target.target {
+  /* Width for target */
+  width: 345px;
+  /* Transition for smoother width */
+  transition: width 0.2s ease-in-out;
 }

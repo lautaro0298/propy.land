@@ -3,8 +3,8 @@ Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSyste
 Chart.defaults.global.defaultFontColor = '#292b2c';
 
 // Area Chart Example
-var ctx = document.getElementById("myAreaChart");
-var myLineChart = new Chart(ctx, {
+const ctx = document.getElementById("myAreaChart");
+const myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
     labels: ["Mar 1", "Mar 2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7", "Mar 8", "Mar 9", "Mar 10", "Mar 11", "Mar 12", "Mar 13"],
@@ -24,19 +24,30 @@ var myLineChart = new Chart(ctx, {
     }],
   },
   options: {
+    responsive: true,
+    title: {
+      display: true,
+      text: 'Area Chart Example'
+    },
+    tooltips: {
+      mode: 'index',
+      intersect: false,
+    },
+    hover: {
+      mode: 'nearest',
+      intersect: true
+    },
     scales: {
-      xAxes: [{
-        time: {
-          unit: 'date'
-        },
+      x: {
+        type: 'label',
         gridLines: {
           display: false
         },
         ticks: {
           maxTicksLimit: 7
         }
-      }],
-      yAxes: [{
+      },
+      y: {
         ticks: {
           min: 0,
           max: 40000,
@@ -45,10 +56,11 @@ var myLineChart = new Chart(ctx, {
         gridLines: {
           color: "rgba(0, 0, 0, .125)",
         }
-      }],
+      }
     },
     legend: {
       display: false
     }
   }
 });
+
